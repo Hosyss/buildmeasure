@@ -1,0 +1,24 @@
+# BuildMeasure
+
+> Reference-backed construction and DIY calculators with transparent formulas, visible assumptions, and metric and imperial inputs.
+
+Canonical site: https://buildmeasure.hosys.chatgpt.site/
+
+## Calculators
+
+- [Concrete Calculator](https://buildmeasure.hosys.chatgpt.site/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
+- [Paint Calculator](https://buildmeasure.hosys.chatgpt.site/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
+- [Tile Calculator](https://buildmeasure.hosys.chatgpt.site/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
+- [Gravel Calculator](https://buildmeasure.hosys.chatgpt.site/gravel-calculator): volume, adjustable density, weight, tons, tonnes, and complete bags.
+- [Mulch Calculator](https://buildmeasure.hosys.chatgpt.site/mulch-calculator): bed volume, installed depth, package volume, and complete bags.
+
+## Guides and methodology
+
+- [How Many Bags of Concrete Do I Need?](https://buildmeasure.hosys.chatgpt.site/guides/how-many-bags-of-concrete)
+- [How to Estimate Construction Materials](https://buildmeasure.hosys.chatgpt.site/guides/material-estimating-basics)
+- [Calculation Methodology](https://buildmeasure.hosys.chatgpt.site/methodology)
+- [About BuildMeasure](https://buildmeasure.hosys.chatgpt.site/about)
+
+## Usage note
+
+BuildMeasure produces planning estimates, not structural, regulatory, contractual, or supplier approval. Verify dimensions, product data, waste assumptions, local requirements, and purchase quantities before construction or ordering.

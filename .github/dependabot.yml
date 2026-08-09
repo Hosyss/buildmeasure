@@ -13,4 +13,3 @@ updates:
       - dependencies
     commit-message:
       prefix: deps
-

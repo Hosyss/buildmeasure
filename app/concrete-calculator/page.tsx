@@ -219,13 +219,13 @@ export default function ConcreteCalculatorPage() {
         <section className="shell next-calculators">
           <div>
             <p className="eyebrow">Continue planning</p>
-            <h2>More tools are on the roadmap.</h2>
+            <h2>Calculate, then verify the purchase plan.</h2>
           </div>
+          <a className="next-card next-card-live" href="/guides/how-many-bags-of-concrete">
+            <span>Guide</span><strong>Concrete Bag Guide</strong><small>Formula, yields &amp; examples</small>
+          </a>
           <a className="next-card next-card-live" href="/paint-calculator">
             <span>Live</span><strong>Paint Calculator</strong><small>Walls, coats &amp; cans</small>
-          </a>
-          <a className="next-card next-card-live" href="/tile-calculator">
-            <span>Live</span><strong>Tile Calculator</strong><small>Tiles, boxes &amp; waste</small>
           </a>
         </section>
       </main>

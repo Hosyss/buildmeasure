@@ -44,6 +44,19 @@ test("accepts site-wide error events without a calculator", () => {
   assert.equal(result.ok, true);
 });
 
+test("accepts a privacy-conscious site-wide engagement event", () => {
+  const result = validateAnalyticsPayload(
+    validPayload({
+      event: "page_engaged",
+      calculator: "",
+      route: "/guides/material-estimating-basics",
+      detail: "",
+    }),
+  );
+
+  assert.equal(result.ok, true);
+});
+
 test("rejects unknown events, calculators, browsers, and devices", () => {
   assert.equal(validateAnalyticsPayload(validPayload({ event: "page_view" })).ok, false);
   assert.equal(validateAnalyticsPayload(validPayload({ calculator: "roofing-calculator" })).ok, false);

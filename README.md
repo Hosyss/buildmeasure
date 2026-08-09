@@ -70,6 +70,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 - [Roadmap](docs/ROADMAP.md)
 - [Bug register](docs/BUGS.md)
 - [Recovery and backup guide](docs/RECOVERY.md)
+- [Traffic and search operations](docs/TRAFFIC.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 
@@ -81,6 +82,10 @@ lint, engine tests, the production build, artifact validation, and rendered
 route tests. Keep a verified downloadable backup and its SHA-256 checksum in a
 separate durable location. See [the recovery guide](docs/RECOVERY.md) for the
 restore and rollback procedure.
+
+The repository-level `AGENTS.md` keeps future coding agents on the existing
+BuildMeasure Site, preserves the deployment identity, and requires the full
+quality gate before publishing.
 
 ## Product rule
 

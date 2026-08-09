@@ -5,10 +5,18 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+## [0.5.1] — 2026-08-09
+
 ### Added
 
 - Added a reproducible GitHub quality gate, weekly dependency update checks,
   a pinned Node.js major version, and a recovery guide for durable backups.
+- Added a search-focused concrete bag guide with documented product yields,
+  worked formulas, common slab examples, structured data, and internal links.
+- Added `llms.txt`, a durable agent instruction file, and a free-plan traffic
+  operations guide.
+- Added privacy-conscious site-wide engagement tracking and landing-page
+  reporting so passive probes are not counted as engaged visits.
 
 ### Changed
 
@@ -16,6 +24,8 @@ Semantic Versioning after the first verified release.
   removed all known production dependency advisories reported by `npm audit`.
 - Updated Vite imports to the current native JSON and TypeScript syntax so the
   project remains compatible with future Vite loader changes.
+- Published the dependency, CI, recovery, and Node 22 safeguards from the
+  durable GitHub backup into the Sites source tree.
 
 ## [0.5.0] — 2026-08-01
 

@@ -365,6 +365,7 @@ test("renders the launch trust and estimating content", async () => {
     ["/privacy", /Anonymous product analytics/],
     ["/terms", /Verify before purchase or construction/],
     ["/guides/material-estimating-basics", /How to estimate construction materials/],
+    ["/guides/how-many-bags-of-concrete", /How many bags of concrete do I need/],
   ];
 
   for (const [path, pattern] of expectations) {
@@ -442,8 +443,42 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   );
   assert.match(
     sitemap,
+    /<loc>https:\/\/buildmeasure\.hosys\.chatgpt\.site\/guides\/how-many-bags-of-concrete<\/loc>/,
+  );
+  assert.match(
+    sitemap,
     /<loc>https:\/\/buildmeasure\.hosys\.chatgpt\.site\/methodology<\/loc>/,
   );
+});
+
+test("serves a concise machine-readable site guide", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("llms", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+  const response = await worker.fetch(
+    new Request("http://localhost/llms.txt"),
+    {
+      ASSETS: {
+        fetch: async (request) => {
+          const url = new URL(request.url);
+          if (url.pathname === "/llms.txt") {
+            return new Response(
+              "# BuildMeasure\n\nCanonical site: https://buildmeasure.hosys.chatgpt.site/\n",
+              { headers: { "content-type": "text/plain; charset=utf-8" } },
+            );
+          }
+          return new Response("Not found", { status: 404 });
+        },
+      },
+    },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  const body = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
+  assert.match(body, /# BuildMeasure/);
+  assert.match(body, /https:\/\/buildmeasure\.hosys\.chatgpt\.site\//);
 });
 
 test("every internal page link resolves in the built application", async () => {

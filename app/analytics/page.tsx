@@ -45,10 +45,11 @@ export default async function AnalyticsPage() {
         <section className="utility-page-hero utility-page-hero-compact">
           <div className="shell">
             <p className="eyebrow">Owner analytics</p>
-            <h1>Real calculator usage</h1>
+            <h1>Real site usage</h1>
             <p>
-              Anonymous interaction evidence from the last {analytics.days} days.
-              Automated page requests alone do not count as engaged sessions.
+              Anonymous human-engagement evidence from the last {analytics.days} days.
+              A page request alone does not count: the visitor must keep the page
+              visible and interact with it.
             </p>
             <p className="owner-page-link"><a href="/feedback/inbox">Open feedback inbox</a></p>
           </div>
@@ -101,6 +102,22 @@ export default async function AnalyticsPage() {
                 </div>
               ) : <p>No engaged traffic sources recorded yet.</p>}
             </section>
+
+            <section>
+              <h2>Engaged landing pages</h2>
+              {analytics.pages.length ? (
+                <div className="analytics-table-wrap">
+                  <table>
+                    <thead><tr><th>Page</th><th>Sessions</th></tr></thead>
+                    <tbody>
+                      {analytics.pages.map((row) => (
+                        <tr key={row.route}><td>{row.route}</td><td>{row.engagedSessions}</td></tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : <p>No engaged landing pages recorded yet.</p>}
+            </section>
           </div>
 
           <section className="analytics-errors">
@@ -120,7 +137,8 @@ export default async function AnalyticsPage() {
           <p className="analytics-privacy-note">
             BuildMeasure does not store IP addresses, names, email addresses,
             raw user-agent strings, or persistent analytics cookies in this log.
-            Each page load receives a temporary random session identifier.
+            Each page load receives a temporary random session identifier, and
+            passive requests are excluded from the engaged-session total.
           </p>
         </section>
       </main>
