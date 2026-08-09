@@ -5,6 +5,15 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+## [0.5.2] — 2026-08-09
+
+### Added
+
+- Added IndexNow ownership verification and a bounded production-sitemap
+  submission command for Bing and other participating search engines.
+- Added a durable indexing runbook that keeps Google Search Console and
+  IndexNow responsibilities separate and avoids duplicate submissions.
+
 ## [0.5.1] — 2026-08-09
 
 ### Added

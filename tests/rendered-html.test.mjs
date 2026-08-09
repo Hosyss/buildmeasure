@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import packageInfo from "../package.json" with { type: "json" };
 
@@ -479,6 +480,28 @@ test("serves a concise machine-readable site guide", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
   assert.match(body, /# BuildMeasure/);
   assert.match(body, /https:\/\/buildmeasure\.hosys\.chatgpt\.site\//);
+});
+
+test("ships a valid IndexNow verification key and bounded submitter", async () => {
+  const key = (
+    await readFile(
+      new URL(
+        "../public/bb6fa46f3784f7f264c8d9ed4a9cc44c.txt",
+        import.meta.url,
+      ),
+      "utf8",
+    )
+  ).trim();
+  const submitter = await readFile(
+    new URL("../scripts/submit-indexnow.mjs", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(key, /^[a-f0-9]{32}$/);
+  assert.match(submitter, /https:\/\/api\.indexnow\.org\/indexnow/);
+  assert.match(submitter, /sitemap\.xml/);
+  assert.match(submitter, /Refusing to submit an off-site URL/);
+  assert.match(submitter, /--dry-run/);
 });
 
 test("every internal page link resolves in the built application", async () => {

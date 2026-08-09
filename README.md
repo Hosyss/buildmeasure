@@ -48,6 +48,7 @@ npm run test:unit
 npm run lint
 npm test
 npm run qa:automated
+npm run seo:indexnow -- --dry-run
 ```
 
 `npm test` runs engine tests, creates the production build, and tests rendered
@@ -71,6 +72,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 - [Bug register](docs/BUGS.md)
 - [Recovery and backup guide](docs/RECOVERY.md)
 - [Traffic and search operations](docs/TRAFFIC.md)
+- [Search-engine discovery](docs/INDEXING.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 
