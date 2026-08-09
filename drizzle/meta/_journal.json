@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1785592983343,
+      "tag": "0000_eminent_lord_tyger",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1785602387910,
+      "tag": "0001_low_romulus",
+      "breakpoints": true
+    }
+  ]
+}

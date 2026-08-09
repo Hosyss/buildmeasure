@@ -1,0 +1,268 @@
+import type { Metadata } from "next";
+import { ArrowIcon, CalculatorIcon, CheckIcon, ProjectIcon } from "@/components/icons";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { CONCRETE_ENGINE_VERSION } from "@/lib/calculators/concrete";
+import { absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "BuildMeasure",
+  url: absoluteUrl("/"),
+  description:
+    "Reference-backed construction and DIY calculators with transparent formulas and visible assumptions.",
+};
+
+const calculators = [
+  {
+    name: "Concrete Calculator",
+    description: "Estimate ready-mix volume and bag quantities for slabs.",
+    href: "/concrete-calculator",
+    status: "Live",
+    tag: "Most popular",
+  },
+  {
+    name: "Paint Calculator",
+    description: "Plan paint quantity from wall area, coats, and coverage.",
+    href: "/paint-calculator",
+    status: "Live",
+    tag: "Interiors",
+  },
+  {
+    name: "Tile Calculator",
+    description: "Estimate tiles, full boxes, layout, and cutting allowance.",
+    href: "/tile-calculator",
+    status: "Live",
+    tag: "Flooring",
+  },
+  {
+    name: "Gravel Calculator",
+    description: "Calculate gravel volume, weight, tons, and complete bags.",
+    href: "/gravel-calculator",
+    status: "Live",
+    tag: "Landscaping",
+  },
+  {
+    name: "Mulch Calculator",
+    description: "Find mulch volume and the number of bags your beds need.",
+    href: "/mulch-calculator",
+    status: "Live",
+    tag: "Outdoors",
+  },
+];
+
+const standards = [
+  "Formula and unit references",
+  "Metric and imperial inputs",
+  "Explicit waste allowance",
+  "Versioned calculation engine",
+];
+
+export default function Home() {
+  return (
+    <>
+      <SiteHeader />
+
+      <main>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <section className="hero">
+          <div className="hero-grid shell">
+            <div className="hero-copy">
+              <p className="eyebrow">
+                <span className="eyebrow-line" aria-hidden="true" />
+                Built for better estimates
+              </p>
+              <h1>Material estimates you can build on.</h1>
+              <p className="hero-lede">
+                Professional construction and DIY calculators with transparent
+                formulas, practical units, and results designed for the real
+                jobsite.
+              </p>
+              <div className="hero-actions">
+                <a className="button button-primary" href="/concrete-calculator">
+                  Calculate concrete <ArrowIcon />
+                </a>
+                <a className="button button-quiet" href="#calculators">
+                  Browse calculators
+                </a>
+              </div>
+              <ul className="trust-row" aria-label="BuildMeasure quality commitments">
+                <li><CheckIcon /> Reference-backed</li>
+                <li><CheckIcon /> Tested engine</li>
+                <li><CheckIcon /> No sign-up</li>
+              </ul>
+            </div>
+
+            <div className="estimate-card" aria-label="Example concrete estimate">
+              <div className="estimate-card-head">
+                <div>
+                  <span className="card-kicker">Concrete slab</span>
+                  <h2>Quick estimate</h2>
+                </div>
+                <span className="live-pill"><span /> Live</span>
+              </div>
+              <div className="dimension-grid">
+                <div><span>Length</span><strong>20 ft</strong></div>
+                <span className="dimension-multiplier" aria-hidden="true">×</span>
+                <div><span>Width</span><strong>12 ft</strong></div>
+                <span className="dimension-multiplier" aria-hidden="true">×</span>
+                <div><span>Depth</span><strong>4 in</strong></div>
+              </div>
+              <div className="estimate-result">
+                <div>
+                  <span>Order volume</span>
+                  <strong>3.26 <small>yd³</small></strong>
+                </div>
+                <div className="waste-badge">Includes 10% waste</div>
+              </div>
+              <div className="estimate-meta">
+                <span>Formula</span>
+                <code>L × W × D</code>
+                <span>Engine</span>
+                <code>v{CONCRETE_ENGINE_VERSION}</code>
+              </div>
+              <a className="estimate-link" href="/concrete-calculator">
+                Use this calculator <ArrowIcon />
+              </a>
+            </div>
+          </div>
+          <div className="hero-gridlines" aria-hidden="true" />
+        </section>
+
+        <section className="section shell" id="calculators">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Calculator library</p>
+              <h2>Start with the material you need.</h2>
+            </div>
+            <p>
+              Each calculator is built as a documented product—not a black-box
+              form.
+            </p>
+          </div>
+
+          <div className="calculator-grid">
+            {calculators.map((calculator) => {
+              const isLive = calculator.status === "Live";
+              const cardContent = (
+                <>
+                  <div className="calculator-card-top">
+                    <span className="calculator-icon"><CalculatorIcon /></span>
+                    <span className={`status-pill ${isLive ? "status-live" : ""}`}>
+                      {calculator.status}
+                    </span>
+                  </div>
+                  <p className="card-kicker">{calculator.tag}</p>
+                  <h3>{calculator.name}</h3>
+                  <p>{calculator.description}</p>
+                  <span className="card-action">
+                    {isLive ? "Open calculator" : "On the roadmap"} <ArrowIcon />
+                  </span>
+                </>
+              );
+
+              return isLive ? (
+                <a
+                  className={`calculator-card ${isLive ? "calculator-card-live" : ""}`}
+                  href={calculator.href}
+                  key={calculator.name}
+                >
+                  {cardContent}
+                </a>
+              ) : (
+                <article
+                  className="calculator-card"
+                  key={calculator.name}
+                >
+                  {cardContent}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="standards-section" id="standards">
+          <div className="shell standards-grid">
+            <div>
+              <p className="eyebrow eyebrow-light">The BuildMeasure standard</p>
+              <h2>Accuracy is a feature.</h2>
+              <p className="standards-lede">
+                Useful estimates begin with visible assumptions. We publish how
+                the result is calculated and keep the calculation engine separate
+                from the interface.
+              </p>
+            </div>
+            <ul className="standards-list">
+              {standards.map((standard, index) => (
+                <li key={standard}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{standard}</strong>
+                  <CheckIcon />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="section shell resource-section" aria-labelledby="resource-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Plan with context</p>
+              <h2 id="resource-title">From measurements to a purchase plan.</h2>
+            </div>
+            <p>Use the workflow, then inspect how every result is verified.</p>
+          </div>
+          <div className="resource-grid">
+            <a href="/guides/material-estimating-basics">
+              <span>Practical guide</span>
+              <h3>How to estimate construction materials</h3>
+              <p>Separate geometry, allowances, product data, and package rounding.</p>
+              <strong>Read the estimating workflow <ArrowIcon /></strong>
+            </a>
+            <a href="/methodology">
+              <span>Quality standard</span>
+              <h3>How BuildMeasure verifies a calculator</h3>
+              <p>References, canonical units, numeric safety, regression tests, and audits.</p>
+              <strong>Inspect the methodology <ArrowIcon /></strong>
+            </a>
+          </div>
+        </section>
+
+        <section className="section shell project-section" id="project-mode">
+          <div className="project-visual" aria-hidden="true">
+            <div className="project-node project-node-main">
+              <ProjectIcon />
+              <span>Garage project</span>
+            </div>
+            <div className="project-path" />
+            <div className="project-materials">
+              <span>Concrete</span>
+              <span>Rebar</span>
+              <span>Gravel</span>
+              <span>Cost</span>
+            </div>
+          </div>
+          <div className="project-copy">
+            <p className="eyebrow">Coming later</p>
+            <h2>One project. Every material.</h2>
+            <p>
+              Project Mode will connect calculators into one estimate, so a
+              garage, deck, or patio becomes a single materials list and report.
+            </p>
+            <span className="roadmap-label">Planned after the core calculator library</span>
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </>
+  );
+}
