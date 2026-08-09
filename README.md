@@ -34,6 +34,19 @@ calculator pages.
 
 Anything not listed above should be treated as planned, not implemented.
 
+## Download BuildMeasure
+
+- [Latest verified release](https://github.com/Hosyss/buildmeasure/releases/latest)
+  includes the current source ZIP, a full-history Git bundle, and SHA-256
+  checksums.
+- [Download the current `main` source as ZIP](https://github.com/Hosyss/buildmeasure/archive/refs/heads/main.zip)
+  directly from GitHub.
+
+The release files are created only after the complete quality gate succeeds.
+Use the full-history bundle when restoring the repository, or the ZIP when you
+only need a readable copy of the current source. Verification and recovery
+steps are in [the recovery guide](docs/RECOVERY.md).
+
 ## Local development
 
 ```bash
@@ -81,8 +94,9 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 Treat this repository as the source of truth. Every proposed change is checked
 by the GitHub quality gate, which installs the locked dependencies and runs
 lint, engine tests, the production build, artifact validation, and rendered
-route tests. Keep a verified downloadable backup and its SHA-256 checksum in a
-separate durable location. See [the recovery guide](docs/RECOVERY.md) for the
+route tests. Each versioned release publishes a verified downloadable backup
+and its SHA-256 checksum. Keep an additional copy in a separate durable
+location when possible. See [the recovery guide](docs/RECOVERY.md) for the
 restore and rollback procedure.
 
 The repository-level `AGENTS.md` keeps future coding agents on the existing

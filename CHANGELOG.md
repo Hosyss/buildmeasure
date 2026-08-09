@@ -5,6 +5,15 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+## [0.5.3] — 2026-08-09
+
+### Added
+
+- Added an automated, quality-gated GitHub release that publishes a current
+  source ZIP, a full-history Git bundle, and a SHA-256 checksum manifest.
+- Added a reproducible local backup command and documented direct download,
+  verification, and restoration paths.
+
 ## [0.5.2] — 2026-08-09
 
 ### Added
