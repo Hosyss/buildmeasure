@@ -1,0 +1,56 @@
+name: Publish verified source backup
+
+on:
+  workflow_run:
+    workflows: ["BuildMeasure quality gate"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: buildmeasure-release-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish immutable release backup
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the verified revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build and verify backup files
+        run: bash scripts/create-release-backup.sh release-assets
+
+      - name: Publish a new immutable GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          tag="v${version}"
+          target="$(git rev-parse HEAD)"
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release ${tag} already exists; leaving it unchanged."
+            exit 0
+          fi
+
+          gh release create "$tag" release-assets/* \
+            --target "$target" \
+            --title "BuildMeasure ${tag}" \
+            --generate-notes
