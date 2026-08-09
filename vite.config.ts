@@ -5,21 +5,39 @@ import { sites } from "./build/sites-vite-plugin.ts";
 
 const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
+const CLOUDFLARE_DATABASE_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const { d1, r2 } = hostingConfig;
+
+const cloudflareDatabaseId =
+  process.env.CLOUDFLARE_D1_DATABASE_ID?.trim() ||
+  SITE_CREATOR_PLACEHOLDER_DATABASE_ID;
+const cloudflareDatabaseName =
+  process.env.CLOUDFLARE_D1_DATABASE_NAME?.trim() || "site-creator-d1";
+
+if (
+  cloudflareDatabaseId !== SITE_CREATOR_PLACEHOLDER_DATABASE_ID &&
+  !CLOUDFLARE_DATABASE_ID_PATTERN.test(cloudflareDatabaseId)
+) {
+  throw new Error(
+    "CLOUDFLARE_D1_DATABASE_ID must be a valid Cloudflare D1 database UUID.",
+  );
+}
 
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
 const localBindingConfig = {
+  name: "buildmeasure",
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
   d1_databases: d1
     ? [
         {
           binding: d1,
-          database_name: "site-creator-d1",
-          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+          database_name: cloudflareDatabaseName,
+          database_id: cloudflareDatabaseId,
         },
       ]
     : [],

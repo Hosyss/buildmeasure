@@ -86,6 +86,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 - [Recovery and backup guide](docs/RECOVERY.md)
 - [Traffic and search operations](docs/TRAFFIC.md)
 - [Search-engine discovery](docs/INDEXING.md)
+- [Cloudflare deployment and cutover](docs/CLOUDFLARE.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 

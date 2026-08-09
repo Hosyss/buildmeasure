@@ -5,6 +5,14 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+### Added
+
+- Added a guarded Cloudflare Workers deployment path that accepts a production
+  D1 binding through build-time configuration and rejects placeholder storage
+  before deployment.
+- Added a no-download GitHub-to-Cloudflare setup and verification runbook while
+  preserving the existing public deployment until an independent cutover gate.
+
 ## [0.5.3] — 2026-08-09
 
 ### Added
