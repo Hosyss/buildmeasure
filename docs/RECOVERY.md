@@ -4,6 +4,20 @@ This repository is the durable source of truth for BuildMeasure. The hosted
 Site and its saved deployment versions are release outputs; they are not a
 substitute for this source repository and its downloadable backups.
 
+## Download a verified backup
+
+Open the [latest GitHub release](https://github.com/Hosyss/buildmeasure/releases/latest)
+and download all three release assets:
+
+- `buildmeasure-vX.Y.Z-source.zip` — the source at the released revision.
+- `buildmeasure-vX.Y.Z-history.bundle` — every Git branch, tag, and commit.
+- `SHA256SUMS.txt` — the expected SHA-256 digest for both files.
+
+GitHub also provides a convenient
+[ZIP of the current `main` branch](https://github.com/Hosyss/buildmeasure/archive/refs/heads/main.zip),
+but the versioned release bundle is the safer disaster-recovery copy because it
+preserves the complete repository history.
+
 ## Restore a working copy
 
 Requirements:
@@ -73,3 +87,18 @@ For every downloadable backup set:
 4. Verify the bundle with `git bundle verify <bundle-file>`.
 5. Restore full history with `git clone <bundle-file> buildmeasure`.
 6. Run `npm ci` and `npm run qa:automated` from the restored copy.
+
+On Linux, macOS, WSL, or Git Bash, verify a downloaded set from its directory:
+
+```bash
+sha256sum -c SHA256SUMS.txt
+git bundle verify buildmeasure-vX.Y.Z-history.bundle
+```
+
+To generate and verify the same backup set from any trusted working copy:
+
+```bash
+bash scripts/create-release-backup.sh release-assets
+cd release-assets
+sha256sum -c SHA256SUMS.txt
+```
