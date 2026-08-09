@@ -146,6 +146,42 @@ export function useCalculatorAnalytics(
 
 export function AnalyticsTracker() {
   useEffect(() => {
+    let hasHumanSignal = false;
+    let isEligible = false;
+
+    function recordEngagedPage() {
+      if (!hasHumanSignal || !isEligible || document.visibilityState !== "visible") {
+        return;
+      }
+      trackAnalyticsEvent(
+        { event: "page_engaged" },
+        { once: `page-engaged:${window.location.pathname}` },
+      );
+    }
+
+    function markHumanSignal() {
+      hasHumanSignal = true;
+      recordEngagedPage();
+    }
+
+    const eligibilityTimer = window.setTimeout(() => {
+      isEligible = true;
+      recordEngagedPage();
+    }, 8_000);
+
+    window.addEventListener("pointerdown", markHumanSignal, { passive: true });
+    window.addEventListener("keydown", markHumanSignal);
+    window.addEventListener("scroll", markHumanSignal, { passive: true });
+
+    return () => {
+      window.clearTimeout(eligibilityTimer);
+      window.removeEventListener("pointerdown", markHumanSignal);
+      window.removeEventListener("keydown", markHumanSignal);
+      window.removeEventListener("scroll", markHumanSignal);
+    };
+  }, []);
+
+  useEffect(() => {
     function onError(event: ErrorEvent) {
       trackAnalyticsEvent(
         {

@@ -22,6 +22,11 @@ export type SourceAnalyticsRow = {
   engagedSessions: number;
 };
 
+export type PageAnalyticsRow = {
+  route: string;
+  engagedSessions: number;
+};
+
 export type ErrorAnalyticsRow = {
   route: string;
   browser: string;
@@ -34,6 +39,7 @@ export type AnalyticsDashboard = {
   totals: AnalyticsTotalsRow;
   calculators: CalculatorAnalyticsRow[];
   sources: SourceAnalyticsRow[];
+  pages: PageAnalyticsRow[];
   recentErrors: ErrorAnalyticsRow[];
   days: number;
 };
@@ -157,11 +163,11 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
   const interval = `-${safeDays} days`;
   const database = await getAnalyticsDatabase();
 
-  const [totals, calculators, sources, recentErrors] = await Promise.all([
+  const [totals, calculators, sources, pages, recentErrors] = await Promise.all([
     database
       .prepare(
         `SELECT
-          COUNT(DISTINCT CASE WHEN event = 'calculator_interacted' THEN session_token END) AS engagedSessions,
+          COUNT(DISTINCT CASE WHEN event IN ('page_engaged', 'calculator_interacted') THEN session_token END) AS engagedSessions,
           SUM(CASE WHEN event = 'calculator_opened' THEN 1 ELSE 0 END) AS openings,
           SUM(CASE WHEN event = 'calculator_interacted' THEN 1 ELSE 0 END) AS interactions,
           SUM(CASE WHEN event = 'calculation_completed' THEN 1 ELSE 0 END) AS completed,
@@ -195,13 +201,27 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
           COUNT(DISTINCT session_token) AS engagedSessions
          FROM analytics_events
          WHERE created_at >= datetime('now', ?)
-           AND event = 'calculator_interacted'
+           AND event IN ('page_engaged', 'calculator_interacted')
          GROUP BY source
          ORDER BY engagedSessions DESC, source ASC
          LIMIT 20`,
       )
       .bind(interval)
       .all<SourceAnalyticsRow>(),
+    database
+      .prepare(
+        `SELECT
+          route,
+          COUNT(DISTINCT session_token) AS engagedSessions
+         FROM analytics_events
+         WHERE created_at >= datetime('now', ?)
+           AND event = 'page_engaged'
+         GROUP BY route
+         ORDER BY engagedSessions DESC, route ASC
+         LIMIT 20`,
+      )
+      .bind(interval)
+      .all<PageAnalyticsRow>(),
     database
       .prepare(
         `SELECT
@@ -237,6 +257,10 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
       failed: Number(row.failed ?? 0),
     })),
     sources: sources.results.map((row) => ({
+      ...row,
+      engagedSessions: Number(row.engagedSessions ?? 0),
+    })),
+    pages: pages.results.map((row) => ({
       ...row,
       engagedSessions: Number(row.engagedSessions ?? 0),
     })),

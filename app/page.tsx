@@ -221,6 +221,12 @@ export default function Home() {
             <p>Use the workflow, then inspect how every result is verified.</p>
           </div>
           <div className="resource-grid">
+            <a href="/guides/how-many-bags-of-concrete">
+              <span>Concrete guide</span>
+              <h3>How many bags of concrete do I need?</h3>
+              <p>Turn slab dimensions, product yield, and a visible allowance into complete bags.</p>
+              <strong>Use the bag formula <ArrowIcon /></strong>
+            </a>
             <a href="/guides/material-estimating-basics">
               <span>Practical guide</span>
               <h3>How to estimate construction materials</h3>

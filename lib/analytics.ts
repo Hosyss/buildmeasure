@@ -4,6 +4,7 @@ import {
 } from "./feedback.ts";
 
 export const ANALYTICS_EVENTS = [
+  "page_engaged",
   "calculator_opened",
   "calculator_interacted",
   "calculation_completed",

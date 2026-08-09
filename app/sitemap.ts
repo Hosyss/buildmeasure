@@ -46,6 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: absoluteUrl("/guides/how-many-bags-of-concrete"),
+      lastModified: new Date("2026-08-09"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: absoluteUrl("/methodology"),
       lastModified: new Date("2026-08-01"),
       changeFrequency: "monthly",
