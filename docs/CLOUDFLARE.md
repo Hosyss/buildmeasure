@@ -1,9 +1,10 @@
 # Cloudflare deployment
 
-BuildMeasure remains live on the existing Sites deployment while the
-Cloudflare Worker is prepared and independently verified. Do not change the
-canonical URL, sitemap host, Search Console property, or the existing Site
-until every route and storage check passes on Cloudflare.
+BuildMeasure is deployed at `https://buildmeasure.hosy-sthdr.workers.dev`
+with the production D1 binding. The original Sites deployment remains available
+during the rollback window, but the Cloudflare Worker is the canonical origin.
+Keep both deployments until Search Console accepts the new URL-prefix property
+and the Cloudflare production checks remain healthy.
 
 ## Architecture
 
@@ -53,10 +54,9 @@ Verify all of the following on the assigned `workers.dev` address:
 - analytics event submission and feedback submission
 - mobile and desktop Lighthouse and HTTP security checks
 
-Only after those checks pass should a separate migration change update the
-canonical host, sitemap, metadata, security policy, IndexNow host, and Search
-Console property. Keep the old deployment available during that cutover and
-rollback window.
+The route, storage, canonical-host, metadata, security-policy, and IndexNow
+cutover checks passed on the Cloudflare origin. Keep the old deployment
+available during the Search Console migration and rollback window.
 
 ## Local or CI validation
 
