@@ -40,3 +40,8 @@ calculators, `/status`, `/api/health`, `/robots.txt`, `/sitemap.xml`, and
 `/llms.txt` in production. When public content URLs changed, run
 `npm run seo:indexnow` once after the production deployment is verified; never
 repeat the submission when no public URL changed.
+
+Preserve `.github/workflows/release.yml` and
+`scripts/create-release-backup.sh`. Versioned release assets are immutable:
+never replace or delete an existing release backup. Publish a new version only
+after the complete GitHub quality gate succeeds.
