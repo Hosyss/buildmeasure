@@ -380,7 +380,7 @@ test("renders the launch trust and estimating content", async () => {
     const html = await response.text();
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
-    assert.match(html, new RegExp(`https://buildmeasure\\.hosys\\.chatgpt\\.site${path.replaceAll("/", "\\/")}`));
+    assert.match(html, new RegExp(`https://buildmeasure\\.hosy-sthdr\\.workers\\.dev${path.replaceAll("/", "\\/")}`));
   }
 });
 
@@ -464,7 +464,7 @@ test("serves a concise machine-readable site guide", async () => {
           const url = new URL(request.url);
           if (url.pathname === "/llms.txt") {
             return new Response(
-              "# BuildMeasure\n\nCanonical site: https://buildmeasure.hosys.chatgpt.site/\n",
+              "# BuildMeasure\n\nCanonical site: https://buildmeasure.hosy-sthdr.workers.dev/\n",
               { headers: { "content-type": "text/plain; charset=utf-8" } },
             );
           }
