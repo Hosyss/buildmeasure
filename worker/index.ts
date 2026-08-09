@@ -82,7 +82,7 @@ function applySecurityHeaders(
       `script-src ${scriptSources}`,
       "script-src-attr 'none'",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https://buildmeasure.hosys.chatgpt.site",
+      "img-src 'self' data:",
       "font-src 'self'",
       "connect-src 'self'",
     ].join("; "),
