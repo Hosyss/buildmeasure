@@ -5,6 +5,11 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+### Changed
+
+- Switched canonical metadata, the sitemap, machine-readable links, IndexNow,
+  and the security policy to the verified Cloudflare Workers production origin.
+
 ### Added
 
 - Added a guarded Cloudflare Workers deployment path that accepts a production

@@ -2,22 +2,22 @@
 
 > Reference-backed construction and DIY calculators with transparent formulas, visible assumptions, and metric and imperial inputs.
 
-Canonical site: https://buildmeasure.hosys.chatgpt.site/
+Canonical site: https://buildmeasure.hosy-sthdr.workers.dev/
 
 ## Calculators
 
-- [Concrete Calculator](https://buildmeasure.hosys.chatgpt.site/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
-- [Paint Calculator](https://buildmeasure.hosys.chatgpt.site/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
-- [Tile Calculator](https://buildmeasure.hosys.chatgpt.site/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
-- [Gravel Calculator](https://buildmeasure.hosys.chatgpt.site/gravel-calculator): volume, adjustable density, weight, tons, tonnes, and complete bags.
-- [Mulch Calculator](https://buildmeasure.hosys.chatgpt.site/mulch-calculator): bed volume, installed depth, package volume, and complete bags.
+- [Concrete Calculator](https://buildmeasure.hosy-sthdr.workers.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
+- [Paint Calculator](https://buildmeasure.hosy-sthdr.workers.dev/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
+- [Tile Calculator](https://buildmeasure.hosy-sthdr.workers.dev/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
+- [Gravel Calculator](https://buildmeasure.hosy-sthdr.workers.dev/gravel-calculator): volume, adjustable density, weight, tons, tonnes, and complete bags.
+- [Mulch Calculator](https://buildmeasure.hosy-sthdr.workers.dev/mulch-calculator): bed volume, installed depth, package volume, and complete bags.
 
 ## Guides and methodology
 
-- [How Many Bags of Concrete Do I Need?](https://buildmeasure.hosys.chatgpt.site/guides/how-many-bags-of-concrete)
-- [How to Estimate Construction Materials](https://buildmeasure.hosys.chatgpt.site/guides/material-estimating-basics)
-- [Calculation Methodology](https://buildmeasure.hosys.chatgpt.site/methodology)
-- [About BuildMeasure](https://buildmeasure.hosys.chatgpt.site/about)
+- [How Many Bags of Concrete Do I Need?](https://buildmeasure.hosy-sthdr.workers.dev/guides/how-many-bags-of-concrete)
+- [How to Estimate Construction Materials](https://buildmeasure.hosy-sthdr.workers.dev/guides/material-estimating-basics)
+- [Calculation Methodology](https://buildmeasure.hosy-sthdr.workers.dev/methodology)
+- [About BuildMeasure](https://buildmeasure.hosy-sthdr.workers.dev/about)
 
 ## Usage note
 
