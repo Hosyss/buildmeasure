@@ -79,6 +79,7 @@
 - PR #9 — Prepare guarded Cloudflare Workers deployment: https://github.com/Hosyss/buildmeasure/pull/9
 - PR #10 — Switch canonical production origin to Cloudflare: https://github.com/Hosyss/buildmeasure/pull/10
 - PR #12 — Persist launch handoff and legacy redirect: https://github.com/Hosyss/buildmeasure/pull/12
+- PR #13 — Record production launch audit: https://github.com/Hosyss/buildmeasure/pull/13
 
 ## سجل الـCommits الموثّق
 
@@ -97,6 +98,7 @@ https://github.com/Hosyss/buildmeasure/commits/main/
 | Preserve legacy hostname redirect | https://github.com/Hosyss/buildmeasure/commit/5f700ff22dc9f701e3ada61943a0ab6ea6ce0e03 |
 | Test legacy hostname redirect | https://github.com/Hosyss/buildmeasure/commit/ec05418aaa767bb0f976c992a0d1fcd6a3028f41 |
 | Merge persistent launch handoff and legacy redirect (#12) | https://github.com/Hosyss/buildmeasure/commit/675d0830b6d448a747317c70f72b8434d59d3934 |
+| Record production launch audit (#13) | https://github.com/Hosyss/buildmeasure/commit/a16295201a3ef7653da0713272e82ffcb55727a3 |
 
 ## قاعدة التحديث
 
