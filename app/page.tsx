@@ -227,17 +227,35 @@ export default function Home() {
               <p>Turn slab dimensions, product yield, and a visible allowance into complete bags.</p>
               <strong>Use the bag formula <ArrowIcon /></strong>
             </a>
+            <a href="/guides/how-much-paint-do-i-need">
+              <span>Paint guide</span>
+              <h3>How much paint do I need for a room?</h3>
+              <p>Account for wall area, openings, coats, coverage, and full-container rounding.</p>
+              <strong>Plan the paint order <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-many-tiles-do-i-need">
+              <span>Tile guide</span>
+              <h3>How many tiles do I need?</h3>
+              <p>Convert room and tile dimensions into complete boxes with an explicit waste allowance.</p>
+              <strong>Plan the tile order <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-much-gravel-do-i-need">
+              <span>Gravel guide</span>
+              <h3>How much gravel do I need?</h3>
+              <p>Estimate compacted volume, adjustable density, total weight, and complete bags.</p>
+              <strong>Plan the gravel order <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-much-mulch-do-i-need">
+              <span>Mulch guide</span>
+              <h3>How much mulch do I need?</h3>
+              <p>Turn bed area and installed depth into cubic yards and complete bags.</p>
+              <strong>Plan the mulch order <ArrowIcon /></strong>
+            </a>
             <a href="/guides/material-estimating-basics">
               <span>Practical guide</span>
               <h3>How to estimate construction materials</h3>
               <p>Separate geometry, allowances, product data, and package rounding.</p>
               <strong>Read the estimating workflow <ArrowIcon /></strong>
-            </a>
-            <a href="/methodology">
-              <span>Quality standard</span>
-              <h3>How BuildMeasure verifies a calculator</h3>
-              <p>References, canonical units, numeric safety, regression tests, and audits.</p>
-              <strong>Inspect the methodology <ArrowIcon /></strong>
             </a>
           </div>
         </section>
