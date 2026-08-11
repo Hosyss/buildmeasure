@@ -30,7 +30,8 @@
 ## دفعة العمل النشطة — Traffic Guides Sprint
 
 - الفرع: `agent/traffic-guides-sprint`
-- الحالة: **قيد التنفيذ — Checkpoint 3/6 مكتمل**
+- الحالة: **قيد التنفيذ — Checkpoint 4/6 مكتمل**
+- Pull Request (Draft): https://github.com/Hosyss/buildmeasure/pull/14
 - الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
 - التسليمات المخططة:
   1. دليل حساب دهان الغرفة.
@@ -51,7 +52,13 @@
   - https://github.com/Hosyss/buildmeasure/commit/8437072c56d038ffda9999e7512e9e9fd0c170b8
   - https://github.com/Hosyss/buildmeasure/commit/db94ecf6b93003734fd5164aede75bebf0d134b6
 - فحص Checkpoint 3: `git diff --check` وESLint نجحا.
-- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم حدّث روابط الاكتشاف الداخلية و`sitemap.xml` و`llms.txt` واختبارات المسارات. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+- Checkpoint 4 — Internal discovery + SEO files + route coverage:
+  - https://github.com/Hosyss/buildmeasure/commit/89bf34dc4a2ffb0293ef37eaaa063af9dca57f15
+  - https://github.com/Hosyss/buildmeasure/commit/9eb51b76866cf4d471466b282b4bd1b320789a8a
+  - https://github.com/Hosyss/buildmeasure/commit/b2b5cad36d0489acd17401c33a2d619bf1e0b4a0
+  - https://github.com/Hosyss/buildmeasure/commit/d5750a73e907b7b58afec036ad692ccbf001d97e
+- فحص Checkpoint 4: `git diff --check` وESLint نجحا. الصفحة الرئيسية تعرض الأدلة الأربعة، و`sitemap.xml` و`llms.txt` واختبارات المسارات تشملها.
+- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم شغّل `npm run qa:automated` بالكامل. أصلح أي فشل، حدّث هذا الملف، ثم جهّز PR #14 للدمج. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
 
 ## اختبارات الإطلاق المنفّذة
 
