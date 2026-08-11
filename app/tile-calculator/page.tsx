@@ -243,11 +243,11 @@ export default function TileCalculatorPage() {
           </div>
           <a
             className="next-card next-card-live"
-            href="/concrete-calculator"
+            href="/guides/how-many-tiles-do-i-need"
           >
-            <span>Live</span>
-            <strong>Concrete Calculator</strong>
-            <small>Slab volume &amp; bags</small>
+            <span>Guide</span>
+            <strong>How Many Tiles Do I Need?</strong>
+            <small>Tiles, waste &amp; full boxes</small>
           </a>
           <a
             className="next-card next-card-live"
