@@ -27,6 +27,45 @@
 | ملف إثبات Google القديم | محفوظ | `/google6d67c58ff3b5201c.html` ما زال يعرض نص الإثبات |
 | الفهرسة والزيارات العضوية | قيد الانتظار | Google يحتاج وقتًا للزحف ومعالجة الخريطة |
 
+## دفعة العمل النشطة — Traffic Guides Sprint
+
+- الفرع: `agent/traffic-guides-sprint`
+- الحالة: **قيد التنفيذ — Checkpoint 5/6 مكتمل**
+- Pull Request (Draft): https://github.com/Hosyss/buildmeasure/pull/14
+- الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
+- التسليمات المخططة:
+  1. دليل حساب دهان الغرفة.
+  2. دليل حساب عدد البلاط.
+  3. دليل حساب كمية الحصى.
+  4. دليل حساب كمية الـmulch.
+  5. روابط داخلية وstructured data وتحديث `sitemap.xml` و`llms.txt`.
+  6. اختبارات كاملة، مراجعة Cloudflare، وتسجيل روابط كل commit هنا.
+- Checkpoint 2 — Paint + Tile:
+  - https://github.com/Hosyss/buildmeasure/commit/cfffc7ab75cd3f40617cf3c373d1982d3d9a5efe
+  - https://github.com/Hosyss/buildmeasure/commit/3fd785e0c23baf34dd97ba4b37bc959922162319
+  - https://github.com/Hosyss/buildmeasure/commit/b1ddf45b48bdb7dbb939e9ae93493d7b7d5db3d9
+  - https://github.com/Hosyss/buildmeasure/commit/d0c8864696767977d4b26ed62917073a6d2bf4b8
+- فحص Checkpoint 2: `git diff --check` وESLint نجحا. فشل تثبيت npm الأول بسبب مسار cache محمي، ثم نجح التثبيت النظيف باستخدام cache مؤقت.
+- Checkpoint 3 — Gravel + Mulch:
+  - https://github.com/Hosyss/buildmeasure/commit/2d8054cf06620a81477f7ef08bfcf32cdf6f40cd
+  - https://github.com/Hosyss/buildmeasure/commit/04d3a835620346257ab5c210aee5bab6f79c1806
+  - https://github.com/Hosyss/buildmeasure/commit/8437072c56d038ffda9999e7512e9e9fd0c170b8
+  - https://github.com/Hosyss/buildmeasure/commit/db94ecf6b93003734fd5164aede75bebf0d134b6
+- فحص Checkpoint 3: `git diff --check` وESLint نجحا.
+- Checkpoint 4 — Internal discovery + SEO files + route coverage:
+  - https://github.com/Hosyss/buildmeasure/commit/89bf34dc4a2ffb0293ef37eaaa063af9dca57f15
+  - https://github.com/Hosyss/buildmeasure/commit/9eb51b76866cf4d471466b282b4bd1b320789a8a
+  - https://github.com/Hosyss/buildmeasure/commit/b2b5cad36d0489acd17401c33a2d619bf1e0b4a0
+  - https://github.com/Hosyss/buildmeasure/commit/d5750a73e907b7b58afec036ad692ccbf001d97e
+- فحص Checkpoint 4: `git diff --check` وESLint نجحا. الصفحة الرئيسية تعرض الأدلة الأربعة، و`sitemap.xml` و`llms.txt` واختبارات المسارات تشملها.
+- Checkpoint 5 — Full automated QA:
+  - `npm run qa:automated`: نجح بالكامل.
+  - ESLint: نجح.
+  - Unit tests: **82/82** نجحت.
+  - Build: نجح، وتضمن المسارات الأربعة الجديدة.
+  - Rendered/route tests: **17/17** نجحت، ومنها الروابط الداخلية و`robots.txt` و`sitemap.xml` و`llms.txt`.
+- نقطة الاستئناف الحالية: افحص GitHub Checks على PR #14. إذا كانت ناجحة، حوّل الـPR من Draft إلى Ready، ادمجه، ثم تحقق من نشر Cloudflare والمسارات الحية وسجّل الروابط النهائية هنا. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+
 ## اختبارات الإطلاق المنفّذة
 
 - `npm run qa:automated` نجح بالكامل.

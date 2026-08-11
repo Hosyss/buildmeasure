@@ -237,10 +237,10 @@ export default function GravelCalculatorPage() {
             <p className="eyebrow">Continue planning</p>
             <h2>Estimate the next material.</h2>
           </div>
-          <a className="next-card next-card-live" href="/mulch-calculator">
-            <span>Live</span>
-            <strong>Mulch Calculator</strong>
-            <small>Bed volume &amp; bags</small>
+          <a className="next-card next-card-live" href="/guides/how-much-gravel-do-i-need">
+            <span>Guide</span>
+            <strong>How Much Gravel Do I Need?</strong>
+            <small>Cubic yards, tons &amp; bags</small>
           </a>
           <a className="next-card next-card-live" href="/tile-calculator">
             <span>Live</span>

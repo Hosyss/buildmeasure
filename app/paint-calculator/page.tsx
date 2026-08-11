@@ -228,8 +228,8 @@ export default function PaintCalculatorPage() {
             <p className="eyebrow">Continue planning</p>
             <h2>Estimate the next material.</h2>
           </div>
-          <a className="next-card next-card-live" href="/concrete-calculator">
-            <span>Live</span><strong>Concrete Calculator</strong><small>Slab volume &amp; bags</small>
+          <a className="next-card next-card-live" href="/guides/how-much-paint-do-i-need">
+            <span>Guide</span><strong>How Much Paint Do I Need?</strong><small>Room formula &amp; worked example</small>
           </a>
           <a className="next-card next-card-live" href="/tile-calculator">
             <span>Live</span><strong>Tile Calculator</strong><small>Tiles, boxes &amp; waste</small>
