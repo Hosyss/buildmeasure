@@ -30,7 +30,7 @@
 ## دفعة العمل النشطة — Traffic Guides Sprint
 
 - الفرع: `agent/traffic-guides-sprint`
-- الحالة: **قيد التنفيذ — Checkpoint 2/6 مكتمل**
+- الحالة: **قيد التنفيذ — Checkpoint 3/6 مكتمل**
 - الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
 - التسليمات المخططة:
   1. دليل حساب دهان الغرفة.
@@ -45,7 +45,13 @@
   - https://github.com/Hosyss/buildmeasure/commit/b1ddf45b48bdb7dbb939e9ae93493d7b7d5db3d9
   - https://github.com/Hosyss/buildmeasure/commit/d0c8864696767977d4b26ed62917073a6d2bf4b8
 - فحص Checkpoint 2: `git diff --check` وESLint نجحا. فشل تثبيت npm الأول بسبب مسار cache محمي، ثم نجح التثبيت النظيف باستخدام cache مؤقت.
-- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم ابدأ بدليلي Gravel وMulch. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+- Checkpoint 3 — Gravel + Mulch:
+  - https://github.com/Hosyss/buildmeasure/commit/2d8054cf06620a81477f7ef08bfcf32cdf6f40cd
+  - https://github.com/Hosyss/buildmeasure/commit/04d3a835620346257ab5c210aee5bab6f79c1806
+  - https://github.com/Hosyss/buildmeasure/commit/8437072c56d038ffda9999e7512e9e9fd0c170b8
+  - https://github.com/Hosyss/buildmeasure/commit/db94ecf6b93003734fd5164aede75bebf0d134b6
+- فحص Checkpoint 3: `git diff --check` وESLint نجحا.
+- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم حدّث روابط الاكتشاف الداخلية و`sitemap.xml` و`llms.txt` واختبارات المسارات. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
 
 ## اختبارات الإطلاق المنفّذة
 
