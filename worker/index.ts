@@ -19,6 +19,10 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
+const LEGACY_HOSTNAME = "buildmeasure.hosys.chatgpt.site";
+const CANONICAL_ORIGIN = "https://buildmeasure.hosy-sthdr.workers.dev";
+const GOOGLE_VERIFICATION_PATH = "/google6d67c58ff3b5201c.html";
+
 /**
  * Keep route hydration loading early without letting it compete with the
  * render-blocking stylesheet. The generated app shell marks every client
@@ -110,6 +114,21 @@ function applySecurityHeaders(
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    if (
+      url.hostname === LEGACY_HOSTNAME &&
+      url.pathname !== GOOGLE_VERIFICATION_PATH &&
+      (request.method === "GET" || request.method === "HEAD")
+    ) {
+      const destination = new URL(`${url.pathname}${url.search}`, CANONICAL_ORIGIN);
+      return applySecurityHeaders(new Response(null, {
+        status: 301,
+        headers: {
+          "Cache-Control": "public, max-age=300",
+          Location: destination.href,
+        },
+      }));
+    }
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];

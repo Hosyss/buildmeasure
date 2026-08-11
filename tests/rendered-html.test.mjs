@@ -7,6 +7,30 @@ import packageInfo from "../package.json" with { type: "json" };
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
 
+test("redirects the legacy Sites host to the canonical Cloudflare origin", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("legacy-redirect", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  const response = await worker.fetch(
+    new Request(
+      "https://buildmeasure.hosys.chatgpt.site/concrete-calculator?system=metric",
+    ),
+    {},
+    {
+      waitUntil() {},
+      passThroughOnException() {},
+    },
+  );
+
+  assert.equal(response.status, 301);
+  assert.equal(
+    response.headers.get("location"),
+    "https://buildmeasure.hosy-sthdr.workers.dev/concrete-calculator?system=metric",
+  );
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+});
+
 test("renders development preview metadata", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
