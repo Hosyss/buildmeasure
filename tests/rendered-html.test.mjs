@@ -391,6 +391,10 @@ test("renders the launch trust and estimating content", async () => {
     ["/terms", /Verify before purchase or construction/],
     ["/guides/material-estimating-basics", /How to estimate construction materials/],
     ["/guides/how-many-bags-of-concrete", /How many bags of concrete do I need/],
+    ["/guides/how-much-paint-do-i-need", /How much paint do I need for a room/],
+    ["/guides/how-many-tiles-do-i-need", /How many tiles do I need/],
+    ["/guides/how-much-gravel-do-i-need", /How much gravel do I need/],
+    ["/guides/how-much-mulch-do-i-need", /How much mulch do I need/],
   ];
 
   for (const [path, pattern] of expectations) {
@@ -472,11 +476,31 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   );
   assert.match(
     sitemap,
+    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
+  );
+  assert.match(
+    sitemap,
+    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
+  );
+  assert.match(
+    sitemap,
+    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
+  );
+  assert.match(
+    sitemap,
+    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
+  );
+  assert.match(
+    sitemap,
     /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/methodology<\/loc>/,
   );
 });
 
 test("serves a concise machine-readable site guide", async () => {
+  const llmsSource = await readFile(
+    new URL("../public/llms.txt", import.meta.url),
+    "utf8",
+  );
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("llms", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
@@ -504,6 +528,10 @@ test("serves a concise machine-readable site guide", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
   assert.match(body, /# BuildMeasure/);
   assert.match(body, /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\//);
+  assert.match(llmsSource, /guides\/how-much-paint-do-i-need/);
+  assert.match(llmsSource, /guides\/how-many-tiles-do-i-need/);
+  assert.match(llmsSource, /guides\/how-much-gravel-do-i-need/);
+  assert.match(llmsSource, /guides\/how-much-mulch-do-i-need/);
 });
 
 test("ships a valid IndexNow verification key and bounded submitter", async () => {
