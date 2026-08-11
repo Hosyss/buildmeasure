@@ -235,10 +235,10 @@ export default function MulchCalculatorPage() {
             <p className="eyebrow">Continue planning</p>
             <h2>Estimate the next material.</h2>
           </div>
-          <a className="next-card next-card-live" href="/gravel-calculator">
-            <span>Live</span>
-            <strong>Gravel Calculator</strong>
-            <small>Volume, weight &amp; bags</small>
+          <a className="next-card next-card-live" href="/guides/how-much-mulch-do-i-need">
+            <span>Guide</span>
+            <strong>How Much Mulch Do I Need?</strong>
+            <small>Cubic yards, coverage &amp; bags</small>
           </a>
           <a className="next-card next-card-live" href="/concrete-calculator">
             <span>Live</span>
