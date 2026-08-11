@@ -30,7 +30,7 @@
 ## دفعة العمل النشطة — Traffic Guides Sprint
 
 - الفرع: `agent/traffic-guides-sprint`
-- الحالة: **قيد التنفيذ — Checkpoint 1/6 مكتمل**
+- الحالة: **قيد التنفيذ — Checkpoint 2/6 مكتمل**
 - الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
 - التسليمات المخططة:
   1. دليل حساب دهان الغرفة.
@@ -39,7 +39,13 @@
   4. دليل حساب كمية الـmulch.
   5. روابط داخلية وstructured data وتحديث `sitemap.xml` و`llms.txt`.
   6. اختبارات كاملة، مراجعة Cloudflare، وتسجيل روابط كل commit هنا.
-- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم ابدأ بدليلي Paint وTile. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+- Checkpoint 2 — Paint + Tile:
+  - https://github.com/Hosyss/buildmeasure/commit/cfffc7ab75cd3f40617cf3c373d1982d3d9a5efe
+  - https://github.com/Hosyss/buildmeasure/commit/3fd785e0c23baf34dd97ba4b37bc959922162319
+  - https://github.com/Hosyss/buildmeasure/commit/b1ddf45b48bdb7dbb939e9ae93493d7b7d5db3d9
+  - https://github.com/Hosyss/buildmeasure/commit/d0c8864696767977d4b26ed62917073a6d2bf4b8
+- فحص Checkpoint 2: `git diff --check` وESLint نجحا. فشل تثبيت npm الأول بسبب مسار cache محمي، ثم نجح التثبيت النظيف باستخدام cache مؤقت.
+- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم ابدأ بدليلي Gravel وMulch. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
 
 ## اختبارات الإطلاق المنفّذة
 
