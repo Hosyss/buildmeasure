@@ -30,7 +30,7 @@
 ## دفعة العمل النشطة — Traffic Guides Sprint
 
 - الفرع: `agent/traffic-guides-sprint`
-- الحالة: **قيد التنفيذ — Checkpoint 4/6 مكتمل**
+- الحالة: **قيد التنفيذ — Checkpoint 5/6 مكتمل**
 - Pull Request (Draft): https://github.com/Hosyss/buildmeasure/pull/14
 - الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
 - التسليمات المخططة:
@@ -58,7 +58,13 @@
   - https://github.com/Hosyss/buildmeasure/commit/b2b5cad36d0489acd17401c33a2d619bf1e0b4a0
   - https://github.com/Hosyss/buildmeasure/commit/d5750a73e907b7b58afec036ad692ccbf001d97e
 - فحص Checkpoint 4: `git diff --check` وESLint نجحا. الصفحة الرئيسية تعرض الأدلة الأربعة، و`sitemap.xml` و`llms.txt` واختبارات المسارات تشملها.
-- نقطة الاستئناف الحالية: افحص آخر commit على الفرع ثم شغّل `npm run qa:automated` بالكامل. أصلح أي فشل، حدّث هذا الملف، ثم جهّز PR #14 للدمج. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+- Checkpoint 5 — Full automated QA:
+  - `npm run qa:automated`: نجح بالكامل.
+  - ESLint: نجح.
+  - Unit tests: **82/82** نجحت.
+  - Build: نجح، وتضمن المسارات الأربعة الجديدة.
+  - Rendered/route tests: **17/17** نجحت، ومنها الروابط الداخلية و`robots.txt` و`sitemap.xml` و`llms.txt`.
+- نقطة الاستئناف الحالية: افحص GitHub Checks على PR #14. إذا كانت ناجحة، حوّل الـPR من Draft إلى Ready، ادمجه، ثم تحقق من نشر Cloudflare والمسارات الحية وسجّل الروابط النهائية هنا. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
 
 ## اختبارات الإطلاق المنفّذة
 
