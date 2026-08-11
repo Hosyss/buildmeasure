@@ -30,8 +30,9 @@
 ## دفعة العمل النشطة — Traffic Guides Sprint
 
 - الفرع: `agent/traffic-guides-sprint`
-- الحالة: **قيد التنفيذ — Checkpoint 5/6 مكتمل**
-- Pull Request (Draft): https://github.com/Hosyss/buildmeasure/pull/14
+- الحالة: **مكتمل — Checkpoint 6/6، مدمج ومنشور ومتحقق حيًا**
+- Pull Request: https://github.com/Hosyss/buildmeasure/pull/14
+- Merge commit: https://github.com/Hosyss/buildmeasure/commit/f98ea45add3cd8acbc57ba8b9428baec99906110
 - الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
 - التسليمات المخططة:
   1. دليل حساب دهان الغرفة.
@@ -64,7 +65,16 @@
   - Unit tests: **82/82** نجحت.
   - Build: نجح، وتضمن المسارات الأربعة الجديدة.
   - Rendered/route tests: **17/17** نجحت، ومنها الروابط الداخلية و`robots.txt` و`sitemap.xml` و`llms.txt`.
-- نقطة الاستئناف الحالية: افحص GitHub Checks على PR #14. إذا كانت ناجحة، حوّل الـPR من Draft إلى Ready، ادمجه، ثم تحقق من نشر Cloudflare والمسارات الحية وسجّل الروابط النهائية هنا. لا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+- GitHub quality gate: نجح بالكامل — https://github.com/Hosyss/buildmeasure/actions/runs/31533469963
+- Checkpoint 6 — Merge + production verification:
+  - تم دمج PR #14 في `main` عبر merge commit أعلاه.
+  - اكتمل نشر Cloudflare على Worker الحالي؛ لم يُنشأ Worker أو D1 أو نطاق جديد.
+  - الصفحة الرئيسية، الحاسبات الخمس، الأدلة الأربعة الجديدة، `sitemap.xml`، `robots.txt`، `llms.txt` و`/api/health`: جميعها أعادت HTTP 200.
+  - الأدلة الأربعة تعرض العنوان الصحيح وcanonical المطابق وArticle/Breadcrumb/FAQ structured data.
+  - `/api/health`: `status: ok` مع `feedbackStorage: ok` و`analyticsStorage: ok`.
+  - `sitemap.xml` و`llms.txt` يحتويان مسارات الأدلة الأربعة الجديدة.
+  - أرسل IndexNow خريطة الإنتاج الكاملة: **16 رابطًا، HTTP 202 Accepted**.
+- نقطة الاستئناف الحالية: راقب Google Search Console وBing Webmaster لظهور الصفحات والاستعلامات والنقرات. لا تعتبر إرسال IndexNow أو Sitemap ضمانًا للترتيب، ولا تعِد إنشاء أي مشروع أو قاعدة بيانات.
 
 ## اختبارات الإطلاق المنفّذة
 
@@ -119,6 +129,7 @@
 - PR #10 — Switch canonical production origin to Cloudflare: https://github.com/Hosyss/buildmeasure/pull/10
 - PR #12 — Persist launch handoff and legacy redirect: https://github.com/Hosyss/buildmeasure/pull/12
 - PR #13 — Record production launch audit: https://github.com/Hosyss/buildmeasure/pull/13
+- PR #14 — Add reference-backed traffic guides: https://github.com/Hosyss/buildmeasure/pull/14
 
 ## سجل الـCommits الموثّق
 
