@@ -22,6 +22,7 @@ interface ExecutionContext {
 const LEGACY_HOSTNAME = "buildmeasure.hosys.chatgpt.site";
 const CANONICAL_ORIGIN = "https://buildmeasure.hosy-sthdr.workers.dev";
 const GOOGLE_VERIFICATION_PATH = "/google6d67c58ff3b5201c.html";
+const CLARITY_SOURCES = ["https://*.clarity.ms", "https://c.bing.com"];
 
 /**
  * Keep route hydration loading early without letting it compete with the
@@ -74,11 +75,12 @@ function applySecurityHeaders(
   inlineScriptHashes: ReadonlySet<string> = new Set(),
 ): Response {
   const headers = new Headers(response.headers);
-  const scriptSources = ["'self'", ...inlineScriptHashes].join(" ");
+  const scriptSources = ["'self'", ...inlineScriptHashes, ...CLARITY_SOURCES].join(" ");
+  const claritySources = CLARITY_SOURCES.join(" ");
   headers.set(
     "Content-Security-Policy",
     [
-      "default-src 'self'",
+      `default-src 'self' ${claritySources}`,
       "base-uri 'self'",
       "object-src 'none'",
       "form-action 'self'",
@@ -86,9 +88,9 @@ function applySecurityHeaders(
       `script-src ${scriptSources}`,
       "script-src-attr 'none'",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data:",
+      `img-src 'self' data: ${claritySources}`,
       "font-src 'self'",
-      "connect-src 'self'",
+      `connect-src 'self' ${claritySources}`,
     ].join("; "),
   );
   headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()");
