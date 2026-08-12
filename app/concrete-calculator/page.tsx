@@ -11,23 +11,23 @@ import { absoluteUrl } from "@/lib/site";
 import { ConcreteCalculator } from "./concrete-calculator";
 
 export const metadata: Metadata = {
-  title: "Concrete Calculator — Slabs, Volume & Bags",
+  title: "Concrete Calculator — Cubic Yards & Bags",
   description:
-    "Calculate concrete volume in cubic yards or cubic meters, add waste, and estimate 40, 60, or 80 lb bags with transparent formulas.",
+    "Calculate how much concrete you need for a rectangular slab in cubic yards, cubic feet, cubic meters, and 40, 60, or 80 lb bags with adjustable waste.",
   alternates: {
     canonical: "/concrete-calculator",
   },
   openGraph: {
-    title: "Concrete Calculator — Slabs, Volume & Bags",
+    title: "Concrete Calculator — Cubic Yards & Bags",
     description:
-      "Estimate slab concrete in cubic yards, cubic meters, cubic feet, liters, and bags.",
+      "Calculate slab concrete in cubic yards, cubic feet, cubic meters, and 40, 60, or 80 lb bags with adjustable waste.",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Concrete Calculator — Slabs, Volume & Bags",
+    title: "Concrete Calculator — Cubic Yards & Bags",
     description:
-      "Estimate slab concrete in cubic yards, cubic meters, cubic feet, liters, and bags.",
+      "Calculate slab concrete in cubic yards, cubic feet, cubic meters, and 40, 60, or 80 lb bags.",
   },
 };
 
@@ -36,6 +36,11 @@ const faqs = [
     question: "How does the concrete calculator work?",
     answer:
       "It multiplies length by width by thickness after converting every dimension to a consistent unit. It then adds your chosen waste allowance and converts the result to cubic yards, cubic meters, cubic feet, and liters.",
+  },
+  {
+    question: "How much concrete do I need for a 10 × 10 slab at 4 inches thick?",
+    answer:
+      "A 10 ft × 10 ft slab at 4 inches thick is about 1.235 cubic yards before waste. With a 10% allowance it is about 1.358 cubic yards, or 62 complete 80 lb bags when the selected mix yields 0.60 cubic feet per bag.",
   },
   {
     question: "How much extra concrete should I order?",
@@ -63,7 +68,7 @@ const schema = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     description:
-      "A construction calculator for estimating concrete slab volume and bag quantities.",
+      "A concrete calculator for rectangular slabs that returns cubic yards, cubic feet, cubic meters, and complete bag quantities.",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -122,10 +127,11 @@ export default function ConcreteCalculatorPage() {
             <div className="calculator-hero-grid">
               <div>
                 <p className="eyebrow">Concrete tools</p>
-                <h1>Concrete Calculator</h1>
+                <h1>Concrete Calculator — Cubic Yards &amp; Bags</h1>
                 <p>
-                  Estimate slab volume, waste allowance, and bag quantities
-                  using metric or imperial measurements.
+                  Enter slab length, width, and thickness to calculate how much
+                  concrete you need in cubic yards, cubic meters, and complete
+                  40, 60, or 80 lb bags.
                 </p>
               </div>
               <ul>
@@ -222,7 +228,7 @@ export default function ConcreteCalculatorPage() {
             <h2>Calculate, then verify the purchase plan.</h2>
           </div>
           <a className="next-card next-card-live" href="/guides/how-many-bags-of-concrete">
-            <span>Guide</span><strong>Concrete Bag Guide</strong><small>Formula, yields &amp; examples</small>
+            <span>Guide</span><strong>How Much Concrete for a Slab?</strong><small>Yards, bags &amp; examples</small>
           </a>
           <a className="next-card next-card-live" href="/paint-calculator">
             <span>Live</span><strong>Paint Calculator</strong><small>Walls, coats &amp; cans</small>
