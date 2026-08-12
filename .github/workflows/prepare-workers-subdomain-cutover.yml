@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           old='buildmeasure.hosy-sthdr.workers.dev'
           new='buildmeasure.buildtools.workers.dev'
-          mapfile -t files < <(git grep -Il "$old" -- ':!CHANGELOG.md' ':!docs/AUDITS.md' || true)
+          mapfile -t files < <(git grep -Il "$old" -- ':!CHANGELOG.md' ':!docs/AUDITS.md' ':!.github/workflows/prepare-workers-subdomain-cutover.yml' || true)
           if ((${#files[@]} == 0)); then
             echo "No current-origin references found."
             exit 0
