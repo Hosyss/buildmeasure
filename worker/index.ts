@@ -20,7 +20,7 @@ interface ExecutionContext {
 }
 
 const LEGACY_HOSTNAME = "buildmeasure.hosys.chatgpt.site";
-const CANONICAL_ORIGIN = "https://buildmeasure.hosy-sthdr.workers.dev";
+const CANONICAL_ORIGIN = "https://buildmeasure.buildtools.workers.dev";
 const GOOGLE_VERIFICATION_PATH = "/google6d67c58ff3b5201c.html";
 const CLARITY_SOURCES = ["https://*.clarity.ms", "https://c.bing.com"];
 

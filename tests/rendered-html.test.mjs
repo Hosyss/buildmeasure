@@ -26,7 +26,7 @@ test("redirects the legacy Sites host to the canonical Cloudflare origin", async
   assert.equal(response.status, 301);
   assert.equal(
     response.headers.get("location"),
-    "https://buildmeasure.hosy-sthdr.workers.dev/concrete-calculator?system=metric",
+    "https://buildmeasure.buildtools.workers.dev/concrete-calculator?system=metric",
   );
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
 });
@@ -219,7 +219,7 @@ test("renders the concrete calculator route and structured content", async () =>
   assert.match(html, /href="\/feedback\?calculator=concrete-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/concrete-calculator/,
+    /https:\/\/buildmeasure\.buildtools\.workers\.dev\/concrete-calculator/,
   );
 });
 
@@ -251,7 +251,7 @@ test("renders the paint calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=paint-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/paint-calculator/,
+    /https:\/\/buildmeasure\.buildtools\.workers\.dev\/paint-calculator/,
   );
 });
 
@@ -283,7 +283,7 @@ test("renders the tile calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=tile-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/tile-calculator/,
+    /https:\/\/buildmeasure\.buildtools\.workers\.dev\/tile-calculator/,
   );
 });
 
@@ -315,7 +315,7 @@ test("renders the gravel calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=gravel-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/gravel-calculator/,
+    /https:\/\/buildmeasure\.buildtools\.workers\.dev\/gravel-calculator/,
   );
 });
 
@@ -347,7 +347,7 @@ test("renders the mulch calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=mulch-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/mulch-calculator/,
+    /https:\/\/buildmeasure\.buildtools\.workers\.dev\/mulch-calculator/,
   );
 });
 
@@ -408,7 +408,7 @@ test("renders the launch trust and estimating content", async () => {
     const html = await response.text();
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
-    assert.match(html, new RegExp(`https://buildmeasure\\.hosy-sthdr\\.workers\\.dev${path.replaceAll("/", "\\/")}`));
+    assert.match(html, new RegExp(`https://buildmeasure\\.buildtools\\.workers\\.dev${path.replaceAll("/", "\\/")}`));
   }
 });
 
@@ -438,61 +438,61 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     robots,
-    /Sitemap: https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/sitemap\.xml/,
+    /Sitemap: https:\/\/buildmeasure\.buildtools\.workers\.dev\/sitemap\.xml/,
   );
   assert.match(robots, /Disallow: \/api\//);
   assert.match(robots, /Disallow: \/feedback\/inbox/);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/concrete-calculator<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/concrete-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/paint-calculator<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/paint-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/tile-calculator<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/tile-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/gravel-calculator<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/gravel-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/mulch-calculator<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/mulch-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/material-estimating-basics<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/material-estimating-basics<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-many-bags-of-concrete<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-many-bags-of-concrete<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\/methodology<\/loc>/,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/methodology<\/loc>/,
   );
 });
 
@@ -512,7 +512,7 @@ test("serves a concise machine-readable site guide", async () => {
           const url = new URL(request.url);
           if (url.pathname === "/llms.txt") {
             return new Response(
-              "# BuildMeasure\n\nCanonical site: https://buildmeasure.hosy-sthdr.workers.dev/\n",
+              "# BuildMeasure\n\nCanonical site: https://buildmeasure.buildtools.workers.dev/\n",
               { headers: { "content-type": "text/plain; charset=utf-8" } },
             );
           }
@@ -527,7 +527,7 @@ test("serves a concise machine-readable site guide", async () => {
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
   assert.match(body, /# BuildMeasure/);
-  assert.match(body, /https:\/\/buildmeasure\.hosy-sthdr\.workers\.dev\//);
+  assert.match(body, /https:\/\/buildmeasure\.buildtools\.workers\.dev\//);
   assert.match(llmsSource, /guides\/how-much-paint-do-i-need/);
   assert.match(llmsSource, /guides\/how-many-tiles-do-i-need/);
   assert.match(llmsSource, /guides\/how-much-gravel-do-i-need/);

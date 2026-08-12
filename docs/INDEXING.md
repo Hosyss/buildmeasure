@@ -5,9 +5,9 @@ BuildMeasure uses two complementary, free discovery paths.
 ## Google
 
 - The canonical production origin is
-  `https://buildmeasure.hosy-sthdr.workers.dev/`.
+  `https://buildmeasure.buildtools.workers.dev/`.
 - Add and verify its URL-prefix property in Google Search Console, then submit
-  `https://buildmeasure.hosy-sthdr.workers.dev/sitemap.xml`.
+  `https://buildmeasure.buildtools.workers.dev/sitemap.xml`.
 - Keep the former verified property active during the migration window.
 - Keep `sitemap.xml` submitted and inspect the indexing report weekly.
 - Do not repeatedly request indexing for the same URL. A valid sitemap and an
