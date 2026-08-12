@@ -1,0 +1,41 @@
+name: Fix concrete search intent test
+
+on:
+  push:
+    branches:
+      - seo/concrete-search-intent
+
+permissions:
+  contents: write
+
+jobs:
+  fix-test:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/concrete-search-intent
+          fetch-depth: 0
+
+      - name: Update rendered guide expectation
+        shell: bash
+        run: |
+          set -euo pipefail
+          perl -pi -e 's/How many bags of concrete do I need/How much concrete do I need for a slab/g' tests/rendered-html.test.mjs
+          git diff --check
+
+      - name: Commit expectation update
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/rendered-html.test.mjs
+          git commit -m "Test concrete slab guide search intent"
+          git push origin HEAD:seo/concrete-search-intent
