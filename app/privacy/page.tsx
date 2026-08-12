@@ -43,7 +43,7 @@ export default function PrivacyPage() {
         reference if you later ask for a specific report to be removed.
       </p>
 
-      <h2>First-party product analytics</h2>
+      <h2>Anonymous product analytics</h2>
       <p>
         BuildMeasure records limited first-party events such as opening or using
         a calculator, completing or failing an estimate, using a result action,
