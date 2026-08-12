@@ -11,23 +11,23 @@ import { absoluteUrl } from "@/lib/site";
 import { GravelCalculator } from "./gravel-calculator";
 
 export const metadata: Metadata = {
-  title: "Gravel Calculator — Volume, Tons & Bags",
+  title: "Gravel Calculator — Cubic Yards, Tons & Bags",
   description:
-    "Calculate gravel volume, estimated weight, short tons, metric tonnes, and complete bags for a rectangular area with adjustable depth, density, and allowance.",
+    "Calculate gravel for driveways, paths, and base layers in cubic yards, estimated tons, metric tonnes, and bags with adjustable depth, density, and allowance.",
   alternates: {
     canonical: "/gravel-calculator",
   },
   openGraph: {
-    title: "Gravel Calculator — Volume, Tons & Bags",
+    title: "Gravel Calculator — Cubic Yards, Tons & Bags",
     description:
-      "Estimate gravel volume and weight with transparent density and allowance assumptions.",
+      "Estimate gravel for driveways and paths in cubic yards, tons, and bags with transparent density and allowance assumptions.",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Gravel Calculator — Volume, Tons & Bags",
+    title: "Gravel Calculator — Cubic Yards, Tons & Bags",
     description:
-      "Estimate gravel volume and weight with transparent density and allowance assumptions.",
+      "Estimate gravel for driveways and paths in cubic yards, tons, and bags with transparent density and allowance assumptions.",
   },
 };
 
@@ -73,7 +73,7 @@ const schema = [
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     description:
-      "A rectangular coverage calculator for gravel volume, estimated mass, tons, and complete bags.",
+      "A gravel calculator for driveways, paths, and base layers with cubic yards, estimated mass, tons, and complete bags.",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -134,8 +134,8 @@ export default function GravelCalculatorPage() {
                 <p className="eyebrow">Landscaping &amp; base layers</p>
                 <h1>Gravel Calculator</h1>
                 <p>
-                  Estimate rectangular gravel coverage, volume, weight,
-                  tons, and bags without hiding the density assumption.
+                  Estimate gravel for driveways, paths, and base layers in cubic yards,
+                  weight, tons, and bags without hiding the density assumption.
                 </p>
               </div>
               <ul>

@@ -4,15 +4,15 @@ import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "How Much Gravel Do I Need?",
+  title: "How Much Gravel Do I Need for a Driveway?",
   description:
-    "Calculate gravel volume, cubic yards, estimated tons, and bags from rectangular area, depth, allowance, and a verified bulk density.",
+    "Calculate how much gravel a driveway needs in cubic yards, estimated tons, and bags from area, installed depth, allowance, and verified bulk density.",
   alternates: { canonical: "/guides/how-much-gravel-do-i-need" },
   openGraph: {
     type: "article",
-    title: "How Much Gravel Do I Need?",
+    title: "How Much Gravel Do I Need for a Driveway?",
     description:
-      "A transparent gravel volume and weight formula with density and compaction checks.",
+      "A driveway gravel quantity guide with cubic yards, estimated tons, bags, density, and compaction checks.",
   },
 };
 
@@ -43,11 +43,11 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "How Much Gravel Do I Need?",
+    headline: "How Much Gravel Do I Need for a Driveway?",
     description:
-      "A transparent method for converting rectangular area and depth into gravel volume, estimated mass, tons, and bags.",
+      "A transparent method for converting driveway area and installed depth into gravel volume, estimated mass, tons, and bags.",
     datePublished: "2026-08-11",
-    dateModified: "2026-08-11",
+    dateModified: "2026-08-13",
     mainEntityOfPage: absoluteUrl("/guides/how-much-gravel-do-i-need"),
     author: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/about") },
     publisher: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/") },
@@ -58,7 +58,7 @@ const schema = [
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
       { "@type": "ListItem", position: 2, name: "Gravel Calculator", item: absoluteUrl("/gravel-calculator") },
-      { "@type": "ListItem", position: 3, name: "How Much Gravel Do I Need?", item: absoluteUrl("/guides/how-much-gravel-do-i-need") },
+      { "@type": "ListItem", position: 3, name: "How Much Gravel Do I Need for a Driveway?", item: absoluteUrl("/guides/how-much-gravel-do-i-need") },
     ],
   },
   {
@@ -86,10 +86,10 @@ export default function GravelGuidePage() {
               <span>Gravel Quantity Guide</span>
             </nav>
             <p className="eyebrow">Gravel estimating guide</p>
-            <h1>How much gravel do I need?</h1>
+            <h1>How much gravel do I need for a driveway?</h1>
             <p>
-              Calculate geometric volume first, then use a verified material
-              density only when the order must be converted to weight or bags.
+              Measure the driveway area and installed gravel depth first, then convert
+              that volume to cubic yards, estimated tons, or bags with a verified density.
             </p>
             <div className="guide-meta">
               <span>Published August 11, 2026</span>
@@ -112,10 +112,10 @@ export default function GravelGuidePage() {
           <div className="guide-body">
             <section id="answer">
               <p className="eyebrow">Quick answer</p>
-              <h2>Measure cubic volume before estimating weight</h2>
+              <h2>Driveway gravel starts with area × installed depth</h2>
               <p>
-                Multiply area by the installed depth after converting all
-                dimensions to one unit. Apply a visible allowance only when the
+                For a rectangular driveway, multiply length by width by the installed
+                gravel depth after converting all dimensions to one unit. Apply a visible allowance only when the
                 project needs it. Convert volume to mass using a bulk density
                 that matches the exact aggregate and its loose or compacted state.
               </p>
@@ -191,15 +191,15 @@ export default function GravelGuidePage() {
 
             <section id="example">
               <p className="eyebrow">Worked example</p>
-              <h2>A 10 ft × 10 ft layer, 4 inches deep</h2>
-              <p>Use 10% allowance, 93 lb/ft³ example density, and 50 lb bags.</p>
+              <h2>A 12 ft × 50 ft driveway area, 4 inches deep</h2>
+              <p>Use 10% allowance, 93 lb/ft³ example density, and 50 lb bags. The 4 in depth is an arithmetic example, not a universal driveway specification.</p>
               <ol className="guide-calculation-steps">
-                <li>Net volume: 10 × 10 × (4 ÷ 12) = 33.333 ft³.</li>
-                <li>Net cubic yards: 33.333 ÷ 27 = 1.235 yd³.</li>
-                <li>Order volume: 33.333 × 1.10 = 36.667 ft³ = 1.358 yd³.</li>
-                <li>Estimated mass: 36.667 × 93 = 3,410 lb.</li>
-                <li>Short tons: 3,410 ÷ 2,000 = 1.705 tons.</li>
-                <li>Complete bags: round up (3,410 ÷ 50) = 69 bags.</li>
+                <li>Net volume: 12 × 50 × (4 ÷ 12) = 200 ft³.</li>
+                <li>Net cubic yards: 200 ÷ 27 = 7.407 yd³.</li>
+                <li>Order volume: 200 × 1.10 = 220 ft³ = 8.148 yd³.</li>
+                <li>Estimated mass: 220 × 93 = 20,460 lb.</li>
+                <li>Short tons: 20,460 ÷ 2,000 = 10.23 tons.</li>
+                <li>Complete bags: round up (20,460 ÷ 50) = 410 bags.</li>
               </ol>
               <p>
                 Changing density changes the estimated tons and bags, not the
