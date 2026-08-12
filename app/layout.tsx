@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
+import { ClarityConsent } from "@/components/clarity-consent";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AnalyticsTracker />
+        <ClarityConsent />
         {children}
       </body>
     </html>
