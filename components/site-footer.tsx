@@ -1,3 +1,5 @@
+import { AnalyticsChoicesButton } from "@/components/clarity-consent";
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -30,6 +32,7 @@ export function SiteFooter() {
           <a href="/feedback">Report an issue</a>
           <a href="/status">System status</a>
           <a href="/privacy">Privacy</a>
+          <AnalyticsChoicesButton />
           <a href="/terms">Terms</a>
         </div>
       </div>
