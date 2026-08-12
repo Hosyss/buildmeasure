@@ -12,6 +12,12 @@ Semantic Versioning after the first verified release.
 
 ### Added
 
+- Added a tested Post Hole Concrete Calculator for multiple round holes with
+  optional round or square post displacement, metric and imperial inputs,
+  adjustable allowance, and complete 40/60/80 lb bag estimates.
+- Added post-hole formula documentation, structured metadata, homepage/footer
+  discovery, sitemap and `llms.txt` entries, feedback/analytics compatibility,
+  and deterministic engine coverage.
 - Added a guarded Cloudflare Workers deployment path that accepts a production
   D1 binding through build-time configuration and rejects placeholder storage
   before deployment.
