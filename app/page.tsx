@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { CONCRETE_ENGINE_VERSION } from "@/lib/calculators/concrete";
 import { absoluteUrl } from "@/lib/site";
+import previewStyles from "./project-mode-preview.module.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -261,13 +262,13 @@ export default function Home() {
         </section>
 
         <section className="section shell project-section" id="project-mode">
-          <div className="project-visual" aria-hidden="true">
-            <div className="project-node project-node-main">
+          <div className={`project-visual ${previewStyles.preview}`} aria-hidden="true">
+            <div className={`project-node project-node-main ${previewStyles.node}`}>
               <ProjectIcon />
               <span>Garage project</span>
             </div>
             <div className="project-path" />
-            <div className="project-materials">
+            <div className={`project-materials ${previewStyles.materials}`}>
               <span>Concrete</span>
               <span>Rebar</span>
               <span>Gravel</span>
