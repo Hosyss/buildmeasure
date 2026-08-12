@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const CLARITY_PROJECT_ID = "y1aqxtb5o5";
 const CONSENT_STORAGE_KEY = "buildmeasure-analytics-consent-v1";
 const CHOICES_EVENT = "buildmeasure:analytics-choices";
 
-type ConsentState = "granted" | "denied" | null;
+type ConsentState = "granted" | "denied";
 type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[][] };
 
 declare global {
@@ -92,18 +92,16 @@ const secondaryButtonStyle = {
 } as const;
 
 export function ClarityConsent() {
-  const [consent, setConsent] = useState<ConsentState>(null);
+  const consentGranted = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
     if (stored === "granted") {
-      setConsent("granted");
+      consentGranted.current = true;
       loadClarity();
-    } else if (stored === "denied") {
-      setConsent("denied");
-    } else {
-      setIsOpen(true);
+    } else if (stored !== "denied") {
+      queueMicrotask(() => setIsOpen(true));
     }
 
     const openChoices = () => setIsOpen(true);
@@ -111,24 +109,23 @@ export function ClarityConsent() {
     return () => window.removeEventListener(CHOICES_EVENT, openChoices);
   }, []);
 
-  const choose = useCallback(
-    (next: Exclude<ConsentState, null>) => {
-      window.localStorage.setItem(CONSENT_STORAGE_KEY, next);
-      setConsent(next);
-      setIsOpen(false);
+  const choose = useCallback((next: ConsentState) => {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, next);
+    setIsOpen(false);
 
-      if (next === "granted") {
-        loadClarity();
-        return;
-      }
+    if (next === "granted") {
+      consentGranted.current = true;
+      loadClarity();
+      return;
+    }
 
-      clearClarityConsent();
-      if (consent === "granted") {
-        window.location.reload();
-      }
-    },
-    [consent],
-  );
+    const wasGranted = consentGranted.current;
+    consentGranted.current = false;
+    clearClarityConsent();
+    if (wasGranted) {
+      window.location.reload();
+    }
+  }, []);
 
   if (!isOpen) return null;
 
