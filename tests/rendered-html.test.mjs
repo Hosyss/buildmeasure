@@ -390,7 +390,7 @@ test("renders the launch trust and estimating content", async () => {
     ["/privacy", /Anonymous product analytics/],
     ["/terms", /Verify before purchase or construction/],
     ["/guides/material-estimating-basics", /How to estimate construction materials/],
-    ["/guides/how-many-bags-of-concrete", /How many bags of concrete do I need/],
+    ["/guides/how-many-bags-of-concrete", /How much concrete do I need for a slab/],
     ["/guides/how-much-paint-do-i-need", /How much paint do I need for a room/],
     ["/guides/how-many-tiles-do-i-need", /How many tiles do I need/],
     ["/guides/how-much-gravel-do-i-need", /How much gravel do I need/],
