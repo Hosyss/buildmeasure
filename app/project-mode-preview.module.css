@@ -1,0 +1,55 @@
+.preview {
+  position: relative;
+  cursor: default;
+  user-select: none;
+}
+
+.preview::before {
+  content: "STATIC PREVIEW";
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  color: var(--ink-500);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.node {
+  padding: 10px 4px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--sand-300);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.materials span {
+  position: relative;
+  padding: 14px 6px 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-600);
+  text-align: center;
+}
+
+.materials span::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sand-300);
+  transform: translateX(-50%);
+}
+
+@media (max-width: 720px) {
+  .preview::before {
+    top: 12px;
+    left: 14px;
+  }
+}
