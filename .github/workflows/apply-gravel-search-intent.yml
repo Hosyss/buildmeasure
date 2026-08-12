@@ -53,7 +53,7 @@ jobs:
               '"Calculate gravel volume, cubic yards, estimated tons, and bags from rectangular area, depth, allowance, and a verified bulk density.",',
               '"Calculate how much gravel a driveway needs in cubic yards, estimated tons, and bags from area, installed depth, allowance, and verified bulk density.",'
           )
-          guide = guide.replace('title: "How Much Gravel Do I Need?",', 'title: "How Much Gravel Do I Need for a Driveway?", 1)
+          guide = guide.replace('title: "How Much Gravel Do I Need?",', 'title: "How Much Gravel Do I Need for a Driveway?",', 1)
           guide = guide.replace(
               '"A transparent gravel volume and weight formula with density and compaction checks.",',
               '"A driveway gravel quantity guide with cubic yards, estimated tons, bags, density, and compaction checks.",'
