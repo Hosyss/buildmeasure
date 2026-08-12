@@ -223,10 +223,10 @@ export default function Home() {
           </div>
           <div className="resource-grid">
             <a href="/guides/how-many-bags-of-concrete">
-              <span>Concrete guide</span>
-              <h3>How many bags of concrete do I need?</h3>
-              <p>Turn slab dimensions, product yield, and a visible allowance into complete bags.</p>
-              <strong>Use the bag formula <ArrowIcon /></strong>
+              <span>Concrete slab guide</span>
+              <h3>How much concrete do I need for a slab?</h3>
+              <p>Convert slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
+              <strong>Calculate slab yards and bags <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-much-paint-do-i-need">
               <span>Paint guide</span>

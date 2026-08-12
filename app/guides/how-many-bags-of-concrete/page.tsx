@@ -4,19 +4,24 @@ import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "How Many Bags of Concrete Do I Need?",
+  title: "How Much Concrete Do I Need for a Slab?",
   description:
-    "Estimate 40, 60, and 80 lb concrete bags from slab dimensions, bag yield, and waste—with a worked formula and common-size table.",
+    "Calculate slab concrete in cubic yards and 40, 60, or 80 lb bags, with 10 × 10 and 12 × 12 examples, bag yields, and a visible waste allowance.",
   alternates: { canonical: "/guides/how-many-bags-of-concrete" },
   openGraph: {
     type: "article",
-    title: "How Many Bags of Concrete Do I Need?",
+    title: "How Much Concrete Do I Need for a Slab?",
     description:
-      "A unit-safe method for converting slab volume into complete bags of concrete mix.",
+      "A practical slab guide for converting length, width, and thickness into cubic yards and complete concrete bags.",
   },
 };
 
 const faqs = [
+  {
+    question: "How much concrete do I need for a 10 × 10 slab at 4 inches thick?",
+    answer:
+      "A 10 ft × 10 ft slab at 4 inches thick is about 1.235 cubic yards before waste. With a 10% allowance it is about 1.358 cubic yards. Using an 80 lb bag yield of 0.60 cubic feet, that order volume is 62 complete bags.",
+  },
   {
     question: "How many 80 lb bags make one cubic yard?",
     answer:
@@ -38,11 +43,11 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "How Many Bags of Concrete Do I Need?",
+    headline: "How Much Concrete Do I Need for a Slab?",
     description:
-      "A unit-safe method for converting rectangular slab volume into complete bags of concrete mix.",
+      "A practical method for converting rectangular slab dimensions into cubic yards and complete concrete bag quantities.",
     datePublished: "2026-08-09",
-    dateModified: "2026-08-09",
+    dateModified: "2026-08-12",
     mainEntityOfPage: absoluteUrl("/guides/how-many-bags-of-concrete"),
     author: {
       "@type": "Organization",
@@ -74,7 +79,7 @@ const schema = [
       {
         "@type": "ListItem",
         position: 3,
-        name: "How Many Bags of Concrete",
+        name: "How Much Concrete for a Slab",
         item: absoluteUrl("/guides/how-many-bags-of-concrete"),
       },
     ],
@@ -106,17 +111,17 @@ export default function ConcreteBagGuidePage() {
               <span aria-hidden="true">/</span>
               <a href="/concrete-calculator">Concrete Calculator</a>
               <span aria-hidden="true">/</span>
-              <span>Bag Guide</span>
+              <span>Slab Guide</span>
             </nav>
             <p className="eyebrow">Concrete estimating guide</p>
-            <h1>How many bags of concrete do I need?</h1>
+            <h1>How much concrete do I need for a slab?</h1>
             <p>
-              Convert a rectangular slab into cubic feet, apply a visible
-              allowance, then divide by the exact yield printed for your mix.
+              Calculate slab volume first, convert it to cubic yards, then use
+              the exact yield for your mix when you need complete bag counts.
             </p>
             <div className="guide-meta">
               <span>Published August 9, 2026</span>
-              <span>Uses manufacturer-published example yields</span>
+              <span>Updated August 12, 2026</span>
             </div>
           </div>
         </section>
@@ -125,7 +130,7 @@ export default function ConcreteBagGuidePage() {
           <nav className="guide-toc" aria-label="On this page">
             <strong>On this page</strong>
             <a href="#answer">Quick answer</a>
-            <a href="#formula">Bag formula</a>
+            <a href="#formula">Slab formula</a>
             <a href="#yields">Example bag yields</a>
             <a href="#table">Common slab table</a>
             <a href="#example">Worked example</a>
@@ -135,12 +140,13 @@ export default function ConcreteBagGuidePage() {
           <div className="guide-body">
             <section id="answer">
               <p className="eyebrow">Quick answer</p>
-              <h2>Volume first, bags last</h2>
+              <h2>Calculate slab volume, then yards or bags</h2>
               <p>
                 Multiply length by width by thickness after converting every
-                dimension to feet. Apply your project-specific allowance, then
-                divide the order volume by the bag yield. Round only the final
-                bag count upward because suppliers sell complete bags.
+                dimension to feet. Divide cubic feet by 27 for cubic yards. If
+                you are using bagged mix, apply your project-specific allowance,
+                divide by the yield printed for the exact product, and round the
+                final bag count upward.
               </p>
               <a className="button button-primary guide-primary-action" href="/concrete-calculator">
                 Calculate my slab now
@@ -149,10 +155,12 @@ export default function ConcreteBagGuidePage() {
 
             <section id="formula">
               <p className="eyebrow">The formula</p>
-              <h2>Calculate concrete bags step by step</h2>
+              <h2>Calculate concrete for a slab step by step</h2>
               <div className="formula-block guide-formula-block">
                 <span>Net cubic feet</span>
                 <code>length (ft) × width (ft) × thickness (ft)</code>
+                <span>Net cubic yards</span>
+                <code>net cubic feet ÷ 27</code>
                 <span>Order cubic feet</span>
                 <code>net volume × (1 + allowance ÷ 100)</code>
                 <span>Complete bags</span>
@@ -160,7 +168,8 @@ export default function ConcreteBagGuidePage() {
               </div>
               <p>
                 When thickness is measured in inches, divide it by 12 before
-                multiplying. To convert cubic feet to cubic yards, divide by 27.
+                multiplying. Keep full precision through the calculation and
+                round only the displayed result or final package quantity.
               </p>
             </section>
 
@@ -248,7 +257,7 @@ export default function ConcreteBagGuidePage() {
 
             <section className="faq-list guide-faq" aria-labelledby="bag-faq-title">
               <p className="eyebrow">Common questions</p>
-              <h2 id="bag-faq-title">Concrete bag FAQ</h2>
+              <h2 id="bag-faq-title">Concrete slab FAQ</h2>
               {faqs.map((faq, index) => (
                 <details key={faq.question} open={index === 0}>
                   <summary>{faq.question}<span aria-hidden="true">+</span></summary>
@@ -260,7 +269,7 @@ export default function ConcreteBagGuidePage() {
             <div className="utility-callout">
               <strong>Need dimensions, waste, yards, meters, and bags in one result?</strong>
               <p>
-                Open the <a href="/concrete-calculator">BuildMeasure Concrete Calculator</a> and keep the product yield adjustable.
+                Open the <a href="/concrete-calculator">BuildMeasure Concrete Calculator for cubic yards and bags</a> and keep the product yield adjustable.
               </p>
             </div>
           </div>
