@@ -26,7 +26,7 @@ test("redirects the legacy Sites host to the canonical Cloudflare origin", async
   assert.equal(response.status, 301);
   assert.equal(
     response.headers.get("location"),
-    "https://buildmeasure.hosy-sthdr.workers.dev/concrete-calculator?system=metric",
+    "https://buildmeasure.buildtools.workers.dev/concrete-calculator?system=metric",
   );
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
 });
@@ -512,7 +512,7 @@ test("serves a concise machine-readable site guide", async () => {
           const url = new URL(request.url);
           if (url.pathname === "/llms.txt") {
             return new Response(
-              "# BuildMeasure\n\nCanonical site: https://buildmeasure.hosy-sthdr.workers.dev/\n",
+              "# BuildMeasure\n\nCanonical site: https://buildmeasure.buildtools.workers.dev/\n",
               { headers: { "content-type": "text/plain; charset=utf-8" } },
             );
           }

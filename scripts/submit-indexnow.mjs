@@ -1,4 +1,4 @@
-const siteOrigin = "https://buildmeasure.hosy-sthdr.workers.dev";
+const siteOrigin = "https://buildmeasure.buildtools.workers.dev";
 const indexNowKey = "bb6fa46f3784f7f264c8d9ed4a9cc44c";
 const indexNowEndpoint = "https://api.indexnow.org/indexnow";
 const keyLocation = `${siteOrigin}/${indexNowKey}.txt`;

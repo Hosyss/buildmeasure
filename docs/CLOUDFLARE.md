@@ -1,6 +1,6 @@
 # Cloudflare deployment
 
-BuildMeasure is deployed at `https://buildmeasure.hosy-sthdr.workers.dev`
+BuildMeasure is deployed at `https://buildmeasure.buildtools.workers.dev`
 with the production D1 binding. The original Sites deployment remains available
 during the rollback window, but the Cloudflare Worker is the canonical origin.
 Keep both deployments until Search Console accepts the new URL-prefix property

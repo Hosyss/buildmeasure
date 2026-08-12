@@ -31,7 +31,7 @@
 | GitHub | https://github.com/Hosyss/buildmeasure |
 | فرع الإنتاج | `main` |
 | أحدث commit موثق وقت التسليم | `d28c112ff48d8896755d9cc9691076f4ff7c41bf` |
-| رابط الإنتاج الأساسي | https://buildmeasure.hosy-sthdr.workers.dev |
+| رابط الإنتاج الأساسي | https://buildmeasure.buildtools.workers.dev |
 | الرابط القديم | https://buildmeasure.hosys.chatgpt.site |
 | سلوك الرابط القديم | HTTP 301 إلى رابط Cloudflare مع حفظ المسار والاستعلام |
 | Cloudflare Worker | `buildmeasure` |
@@ -140,10 +140,10 @@ BuildMeasure موقع مجاني لحاسبات البناء وDIY، يركز ع
 - أُنشئت قاعدة D1 واحدة فقط باسم `buildmeasure-production`.
 - رُبط GitHub بـCloudflare ونُشر Worker الحالي `buildmeasure`.
 - عُدّل canonical وكل ملفات الاكتشاف إلى:
-  `https://buildmeasure.hosy-sthdr.workers.dev`
+  `https://buildmeasure.buildtools.workers.dev`
 - الرابط القديم على ChatGPT Sites بقي كتحويل 301 دائم للمحافظة على الزوار والإشارات القديمة.
 - تم إثبات ملكية رابط Cloudflare في Search Console وإرسال:
-  `https://buildmeasure.hosy-sthdr.workers.dev/sitemap.xml`
+  `https://buildmeasure.buildtools.workers.dev/sitemap.xml`
 - لا تحذف خاصية الرابط القديم من Search Console أثناء فترة الانتقال.
 
 ### Traffic Guides Sprint — 2026-08-11
@@ -217,7 +217,7 @@ BuildMeasure موقع مجاني لحاسبات البناء وDIY، يركز ع
   - subdomains على منصات ضمن Public Suffix List،
   - مواقع شركاء AdSense.
 - عنوان BuildMeasure الحالي متعدد المستويات:
-  `buildmeasure.hosy-sthdr.workers.dev`.
+  `buildmeasure.buildtools.workers.dev`.
 - لا تفترض القبول أو الرفض نظريًا. الخطوة الصحيحة التالية هي فتح حساب AdSense الموقّع، Sites → Add site، وتجربة العنوان الفعلي وتسجيل رسالة الواجهة كما هي.
 - إذا قبلته الواجهة:
   1. التقط AdSense publisher ID/snippet من الحساب دون مشاركة credentials أو tokens.

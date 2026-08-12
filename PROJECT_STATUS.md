@@ -8,7 +8,7 @@
 
 - المستودع الرسمي: https://github.com/Hosyss/buildmeasure
 - فرع الإنتاج: `main`
-- رابط الإنتاج الأساسي: https://buildmeasure.hosy-sthdr.workers.dev
+- رابط الإنتاج الأساسي: https://buildmeasure.buildtools.workers.dev
 - الرابط القديم (تحويل دائم 301): https://buildmeasure.hosys.chatgpt.site
 - قاعدة Cloudflare D1 الحالية: `buildmeasure-production`
 - إصدار التطبيق: `0.5.3`
@@ -86,7 +86,7 @@
 - الصفحة الرئيسية، الحاسبات الخمس، `/status`، `/api/health`، `/robots.txt`، `/sitemap.xml` و`/llms.txt`: HTTP 200 على الإنتاج الجديد.
 - التحويل الحي:
   - من: `https://buildmeasure.hosys.chatgpt.site/concrete-calculator?system=metric`
-  - إلى: `https://buildmeasure.hosy-sthdr.workers.dev/concrete-calculator?system=metric`
+  - إلى: `https://buildmeasure.buildtools.workers.dev/concrete-calculator?system=metric`
   - الحالة: HTTP 301.
 - رؤوس الأمان الأساسية موجودة: CSP، HSTS، Permissions-Policy، Referrer-Policy، X-Content-Type-Options وX-Frame-Options.
 - خط الأساس قبل النقل:
