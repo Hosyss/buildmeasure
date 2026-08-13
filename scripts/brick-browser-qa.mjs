@@ -234,7 +234,7 @@ async function state(client) {
       const price = document.querySelector('input[aria-label="Price per brick"]');
       const currency = document.querySelector('input[placeholder="$' + ', EUR, EGP"]');
       const notice = normalize(document.querySelector(".calculator-notice")?.textContent);
-      const history = normalize(document.querySelector(".calculator-history")?.textContent);
+      const history = normalize(document.querySelector(".history-panel")?.textContent);
       return {
         wallLength: inputValue("Wall length"),
         wallHeight: inputValue("Wall height"),
@@ -373,7 +373,7 @@ try {
   assert.equal(current.brickChoice, "modular");
   assert.equal(current.coverageRate, "675");
   assert.equal(current.coverageReadOnly, true);
-  assert.match(current.resultBreakdown, /Net brick area 144 ft²/);
+  assert.match(current.resultBreakdown, /Net brick area\s*144 ft²/);
   assert.match(current.body, /fired-clay brick/i);
   assert.match(current.body, /Running \/ stack only/);
   assert.match(current.body, /does not estimate mortar/i);
@@ -451,7 +451,7 @@ try {
   assert.equal(blankCost.price, "");
   assert.equal(blankCost.costSummary, null);
   current = await setPrice(client, "10", "EGP");
-  assert.match(current.costSummary, /Estimated material cost EGP 10,210/);
+  assert.match(current.costSummary, /Estimated material cost\s*EGP 10,210/);
   assert.match(current.costSummary, /1,021 × EGP 10\.00 per brick/);
   await selectByLabel(client, "Brick coverage basis", "standard");
   current = await state(client);
@@ -485,7 +485,7 @@ try {
   await clickButton(client, "Print");
   const printed = await evaluate(client, `window.__brickPrinted === true`);
   assert.equal(printed, true);
-  await clickButton(client, "Clear saved estimates");
+  await clickButton(client, "Clear all");
   current = await state(client);
   assert.doesNotMatch(current.history, /1,021 bricks to order/);
 
@@ -509,7 +509,7 @@ try {
         .filter(Boolean);
     })()`,
   );
-  for (const expected of ["Imperial", "Metric", "Reset", "Brick coverage basis", "Price per brick", "Copy", "Save", "Print", "Report an issue"]) {
+  for (const expected of ["Imperial", "Metric", "Reset", "Modular", "Price per brick", "Copy", "Save", "Print", "Report a calculation issue"]) {
     assert.equal(
       focusableSummary.some((entry) => entry.includes(expected)),
       true,
