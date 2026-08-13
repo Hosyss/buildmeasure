@@ -20,13 +20,14 @@ jobs:
           fetch-depth: 0
 
       - name: Apply reviewed integration patch
-        run: node scripts/apply-cost-estimator.mjs
+        run: node scripts/apply-cost-estimator-v2.mjs
 
       - name: Remove temporary patch plumbing and commit
         shell: bash
         run: |
           set -euo pipefail
           rm scripts/apply-cost-estimator.mjs
+          rm scripts/apply-cost-estimator-v2.mjs
           rm .github/workflows/apply-cost-estimator.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
