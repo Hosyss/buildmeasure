@@ -3,6 +3,8 @@
 > Reference-backed construction and DIY calculators with transparent formulas, visible assumptions, and metric and imperial inputs.
 
 Canonical site: https://buildmeasure.buildtools.workers.dev/
+Maintainer: Hosyss — https://github.com/Hosyss
+Source and verified releases: https://github.com/Hosyss/buildmeasure
 
 ## Calculators
 
