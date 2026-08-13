@@ -716,3 +716,58 @@ Every required category remains above the project minimum of 95.
 ### Release follow-up
 
 Before describing the cost estimator as released, the feature branch must remove all temporary QA scripts/workflows, pass the normal final GitHub quality gate on the cleaned head, merge through PR review, pass the main-branch release checks, deploy successfully to the existing Cloudflare Worker, and be verified on the canonical production origin. Only after verified production content changes should IndexNow be submitted once, following `docs/INDEXING.md`.
+
+## 2026-08-13 — Post-hole concrete long-tail guide SEO milestone audit
+
+| Field | Value |
+| --- | --- |
+| Status | **Passed — source SEO/content milestone gate; final clean CI and production verification still required before release** |
+| Product version | 0.5.3 plus targeted Post-hole concrete guide milestone |
+| Audited product source revision | `16ab7e0192b0dab07849616ece3a45aa45a6c1f0` |
+| Successful milestone run | GitHub Actions `31677609841`, job `94375541253` |
+| Evidence artifact | `post-hole-guide-milestone-qa` — ID `9172250593`, SHA-256 `7f902403b6b7820c684cf8e1a79dd4353d0c26fc4c47f74ab9b0ddd183b25c68` |
+| Audit tool | Google Lighthouse 13.4.1 plus supervised headless Chrome guide QA |
+| Target | Local production Worker build on GitHub-hosted Ubuntu; lab evidence, not deployed field data |
+| Profiles | Exact 360 px, 768 px, and 1280 px browser checks; Lighthouse default mobile and desktop preset |
+
+### Scope and content safeguards
+
+- Added one focused long-tail route, `/guides/how-many-bags-of-concrete-for-post-holes`, instead of mass-generating thin pages.
+- The guide reuses the reviewed Post-hole quantity assumptions and documented Sakrete 40/60/80 lb example yields without changing any calculator engine under `lib/calculators/`.
+- The controlled 12 in diameter × 24 in concrete-depth example is explicitly labeled as a calculation example, not a recommended hole size.
+- The content does not prescribe hole diameter, embedment depth, frost depth, footing geometry, reinforcement, soil, wind-load, or code requirements.
+- Visible structured data is limited to Article, BreadcrumbList, and FAQPage; no HowTo structured data is published.
+- The guide is linked from the homepage and Post Hole Concrete Calculator and is listed in the sitemap and `llms.txt`.
+
+### Automated gate
+
+- `npm run qa:automated` passed with lint, **103/103** unit/engine tests, the verified production build and artifact validation, and **21/21** rendered application/API/content tests.
+- The two guide-specific rendered tests verify HTTP 200 rendering, canonical metadata, Article/Breadcrumb/FAQ structured data, absence of HowTo schema, known example values, structural-design disclaimers, homepage/calculator discovery, sitemap discovery, and `llms.txt` discovery.
+- `npm audit --omit=dev --audit-level=high` reported zero vulnerabilities.
+
+### Supervised browser evidence
+
+- The final guide browser matrix passed at exact **360 px, 768 px, and 1280 px**.
+- It verified the production canonical URL, Article/BreadcrumbList/FAQPage schema types, absence of HowTo schema, known-result copy, explicit “not a recommended hole size” language, calculator/slab-guide/source links, and dismissal of the analytics-consent overlay before visual evidence.
+- The homepage and Post-hole calculator both expose the new guide link.
+- Final browser evidence recorded zero site-originated console/runtime errors and no page-level horizontal overflow.
+
+### Lighthouse closing matrix
+
+| Route group | Mobile P/A/BP/SEO | Desktop P/A/BP/SEO |
+| --- | --- | --- |
+| Homepage | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
+| All six live calculators | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
+| `/guides/how-many-bags-of-concrete-for-post-holes` | **99 / 96 / 100 / 100** | **100 / 96 / 100 / 100** |
+
+All 16 scored Lighthouse reports met the project minimum of 95 in every audited category. Two explicit warm-up passes were excluded from scored release evidence; the threshold was not changed.
+
+### Preliminary failure and controlled fix
+
+The first milestone browser run (`31677432511`, job `94374986891`) exposed a **real responsive defect** before Lighthouse was allowed to run: at a 360 px viewport the guide document expanded to **467 px**. The failure was not treated as runner variance or ignored.
+
+Investigation traced the overflow to the guide grid's min-content sizing: the reference table correctly used an internal horizontal-scroll wrapper and a 560 px table minimum, but `.guide-body` lacked `min-width: 0`, allowing the grid item to widen the page before the wrapper could contain the table. The permanent guide-layout containment fix adds `min-width: 0` to `.guide-body`. The full browser QA then passed at 360/768/1280 px, and only after that did the 16-report Lighthouse matrix run and pass.
+
+### Release follow-up
+
+Before describing this guide as released, remove all temporary milestone QA workflows/scripts, run the normal GitHub quality gate on the cleaned PR head, merge through PR review, pass main-branch checks, verify the Cloudflare Workers deployment and the new guide on the canonical production origin, then submit only the changed public URLs to IndexNow once. Do not use the exhausted manual Google Search Console indexing quota.
