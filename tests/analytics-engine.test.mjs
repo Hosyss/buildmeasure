@@ -31,6 +31,21 @@ test("accepts a bounded anonymous calculator event", () => {
   }
 });
 
+test("accepts Brick Calculator events through the shared calculator registry", () => {
+  const result = validateAnalyticsPayload(
+    validPayload({
+      calculator: "brick-calculator",
+      route: "/brick-calculator",
+    }),
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(result.value.calculator, "brick-calculator");
+    assert.equal(result.value.route, "/brick-calculator");
+  }
+});
+
 test("accepts site-wide error events without a calculator", () => {
   const result = validateAnalyticsPayload(
     validPayload({
