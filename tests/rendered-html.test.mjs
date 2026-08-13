@@ -445,7 +445,7 @@ test("renders the launch trust and estimating content", async () => {
 
     if (path === "/about") {
       assert.match(html, /independently developed calculator project/);
-      assert.match(html, /six live calculators/);
+      assert.match(html, /seven live calculators/);
       assert.match(html, /browser(?:&apos;|')s local storage/);
       assert.match(html, /https:\/\/github\.com\/Hosyss\/buildmeasure/);
       assert.match(html, /Hosyss/);
