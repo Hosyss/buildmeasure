@@ -27,11 +27,13 @@ export function CalculatorCostFields({
   onUnitPriceChange,
   onCurrencyLabelChange,
 }: CalculatorCostFieldsProps) {
+  const priceLabel = `Optional price per ${unitLabel}`;
+
   return (
     <>
       <div className="option-grid">
         <label className={error?.field === "unitPrice" ? "field-invalid" : ""}>
-          <span>Optional price per {unitLabel}</span>
+          <span>{priceLabel}</span>
           <span className="input-with-unit">
             <input
               type="number"
@@ -41,6 +43,7 @@ export function CalculatorCostFields({
               value={unitPrice}
               placeholder="Leave blank"
               onChange={(event) => onUnitPriceChange(event.target.value)}
+              aria-label={`Price per ${unitLabel}`}
               aria-describedby={error?.field === "unitPrice" ? errorId : `${errorId}-help`}
             />
             <span>{currencyLabel.trim() || "currency"}</span>
