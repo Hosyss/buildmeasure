@@ -13,12 +13,12 @@ operations.
 | Workstream | Weight | Verified credit | Current evidence / remaining work |
 | --- | ---: | ---: | --- |
 | Architecture and documentation | 15% | 15% | Architecture, workflow, formula records, QA policy, and audit log exist |
-| Shared engine, UI, units, storage | 15% | 13% | Shared utilities and components, local history, 44 px action targets, anonymous feedback, and privacy-conscious usage events exist; broader cross-browser review remains |
+| Shared engine, UI, units, storage | 15% | 15% | Shared utilities and components, local history, 44 px action targets, anonymous feedback, privacy-conscious usage events, and real Firefox/WebKit production coverage exist |
 | First seven calculators | 30% | 30% | Concrete, Post-hole Concrete, Paint, Tile, Brick, Gravel, and Mulch have documented engines, tested pages, SEO integration, and recorded milestone evidence |
 | QA and release evidence | 15% | 15% | Full automated gates, rendered-route coverage, responsive/browser audits, and Lighthouse evidence exist; each critical or major follow-up records its own current evidence in `docs/AUDITS.md` |
 | SEO and useful page content | 15% | 15% | Calculator metadata, schema, formulas, FAQs, worked examples, internal links, sitemap, estimating guides, methodology, and trust/legal pages exist; Google Search Console ownership is verified and the sitemap is submitted |
 | Public launch, feedback, monitoring | 10% | 9% | The existing site is public with anonymous feedback, a private owner inbox, privacy-conscious interaction/error/source monitoring, retention cleanup, health/status surfaces, PageSpeed evidence, and an MDN Observatory A+; enough real-user field data and independent usability feedback remain |
-| **Total** | **100%** | **97%** | Rounded only after evidence is added |
+| **Total** | **100%** | **99%** | Rounded only after evidence is added |
 
 Progress changes only when a workstream has runnable code, recorded evidence,
 or published documentation. A plan or claim does not earn credit.
@@ -66,6 +66,22 @@ The weighted **Launch-ready v1 remains 97%** because the remaining broader cross
   verified with a live Brick route redirect.
 - This corrective audit is closed. The remaining launch gap is unchanged:
   broader Firefox/WebKit coverage plus real-user field data and independent
+  usability feedback.
+
+## Cross-browser production closure
+
+- GitHub Actions run `31740101544`, job `94581135552`, passed **14/14**
+  Playwright 1.55.0 checks on real Firefox 141.0 and WebKit 26.0 engines.
+- Both engines covered all seven calculators, all seven focused material
+  guides, the homepage, four public HTTP surfaces, and exact 360/768/1280
+  viewport families.
+- The matrix found no horizontal overflow, uncaught page error, failed
+  non-analytics same-origin request, or Brick unit-boundary regression.
+- Evidence artifact `9196777247` retains the HTML report and screenshots.
+- The initial failed run was a controlled harness diagnostic and is recorded in
+  `docs/AUDITS.md`; no product source changed during this closure.
+- The technical launch-readiness gap is closed. Launch-ready v1 is now **99%**;
+  the final 1% requires sufficient real-user field data and independent
   usability feedback.
 
 ## Master product vision
