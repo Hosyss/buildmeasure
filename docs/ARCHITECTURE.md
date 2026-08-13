@@ -40,17 +40,24 @@ Formatting and display rounding belong to the UI. Procurement rounding, such
 as rounding bags upward, belongs to the engine because it changes the material
 quantity.
 
-## Current routes
+## Current public routes
 
-- `/` — product homepage and calculator roadmap.
-- `/concrete-calculator` — first production calculator.
+- `/` — production homepage and live calculator library.
+- `/concrete-calculator` — rectangular concrete slab calculator.
+- `/post-hole-concrete-calculator` — round post-hole concrete quantity calculator.
 - `/paint-calculator` — interior rectangular room paint calculator.
 - `/tile-calculator` — rectangular floor and wall tile order calculator.
+- `/gravel-calculator` — rectangular gravel coverage and mass calculator.
+- `/mulch-calculator` — rectangular mulch-bed volume and bag calculator.
+- `/about` — ownership, product scope, privacy, and trust information.
+- `/methodology` — calculation and QA methodology.
 - `/robots.txt` — crawler policy.
 - `/sitemap.xml` — current route discovery.
 
 ## Planned evolution
 
 Shared unit constants and validation predicates were extracted when the second
-calculator created a real reuse requirement. Project Mode will consume the same
-calculator engines rather than recreate formulas.
+calculator created a real reuse requirement. Project Mode remains a roadmap
+capability and will consume the same calculator engines rather than recreate
+formulas. It is not promoted as a live homepage feature until implemented and
+verified.
