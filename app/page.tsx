@@ -265,6 +265,12 @@ export default function Home() {
               <p>Convert room and tile dimensions into complete boxes with an explicit waste allowance.</p>
               <strong>Plan the tile order <ArrowIcon /></strong>
             </a>
+            <a href="/guides/how-many-bricks-do-i-need">
+              <span>Brick guide</span>
+              <h3>How many bricks do I need for a wall?</h3>
+              <p>Subtract measured openings, apply documented fired-clay brick coverage, and keep waste explicit.</p>
+              <strong>Plan the brick order <ArrowIcon /></strong>
+            </a>
             <a href="/guides/how-much-gravel-do-i-need">
               <span>Gravel guide</span>
               <h3>How much gravel do I need?</h3>
