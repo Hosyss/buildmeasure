@@ -1,0 +1,54 @@
+name: Temporary record production evidence
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  record:
+    if: github.head_ref == 'chore/record-ux-production-verification'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/record-ux-production-verification
+          fetch-depth: 0
+
+      - name: Record verified production closure and clean temporary QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          audits = Path('docs/AUDITS.md')
+          progress = Path('docs/PROGRESS.md')
+
+          audit_text = audits.read_text(encoding='utf-8')
+          marker = '## 2026-08-13 — UX clarity production deployment closure'
+          if marker not in audit_text:
+              audit_text = audit_text.rstrip() + '''\n\n\n## 2026-08-13 — UX clarity production deployment closure\n\n| Field | Value |\n| --- | --- |\n| Status | **Passed — merged, deployed, and verified on Cloudflare Production** |\n| Source PR | `#33 — Clarify calculator UX, CTAs, typography, and guide density` |\n| Merge commit | `38fcad44ab803e5167f392547f2b4815301a1885` |\n| Main quality gate | GitHub Actions `31698057960` — **passed** |\n| Verified-source backup | GitHub Actions `31698119121` — **passed** |\n| Production host | `https://buildmeasure.buildtools.workers.dev/` |\n| Definitive production smoke | GitHub Actions `31699354811`, job `94444463894` — **passed** |\n\n### Production verification\n\n- The merged PR #33 markers were present on Cloudflare Production: the homepage **Example estimate**, Brick static `brick-rate-output`, and Brick-guide **Open Brick Calculator** CTA.\n- HTTP **200** was verified for the homepage, all seven calculator routes, all seven focused material-guide routes, `/api/health`, `/status`, `/robots.txt`, `/sitemap.xml`, and `/llms.txt`.\n- A valid production `POST /api/analytics` returned **204**.\n- Supervised headless-Chrome production checks passed at exact **360×900**, **768×1024**, and **1280×900** viewports for the homepage, Brick Calculator, and Brick wall guide.\n- The homepage kept one semantic Example-estimate link with no fake form controls and the expected **Browse calculators** CTA.\n- Brick passed Imperial preset output → Metric preset output → Custom editable coverage interaction on Production, with the expected **All calculators** header CTA.\n- The Brick guide exposed both its header and primary Brick Calculator CTAs.\n- No horizontal overflow, site page errors, or non-analytics same-origin request failures were observed on the directly affected production surfaces. Critical internal destinations resolved successfully.\n\n### Failed diagnostics retained\n\nProduction deployment itself was already proven live while temporary browser harnesses were being corrected; those failed diagnostics are retained rather than rewritten as product passes:\n\n- Run `31698413359`, job `94441411972`: the merged UX markers reached Cloudflare immediately, but the first combined browser harness exited non-zero without exposing a useful failure detail.\n- Run `31698574147`, job `94441922381`: the diagnostic rerun reproduced the harness failure; GitHub still exposed only the wrapper exit code.\n- Run `31698730787`, job `94442421749`: production markers and the full HTTP route/API gate passed, then the browser harness failed before useful assertions because the temporary ESM script was written under `/tmp` while `puppeteer-core` was installed in the repository.\n- Run `31699001042`, job `94443287332`: after fixing module resolution, production HTTP again passed; the browser step still exited before its intended diagnostic because GitHub's Bash runner preserves `-e`.\n- Run `31699161652`, job `94443811833`: explicit diagnostics showed the only remaining failures were best-effort `/api/analytics` requests aborted as the QA browser closed pages. The application intentionally catches analytics-fetch failures, and the definitive closure therefore tested `/api/analytics` directly (204) while excluding only analytics teardown aborts from browser request-failure gating.\n- Run `31699354811`, job `94444463894`: the corrected definitive gate passed end-to-end.\n\n### Release state\n\n- PR #33 is merged and its public UX/content changes are verified on Production.\n- No calculator engine or formula was changed by the production-verification follow-up.\n- PR #27 and PR #32 remain untouched.\n- No Google Search Console manual-indexing request was made.\n- **IndexNow has not been submitted yet**; the production evidence is now sufficient to make that decision separately and submit only the actually changed public URLs once if appropriate.\n''' + '\n'
+              audits.write_text(audit_text, encoding='utf-8')
+
+          progress_text = progress.read_text(encoding='utf-8')
+          replacement = '''## UX clarity production closure\n\n- PR #33 was reviewed, marked Ready, and merged to `main`.\n- Merge commit: `38fcad44ab803e5167f392547f2b4815301a1885`.\n- Main quality gate: GitHub Actions run `31698057960` — **passed**.\n- Verified-source backup: GitHub Actions run `31698119121` — **passed**.\n- Cloudflare Production: `https://buildmeasure.buildtools.workers.dev/`.\n- Definitive production smoke: run `31699354811`, job `94444463894` — **passed**.\n- Production verification covered all seven calculator routes, all seven focused material guides, health/status/robots/sitemap/llms, a valid analytics POST, exact 360/768/1280 browser widths, homepage Example-estimate semantics, Brick Imperial/Metric/Custom interaction, guide/header CTAs, critical internal destinations, horizontal overflow, page errors, and non-analytics same-origin request failures.\n- Earlier temporary production-smoke failures are retained in `docs/AUDITS.md`; they were QA-harness diagnostics and were not relabeled as product successes.\n- No calculator file under `lib/calculators/` changed in the UX release or this closure.\n- PR #27 and PR #32 remain untouched. No Google Search Console manual-indexing request was made.\n- IndexNow remains **not submitted** pending the post-verification indexing decision.\n\nThe weighted **Launch-ready v1 remains 97%**: this production closure resolves the UX release boundary but does not remove the remaining broader cross-browser/real-user field-data and independent-usability-feedback gaps in the weighted table. The approximate master-product vision remains **~2%**.\n\n'''
+          pattern = r'## Active handoff — UX clarity and documentation\n.*?(?=\n## Master product vision)'
+          updated, count = re.subn(pattern, replacement.rstrip(), progress_text, count=1, flags=re.S)
+          if count != 1:
+              raise SystemExit('Could not locate the active UX handoff section in docs/PROGRESS.md')
+          progress.write_text(updated, encoding='utf-8')
+          PY
+
+          rm -f .github/workflows/temporary-production-ux-smoke-v5.yml
+          rm -f .github/workflows/temporary-record-production-evidence.yml
+
+          git config user.name 'BuildMeasure QA'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/AUDITS.md docs/PROGRESS.md .github/workflows
+          git diff --cached --check
+          git commit -m 'Record UX production deployment closure'
+          git push origin HEAD:chore/record-ux-production-verification
