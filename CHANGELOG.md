@@ -7,6 +7,17 @@ Semantic Versioning after the first verified release.
 
 ### Changed
 
+- Removed development-preview metadata and the unimplemented Project Mode
+  promotion from the public homepage and footer so production surfaces describe
+  only verified live functionality.
+- Published BuildMeasure's independent maintainer identity as `Hosyss` in site
+  metadata, structured data, About content, footer copy, and repository docs,
+  with direct links to the public source and verified release history.
+- Updated the About page to reflect all six live calculators and to explain that
+  saved estimates stay in browser-local storage, do not sync between devices,
+  and can be lost when site data is cleared.
+- Aligned agent and architecture documentation with the current verified
+  Cloudflare Workers production origin and live route inventory.
 - Switched canonical metadata, the sitemap, machine-readable links, IndexNow,
   and the security policy to the verified Cloudflare Workers production origin.
 
