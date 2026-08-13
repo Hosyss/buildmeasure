@@ -18,6 +18,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 ## Guides and methodology
 
 - [How Much Concrete Do I Need for a Slab?](https://buildmeasure.buildtools.workers.dev/guides/how-many-bags-of-concrete)
+- [How Many Bags of Concrete for Post Holes?](https://buildmeasure.buildtools.workers.dev/guides/how-many-bags-of-concrete-for-post-holes)
 - [How Much Paint Do I Need for a Room?](https://buildmeasure.buildtools.workers.dev/guides/how-much-paint-do-i-need)
 - [How Many Tiles Do I Need?](https://buildmeasure.buildtools.workers.dev/guides/how-many-tiles-do-i-need)
 - [How Much Gravel Do I Need for a Driveway?](https://buildmeasure.buildtools.workers.dev/guides/how-much-gravel-do-i-need)
