@@ -16,6 +16,7 @@ are public so calculator behavior and release evidence can be inspected.
 - [Post Hole Concrete Calculator](https://buildmeasure.buildtools.workers.dev/post-hole-concrete-calculator)
 - [Paint Calculator](https://buildmeasure.buildtools.workers.dev/paint-calculator)
 - [Tile Calculator](https://buildmeasure.buildtools.workers.dev/tile-calculator)
+- [Brick Calculator](https://buildmeasure.buildtools.workers.dev/brick-calculator)
 - [Gravel Calculator](https://buildmeasure.buildtools.workers.dev/gravel-calculator)
 - [Mulch Calculator](https://buildmeasure.buildtools.workers.dev/mulch-calculator)
 
@@ -26,6 +27,7 @@ are public so calculator behavior and release evidence can be inspected.
 - Round post-hole concrete quantity calculator with optional round or square post displacement.
 - Interior room paint calculator for walls and optional ceilings.
 - Rectangular floor and wall tile calculator.
+- Fired-clay brick wall quantity calculator with measured openings, BIA running/stack-bond coverage presets, custom project coverage, and explicit waste/breakage allowance.
 - Rectangular gravel coverage calculator with adjustable bulk density.
 - Rectangular mulch-bed calculator with exact package-volume input.
 - Imperial and metric input systems.
@@ -36,13 +38,16 @@ are public so calculator behavior and release evidence can be inspected.
   and selected container count.
 - Tile area, adjustable waste, full-box rounding, grout-aware layout check,
   and automatic rectangular-tile orientation.
+- Brick gross/net wall area, measured openings, fired-clay coverage rates,
+  whole-brick rounding, and running/stack-bond quantity scope without mortar,
+  structural-design, or header-pattern assumptions.
 - Gravel net/order volume, estimated mass, short tons, metric tonnes, and
   complete bags with an explicit material-density assumption.
 - Mulch net/order volume, bed area, per-bag coverage, and complete bags without
   an invented density assumption.
 - Copy, print, reset, and device-local save/history actions.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
-- Pure, versioned concrete, post-hole concrete, paint, tile, gravel, and mulch engines with
+- Pure, versioned concrete, post-hole concrete, paint, tile, brick, gravel, and mulch engines with
   automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
@@ -93,6 +98,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 - [Post-hole concrete calculator specification](docs/calculators/post-hole-concrete.md)
 - [Paint calculator specification](docs/calculators/paint.md)
 - [Tile calculator specification](docs/calculators/tile.md)
+- [Brick calculator specification](docs/calculators/brick.md)
 - [Gravel calculator specification](docs/calculators/gravel.md)
 - [Mulch calculator specification](docs/calculators/mulch.md)
 - [Progress measurement](docs/PROGRESS.md)
