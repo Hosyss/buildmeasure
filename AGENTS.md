@@ -29,13 +29,13 @@ SEO, storage, or framework changes also require the checks documented in
   tracking identifiers in analytics.
 - Do not commit secrets, tokens, `.env` files, build output, or dependencies.
 - Keep production canonical URLs on
-  `https://buildmeasure.hosys.chatgpt.site` until an independently verified
-  custom domain migration is complete.
+  `https://buildmeasure.buildtools.workers.dev` unless a separately verified
+  domain migration is explicitly approved and completed.
 
 ## Publishing
 
 Publish through a branch and reviewed pull request on GitHub. Deploy only a
-validated commit to the existing Site, then verify the homepage, five
+validated commit to the existing Site, then verify the homepage, six
 calculators, `/status`, `/api/health`, `/robots.txt`, `/sitemap.xml`, and
 `/llms.txt` in production. When public content URLs changed, run
 `npm run seo:indexnow` once after the production deployment is verified; never
