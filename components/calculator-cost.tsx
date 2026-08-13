@@ -90,7 +90,7 @@ export function CalculatorCostResult({ result }: CalculatorCostResultProps) {
 
   return (
     <>
-      <div className="surface-summary">
+      <div className="surface-summary cost-summary" data-cost-summary="true">
         <span>Estimated material cost</span>
         <strong>{formatPurchaseCost(result)}</strong>
         <span>Based on</span>
