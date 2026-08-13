@@ -1,3 +1,7 @@
 .guide-body {
   min-width: 0;
 }
+
+.guide-body a.button-primary {
+  color: var(--white);
+}
