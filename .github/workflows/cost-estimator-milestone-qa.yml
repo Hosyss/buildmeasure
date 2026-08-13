@@ -60,7 +60,7 @@ jobs:
           fi
 
       - name: Run supervised browser interaction matrix
-        run: node scripts/cost-browser-qa.mjs
+        run: node scripts/cost-browser-qa-v2.mjs
 
       - name: Run Lighthouse milestone matrix
         shell: bash
