@@ -260,7 +260,7 @@ async function state(client) {
 }
 
 function assertOrder(stateValue, order) {
-  assert.match(stateValue.primary, new RegExp(`Bricks to order ${order.toLocaleString("en-US")} bricks`));
+  assert.match(stateValue.primary, new RegExp(`Bricks to order\\s*${order.toLocaleString("en-US")}\\s*bricks`));
 }
 
 async function resetImperial(client) {
