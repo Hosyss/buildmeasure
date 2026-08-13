@@ -35,7 +35,15 @@ or published documentation. A plan or claim does not earn credit.
 - Earlier temporary production-smoke failures are retained in `docs/AUDITS.md` as QA-harness diagnostics rather than rewritten as successes.
 - No calculator file under `lib/calculators/` changed in the UX release or this closure.
 - PR #27 and PR #32 remain untouched. No Google Search Console manual-indexing request was made.
-- IndexNow remains **not submitted** pending the post-verification indexing decision.
+
+## One-time IndexNow submission
+
+- `npm run seo:indexnow` was executed **once** after the verified Production deployment.
+- GitHub Actions run `31713184925`, job `94491147703` completed successfully.
+- IndexNow accepted **20 BuildMeasure URLs** with **HTTP 200**.
+- The one-time workflow was removed immediately after the successful run so it cannot be triggered again from later branch changes.
+- Do **not** repeat this submission unless a future verified Production deployment changes public URLs/content.
+- No Manual Request Indexing was used in Google Search Console.
 
 The weighted **Launch-ready v1 remains 97%** because the remaining broader cross-browser/real-user field-data and independent-usability-feedback gaps are unchanged. The approximate master-product vision remains **~2%**.
 
