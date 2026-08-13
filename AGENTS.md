@@ -35,7 +35,7 @@ SEO, storage, or framework changes also require the checks documented in
 ## Publishing
 
 Publish through a branch and reviewed pull request on GitHub. Deploy only a
-validated commit to the existing Site, then verify the homepage, six
+validated commit to the existing Site, then verify the homepage, seven
 calculators, `/status`, `/api/health`, `/robots.txt`, `/sitemap.xml`, and
 `/llms.txt` in production. When public content URLs changed, run
 `npm run seo:indexnow` once after the production deployment is verified; never

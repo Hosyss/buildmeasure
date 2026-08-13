@@ -871,3 +871,68 @@ No preliminary failure is counted as a release pass.
 ### Release decision
 
 The Brick Calculator milestone interaction and Lighthouse gates are passed. Merge remains blocked until temporary QA plumbing is absent from the PR diff and the normal repository CI passes on the cleaned final head. Deployment, production verification, and bounded IndexNow submission remain post-merge gates and are not claimed by this record.
+
+
+## 2026-08-13 — Brick wall long-tail guide milestone audit
+
+| Field | Value |
+| --- | --- |
+| Status | **Passed — automated, supervised browser, and Lighthouse milestone gates** |
+| Route | `/guides/how-many-bricks-do-i-need` |
+| Audited source | `23d04073253039b202aa198e80026022867ce43b` |
+| Milestone run | `31687976107` |
+| Lighthouse | Google Lighthouse 13.4.1 |
+| Target | Local production Worker build; lab evidence, not deployed field data |
+
+### Content and automated evidence
+
+- Added one focused long-tail guide, “How Many Bricks Do I Need for a Wall?”, using the existing Brick Calculator BIA coverage-rate method rather than creating a second calculation implementation.
+- The guide preserves the fired-clay and running/stack-bond scope, subtracts measured openings before coverage and waste, keeps the BIA Modular 675 brick / 100 ft² reference visible, and uses the existing 20 ft × 8 ft − 16 ft² example: 972 net bricks → 1,021 order bricks at 5% allowance.
+- Article, BreadcrumbList, and visible FAQ structured data render with the canonical production URL. No HowTo schema was added.
+- Discovery is explicit from the Brick Calculator, homepage resource grid, sitemap, and `llms.txt`; rendered regression coverage prevents the guide from becoming orphaned.
+- The milestone run passed the complete automated quality gate: **117/117 unit/engine tests**, production build, **26/26 rendered application tests**, internal-link discovery, and high-risk production dependency audit with zero reported vulnerabilities.
+
+### Supervised browser evidence
+
+- Exact 360 px, 768 px, and 1280 px viewports rendered without document-level horizontal overflow.
+- The guide displayed the expected H1, BIA 675 Modular reference, 1,021-brick worked result, production canonical, and Brick Calculator link.
+- Homepage and Brick Calculator both exposed the new guide link in the production build.
+- No site-originated browser console/runtime errors were observed.
+
+### Lighthouse milestone matrix
+
+Two non-scored warm-ups preceded the 18 scored reports. Every required category met the >=95 policy threshold.
+
+| Route | Profile | Performance | Accessibility | Best Practices | SEO |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `/` | Mobile | 99 | 100 | 100 | 100 |
+| `/` | Desktop | 100 | 100 | 100 | 100 |
+| `/concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/post-hole-concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/post-hole-concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/paint-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/paint-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/tile-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/tile-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/brick-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/brick-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/gravel-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/gravel-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/mulch-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/mulch-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/guides/how-many-bricks-do-i-need` | Mobile | 99 | 100 | 100 | 100 |
+| `/guides/how-many-bricks-do-i-need` | Desktop | 100 | 100 | 100 | 100 |
+
+### Evidence artifact
+
+- `brick-wall-guide-milestone-qa`, artifact ID `9176332871`, SHA-256 `cf496a6a1939929022a9e8c426a66c9618071cd69a46d87cfdad4b35b749d254`.
+
+### Preliminary failure retained
+
+- The first temporary integration helper had invalid workflow YAML and produced zero jobs. It applied no partial product patch. The invalid helper was removed, then the bounded integration was applied successfully by a corrected self-cleaning helper. This tooling failure is not counted as a release pass.
+- The first closeout helper failed before writing or deleting files because its encoded audit payload was malformed. This closeout tooling failure is not counted as a release pass.
+
+### Release decision
+
+The guide's automated, browser, and Lighthouse milestone gates are passed. Merge remains blocked until temporary QA plumbing is absent from the PR diff and the normal repository CI passes on the cleaned final head. Deployment, production verification, and bounded IndexNow submission remain post-merge gates and are not claimed by this record.

@@ -23,6 +23,7 @@ Semantic Versioning after the first verified release.
 
 ### Added
 
+- Added a reference-backed “How Many Bricks Do I Need for a Wall?” guide with BIA coverage-rate examples, openings subtraction, waste sequencing, explicit bond/material scope boundaries, and direct Brick Calculator linking.
 - Added a reference-backed fired-clay Brick Calculator with measured openings, BIA Technical Note 10 running/stack-bond coverage presets, custom supplier/project coverage, explicit waste/breakage allowance, metric/imperial equivalence, whole-brick rounding, optional user-entered price per brick, and explicit exclusions for mortar, header-pattern corrections, structural design, and non-clay brick claims.
 - Added a reference-backed guide for estimating complete 40/60/80 lb concrete bags for round post holes, including cylinder geometry, hole-count examples, optional post-displacement limits, allowance guidance, product-yield references, and explicit structural-design boundaries.
 - Added optional user-entered package pricing to all seven live calculators, with approximate material-cost totals, currency labels, copy/save integration, stale-package price clearing, and no live-price or exchange-rate assumptions.

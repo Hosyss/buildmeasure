@@ -242,10 +242,10 @@ export default function BrickCalculatorPage() {
             <p className="eyebrow">Continue planning</p>
             <h2>Estimate the next material.</h2>
           </div>
-          <a className="next-card next-card-live" href="/guides/material-estimating-basics">
+          <a className="next-card next-card-live" href="/guides/how-many-bricks-do-i-need">
             <span>Guide</span>
-            <strong>Material Estimating Basics</strong>
-            <small>Geometry, allowances &amp; product data</small>
+            <strong>How Many Bricks Do I Need?</strong>
+            <small>Net wall area, openings &amp; waste</small>
           </a>
           <a className="next-card next-card-live" href="/concrete-calculator">
             <span>Live</span>
