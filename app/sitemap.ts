@@ -5,7 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: absoluteUrl("/"),
-      lastModified: new Date("2026-08-12"),
+      lastModified: new Date("2026-08-13"),
       changeFrequency: "weekly",
       priority: 1,
     },
@@ -54,6 +54,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: absoluteUrl("/guides/how-many-bags-of-concrete"),
       lastModified: new Date("2026-08-12"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/guides/how-many-bags-of-concrete-for-post-holes"),
+      lastModified: new Date("2026-08-13"),
       changeFrequency: "monthly",
       priority: 0.8,
     },
