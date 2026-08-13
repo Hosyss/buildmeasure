@@ -18,6 +18,11 @@ replaceOnce(
 );
 
 replaceOnce(
+  `    "--remote-debugging-port=9222",`,
+  `    "--user-data-dir=/tmp/buildmeasure-cost-qa-chrome",\n    "--remote-debugging-port=9222",`,
+);
+
+replaceOnce(
   `      await screenshot(\n        client,\n        ".surface-summary",\n        \`\${screenshotRoot}/\${config.slug}-360-result.png\`,\n      );`,
   `      await screenshot(\n        client,\n        ".cost-summary",\n        \`\${screenshotRoot}/\${config.slug}-360-result.png\`,\n      );`,
 );
