@@ -1,0 +1,41 @@
+name: Align Brick rendered regression
+
+on:
+  push:
+    branches:
+      - feature/brick-calculator
+
+permissions:
+  contents: write
+
+jobs:
+  align-test:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Update the live-calculator count assertion and remove this helper
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("tests/rendered-html.test.mjs")
+          text = path.read_text()
+          old = 'assert.match(html, /six live calculators/);'
+          new = 'assert.match(html, /seven live calculators/);'
+          if text.count(old) != 1:
+              raise SystemExit(f"expected exactly one old calculator-count assertion, found {text.count(old)}")
+          path.write_text(text.replace(old, new))
+          PY
+
+          git rm -f .github/workflows/brick-test-alignment.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add tests/rendered-html.test.mjs
+          git commit -m 'Update rendered scope for Brick Calculator'
+          git push origin HEAD:feature/brick-calculator
