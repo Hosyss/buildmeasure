@@ -230,11 +230,11 @@ export default function PostHoleConcreteCalculatorPage() {
             <p className="eyebrow">Continue planning</p>
             <h2>Use the right concrete geometry for the job.</h2>
           </div>
+          <a className="next-card next-card-live" href="/guides/how-many-bags-of-concrete-for-post-holes">
+            <span>Guide</span><strong>Concrete Bags for Post Holes</strong><small>Formula, examples &amp; bag yields</small>
+          </a>
           <a className="next-card next-card-live" href="/concrete-calculator">
             <span>Live</span><strong>Concrete Slab Calculator</strong><small>Cubic yards &amp; bags</small>
-          </a>
-          <a className="next-card next-card-live" href="/guides/how-many-bags-of-concrete">
-            <span>Guide</span><strong>How Much Concrete for a Slab?</strong><small>Yards, bags &amp; examples</small>
           </a>
         </section>
       </main>
