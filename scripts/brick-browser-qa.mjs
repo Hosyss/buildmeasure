@@ -467,7 +467,7 @@ try {
   await resetImperial(client);
   await setPrice(client, "-1", "EGP");
   current = await state(client);
-  assert.match(current.costError, /cannot be negative/i);
+  assert.match(current.costError, /zero or greater/i);
   assertOrder(current, 1021);
 
   await resetImperial(client);
