@@ -471,6 +471,88 @@ activation should therefore be included in the mobile closure.
   synthetic usage.
 - Complete broader real-device Safari and Firefox interaction coverage.
 
+## 2026-08-13 — Post-hole concrete calculator milestone audit
+
+| Field | Value |
+| --- | --- |
+| Status | **Passed — automated, supervised Chromium interaction, and Lighthouse milestone gates** |
+| Product version | 0.5.3 plus Post-hole calculator milestone |
+| Audited product source revision | `1c2a8bf267dde38c0141bf0d887a17ff9cabf8ff` |
+| CI run | GitHub Actions run #84 (`31665167446`) |
+| Tool | Google Lighthouse 13.4.1 |
+| Target | Local production build on GitHub-hosted Ubuntu runner; lab data, not deployed field data |
+| Profiles | Lighthouse default mobile and desktop preset |
+
+### Complete milestone matrix
+
+| Route | Profile | Performance | Accessibility | Best Practices | SEO |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `/` | Mobile | 99 | 100 | 100 | 100 |
+| `/` | Desktop | 100 | 100 | 100 | 100 |
+| `/concrete-calculator` | Mobile | 98 | 100 | 100 | 100 |
+| `/concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/paint-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/paint-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/tile-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/tile-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/gravel-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/gravel-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/mulch-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/mulch-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/post-hole-concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/post-hole-concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
+
+### Automated and interaction evidence
+
+- The integrated PR merge result passed the complete automated quality gate:
+  lint, 95 unit/engine tests, verified production build, 17 rendered
+  application/API tests, internal-link resolution, and the production
+  dependency audit with 0 high-risk vulnerabilities.
+- The independent Post-hole vector was reproduced in the supervised Chromium
+  flow: one 12 in diameter hole × 24 in concrete depth, no post displacement,
+  0% allowance, 80 lb bags → about 1.571 ft³ and 3 complete bags.
+- Imperial → Metric → Imperial changed 12 in → 30.48 cm → 12 in and 24 in →
+  60.96 cm → 24 in without visible round-trip drift.
+- No-post, round-post, and square-post displacement, post-fit validation,
+  allowance changes, all 40/60/80 lb bag selections, required-field validation,
+  reset/recovery, copy, save/history, clear history, print activation, and
+  keyboard focus were exercised.
+- Desktop, exact 360 px, and exact 768 px Chromium layouts showed no horizontal
+  overflow or clipped primary controls/results, and no site-originated console
+  error was observed in the audited interaction flow.
+- The conversation container's managed Chromium blocks direct navigation by
+  policy. The supervised interaction pass therefore loaded the built HTML,
+  CSS, and JavaScript through a QA harness and isolated only origin-dependent
+  analytics/storage plumbing. GitHub Actions Lighthouse independently navigated
+  the real local production-build origin for every scored report.
+
+### Preliminary Lighthouse runs and controlled closure
+
+- The first temporary CI matrix served local assets without transfer
+  compression and under-reported mobile Performance. The QA preview was changed
+  to gzip text assets to match normal deployed transfer behavior; no product
+  code or Lighthouse threshold was changed.
+- The next matrix exposed a first-process runner anomaly on the homepage:
+  Homepage mobile scored 80 Performance while the identical shared framework
+  chunk consumed about 999 ms of scripting. In later fresh Lighthouse processes
+  in the same run, that identical chunk consumed about 409 ms and then 168 ms,
+  while calculator mobile scores rose to 96–99. This identified hosted-runner
+  cold-start/toolchain variance rather than homepage-specific JavaScript.
+- Run #84 therefore performed two explicit non-scored Lighthouse warm-up passes
+  before collecting the required 14 reports. The warm-ups are excluded from
+  release evidence; the scored reports still use the unchanged 95 minimum.
+  The complete clean matrix above then passed every category.
+- Failed and diagnostic runs remain described here and were not silently
+  discarded or relabeled as passes.
+
+### Release decision
+
+The Post-hole calculator milestone satisfies the source QA gate for the audited
+product source. Temporary QA collection plumbing must be removed and the normal
+GitHub quality gate rerun on the cleaned PR head before merge. After merge,
+verify the Cloudflare production deployment and the new route before submitting
+that production URL to IndexNow once.
+
 ## Record template
 
 Create a new dated section for every critical or milestone gate. Include the

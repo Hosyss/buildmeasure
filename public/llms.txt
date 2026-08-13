@@ -7,6 +7,7 @@ Canonical site: https://buildmeasure.buildtools.workers.dev/
 ## Calculators
 
 - [Concrete Calculator](https://buildmeasure.buildtools.workers.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
+- [Post Hole Concrete Calculator](https://buildmeasure.buildtools.workers.dev/post-hole-concrete-calculator): round-hole concrete volume, multiple holes, optional round or square post displacement, allowance, and 40/60/80 lb bag estimates.
 - [Paint Calculator](https://buildmeasure.buildtools.workers.dev/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
 - [Tile Calculator](https://buildmeasure.buildtools.workers.dev/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
 - [Gravel Calculator](https://buildmeasure.buildtools.workers.dev/gravel-calculator): volume, adjustable density, weight, tons, tonnes, and complete bags.
@@ -14,10 +15,10 @@ Canonical site: https://buildmeasure.buildtools.workers.dev/
 
 ## Guides and methodology
 
-- [How Many Bags of Concrete Do I Need?](https://buildmeasure.buildtools.workers.dev/guides/how-many-bags-of-concrete)
+- [How Much Concrete Do I Need for a Slab?](https://buildmeasure.buildtools.workers.dev/guides/how-many-bags-of-concrete)
 - [How Much Paint Do I Need for a Room?](https://buildmeasure.buildtools.workers.dev/guides/how-much-paint-do-i-need)
 - [How Many Tiles Do I Need?](https://buildmeasure.buildtools.workers.dev/guides/how-many-tiles-do-i-need)
-- [How Much Gravel Do I Need?](https://buildmeasure.buildtools.workers.dev/guides/how-much-gravel-do-i-need)
+- [How Much Gravel Do I Need for a Driveway?](https://buildmeasure.buildtools.workers.dev/guides/how-much-gravel-do-i-need)
 - [How Much Mulch Do I Need?](https://buildmeasure.buildtools.workers.dev/guides/how-much-mulch-do-i-need)
 - [How to Estimate Construction Materials](https://buildmeasure.buildtools.workers.dev/guides/material-estimating-basics)
 - [Calculation Methodology](https://buildmeasure.buildtools.workers.dev/methodology)

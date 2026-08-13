@@ -5,13 +5,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: absoluteUrl("/"),
-      lastModified: new Date("2026-08-01"),
+      lastModified: new Date("2026-08-12"),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: absoluteUrl("/concrete-calculator"),
-      lastModified: new Date("2026-07-31"),
+      lastModified: new Date("2026-08-12"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/post-hole-concrete-calculator"),
+      lastModified: new Date("2026-08-13"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
@@ -29,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/gravel-calculator"),
-      lastModified: new Date("2026-08-01"),
+      lastModified: new Date("2026-08-13"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
@@ -47,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/guides/how-many-bags-of-concrete"),
-      lastModified: new Date("2026-08-09"),
+      lastModified: new Date("2026-08-12"),
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -65,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/guides/how-much-gravel-do-i-need"),
-      lastModified: new Date("2026-08-11"),
+      lastModified: new Date("2026-08-13"),
       changeFrequency: "monthly",
       priority: 0.8,
     },

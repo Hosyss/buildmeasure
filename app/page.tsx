@@ -28,6 +28,13 @@ const calculators = [
     tag: "Most popular",
   },
   {
+    name: "Post Hole Concrete Calculator",
+    description: "Estimate concrete volume and complete bags for multiple round post holes.",
+    href: "/post-hole-concrete-calculator",
+    status: "Live",
+    tag: "Fences & decks",
+  },
+  {
     name: "Paint Calculator",
     description: "Plan paint quantity from wall area, coats, and coverage.",
     href: "/paint-calculator",
@@ -227,6 +234,12 @@ export default function Home() {
               <h3>How much concrete do I need for a slab?</h3>
               <p>Convert slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
               <strong>Calculate slab yards and bags <ArrowIcon /></strong>
+            </a>
+            <a href="/post-hole-concrete-calculator">
+              <span>Post-hole concrete tool</span>
+              <h3>How many bags of concrete for post holes?</h3>
+              <p>Estimate multiple round holes, optional post displacement, extra allowance, and complete bag quantities.</p>
+              <strong>Calculate post-hole bags <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-much-paint-do-i-need">
               <span>Paint guide</span>

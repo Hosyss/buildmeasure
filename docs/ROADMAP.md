@@ -27,7 +27,7 @@ in the verified scope in `README.md`.
 - [ ] Footing calculator.
 - [ ] Column calculator.
 - [ ] Wall calculator.
-- [ ] Post-hole calculator.
+- [x] Post-hole calculator.
 - [ ] Circular slab calculator.
 - [ ] Multi-shape concrete project.
 
