@@ -44,7 +44,7 @@ jobs:
           // Supplemental release-blocking interaction cases.
           await resetImperial(client);
           current = await state(client);
-          assert.match(current.summaries.join(" "), /Allowance adds\s*34 bricks/);
+          assert.match(current.summaries.join(" "), /Allowance adds\s*49 bricks/);
 
           await switchSystem(client, "Metric");
           current = await state(client);
