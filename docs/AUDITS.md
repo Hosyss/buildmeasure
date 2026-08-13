@@ -1060,3 +1060,47 @@ The Production deployment was already live while temporary browser harnesses wer
 - PR #27 and PR #32 remain untouched.
 - No Google Search Console manual-indexing request was made.
 - **IndexNow has not been submitted yet**; it remains a separate post-verification decision and, if used, must cover only actually changed public URLs once.
+
+## 2026-08-13 — Firefox and WebKit production closure
+
+| Field | Value |
+| --- | --- |
+| Status | **Passed — real-engine production matrix** |
+| Production source | `c6f782ae278db00b99b52240d20ea2405f633f05` |
+| Production target | `https://buildmeasure.buildtools.workers.dev/` |
+| Runner | GitHub Actions Ubuntu 24.04.4 |
+| Tool | Playwright 1.55.0 |
+| Engines | Firefox 141.0 (build 1490); WebKit 26.0 (build 2203) |
+| Clean run | `31740101544`, job `94581135552` |
+| Evidence artifact | `9196777247` (`cross-browser-production-evidence`) |
+
+### Passed matrix
+
+- The clean run completed **14/14 tests** in 56.4 seconds using one worker.
+- Firefox and WebKit each covered exact 360×900, 768×1024, and 1280×900
+  viewports.
+- All 15 launch surfaces passed: the homepage, all seven calculators, and all
+  seven focused material guides.
+- `/api/health`, `/robots.txt`, `/sitemap.xml`, and `/llms.txt` returned
+  HTTP 200 with non-empty bodies in both engine projects.
+- Every page rendered a visible main heading with no horizontal overflow,
+  uncaught page error, or failed non-analytics same-origin request.
+- Home, Brick Calculator, and Brick Guide screenshots were captured for every
+  engine/viewport family.
+- Brick Metric interaction confirmed minimum `972`, allowance `49`, and
+  order quantity `1,021`; keyboard focus reached a real interactive element.
+
+### Controlled harness correction
+
+The first run (`31739658167`) was retained as a failed QA-harness diagnostic,
+not a product failure. Rapid route changes caused WebKit to cancel best-effort
+`/api/analytics` POST requests, and a broad text locator matched three correct
+renderings of `1,021 bricks`. The harness was corrected to apply the existing
+non-analytics resource-failure policy and use an exact result locator. No
+production source, calculator formula, deployment, PageSpeed request, Search
+Console indexing request, or IndexNow submission occurred.
+
+This record closes the broader real Firefox/WebKit technical coverage gap.
+Independent usability feedback and sufficient real-user field data remain the
+only launch-readiness gap.
+
