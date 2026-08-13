@@ -121,11 +121,11 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="estimate-card" aria-label="Example concrete estimate">
+            <a className="estimate-card estimate-card-link" href="/concrete-calculator" aria-label="Open Concrete Calculator from this example estimate">
               <div className="estimate-card-head">
                 <div>
                   <span className="card-kicker">Concrete slab</span>
-                  <h2>Quick estimate</h2>
+                  <h2>Example estimate</h2>
                 </div>
                 <span className="live-pill"><span /> Live</span>
               </div>
@@ -149,10 +149,10 @@ export default function Home() {
                 <span>Engine</span>
                 <code>v{CONCRETE_ENGINE_VERSION}</code>
               </div>
-              <a className="estimate-link" href="/concrete-calculator">
-                Use this calculator <ArrowIcon />
-              </a>
-            </div>
+              <span className="estimate-link">
+                Open Concrete Calculator <ArrowIcon />
+              </span>
+            </a>
           </div>
           <div className="hero-gridlines" aria-hidden="true" />
         </section>

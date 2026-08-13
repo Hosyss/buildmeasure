@@ -74,7 +74,7 @@ const schema = [
 export default function MulchGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/mulch-calculator" ctaLabel="Open Mulch Calculator" />
       <main>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         <section className="utility-page-hero guide-hero">

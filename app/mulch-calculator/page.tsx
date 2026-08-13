@@ -115,7 +115,7 @@ const schema = [
 export default function MulchCalculatorPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/#calculators" ctaLabel="All calculators" />
       <main className="calculator-page mulch-page">
         <script
           type="application/ld+json"

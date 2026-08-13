@@ -98,7 +98,7 @@ const schema = [
 export default function TileGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/tile-calculator" ctaLabel="Open Tile Calculator" />
       <main>
         <script
           type="application/ld+json"

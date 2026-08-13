@@ -110,7 +110,7 @@ const schema = [
 export default function PaintCalculatorPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/#calculators" ctaLabel="All calculators" />
       <main className="calculator-page paint-page">
         <script
           type="application/ld+json"

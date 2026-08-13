@@ -1,4 +1,12 @@
-export function SiteHeader() {
+type SiteHeaderProps = {
+  ctaHref?: string;
+  ctaLabel?: string;
+};
+
+export function SiteHeader({
+  ctaHref = "/#calculators",
+  ctaLabel = "Browse calculators",
+}: SiteHeaderProps) {
   return (
     <header className="site-header">
       <div className="utility-bar">
@@ -22,8 +30,8 @@ export function SiteHeader() {
           <a href="/guides/material-estimating-basics">Estimating guide</a>
           <a href="/methodology">Methodology</a>
         </nav>
-        <a className="button button-small button-outline" href="/concrete-calculator">
-          Open calculator
+        <a className="button button-small button-outline" href={ctaHref}>
+          {ctaLabel}
         </a>
       </div>
     </header>

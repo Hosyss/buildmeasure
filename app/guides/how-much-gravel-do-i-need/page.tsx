@@ -75,7 +75,7 @@ const schema = [
 export default function GravelGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/gravel-calculator" ctaLabel="Open Gravel Calculator" />
       <main>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         <section className="utility-page-hero guide-hero">

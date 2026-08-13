@@ -2993,3 +2993,126 @@ svg {
     background: white;
   }
 }
+
+
+/* A selected Brick preset is reference data, not an editable form control. */
+.brick-rate-display {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 9px;
+}
+
+.brick-rate-output {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid var(--sand-200);
+  border-radius: 8px;
+  background: var(--sand-100);
+  color: var(--ink-900);
+}
+
+.brick-rate-output strong {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+}
+
+.brick-rate-output span {
+  color: var(--ink-500);
+  font-size: 0.75rem;
+}
+
+.brick-rate-display small {
+  color: var(--ink-500);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+
+/* UX clarity follow-up: static examples, readable support copy, and denser guides. */
+.estimate-card-link {
+  display: block;
+  color: inherit;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.estimate-card-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(43, 128, 110, 0.35);
+  box-shadow: 0 24px 64px rgba(16, 32, 28, 0.11);
+}
+
+.estimate-card-link .dimension-grid div {
+  border: 0;
+  background: var(--sand-100);
+}
+
+/* Important helper and warning copy stays at roughly 12–13 px minimum. */
+.option-grid small,
+.paint-option-grid small,
+.container-select small,
+.brick-rate-display small,
+.primary-result p,
+.result-caution {
+  font-size: 0.78rem;
+}
+
+/* Secondary metadata stays readable without competing with primary content. */
+.card-kicker,
+.live-pill,
+.status-pill,
+.dimension-grid span,
+.estimate-result span,
+.estimate-meta,
+.input-with-unit > span,
+.primary-result > span,
+.result-breakdown dt,
+.guide-meta,
+.worked-example-card li > span,
+.guide-tools a span,
+.guide-table-wrap caption {
+  font-size: 0.72rem;
+}
+
+.waste-badge {
+  font-size: 0.75rem;
+}
+
+/* Guides should reach the quick answer sooner without losing editorial hierarchy. */
+.guide-hero.utility-page-hero {
+  padding-block: 52px;
+}
+
+.guide-hero .breadcrumbs {
+  margin-bottom: 24px;
+}
+
+.guide-hero h1 {
+  font-size: clamp(2.6rem, 5vw, 4rem);
+}
+
+.guide-article {
+  padding-top: 56px;
+}
+
+@media (max-width: 680px) {
+  .guide-hero.utility-page-hero {
+    padding-block: 36px;
+  }
+
+  .guide-hero .breadcrumbs {
+    margin-bottom: 18px;
+  }
+
+  .guide-hero h1 {
+    font-size: clamp(2.25rem, 10.5vw, 3.15rem);
+  }
+
+  .guide-article {
+    padding-top: 38px;
+  }
+}

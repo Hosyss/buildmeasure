@@ -115,7 +115,7 @@ const schema = [
 export default function GravelCalculatorPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/#calculators" ctaLabel="All calculators" />
       <main className="calculator-page gravel-page">
         <script
           type="application/ld+json"
