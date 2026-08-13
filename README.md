@@ -9,6 +9,7 @@ calculator pages.
 
 - [Open BuildMeasure](https://buildmeasure.buildtools.workers.dev/)
 - [Concrete Calculator](https://buildmeasure.buildtools.workers.dev/concrete-calculator)
+- [Post Hole Concrete Calculator](https://buildmeasure.buildtools.workers.dev/post-hole-concrete-calculator)
 - [Paint Calculator](https://buildmeasure.buildtools.workers.dev/paint-calculator)
 - [Tile Calculator](https://buildmeasure.buildtools.workers.dev/tile-calculator)
 - [Gravel Calculator](https://buildmeasure.buildtools.workers.dev/gravel-calculator)
@@ -18,6 +19,7 @@ calculator pages.
 
 - Responsive product homepage.
 - Concrete slab calculator.
+- Round post-hole concrete quantity calculator with optional round or square post displacement.
 - Interior room paint calculator for walls and optional ceilings.
 - Rectangular floor and wall tile calculator.
 - Rectangular gravel coverage calculator with adjustable bulk density.
@@ -25,6 +27,7 @@ calculator pages.
 - Imperial and metric input systems.
 - Ready-mix volume and 40/60/80 lb bag estimates.
 - Adjustable waste allowance.
+- Post-hole count, round-hole geometry, optional post displacement, and complete bag estimates without structural-design recommendations.
 - Paint area, coats, measured openings, adjustable coverage, gallons/liters,
   and selected container count.
 - Tile area, adjustable waste, full-box rounding, grout-aware layout check,
@@ -34,7 +37,7 @@ calculator pages.
 - Mulch net/order volume, bed area, per-bag coverage, and complete bags without
   an invented density assumption.
 - Copy, print, reset, and device-local save/history actions.
-- Pure, versioned concrete, paint, tile, gravel, and mulch engines with
+- Pure, versioned concrete, post-hole concrete, paint, tile, gravel, and mulch engines with
   automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
@@ -82,6 +85,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Concrete calculator specification](docs/calculators/concrete.md)
+- [Post-hole concrete calculator specification](docs/calculators/post-hole-concrete.md)
 - [Paint calculator specification](docs/calculators/paint.md)
 - [Tile calculator specification](docs/calculators/tile.md)
 - [Gravel calculator specification](docs/calculators/gravel.md)
