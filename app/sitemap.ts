@@ -34,6 +34,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: absoluteUrl("/brick-calculator"),
+      lastModified: new Date("2026-08-13"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: absoluteUrl("/gravel-calculator"),
       lastModified: new Date("2026-08-13"),
       changeFrequency: "monthly",
@@ -95,7 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/about"),
-      lastModified: new Date("2026-08-01"),
+      lastModified: new Date("2026-08-13"),
       changeFrequency: "yearly",
       priority: 0.5,
     },

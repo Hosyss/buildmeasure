@@ -18,6 +18,7 @@ in the verified scope in `README.md`.
 - [x] Rectangular concrete slab calculator.
 - [x] Interior rectangular room paint calculator.
 - [x] Tile calculator.
+- [x] Fired-clay brick wall quantity calculator.
 - [x] Gravel calculator.
 - [x] Mulch calculator.
 - [x] Shared exact unit constants and validation helpers after reuse was proven.

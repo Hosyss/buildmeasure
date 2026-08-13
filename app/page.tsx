@@ -54,6 +54,13 @@ const calculators = [
     tag: "Flooring",
   },
   {
+    name: "Brick Calculator",
+    description: "Estimate fired-clay bricks from net wall area, openings, and a documented coverage rate.",
+    href: "/brick-calculator",
+    status: "Live",
+    tag: "Masonry",
+  },
+  {
     name: "Gravel Calculator",
     description: "Calculate gravel volume, weight, tons, and complete bags.",
     href: "/gravel-calculator",
