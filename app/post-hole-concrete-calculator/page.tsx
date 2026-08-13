@@ -233,8 +233,8 @@ export default function PostHoleConcreteCalculatorPage() {
           <a className="next-card next-card-live" href="/concrete-calculator">
             <span>Live</span><strong>Concrete Slab Calculator</strong><small>Cubic yards &amp; bags</small>
           </a>
-          <a className="next-card next-card-live" href="/guides/how-many-bags-of-concrete">
-            <span>Guide</span><strong>How Much Concrete for a Slab?</strong><small>Yards, bags &amp; examples</small>
+          <a className="next-card next-card-live" href="/guides/how-many-bags-of-concrete-for-post-holes">
+            <span>Guide</span><strong>How Many Bags for Post Holes?</strong><small>Total volume, bags &amp; examples</small>
           </a>
         </section>
       </main>

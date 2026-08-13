@@ -23,6 +23,7 @@ Semantic Versioning after the first verified release.
 
 ### Added
 
+- Added a query-focused post-hole concrete bag guide with transparent total-volume rounding, worked quantity examples, visible safety boundaries, FAQ/Article structured data, and direct calculator links.
 - Added optional user-entered package pricing to all six live calculators, with approximate material-cost totals, currency labels, copy/save integration, stale-package price clearing, and no live-price or exchange-rate assumptions.
 - Added a shared tested cost helper plus a documented cost-estimator scope and release checklist.
 - Added a tested Post Hole Concrete Calculator for multiple round holes with

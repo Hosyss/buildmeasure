@@ -424,6 +424,7 @@ test("renders the launch trust and estimating content", async () => {
     ["/terms", /Verify before purchase or construction/],
     ["/guides/material-estimating-basics", /How to estimate construction materials/],
     ["/guides/how-many-bags-of-concrete", /How much concrete do I need for a slab/],
+    ["/guides/how-many-bags-of-concrete-for-post-holes", /How many bags of concrete do I need for post holes/],
     ["/guides/how-much-paint-do-i-need", /How much paint do I need for a room/],
     ["/guides/how-many-tiles-do-i-need", /How many tiles do I need/],
     ["/guides/how-much-gravel-do-i-need", /How much gravel do I need/],
@@ -451,6 +452,34 @@ test("renders the launch trust and estimating content", async () => {
       assert.match(html, /Hosyss/);
     }
   }
+});
+
+test("renders the post-hole bag guide with verified quantity boundaries", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("post-hole-guide", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+  const response = await worker.fetch(
+    new Request("http://localhost/guides/how-many-bags-of-concrete-for-post-holes", {
+      headers: { accept: "text/html" },
+    }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /How many bags of concrete do I need for post holes/);
+  assert.match(html, /11 bags/);
+  assert.match(html, /24 × 40 lb/);
+  assert.match(html, /16 × 60 lb/);
+  assert.match(html, /12 × 80 lb/);
+  assert.match(html, /not recommended hole dimensions/i);
+  assert.match(html, /does not choose structural or code dimensions/i);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /FAQPage/);
+  assert.match(html, /Article/);
+  assert.match(html, /https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-many-bags-of-concrete-for-post-holes/);
+  assert.match(html, /href="\/post-hole-concrete-calculator"/);
 });
 
 test("serves absolute production URLs in robots and sitemap", async () => {
@@ -521,6 +550,10 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   );
   assert.match(
     sitemap,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-many-bags-of-concrete-for-post-holes<\/loc>/,
+  );
+  assert.match(
+    sitemap,
     /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
   );
   assert.match(
@@ -573,6 +606,7 @@ test("serves a concise machine-readable site guide", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
   assert.match(body, /# BuildMeasure/);
   assert.match(body, /https:\/\/buildmeasure\.buildtools\.workers\.dev\//);
+  assert.match(llmsSource, /guides\/how-many-bags-of-concrete-for-post-holes/);
   assert.match(llmsSource, /guides\/how-much-paint-do-i-need/);
   assert.match(llmsSource, /guides\/how-many-tiles-do-i-need/);
   assert.match(llmsSource, /guides\/how-much-gravel-do-i-need/);
