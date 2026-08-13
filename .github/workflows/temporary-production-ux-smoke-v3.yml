@@ -1,0 +1,218 @@
+name: Temporary final production UX smoke
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  production-smoke:
+    name: Final production UX verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify deployed routes and APIs
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://buildmeasure.buildtools.workers.dev"
+          paths=(
+            /
+            /concrete-calculator
+            /post-hole-concrete-calculator
+            /paint-calculator
+            /tile-calculator
+            /brick-calculator
+            /gravel-calculator
+            /mulch-calculator
+            /guides/how-many-bags-of-concrete
+            /guides/how-many-bags-of-concrete-for-post-holes
+            /guides/how-much-paint-do-i-need
+            /guides/how-many-tiles-do-i-need
+            /guides/how-many-bricks-do-i-need
+            /guides/how-much-gravel-do-i-need
+            /guides/how-much-mulch-do-i-need
+            /api/health
+            /status
+            /robots.txt
+            /sitemap.xml
+            /llms.txt
+          )
+          for path in "${paths[@]}"; do
+            code="$(curl -sS -o /tmp/body -w '%{http_code}' --max-time 25 "$base$path")"
+            echo "$path -> HTTP $code"
+            if [ "$code" != "200" ]; then
+              echo "::error title=Production route failed::$path returned HTTP $code"
+              exit 1
+            fi
+          done
+          grep -Fq 'Example estimate' <(curl -fsSL "$base/")
+          grep -Fq 'brick-rate-output' <(curl -fsSL "$base/brick-calculator")
+          grep -Fq 'Open Brick Calculator' <(curl -fsSL "$base/guides/how-many-bricks-do-i-need")
+          echo 'Merged PR #33 markers are live on Cloudflare production.'
+
+      - name: Install temporary browser driver
+        run: npm install --no-save --ignore-scripts puppeteer-core@24.16.0
+
+      - name: Verify production UI at mobile tablet and desktop widths
+        shell: bash
+        run: |
+          set -u
+          chrome="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$chrome" || { echo '::error::Chrome executable not found'; exit 1; }
+          "$chrome" --version
+
+          cat > .tmp-production-ux-smoke.mjs <<'NODE'
+          import puppeteer from 'puppeteer-core';
+          import { writeFileSync } from 'node:fs';
+
+          const base = 'https://buildmeasure.buildtools.workers.dev';
+          const failures = [];
+          const pageErrors = [];
+          const failedRequests = [];
+          const check = (condition, message) => { if (!condition) failures.push(message); };
+
+          let browser;
+          try {
+            browser = await puppeteer.launch({
+              executablePath: process.env.CHROME_BIN,
+              headless: true,
+              args: ['--no-sandbox', '--disable-dev-shm-usage'],
+            });
+
+            const viewports = [
+              { width: 360, height: 900 },
+              { width: 768, height: 1024 },
+              { width: 1280, height: 900 },
+            ];
+            const routes = ['/', '/brick-calculator', '/guides/how-many-bricks-do-i-need'];
+
+            for (const viewport of viewports) {
+              for (const route of routes) {
+                const page = await browser.newPage();
+                await page.setViewport(viewport);
+                page.on('pageerror', (error) => pageErrors.push(`${route} ${viewport.width}px: ${error.message}`));
+                page.on('requestfailed', (request) => {
+                  if (request.url().startsWith(base)) failedRequests.push(`${route} ${viewport.width}px: ${request.url()} ${request.failure()?.errorText ?? ''}`);
+                });
+
+                const response = await page.goto(base + route, { waitUntil: 'domcontentloaded', timeout: 45000 });
+                check(response?.status() === 200, `${route} at ${viewport.width}px returned ${response?.status()}`);
+                await new Promise((resolve) => setTimeout(resolve, 900));
+
+                const layout = await page.evaluate(() => ({
+                  innerWidth: window.innerWidth,
+                  scrollWidth: document.documentElement.scrollWidth,
+                }));
+                check(layout.scrollWidth <= layout.innerWidth + 1, `${route} overflow at ${viewport.width}px: ${layout.scrollWidth} > ${layout.innerWidth}`);
+
+                if (route === '/') {
+                  const state = await page.evaluate(() => {
+                    const card = document.querySelector('.estimate-card-link');
+                    return {
+                      hasExample: document.body.textContent?.includes('Example estimate') ?? false,
+                      cardHref: card?.getAttribute('href') ?? null,
+                      fakeControls: card?.querySelectorAll('input,select,button').length ?? -1,
+                      header: [...document.querySelectorAll('a')].some((a) => a.textContent?.trim() === 'Browse calculators' && a.getAttribute('href') === '/#calculators'),
+                    };
+                  });
+                  check(state.hasExample, `homepage missing Example estimate at ${viewport.width}px`);
+                  check(state.cardHref === '/concrete-calculator', `homepage example href is ${state.cardHref} at ${viewport.width}px`);
+                  check(state.fakeControls === 0, `homepage example contains ${state.fakeControls} fake controls at ${viewport.width}px`);
+                  check(state.header, `homepage Browse calculators CTA missing at ${viewport.width}px`);
+                }
+
+                if (route === '/brick-calculator') {
+                  const initial = await page.evaluate(() => ({
+                    output: document.querySelector('#brick-rate-output')?.textContent ?? '',
+                    custom: Boolean(document.querySelector('#brick-custom-coverage-rate')),
+                    header: [...document.querySelectorAll('a')].some((a) => a.textContent?.trim() === 'All calculators' && a.getAttribute('href') === '/#calculators'),
+                  }));
+                  check(initial.output.includes('100 ft²'), `Brick initial output lacks 100 ft² at ${viewport.width}px: ${initial.output}`);
+                  check(!initial.custom, `Brick Custom input visible before selection at ${viewport.width}px`);
+                  check(initial.header, `Brick All calculators CTA missing at ${viewport.width}px`);
+
+                  await page.evaluate(() => {
+                    const metric = [...document.querySelectorAll('button')].find((button) => button.textContent?.includes('Metric'));
+                    if (!(metric instanceof HTMLButtonElement)) throw new Error('Metric button not found');
+                    metric.click();
+                  });
+                  await new Promise((resolve) => setTimeout(resolve, 250));
+                  const metricText = await page.$eval('#brick-rate-output', (node) => node.textContent ?? '');
+                  check(metricText.includes('10 m²'), `Brick Metric output lacks 10 m² at ${viewport.width}px: ${metricText}`);
+
+                  await page.evaluate(() => {
+                    const select = [...document.querySelectorAll('select')].find((item) => [...item.options].some((option) => option.value === 'custom'));
+                    if (!(select instanceof HTMLSelectElement)) throw new Error('Brick coverage select not found');
+                    select.value = 'custom';
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                  });
+                  await new Promise((resolve) => setTimeout(resolve, 250));
+                  check(Boolean(await page.$('#brick-custom-coverage-rate')), `Brick Custom input did not appear at ${viewport.width}px`);
+                  check(!(await page.$('#brick-rate-output')), `Brick preset output remained in Custom mode at ${viewport.width}px`);
+                }
+
+                if (route === '/guides/how-many-bricks-do-i-need') {
+                  const state = await page.evaluate(() => ({
+                    header: [...document.querySelectorAll('a')].some((a) => a.textContent?.trim() === 'Open Brick Calculator' && a.getAttribute('href') === '/brick-calculator'),
+                    primary: [...document.querySelectorAll('a')].some((a) => a.textContent?.trim() === 'Calculate my brick wall' && a.getAttribute('href') === '/brick-calculator'),
+                  }));
+                  check(state.header, `Brick guide header CTA missing at ${viewport.width}px`);
+                  check(state.primary, `Brick guide primary CTA missing at ${viewport.width}px`);
+                }
+
+                await page.close();
+                console.log(`PASS ${route} ${viewport.width}x${viewport.height}`);
+              }
+            }
+
+            for (const href of ['/', '/#calculators', '/concrete-calculator', '/brick-calculator', '/guides/how-many-bricks-do-i-need']) {
+              const path = href.split('#')[0] || '/';
+              const response = await fetch(base + path, { redirect: 'follow' });
+              check(response.status >= 200 && response.status < 400, `critical link ${href} returned ${response.status}`);
+            }
+          } catch (error) {
+            failures.push(`browser harness exception: ${error?.stack ?? error}`);
+          } finally {
+            if (browser) await browser.close();
+          }
+
+          for (const item of pageErrors) failures.push(`page error: ${item}`);
+          for (const item of failedRequests) failures.push(`same-origin request failed: ${item}`);
+
+          if (failures.length) {
+            writeFileSync('.tmp-production-ux-failures.txt', failures.join(' | '));
+            process.exit(1);
+          }
+          console.log('Production UI smoke passed at 360, 768, and 1280 widths.');
+          NODE
+
+          CHROME_BIN="$chrome" node .tmp-production-ux-smoke.mjs
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            detail="$(cat .tmp-production-ux-failures.txt 2>/dev/null || echo 'Browser smoke failed without a diagnostic file')"
+            safe="${detail//'%'/'%25'}"
+            safe="${safe//$'\n'/'%0A'}"
+            safe="${safe//$'\r'/'%0D'}"
+            echo "::error title=Production UI smoke::$safe"
+            rm -f .tmp-production-ux-smoke.mjs .tmp-production-ux-failures.txt
+            exit "$status"
+          fi
+          rm -f .tmp-production-ux-smoke.mjs .tmp-production-ux-failures.txt
+
+      - name: Record production verification summary
+        run: |
+          {
+            echo '## Production verification passed'
+            echo '- Merge commit 38fcad44ab803e5167f392547f2b4815301a1885 is represented by live PR #33 UX markers on Cloudflare production.'
+            echo '- Homepage, all seven calculators, all seven focused guides, API health/status, robots, sitemap, and llms returned HTTP 200.'
+            echo '- Homepage, Brick, and Brick guide passed UI checks at 360×900, 768×1024, and 1280×900.'
+            echo '- Brick Imperial → Metric → Custom interaction passed on production.'
+            echo '- No horizontal overflow, page errors, or same-origin request failures were detected on the directly affected surfaces.'
+            echo '- Critical internal destinations resolved successfully.'
+          } >> "$GITHUB_STEP_SUMMARY"
