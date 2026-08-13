@@ -98,7 +98,7 @@ const schema = [
 export default function ConcreteBagGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/concrete-calculator" ctaLabel="Open Concrete Calculator" />
       <main>
         <script
           type="application/ld+json"

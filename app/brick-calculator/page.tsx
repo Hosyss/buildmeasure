@@ -115,7 +115,7 @@ const schema = [
 export default function BrickCalculatorPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/#calculators" ctaLabel="All calculators" />
       <main className="calculator-page brick-page">
         <script
           type="application/ld+json"

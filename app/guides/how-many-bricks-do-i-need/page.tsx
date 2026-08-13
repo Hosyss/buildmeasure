@@ -110,7 +110,7 @@ const schema = [
 export default function BrickWallGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/brick-calculator" ctaLabel="Open Brick Calculator" />
       <main>
         <script
           type="application/ld+json"

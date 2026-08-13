@@ -110,7 +110,7 @@ const schema = [
 export default function TileCalculatorPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/#calculators" ctaLabel="All calculators" />
       <main className="calculator-page tile-page">
         <script
           type="application/ld+json"

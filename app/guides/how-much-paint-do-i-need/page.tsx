@@ -98,7 +98,7 @@ const schema = [
 export default function PaintGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/paint-calculator" ctaLabel="Open Paint Calculator" />
       <main>
         <script
           type="application/ld+json"

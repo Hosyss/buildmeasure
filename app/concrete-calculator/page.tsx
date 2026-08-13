@@ -110,7 +110,7 @@ const schema = [
 export default function ConcreteCalculatorPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/#calculators" ctaLabel="All calculators" />
       <main className="calculator-page">
         <script
           type="application/ld+json"

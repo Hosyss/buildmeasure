@@ -105,7 +105,7 @@ const schema = [
 export default function PostHoleConcreteBagGuidePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref="/post-hole-concrete-calculator" ctaLabel="Open Post Hole Calculator" />
       <main>
         <script
           type="application/ld+json"
