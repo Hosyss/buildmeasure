@@ -58,6 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: absoluteUrl("/guides/how-many-bags-of-concrete-for-post-holes"),
+      lastModified: new Date("2026-08-13"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: absoluteUrl("/guides/how-much-paint-do-i-need"),
       lastModified: new Date("2026-08-11"),
       changeFrequency: "monthly",

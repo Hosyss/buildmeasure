@@ -240,11 +240,11 @@ export default function Home() {
               <p>Convert slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
               <strong>Calculate slab yards and bags <ArrowIcon /></strong>
             </a>
-            <a href="/post-hole-concrete-calculator">
-              <span>Post-hole concrete tool</span>
+            <a href="/guides/how-many-bags-of-concrete-for-post-holes">
+              <span>Post-hole concrete guide</span>
               <h3>How many bags of concrete for post holes?</h3>
-              <p>Estimate multiple round holes, optional post displacement, extra allowance, and complete bag quantities.</p>
-              <strong>Calculate post-hole bags <ArrowIcon /></strong>
+              <p>Calculate total volume before rounding bags, compare 40/60/80 lb yields, and avoid treating example dimensions as design advice.</p>
+              <strong>Read the post-hole bag guide <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-much-paint-do-i-need">
               <span>Paint guide</span>
