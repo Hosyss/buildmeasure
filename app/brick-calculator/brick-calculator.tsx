@@ -40,21 +40,25 @@ type FormState = {
   brickChoice: BrickChoice;
 };
 
+function formatBrickConvertedInput(value: number) {
+  return formatConvertedInput(value, 10);
+}
+
 function defaultsFor(unitSystem: UnitSystem): FormState {
   return {
     wallLength:
       unitSystem === "imperial"
         ? "20"
-        : formatConvertedInput(20 * METERS_PER_FOOT),
+        : formatBrickConvertedInput(20 * METERS_PER_FOOT),
     wallHeight:
       unitSystem === "imperial"
         ? "8"
-        : formatConvertedInput(8 * METERS_PER_FOOT),
+        : formatBrickConvertedInput(8 * METERS_PER_FOOT),
     openingsArea:
       unitSystem === "imperial"
         ? "16"
-        : formatConvertedInput(16 * SQUARE_METERS_PER_SQUARE_FOOT),
-    coverageRate: formatConvertedInput(
+        : formatBrickConvertedInput(16 * SQUARE_METERS_PER_SQUARE_FOOT),
+    coverageRate: formatBrickConvertedInput(
       brickPresetRate("modular", unitSystem),
     ),
     wastePercent: "5",
@@ -157,7 +161,7 @@ export function BrickCalculator() {
       coverageRate:
         next === "custom"
           ? current.coverageRate
-          : formatConvertedInput(brickPresetRate(next, unitSystem)),
+          : formatBrickConvertedInput(brickPresetRate(next, unitSystem)),
     }));
     setNotice(
       next === "custom"
@@ -178,27 +182,27 @@ export function BrickCalculator() {
 
     setForm((current) => ({
       ...current,
-      wallLength: formatConvertedInput(
+      wallLength: formatBrickConvertedInput(
         movingToMetric
           ? wallLength * METERS_PER_FOOT
           : wallLength / METERS_PER_FOOT,
       ),
-      wallHeight: formatConvertedInput(
+      wallHeight: formatBrickConvertedInput(
         movingToMetric
           ? wallHeight * METERS_PER_FOOT
           : wallHeight / METERS_PER_FOOT,
       ),
-      openingsArea: formatConvertedInput(
+      openingsArea: formatBrickConvertedInput(
         movingToMetric
           ? openingsArea * SQUARE_METERS_PER_SQUARE_FOOT
           : openingsArea / SQUARE_METERS_PER_SQUARE_FOOT,
       ),
       coverageRate:
         current.brickChoice === "custom"
-          ? formatConvertedInput(
+          ? formatBrickConvertedInput(
               convertBrickCoverageRate(coverageRate, unitSystem, next),
             )
-          : formatConvertedInput(
+          : formatBrickConvertedInput(
               brickPresetRate(current.brickChoice, next),
             ),
     }));
