@@ -3,6 +3,9 @@
 import { FormEvent, useMemo, useState } from "react";
 import { CalculatorActions } from "@/components/calculator-actions";
 import { CalculatorHistory } from "@/components/calculator-history";
+import { CalculatorCostFields, CalculatorCostResult } from "@/components/calculator-cost";
+import { usePurchaseCost } from "@/hooks/use-purchase-cost";
+import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
@@ -102,6 +105,12 @@ export function GravelCalculator() {
       throw error;
     }
   }, [form, unitSystem]);
+  const purchaseUnitLabel = `${calculation.result ? format(displayBagWeight(calculation.result, unitSystem)) : form.bagWeight} ${unitSystem === "imperial" ? "lb" : "kg"} bag`;
+  const purchaseCost = usePurchaseCost(
+    calculation.result?.bags ?? null,
+    purchaseUnitLabel,
+  );
+
   const markInteraction = useCalculatorAnalytics(
     "gravel-calculator",
     Boolean(calculation.result),
@@ -113,6 +122,7 @@ export function GravelCalculator() {
     value: FormState[Key],
   ) {
     markInteraction();
+    if (field === "bagWeight") purchaseCost.clearUnitPrice();
     setForm((current) => ({ ...current, [field]: value }));
     setNotice("");
   }
@@ -166,6 +176,7 @@ export function GravelCalculator() {
 
   function reset() {
     markInteraction();
+    purchaseCost.resetCost();
     setForm(DEFAULTS[unitSystem]);
     setNotice("Calculator reset to example values.");
   }
@@ -173,12 +184,16 @@ export function GravelCalculator() {
   async function copyResult() {
     if (!calculation.result) return;
 
+    const costLine = purchaseCost.result
+      ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
+      : null;
     const text = [
       "BuildMeasure gravel estimate",
       resultSummary(calculation.result, unitSystem),
       `Net volume: ${format(calculation.result.netCubicMeters, 3)} m³`,
       `Allowance: ${format(calculation.result.wastePercent)}%`,
       `Selected bulk density: ${format(calculation.result.bulkDensityKilogramsPerCubicMeter)} kg/m³`,
+      ...(costLine ? [costLine] : []),
     ].join("\n");
 
     try {
@@ -197,7 +212,7 @@ export function GravelCalculator() {
         unitSystem === "imperial"
           ? `${form.length} × ${form.width} ft · ${form.depth} in deep`
           : `${form.length} × ${form.width} m · ${form.depth} cm deep`,
-      summary: resultSummary(calculation.result, unitSystem),
+      summary: `${resultSummary(calculation.result, unitSystem)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
     });
     setNotice("Estimate saved on this device.");
   }
@@ -362,6 +377,24 @@ export function GravelCalculator() {
           </label>
         </div>
 
+        <CalculatorCostFields
+          unitLabel={purchaseUnitLabel}
+          unitPrice={purchaseCost.unitPrice}
+          currencyLabel={purchaseCost.currencyLabel}
+          error={purchaseCost.error}
+          errorId="gravel-cost-error"
+          onUnitPriceChange={(value) => {
+            markInteraction();
+            purchaseCost.setUnitPrice(value);
+            setNotice("");
+          }}
+          onCurrencyLabelChange={(value) => {
+            markInteraction();
+            purchaseCost.setCurrencyLabel(value);
+            setNotice("");
+          }}
+        />
+
         {calculation.error ? (
           <p className="calculator-error" id="gravel-error" role="alert">
             {calculation.error.message}
@@ -421,6 +454,8 @@ export function GravelCalculator() {
                 <dd>{calculation.result.bags} bags</dd>
               </div>
             </dl>
+
+            <CalculatorCostResult result={purchaseCost.result} />
 
             <p className="result-caution">
               Weight depends on the selected bulk density. Confirm material state,

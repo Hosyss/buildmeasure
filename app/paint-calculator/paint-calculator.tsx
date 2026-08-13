@@ -3,6 +3,9 @@
 import { FormEvent, useMemo, useState } from "react";
 import { CalculatorActions } from "@/components/calculator-actions";
 import { CalculatorHistory } from "@/components/calculator-history";
+import { CalculatorCostFields, CalculatorCostResult } from "@/components/calculator-cost";
+import { usePurchaseCost } from "@/hooks/use-purchase-cost";
+import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
@@ -162,6 +165,12 @@ export function PaintCalculator() {
       throw error;
     }
   }, [form, unitSystem]);
+  const purchaseUnitLabel = `${containerLabel(unitSystem, form.containerLiters)} container`;
+  const purchaseCost = usePurchaseCost(
+    calculation.result?.containers ?? null,
+    purchaseUnitLabel,
+  );
+
   const markInteraction = useCalculatorAnalytics(
     "paint-calculator",
     Boolean(calculation.result),
@@ -173,6 +182,7 @@ export function PaintCalculator() {
     value: FormState[Key],
   ) {
     markInteraction();
+    if (field === "containerLiters") purchaseCost.clearUnitPrice();
     setForm((current) => ({ ...current, [field]: value }));
     setNotice("");
   }
@@ -180,6 +190,7 @@ export function PaintCalculator() {
   function changeUnitSystem(next: UnitSystem) {
     if (next === unitSystem) return;
     markInteraction();
+    purchaseCost.clearUnitPrice();
 
     const length = safeNumber(form.length);
     const width = safeNumber(form.width);
@@ -229,6 +240,7 @@ export function PaintCalculator() {
 
   function reset() {
     markInteraction();
+    purchaseCost.resetCost();
     setForm(DEFAULTS[unitSystem]);
     setNotice("Calculator reset to example values.");
   }
@@ -236,12 +248,16 @@ export function PaintCalculator() {
   async function copyResult() {
     if (!calculation.result) return;
 
+    const costLine = purchaseCost.result
+      ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
+      : null;
     const text = [
       "BuildMeasure paint estimate",
       resultSummary(calculation.result, unitSystem, form.containerLiters),
       `Paintable area: ${format(displayArea(calculation.result.paintableAreaSquareMeters, unitSystem))} ${unitSystem === "imperial" ? "ft²" : "m²"}`,
       `Coats: ${calculation.result.coats}`,
       `Extra allowance: ${format(calculation.result.extraPercent)}%`,
+      ...(costLine ? [costLine] : []),
     ].join("\n");
 
     try {
@@ -259,11 +275,7 @@ export function PaintCalculator() {
       label: `${form.length} × ${form.width} × ${form.wallHeight} ${
         unitSystem === "imperial" ? "ft" : "m"
       } · ${formatQuantityLabel(Number(form.coats), "coat")}`,
-      summary: resultSummary(
-        calculation.result,
-        unitSystem,
-        form.containerLiters,
-      ),
+      summary: `${resultSummary(calculation.result, unitSystem, form.containerLiters)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}`,
     });
     setNotice("Estimate saved on this device.");
   }
@@ -466,6 +478,24 @@ export function PaintCalculator() {
           <small>The purchase count is rounded up to this container size.</small>
         </label>
 
+        <CalculatorCostFields
+          unitLabel={purchaseUnitLabel}
+          unitPrice={purchaseCost.unitPrice}
+          currencyLabel={purchaseCost.currencyLabel}
+          error={purchaseCost.error}
+          errorId="paint-cost-error"
+          onUnitPriceChange={(value) => {
+            markInteraction();
+            purchaseCost.setUnitPrice(value);
+            setNotice("");
+          }}
+          onCurrencyLabelChange={(value) => {
+            markInteraction();
+            purchaseCost.setCurrencyLabel(value);
+            setNotice("");
+          }}
+        />
+
         {calculation.error ? (
           <p className="calculator-error" id="paint-error" role="alert">
             {calculation.error.message}
@@ -539,6 +569,8 @@ export function PaintCalculator() {
                 −{format(displayArea(calculation.result.openingsAreaSquareMeters, unitSystem))} {areaUnit}
               </strong>
             </div>
+
+            <CalculatorCostResult result={purchaseCost.result} />
 
             <p className="result-caution">
               Coverage is theoretical and product-specific. Surface texture,

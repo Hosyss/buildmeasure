@@ -601,6 +601,39 @@ test("ships a valid IndexNow verification key and bounded submitter", async () =
   assert.match(submitter, /--dry-run/);
 });
 
+test("renders optional package cost fields on every live calculator", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("cost-fields", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+  const env = {
+    ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
+  };
+  const ctx = { waitUntil() {}, passThroughOnException() {} };
+  const expectations = [
+    ["/concrete-calculator", /Optional price per 80 lb bag/],
+    ["/post-hole-concrete-calculator", /Optional price per 80 lb bag/],
+    ["/paint-calculator", /Optional price per 1 gal container/],
+    ["/tile-calculator", /Optional price per box/],
+    ["/gravel-calculator", /Optional price per 50 lb bag/],
+    ["/mulch-calculator", /Optional price per 2 ft³ bag/],
+  ];
+
+  for (const [path, pattern] of expectations) {
+    const response = await worker.fetch(
+      new Request(`http://localhost${path}`, {
+        headers: { accept: "text/html" },
+      }),
+      env,
+      ctx,
+    );
+    const html = await response.text();
+    assert.equal(response.status, 200, `expected ${path} to render`);
+    assert.match(html, pattern);
+    assert.match(html, /No live prices are fetched/);
+    assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);
+  }
+});
+
 test("every internal page link resolves in the built application", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("links", `${process.pid}-${Date.now()}`);

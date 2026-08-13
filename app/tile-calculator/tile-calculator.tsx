@@ -3,6 +3,9 @@
 import { FormEvent, useMemo, useState } from "react";
 import { CalculatorActions } from "@/components/calculator-actions";
 import { CalculatorHistory } from "@/components/calculator-history";
+import { CalculatorCostFields, CalculatorCostResult } from "@/components/calculator-cost";
+import { usePurchaseCost } from "@/hooks/use-purchase-cost";
+import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
@@ -123,6 +126,12 @@ export function TileCalculator() {
       throw error;
     }
   }, [form, unitSystem]);
+  const purchaseUnitLabel = "box";
+  const purchaseCost = usePurchaseCost(
+    calculation.result?.boxes ?? null,
+    purchaseUnitLabel,
+  );
+
   const markInteraction = useCalculatorAnalytics(
     "tile-calculator",
     Boolean(calculation.result),
@@ -134,6 +143,7 @@ export function TileCalculator() {
     value: FormState[Key],
   ) {
     markInteraction();
+    if (field === "tilesPerBox") purchaseCost.clearUnitPrice();
     setForm((current) => ({ ...current, [field]: value }));
     setNotice("");
   }
@@ -185,6 +195,7 @@ export function TileCalculator() {
 
   function reset() {
     markInteraction();
+    purchaseCost.resetCost();
     setForm(DEFAULTS[unitSystem]);
     setNotice("Calculator reset to example values.");
   }
@@ -193,12 +204,16 @@ export function TileCalculator() {
     if (!calculation.result) return;
 
     const areaUnit = unitSystem === "imperial" ? "ft²" : "m²";
+    const costLine = purchaseCost.result
+      ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
+      : null;
     const text = [
       "BuildMeasure tile estimate",
       resultSummary(calculation.result),
       `Surface area: ${format(displayArea(calculation.result.surfaceAreaSquareMeters, unitSystem))} ${areaUnit}`,
       `Tiles with ${format(calculation.result.wastePercent)}% waste: ${calculation.result.orderTileCount}`,
       `Layout check: ${calculation.result.tilesAlongLength} × ${calculation.result.tilesAlongWidth}`,
+      ...(costLine ? [costLine] : []),
     ].join("\n");
 
     try {
@@ -218,7 +233,7 @@ export function TileCalculator() {
       } · ${form.tileLength} × ${form.tileWidth} ${
         unitSystem === "imperial" ? "in" : "mm"
       } tile`,
-      summary: resultSummary(calculation.result),
+      summary: `${resultSummary(calculation.result)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
     });
     setNotice("Estimate saved on this device.");
   }
@@ -499,6 +514,24 @@ export function TileCalculator() {
           </label>
         </div>
 
+        <CalculatorCostFields
+          unitLabel={purchaseUnitLabel}
+          unitPrice={purchaseCost.unitPrice}
+          currencyLabel={purchaseCost.currencyLabel}
+          error={purchaseCost.error}
+          errorId="tile-cost-error"
+          onUnitPriceChange={(value) => {
+            markInteraction();
+            purchaseCost.setUnitPrice(value);
+            setNotice("");
+          }}
+          onCurrencyLabelChange={(value) => {
+            markInteraction();
+            purchaseCost.setCurrencyLabel(value);
+            setNotice("");
+          }}
+        />
+
         {calculation.error ? (
           <p
             className="calculator-error"
@@ -604,6 +637,8 @@ export function TileCalculator() {
                   : "tiles"}
               </strong>
             </div>
+
+            <CalculatorCostResult result={purchaseCost.result} />
 
             <p className="result-caution">
               The purchase quantity is area-based and includes your waste

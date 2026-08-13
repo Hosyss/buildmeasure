@@ -99,3 +99,12 @@ The automated suite covers:
 - Zero, negative, non-finite, underflow, overflow, and unsafe integer inputs.
 - Regression guard that waste never changes net volume.
 - 250 deterministic randomized cases with volume and procurement invariants.
+
+## Optional purchase cost layer
+
+The quantity engine remains the source of truth and is unchanged by optional
+pricing. The interface may multiply the engine's complete purchase-package
+count by a user-entered price for that package. No live price, exchange rate,
+tax, delivery, labor, discount, or supplier minimum is inferred. Package
+definition changes clear the entered price to prevent stale-product pricing.
+See [Optional Purchase Cost Estimator](../COST_ESTIMATOR.md).
