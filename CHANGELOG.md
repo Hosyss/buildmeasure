@@ -13,7 +13,7 @@ Semantic Versioning after the first verified release.
 - Published BuildMeasure's independent maintainer identity as `Hosyss` in site
   metadata, structured data, About content, footer copy, and repository docs,
   with direct links to the public source and verified release history.
-- Updated the About page to reflect all six live calculators and to explain that
+- Updated the About page to reflect all seven live calculators and to explain that
   saved estimates stay in browser-local storage, do not sync between devices,
   and can be lost when site data is cleared.
 - Aligned agent and architecture documentation with the current verified
@@ -23,8 +23,9 @@ Semantic Versioning after the first verified release.
 
 ### Added
 
+- Added a reference-backed fired-clay Brick Calculator with measured openings, BIA Technical Note 10 running/stack-bond coverage presets, custom supplier/project coverage, explicit waste/breakage allowance, metric/imperial equivalence, whole-brick rounding, optional user-entered price per brick, and explicit exclusions for mortar, header-pattern corrections, structural design, and non-clay brick claims.
 - Added a reference-backed guide for estimating complete 40/60/80 lb concrete bags for round post holes, including cylinder geometry, hole-count examples, optional post-displacement limits, allowance guidance, product-yield references, and explicit structural-design boundaries.
-- Added optional user-entered package pricing to all six live calculators, with approximate material-cost totals, currency labels, copy/save integration, stale-package price clearing, and no live-price or exchange-rate assumptions.
+- Added optional user-entered package pricing to all seven live calculators, with approximate material-cost totals, currency labels, copy/save integration, stale-package price clearing, and no live-price or exchange-rate assumptions.
 - Added a shared tested cost helper plus a documented cost-estimator scope and release checklist.
 - Added a tested Post Hole Concrete Calculator for multiple round holes with
   optional round or square post displacement, metric and imperial inputs,

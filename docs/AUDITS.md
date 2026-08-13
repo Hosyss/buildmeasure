@@ -794,3 +794,80 @@ Before describing this guide as released, remove all temporary milestone QA work
 ### Release follow-up
 
 Remove all temporary contrast-QA workflow/server files, pass the normal clean-head quality gate, merge through PR review, verify the changed guide on the canonical production origin, then submit only that changed guide URL to IndexNow once. Do not use the exhausted manual Google Search Console indexing quota.
+
+
+## 2026-08-13 — Brick Calculator milestone audit
+
+| Field | Value |
+| --- | --- |
+| Status | **Passed — automated, supervised browser interaction, supplemental interaction, and Lighthouse milestone gates** |
+| Product version | 0.5.3 plus unreleased Brick Calculator milestone |
+| Primary milestone source | `551e1c5c6f8eef0b4ad067f9d220b06c4034bef3` |
+| Supplemental QA source | `16aa5ca985c093efd931254399fbc05d902a9ea1` |
+| Lighthouse | Google Lighthouse 13.4.1 |
+| Target | Local production Worker build; lab evidence, not deployed field data |
+
+### Formula and automated evidence
+
+- Brick quantity logic is isolated in `lib/calculators/brick.ts`; optional purchase pricing stays in the shared cost layer and does not alter the quantity engine.
+- Primary formula/reference basis: Brick Industry Association Technical Note 10 wall-area method and Table 4 running/stack-bond estimating quantities, BIA fired-clay material scope, and NIST SP 811 unit conversions.
+- Verified vectors include Modular 675 bricks / 100 ft², Standard 655 / 100 ft², and the 20 ft × 8 ft wall minus 16 ft² openings example: 972 net bricks and 1,021 bricks after a 5% waste/breakage allowance with final upward rounding.
+- Final milestone run `31683010849` passed the complete automated gate: **116/116 unit/engine tests**, verified production build, **24/24 rendered application tests**, internal-link discovery, and high-risk production dependency audit with zero reported vulnerabilities.
+- A permanent analytics regression confirms `brick-calculator` is accepted by the bounded shared analytics validator; rendered feedback coverage confirms the Brick feedback ID is accepted.
+
+### Supervised browser evidence
+
+Final milestone run `31683010849` passed the Brick interaction matrix against the production Worker build:
+
+- Default 1,021-brick vector, Modular 675 at 0% waste, Modular 709 at 5%, and Standard 655 at 0%.
+- All documented BIA presets plus editable Custom / supplier coverage.
+- Openings subtraction, 0/5/25/50% waste, invalid coverage/openings/waste states, Imperial ↔ Metric round trip, and final procurement rounding.
+- Optional price-per-brick behavior, stale-price clearing when the brick definition changes, price preservation during unit-system conversion, and valid quantity retention when cost input is invalid.
+- Copy, Save, device-local History/Clear, Print, Reset, feedback, keyboard-focusable controls, and no site-originated browser console/runtime errors.
+- Exact 360 px, 768 px, and desktop widths rendered without document-level horizontal overflow.
+
+Supplemental run `31685959880` passed the remaining release-blocking interaction cases:
+
+- `$`, `EUR`, and `EGP` display labels; zero and decimal prices; unsafe-price rejection; custom negative/non-finite coverage handling; empty/overflow wall input handling; and openings/waste boundary errors.
+- Copy/Save includes a valid estimated material cost and omits cost when the optional price is invalid.
+- Saved history survives an ordinary calculator re-render and clears on request; Custom coverage remains editable and keyboard-focusable.
+
+### Lighthouse milestone matrix
+
+Two non-scored warm-ups preceded the 16 scored reports. Every required category met the >=95 policy threshold.
+
+| Route | Profile | Performance | Accessibility | Best Practices | SEO |
+| --- | --- | ---: | ---: | ---: | ---: |
+| `/` | Mobile | 99 | 100 | 100 | 100 |
+| `/` | Desktop | 100 | 100 | 100 | 100 |
+| `/concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/post-hole-concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/post-hole-concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/paint-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/paint-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/tile-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/tile-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/brick-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/brick-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/gravel-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/gravel-calculator` | Desktop | 100 | 100 | 100 | 100 |
+| `/mulch-calculator` | Mobile | 99 | 100 | 100 | 100 |
+| `/mulch-calculator` | Desktop | 100 | 100 | 100 | 100 |
+
+### Evidence artifacts
+
+- Milestone artifact: `brick-calculator-milestone-qa`, artifact ID `9174387031`, SHA-256 `13e9c1e3dc58abd4a136cd4ecd5ac3b83cc08213d5757fe02f523e0665de65e3`.
+- Supplemental artifact: `brick-supplemental-interaction-qa`, artifact ID `9175432257`, SHA-256 `3ff44115d27a9f71a6c77a851f74f9dbaeb65ff14c6a198533828fd6aab765c9`.
+
+### Preliminary failures retained
+
+No preliminary failure is counted as a release pass.
+
+- The first engine-gate failure came from an incorrect underflow test using `Number.MIN_VALUE` in a path that performed no conversion underflow. The test was corrected; the passing engine result did not require weakening the engine.
+- Preliminary browser-milestone attempts failed on QA-harness assumptions about adjacent DOM text-node whitespace, thousands-separator formatting in raw procurement detail, and the exact shared cost-validator message. The harness was corrected without changing the Brick quantity product behavior.
+- The first supplemental attempt incorrectly expected the default allowance to add 34 bricks. The verified calculation is 972 net bricks → `ceil(972 × 1.05)` = 1,021, so the final whole-brick allowance adds **49 bricks**. The assertion was corrected and the supplemental matrix then passed.
+
+### Release decision
+
+The Brick Calculator milestone interaction and Lighthouse gates are passed. Merge remains blocked until temporary QA plumbing is absent from the PR diff and the normal repository CI passes on the cleaned final head. Deployment, production verification, and bounded IndexNow submission remain post-merge gates and are not claimed by this record.
