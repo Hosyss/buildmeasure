@@ -79,6 +79,20 @@ jobs:
           lighthouse_version="$(npx --yes lighthouse --version)"
           echo "Lighthouse ${lighthouse_version}"
 
+          # The hosted runner showed a large first-process V8/framework cold-start
+          # penalty on an otherwise identical framework chunk. Prime the benchmark
+          # toolchain before collecting the 14 scored reports; warm-up reports are
+          # deliberately excluded from the release evidence and thresholds remain 95.
+          for warmup in 1 2; do
+            echo "Lighthouse warm-up ${warmup}/2 (not scored)"
+            npx --yes lighthouse "http://127.0.0.1:4173/" \
+              --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+              --only-categories=performance \
+              --output=json \
+              --output-path="/tmp/buildmeasure-lighthouse-warmup-${warmup}.json" \
+              --quiet
+          done
+
           routes=(
             "/"
             "/concrete-calculator"
