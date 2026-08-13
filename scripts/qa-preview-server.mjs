@@ -2,6 +2,7 @@ import http from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { gzipSync } from "node:zlib";
 
 const projectRoot = process.cwd();
 const clientRoot = path.join(projectRoot, "dist", "client");
@@ -72,7 +73,7 @@ async function workerResponse(request) {
     headers: request.headers,
   };
 
-  if (!['GET', 'HEAD'].includes(request.method) && body) {
+  if (!["GET", "HEAD"].includes(request.method) && body) {
     init.body = body;
     init.duplex = "half";
   }
@@ -93,17 +94,44 @@ async function workerResponse(request) {
   });
 }
 
+function isCompressible(contentType) {
+  const normalized = (contentType ?? "").toLowerCase();
+  return (
+    normalized.startsWith("text/") ||
+    normalized.includes("javascript") ||
+    normalized.includes("json") ||
+    normalized.includes("xml") ||
+    normalized.includes("svg")
+  );
+}
+
 const server = http.createServer(async (request, response) => {
   try {
     const result = await workerResponse(request);
     response.statusCode = result.status;
 
     for (const [name, value] of result.headers) {
-      if (name.toLowerCase() === "content-encoding") continue;
+      const normalizedName = name.toLowerCase();
+      if (normalizedName === "content-encoding" || normalizedName === "content-length") continue;
       response.setHeader(name, value);
     }
 
-    response.end(Buffer.from(await result.arrayBuffer()));
+    if (request.method === "HEAD") {
+      response.end();
+      return;
+    }
+
+    let body = Buffer.from(await result.arrayBuffer());
+    const acceptsGzip = /(?:^|,|\s)gzip(?:,|\s|$)/i.test(request.headers["accept-encoding"] ?? "");
+    const contentType = result.headers.get("content-type");
+
+    if (acceptsGzip && body.length > 1024 && isCompressible(contentType)) {
+      body = gzipSync(body, { level: 6 });
+      response.setHeader("content-encoding", "gzip");
+      response.setHeader("vary", "Accept-Encoding");
+    }
+
+    response.end(body);
   } catch (error) {
     console.error(error);
     response.statusCode = 500;
