@@ -1,0 +1,209 @@
+name: UX stage 1 helper
+
+on:
+  push:
+    branches:
+      - fix/ux-clarity-and-docs
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.event.head_commit.message == 'Run UX stage 1 helper'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Apply Brick coverage clarity fix and regression checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python <<'PY'
+          from pathlib import Path
+
+          path = Path('app/brick-calculator/brick-calculator.tsx')
+          text = path.read_text()
+
+          old = '''function choiceLabel(choice: BrickChoice) {
+            if (choice === "custom") return "Custom / supplier rate";
+            return BRICK_PRESETS[choice].label;
+          }
+
+          function resultSummary(result: BrickResult) {'''
+          new = '''function choiceLabel(choice: BrickChoice) {
+            if (choice === "custom") return "Custom / supplier rate";
+            return BRICK_PRESETS[choice].label;
+          }
+
+          function presetCoverageLabel(
+            choice: BrickPresetId,
+            unitSystem: UnitSystem,
+          ) {
+            const rateAreaUnit = unitSystem === "imperial" ? "100 ft²" : "10 m²";
+            return `${format(brickPresetRate(choice, unitSystem), 3)} bricks / ${rateAreaUnit}`;
+          }
+
+          function resultSummary(result: BrickResult) {'''
+          if old not in text:
+            raise SystemExit('choiceLabel insertion target not found')
+          text = text.replace(old, new, 1)
+
+          old = '''      coverageRate: formatConvertedInput(
+                convertBrickCoverageRate(coverageRate, unitSystem, next),
+              ),'''
+          new = '''      coverageRate:
+                current.brickChoice === "custom"
+                  ? formatConvertedInput(
+                      convertBrickCoverageRate(coverageRate, unitSystem, next),
+                    )
+                  : formatConvertedInput(
+                      brickPresetRate(current.brickChoice, next),
+                    ),'''
+          if old not in text:
+            raise SystemExit('unit conversion target not found')
+          text = text.replace(old, new, 1)
+
+          old = '''              {Object.entries(BRICK_PRESETS).map(([key, preset]) => (
+                        <option value={key} key={key}>
+                          {preset.label} — {preset.bricksPer100SquareFeet} / 100 ft²
+                        </option>
+                      ))}'''
+          new = '''              {Object.entries(BRICK_PRESETS).map(([key, preset]) => (
+                        <option value={key} key={key}>
+                          {preset.label} — {presetCoverageLabel(key as BrickPresetId, unitSystem)}
+                        </option>
+                      ))}'''
+          if old not in text:
+            raise SystemExit('preset option target not found')
+          text = text.replace(old, new, 1)
+
+          old = '''          <label className={fieldError === "coverageRate" ? "field-invalid" : ""}>
+                    <span>Brick coverage rate</span>
+                    <span className="input-with-unit">
+                      <input
+                        type="number"
+                        min="0"
+                        step="any"
+                        inputMode="decimal"
+                        value={form.coverageRate}
+                        readOnly={form.brickChoice !== "custom"}
+                        aria-readonly={form.brickChoice !== "custom"}
+                        onChange={(event) => setField("coverageRate", event.target.value)}
+                        aria-describedby={fieldError === "coverageRate" ? "brick-error" : "brick-rate-help"}
+                      />
+                      <span>brick / {rateAreaUnit}</span>
+                    </span>
+                    <small id="brick-rate-help">
+                      {form.brickChoice === "custom"
+                        ? "Use the coverage rate for the exact brick, supplier estimate, or project specification."
+                        : "Preset rate is read-only. Choose Custom to enter a different project-specific rate."}
+                    </small>
+                  </label>'''
+          new = '''          {form.brickChoice === "custom" ? (
+                    <label className={fieldError === "coverageRate" ? "field-invalid" : ""}>
+                      <span>Brick coverage rate</span>
+                      <span className="input-with-unit">
+                        <input
+                          id="brick-custom-coverage-rate"
+                          type="number"
+                          min="0"
+                          step="any"
+                          inputMode="decimal"
+                          value={form.coverageRate}
+                          onChange={(event) => setField("coverageRate", event.target.value)}
+                          aria-describedby={fieldError === "coverageRate" ? "brick-error" : "brick-rate-help"}
+                        />
+                        <span>bricks / {rateAreaUnit}</span>
+                      </span>
+                      <small id="brick-rate-help">
+                        Use the coverage rate for the exact brick, supplier estimate, or project specification.
+                      </small>
+                    </label>
+                  ) : (
+                    <div className="brick-rate-display">
+                      <span>Brick coverage rate</span>
+                      <output
+                        id="brick-rate-output"
+                        className="brick-rate-output"
+                        aria-live="polite"
+                      >
+                        <strong>{format(brickPresetRate(form.brickChoice, unitSystem), 3)}</strong>
+                        <span>bricks / {rateAreaUnit}</span>
+                      </output>
+                      <small id="brick-rate-help">
+                        Preset value from the selected BIA estimating basis. Choose Custom to enter a project-specific rate.
+                      </small>
+                    </div>
+                  )}'''
+          if old not in text:
+            raise SystemExit('coverage field target not found')
+          text = text.replace(old, new, 1)
+          path.write_text(text)
+
+          css = Path('app/globals.css')
+          css_text = css.read_text()
+          addition = '''
+
+/* A selected Brick preset is reference data, not an editable form control. */
+.brick-rate-display {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 9px;
+}
+
+.brick-rate-output {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid var(--sand-200);
+  border-radius: 8px;
+  background: var(--sand-100);
+  color: var(--ink-900);
+}
+
+.brick-rate-output strong {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+}
+
+.brick-rate-output span {
+  color: var(--ink-500);
+  font-size: 0.75rem;
+}
+
+.brick-rate-display small {
+  color: var(--ink-500);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+'''
+          if '.brick-rate-output {' not in css_text:
+            css.write_text(css_text + addition)
+
+          test_path = Path('tests/brick-rendered.test.mjs')
+          test_text = test_path.read_text()
+          marker = '''  assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);'''
+          replacement = '''  assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);
+            assert.match(html, /id="brick-rate-output"/);
+            assert.match(html, />675<\\/strong>/);
+            assert.match(html, /bricks \\/ 100 ft²/);
+            assert.match(html, /Custom \\/ supplier rate/);
+            assert.doesNotMatch(html, /readonly/);'''
+          if marker not in test_text:
+            raise SystemExit('brick rendered test insertion target not found')
+          test_text = test_text.replace(marker, replacement, 1)
+          test_path.write_text(test_text)
+          PY
+
+          git rm .github/workflows/ux-stage1-helper.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/brick-calculator/brick-calculator.tsx app/globals.css tests/brick-rendered.test.mjs
+          git commit -m 'Fix Brick coverage preset clarity'
+          git push origin HEAD:fix/ux-clarity-and-docs
