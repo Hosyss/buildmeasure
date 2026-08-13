@@ -163,15 +163,15 @@ export default function BrickWallGuidePage() {
                 brick you are actually estimating, apply the waste allowance,
                 and round the final purchase quantity upward to whole bricks.
               </p>
+              <a className="button button-primary guide-primary-action" href="/brick-calculator">
+                Calculate my brick wall
+              </a>
               <p>
                 For one documented example, BIA Technical Note 10 Table 4 lists
                 <strong> 675 Modular bricks per 100 ft²</strong> for its running-
                 or stack-bond estimating basis. That is 6.75 bricks per ft²
                 before waste.
               </p>
-              <a className="button button-primary guide-primary-action" href="/brick-calculator">
-                Calculate my brick wall
-              </a>
             </section>
 
             <section id="formula">

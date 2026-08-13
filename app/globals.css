@@ -3084,27 +3084,35 @@ svg {
 
 /* Guides should reach the quick answer sooner without losing editorial hierarchy. */
 .guide-hero.utility-page-hero {
-  padding-block: 62px;
+  padding-block: 52px;
 }
 
 .guide-hero .breadcrumbs {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .guide-hero h1 {
-  font-size: clamp(2.7rem, 5vw, 4.25rem);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+}
+
+.guide-article {
+  padding-top: 56px;
 }
 
 @media (max-width: 680px) {
   .guide-hero.utility-page-hero {
-    padding-block: 42px;
+    padding-block: 36px;
   }
 
   .guide-hero .breadcrumbs {
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .guide-hero h1 {
-    font-size: clamp(2.35rem, 11vw, 3.35rem);
+    font-size: clamp(2.25rem, 10.5vw, 3.15rem);
+  }
+
+  .guide-article {
+    padding-top: 38px;
   }
 }
