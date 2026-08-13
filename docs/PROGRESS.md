@@ -43,19 +43,29 @@ or published documentation. A plan or claim does not earn credit.
 
 | Stage | Commit | Status / evidence | Remaining |
 | --- | --- | --- | --- |
-| Brick coverage clarity | [`8123371`](https://github.com/Hosyss/buildmeasure/commit/8123371186e1e13f517b192f92cfdcad67d2012c) | Preset labels now derive their Imperial/Metric values from existing `brickPresetRate`; preset coverage is a semantic static `<output>` and only Custom exposes an editable input; rendered regression added. No calculator engine file changed. | Full automated/typecheck/build, browser Imperial/Metric/Custom interaction QA, responsive checks, and affected-page Lighthouse still pending. |
+| Brick coverage clarity | [`8123371`](https://github.com/Hosyss/buildmeasure/commit/8123371186e1e13f517b192f92cfdcad67d2012c) | Preset labels now derive their Imperial/Metric values from existing `brickPresetRate`; preset coverage is a semantic static `<output>` and only Custom exposes an editable input; rendered regression added. No calculator engine file changed. | Browser Imperial/Metric/Custom interaction QA and final gates pending. |
+| Shared UX clarity | [`07e47bc`](https://github.com/Hosyss/buildmeasure/commit/07e47bc52e9ec9666e654c37e27a111da7d999ee) | Header CTA is explicit per context without client pathname logic; homepage hero card is a linked **Example estimate** with no fake input controls; helper/warning copy is raised to ~12.5 px and secondary metadata to ~11.5–12 px; focused guides link to their related calculator and use a denser hero; permanent rendered contracts cover homepage/header/guide semantics. | Automated/typecheck/build, responsive browser QA, console/overflow checks, and affected-page Lighthouse pending. |
+
+### Static-affordance review
+
+The current source review found two misleading affordances in the requested
+scope: the Brick preset coverage field was rendered as a read-only input, and
+the homepage concrete example used bordered dimension boxes that could be read
+as form fields. Both are addressed above. The final browser QA will also scan
+for remaining `readOnly`/`aria-readonly` form controls and record any exception
+instead of silently ignoring it.
 
 ### Next work on this branch
 
-1. Clarify the homepage example estimate and remove form-like affordances from
-   static example data.
-2. Make the shared header CTA page-aware through explicit semantic props, not a
-   client-side pathname dependency.
-3. Raise helper/warning text and low-priority metadata to the documented
-   readable range without redesigning the site.
-4. Reduce guide hero spacing conservatively and verify quick-answer/CTA reach.
-5. Run the required automated, browser, responsive, console, overflow, and
-   affected-page Lighthouse checks before opening a Draft PR.
+1. Run all unit tests, explicit TypeScript `tsc --noEmit`, lint, production
+   build, and rendered tests.
+2. Exercise Brick Imperial, Metric, preset, and Custom interactions in Chrome.
+3. Capture 360 / 768 / 1280 visual evidence and fail on horizontal overflow or
+   site-originated console/runtime errors.
+4. Run Lighthouse only on the directly representative affected surfaces:
+   homepage, Brick Calculator, and Brick guide, mobile and desktop.
+5. Record the QA evidence, remove temporary QA plumbing, verify the final diff,
+   then open a **Draft PR only** and stop for review.
 
 ## Master product vision
 
