@@ -29,7 +29,7 @@ export function SiteFooter() {
           <a href="/about">About</a>
           <a href="/methodology">Methodology</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
-          <a href="/#project-mode">Project Mode</a>
+          <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
           <a href="/feedback">Report an issue</a>
           <a href="/status">System status</a>
           <a href="/privacy">Privacy</a>
@@ -38,7 +38,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>© 2026 BuildMeasure</span>
+        <span>© 2026 BuildMeasure · Independently maintained by Hosyss</span>
         <span>Estimates should be verified against project plans and supplier data.</span>
       </div>
     </footer>
