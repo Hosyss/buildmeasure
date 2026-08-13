@@ -1,0 +1,49 @@
+name: Persist Brick QA assertion error
+
+on:
+  push:
+    branches:
+      - feature/brick-calculator
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-clean:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Persist the exact browser QA error in the uploaded artifact
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/brick-browser-qa.mjs')
+          text = path.read_text()
+          old = '''} catch (error) {
+            await writeFile(`${artifactRoot}/chrome-stderr.log`, chromeStderr);
+            throw error;
+          } finally {'''
+          new = '''} catch (error) {
+            await writeFile(`${artifactRoot}/chrome-stderr.log`, chromeStderr);
+            await writeFile(
+              `${artifactRoot}/browser-qa-error.txt`,
+              `${error instanceof Error ? error.stack ?? error.message : String(error)}\\n`,
+            );
+            throw error;
+          } finally {'''
+          if text.count(old) != 1:
+              raise SystemExit(f'expected exactly one catch block, found {text.count(old)}')
+          path.write_text(text.replace(old, new))
+          PY
+          git rm -f .github/workflows/brick-qa-error-evidence-helper.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/brick-browser-qa.mjs
+          git commit -m 'Persist Brick browser QA assertion evidence'
+          git push origin HEAD:feature/brick-calculator
