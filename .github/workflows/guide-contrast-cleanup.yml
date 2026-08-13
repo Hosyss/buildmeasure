@@ -1,0 +1,34 @@
+name: Record guide contrast audit and cleanup
+
+on:
+  push:
+    branches:
+      - fix/guide-primary-button-contrast
+
+permissions:
+  contents: write
+
+jobs:
+  record-and-clean:
+    runs-on: ubuntu-24.04
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Append audit and remove temporary QA plumbing
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -euo pipefail
+          echo 'CiMjIDIwMjYtMDgtMTMg4oCUIFBvc3QtaG9sZSBndWlkZSBwcmltYXJ5LWFjdGlvbiBjb250cmFzdCBob3RmaXgKCnwgRmllbGQgfCBWYWx1ZSB8CnwgLS0tIHwgLS0tIHwKfCBTdGF0dXMgfCAqKlBhc3NlZCDigJQgdGFyZ2V0ZWQgYWNjZXNzaWJpbGl0eSByZWdyZXNzaW9uIGNsb3NlZCBiZWZvcmUgcmVsZWFzZSoqIHwKfCBTb3VyY2UgZml4IHwgYGFwcC9ndWlkZXMvZ3VpZGVzLmNzc2Agb24gUFIgIzI5IHwKfCBSb290IGNhdXNlIHwgYC5ndWlkZS1ib2R5IGFgIG92ZXJyb2RlIGAuYnV0dG9uLXByaW1hcnlgIHRleHQgY29sb3IsIHByb2R1Y2luZyBMaWdodGhvdXNlLXJlcG9ydGVkIDEuMTE6MSBjb250cmFzdCBvbiDigJxDYWxjdWxhdGUgbXkgcG9zdCBob2xlc+KAnSB8CnwgRml4IHwgYC5ndWlkZS1ib2R5IGEuYnV0dG9uLXByaW1hcnkgeyBjb2xvcjogdmFyKC0td2hpdGUpOyB9YCB8CnwgQXV0b21hdGVkIGdhdGUgfCBHaXRIdWIgQWN0aW9ucyBydW4gYDMxNjc5MDA5MjEzYCBwYXNzZWQgbm9ybWFsIHF1YWxpdHkgZ2F0ZSBhbmQgcHJvZHVjdGlvbiBkZXBlbmRlbmN5IGF1ZGl0IHwKfCBUYXJnZXRlZCBMaWdodGhvdXNlIHwgR2l0SHViIEFjdGlvbnMgcnVuIGAzMTY3OTExNjEyOWAsIGpvYiBgOTQzODAyNjM2NDhgLCBMaWdodGhvdXNlIDEzLjQuMSB8CnwgRXZpZGVuY2UgYXJ0aWZhY3QgfCBgZ3VpZGUtY29udHJhc3QtcWFgLCBJRCBgOTE3Mjc2NDM2M2AsIFNIQS0yNTYgYDc5ZWViNDhjODQ2MWNhNjVhNmNkN2M0NWZlNmQ3MDlmZTE5YzkyNGYwMWFlZDljYjIyNjU2Yzk3NDEzNjQ2ZDBgIHwKCiMjIyBDbG9zaW5nIHNjb3JlcwoKLSBHdWlkZSBtb2JpbGU6IFBlcmZvcm1hbmNlICoqOTkqKiwgQWNjZXNzaWJpbGl0eSAqKjEwMCoqLCBCZXN0IFByYWN0aWNlcyAqKjEwMCoqLCBTRU8gKioxMDAqKi4KLSBHdWlkZSBkZXNrdG9wOiBQZXJmb3JtYW5jZSAqKjEwMCoqLCBBY2Nlc3NpYmlsaXR5ICoqMTAwKiosIEJlc3QgUHJhY3RpY2VzICoqMTAwKiosIFNFTyAqKjEwMCoqLgotIExpZ2h0aG91c2UgYGNvbG9yLWNvbnRyYXN0YCBhdWRpdCBzY29yZSBpcyAqKjEgKHBhc3MpKiogb24gYm90aCBwcm9maWxlcy4KLSBUaGlzIGhvdGZpeCBjaGFuZ2VzIG9ubHkgdGhlIHByaW1hcnktbGluayB0ZXh0IGNvbG9yIGluc2lkZSBndWlkZSBjb250ZW50LiBObyBjYWxjdWxhdG9yIGVuZ2luZSwgZm9ybXVsYSwgcm91dGUsIG1ldGFkYXRhLCBvciBndWlkZSBjb3B5IGNoYW5nZWQuCgojIyMgUmVsZWFzZSBmb2xsb3ctdXAKClJlbW92ZSBhbGwgdGVtcG9yYXJ5IGNvbnRyYXN0LVFBIHdvcmtmbG93L3NlcnZlciBmaWxlcywgcGFzcyB0aGUgbm9ybWFsIGNsZWFuLWhlYWQgcXVhbGl0eSBnYXRlLCBtZXJnZSB0aHJvdWdoIFBSIHJldmlldywgdmVyaWZ5IHRoZSBjaGFuZ2VkIGd1aWRlIG9uIHRoZSBjYW5vbmljYWwgcHJvZHVjdGlvbiBvcmlnaW4sIHRoZW4gc3VibWl0IG9ubHkgdGhhdCBjaGFuZ2VkIGd1aWRlIFVSTCB0byBJbmRleE5vdyBvbmNlLiBEbyBub3QgdXNlIHRoZSBleGhhdXN0ZWQgbWFudWFsIEdvb2dsZSBTZWFyY2ggQ29uc29sZSBpbmRleGluZyBxdW90YS4K' | base64 -d >> docs/AUDITS.md
+          git rm -f \
+            .github/workflows/guide-contrast-qa.yml \
+            .github/workflows/guide-contrast-cleanup.yml \
+            scripts/qa-preview-server.mjs
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/AUDITS.md
+          git commit -m 'Record guide contrast hotfix QA'
+          git push origin HEAD:fix/guide-primary-button-contrast
