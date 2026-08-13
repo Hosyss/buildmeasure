@@ -549,6 +549,10 @@ try {
   client.close();
 } catch (error) {
   await writeFile(`${artifactRoot}/chrome-stderr.log`, chromeStderr);
+  await writeFile(
+    `${artifactRoot}/browser-qa-error.txt`,
+    `${error instanceof Error ? error.stack ?? error.message : String(error)}\n`,
+  );
   throw error;
 } finally {
   chrome.kill("SIGTERM");
