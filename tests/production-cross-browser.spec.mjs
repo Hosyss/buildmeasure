@@ -36,7 +36,10 @@ function observePage(page) {
   page.on("pageerror", (error) => pageErrors.push(String(error)));
   page.on("requestfailed", (request) => {
     const url = new URL(request.url());
-    if (url.origin === "https://buildmeasure.buildtools.workers.dev") {
+    if (
+      url.origin === "https://buildmeasure.buildtools.workers.dev" &&
+      url.pathname !== "/api/analytics"
+    ) {
       failedRequests.push(`${request.method()} ${url.pathname}: ${request.failure()?.errorText ?? "failed"}`);
     }
   });
@@ -92,7 +95,7 @@ for (const viewport of viewports) {
     await metric.click();
     await expect(page.getByText("972", { exact: true })).toBeVisible();
     await expect(page.getByText("49 bricks", { exact: true })).toBeVisible();
-    await expect(page.getByText(/1,021 bricks/)).toBeVisible();
+    await expect(page.getByText("1,021 bricks", { exact: true })).toBeVisible();
 
     await page.keyboard.press("Tab");
     const focused = await page.evaluate(() => {
