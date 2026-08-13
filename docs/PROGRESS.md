@@ -48,17 +48,25 @@ The weighted **Launch-ready v1 remains 97%** because the remaining broader cross
   Metric conversion could move the documented example across a whole-brick
   boundary (`972` to `973`) because converted form values were limited to seven
   decimal places before recalculation.
-- Branch `agent/fix-unit-conversion-boundary` keeps the shared calculator engine
-  unchanged, preserves extra precision only for Brick form conversions, and
-  adds a permanent regression for the displayed-input path.
-- All `118` unit/engine tests pass locally. The normal GitHub quality gate,
-  rendered/browser verification, merge, and production verification remain
-  required before this corrective release is considered closed.
-- The legacy `buildmeasure.hosys.chatgpt.site` deployment currently redirects
-  to the retired `buildmeasure.hosy-sthdr.workers.dev` origin instead of the
-  canonical production origin. The Worker source already contains the correct
-  canonical redirect, so the remaining fix belongs to the legacy Sites
-  deployment/configuration rather than the calculator engine.
+- PR #35 was merged to `main` at
+  `47f58fd5911aae9a45a7f24f1940c42e30ee295f`. The fix keeps the shared
+  calculator engine unchanged, preserves extra precision only for Brick form
+  conversions, and adds a permanent regression for the displayed-input path.
+- All `118` unit/engine tests passed. Both the pull-request quality gate
+  (`31719529624`, job `94512682405`) and the final `main` quality gate
+  (run 222) completed successfully.
+- Production verification at
+  `https://buildmeasure.buildtools.workers.dev/brick-calculator` confirmed the
+  default Metric result remains aligned with Imperial: minimum `972`, allowance
+  `49`, and order quantity `1,021`.
+- The existing public legacy Sites deployment was updated in place to redirect
+  directly to the canonical production origin while preserving paths and query
+  strings. Sites version 22, commit
+  `04c921ce39fe442df269402f34eaaa93adee43f4`, was deployed successfully and
+  verified with a live Brick route redirect.
+- This corrective audit is closed. The remaining launch gap is unchanged:
+  broader Firefox/WebKit coverage plus real-user field data and independent
+  usability feedback.
 
 ## Master product vision
 
