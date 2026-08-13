@@ -15,6 +15,9 @@ import {
 import { ResetIcon } from "@/components/icons";
 import { CalculatorActions } from "@/components/calculator-actions";
 import { CalculatorHistory } from "@/components/calculator-history";
+import { CalculatorCostFields, CalculatorCostResult } from "@/components/calculator-cost";
+import { usePurchaseCost } from "@/hooks/use-purchase-cost";
+import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
 import { formatConvertedInput } from "@/lib/units";
@@ -88,6 +91,12 @@ export function ConcreteCalculator() {
       throw error;
     }
   }, [form, unitSystem]);
+  const purchaseUnitLabel = `${form.bagSize} lb bag`;
+  const purchaseCost = usePurchaseCost(
+    calculation.result?.bags ?? null,
+    purchaseUnitLabel,
+  );
+
   const markInteraction = useCalculatorAnalytics(
     "concrete-calculator",
     Boolean(calculation.result),
@@ -96,6 +105,7 @@ export function ConcreteCalculator() {
 
   function setField<Key extends keyof FormState>(field: Key, value: FormState[Key]) {
     markInteraction();
+    if (field === "bagSize") purchaseCost.clearUnitPrice();
     setForm((current) => ({ ...current, [field]: value }));
     setNotice("");
   }
@@ -129,17 +139,22 @@ export function ConcreteCalculator() {
 
   function reset() {
     markInteraction();
+    purchaseCost.resetCost();
     setForm(DEFAULTS[unitSystem]);
     setNotice("Calculator reset to example values.");
   }
 
   async function copyResult() {
     if (!calculation.result) return;
+    const costLine = purchaseCost.result
+      ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
+      : null;
     const text = [
       "BuildMeasure concrete estimate",
       resultSummary(calculation.result),
       `Net volume: ${format(calculation.result.netCubicMeters)} m³`,
       `Waste allowance: ${format(calculation.result.wastePercent)}%`,
+      ...(costLine ? [costLine] : []),
     ].join("\n");
 
     try {
@@ -157,7 +172,7 @@ export function ConcreteCalculator() {
       label: `${form.length} × ${form.width} × ${form.depth} ${
         unitSystem === "imperial" ? "ft / in" : "m / cm"
       }`,
-      summary: resultSummary(calculation.result),
+      summary: `${resultSummary(calculation.result)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
     });
     setNotice("Estimate saved on this device.");
   }
@@ -296,6 +311,24 @@ export function ConcreteCalculator() {
           </label>
         </div>
 
+        <CalculatorCostFields
+          unitLabel={purchaseUnitLabel}
+          unitPrice={purchaseCost.unitPrice}
+          currencyLabel={purchaseCost.currencyLabel}
+          error={purchaseCost.error}
+          errorId="concrete-cost-error"
+          onUnitPriceChange={(value) => {
+            markInteraction();
+            purchaseCost.setUnitPrice(value);
+            setNotice("");
+          }}
+          onCurrencyLabelChange={(value) => {
+            markInteraction();
+            purchaseCost.setCurrencyLabel(value);
+            setNotice("");
+          }}
+        />
+
         {calculation.error ? (
           <p className="calculator-error" id="calculator-error" role="alert">
             {calculation.error.message}
@@ -345,6 +378,8 @@ export function ConcreteCalculator() {
                 <dd>{calculation.result.bags} bags</dd>
               </div>
             </dl>
+
+            <CalculatorCostResult result={purchaseCost.result} />
 
             <p className="result-caution">
               Bag yields are approximate. Confirm the selected product yield and

@@ -23,6 +23,8 @@ Semantic Versioning after the first verified release.
 
 ### Added
 
+- Added optional user-entered package pricing to all six live calculators, with approximate material-cost totals, currency labels, copy/save integration, stale-package price clearing, and no live-price or exchange-rate assumptions.
+- Added a shared tested cost helper plus a documented cost-estimator scope and release checklist.
 - Added a tested Post Hole Concrete Calculator for multiple round holes with
   optional round or square post displacement, metric and imperial inputs,
   adjustable allowance, and complete 40/60/80 lb bag estimates.

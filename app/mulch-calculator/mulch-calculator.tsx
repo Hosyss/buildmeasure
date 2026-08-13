@@ -3,6 +3,9 @@
 import { FormEvent, useMemo, useState } from "react";
 import { CalculatorActions } from "@/components/calculator-actions";
 import { CalculatorHistory } from "@/components/calculator-history";
+import { CalculatorCostFields, CalculatorCostResult } from "@/components/calculator-cost";
+import { usePurchaseCost } from "@/hooks/use-purchase-cost";
+import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
@@ -97,6 +100,12 @@ export function MulchCalculator() {
       throw error;
     }
   }, [form, unitSystem]);
+  const purchaseUnitLabel = `${calculation.result ? format(displayBagVolume(calculation.result, unitSystem)) : form.bagVolume} ${unitSystem === "imperial" ? "ft³" : "L"} bag`;
+  const purchaseCost = usePurchaseCost(
+    calculation.result?.bags ?? null,
+    purchaseUnitLabel,
+  );
+
   const markInteraction = useCalculatorAnalytics(
     "mulch-calculator",
     Boolean(calculation.result),
@@ -108,6 +117,7 @@ export function MulchCalculator() {
     value: FormState[Key],
   ) {
     markInteraction();
+    if (field === "bagVolume") purchaseCost.clearUnitPrice();
     setForm((current) => ({ ...current, [field]: value }));
     setNotice("");
   }
@@ -153,6 +163,7 @@ export function MulchCalculator() {
 
   function reset() {
     markInteraction();
+    purchaseCost.resetCost();
     setForm(DEFAULTS[unitSystem]);
     setNotice("Calculator reset to example values.");
   }
@@ -160,12 +171,16 @@ export function MulchCalculator() {
   async function copyResult() {
     if (!calculation.result) return;
 
+    const costLine = purchaseCost.result
+      ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
+      : null;
     const text = [
       "BuildMeasure mulch estimate",
       resultSummary(calculation.result, unitSystem),
       `Net volume: ${format(calculation.result.netCubicMeters, 3)} m³`,
       `Allowance: ${format(calculation.result.wastePercent)}%`,
       `Selected bag volume: ${format(calculation.result.bagVolumeLiters, 3)} L`,
+      ...(costLine ? [costLine] : []),
     ].join("\n");
 
     try {
@@ -184,7 +199,7 @@ export function MulchCalculator() {
         unitSystem === "imperial"
           ? `${form.length} × ${form.width} ft · ${form.depth} in deep`
           : `${form.length} × ${form.width} m · ${form.depth} cm deep`,
-      summary: resultSummary(calculation.result, unitSystem),
+      summary: `${resultSummary(calculation.result, unitSystem)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
     });
     setNotice("Estimate saved on this device.");
   }
@@ -333,6 +348,24 @@ export function MulchCalculator() {
           </label>
         </div>
 
+        <CalculatorCostFields
+          unitLabel={purchaseUnitLabel}
+          unitPrice={purchaseCost.unitPrice}
+          currencyLabel={purchaseCost.currencyLabel}
+          error={purchaseCost.error}
+          errorId="mulch-cost-error"
+          onUnitPriceChange={(value) => {
+            markInteraction();
+            purchaseCost.setUnitPrice(value);
+            setNotice("");
+          }}
+          onCurrencyLabelChange={(value) => {
+            markInteraction();
+            purchaseCost.setCurrencyLabel(value);
+            setNotice("");
+          }}
+        />
+
         {calculation.error ? (
           <p className="calculator-error" id="mulch-error" role="alert">
             {calculation.error.message}
@@ -392,6 +425,8 @@ export function MulchCalculator() {
                 <dd>{calculation.result.bags} bags</dd>
               </div>
             </dl>
+
+            <CalculatorCostResult result={purchaseCost.result} />
 
             <p className="result-caution">
               Confirm the installed depth, bag volume, and bulk-delivery increments.

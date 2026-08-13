@@ -41,6 +41,7 @@ are public so calculator behavior and release evidence can be inspected.
 - Mulch net/order volume, bed area, per-bag coverage, and complete bags without
   an invented density assumption.
 - Copy, print, reset, and device-local save/history actions.
+- Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
 - Pure, versioned concrete, post-hole concrete, paint, tile, gravel, and mulch engines with
   automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
@@ -96,6 +97,8 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 - [Mulch calculator specification](docs/calculators/mulch.md)
 - [Progress measurement](docs/PROGRESS.md)
 - [QA guide](docs/QA.md)
+- [Optional purchase cost specification](docs/COST_ESTIMATOR.md)
+- [Optional purchase cost QA](docs/COST_ESTIMATOR_QA.md)
 - [Quality audit log](docs/AUDITS.md)
 - [Verification record](docs/VERIFICATION.md)
 - [Roadmap](docs/ROADMAP.md)

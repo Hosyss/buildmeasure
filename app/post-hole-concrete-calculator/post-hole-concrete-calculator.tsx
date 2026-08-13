@@ -19,6 +19,9 @@ import {
 import { ResetIcon } from "@/components/icons";
 import { CalculatorActions } from "@/components/calculator-actions";
 import { CalculatorHistory } from "@/components/calculator-history";
+import { CalculatorCostFields, CalculatorCostResult } from "@/components/calculator-cost";
+import { usePurchaseCost } from "@/hooks/use-purchase-cost";
+import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
 import { formatConvertedInput } from "@/lib/units";
@@ -109,6 +112,12 @@ export function PostHoleConcreteCalculator() {
     }
   }, [form, unitSystem]);
 
+  const purchaseUnitLabel = `${form.bagSize} lb bag`;
+  const purchaseCost = usePurchaseCost(
+    calculation.result?.bags ?? null,
+    purchaseUnitLabel,
+  );
+
   const markInteraction = useCalculatorAnalytics(
     "post-hole-concrete-calculator",
     Boolean(calculation.result),
@@ -117,6 +126,7 @@ export function PostHoleConcreteCalculator() {
 
   function setField<Key extends keyof FormState>(field: Key, value: FormState[Key]) {
     markInteraction();
+    if (field === "bagSize") purchaseCost.clearUnitPrice();
     setForm((current) => ({ ...current, [field]: value }));
     setNotice("");
   }
@@ -142,12 +152,16 @@ export function PostHoleConcreteCalculator() {
 
   function reset() {
     markInteraction();
+    purchaseCost.resetCost();
     setForm(DEFAULTS[unitSystem]);
     setNotice("Calculator reset to example values.");
   }
 
   async function copyResult() {
     if (!calculation.result) return;
+    const costLine = purchaseCost.result
+      ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
+      : null;
     const text = [
       "BuildMeasure post-hole concrete estimate",
       resultSummary(calculation.result),
@@ -155,6 +169,7 @@ export function PostHoleConcreteCalculator() {
       `Post displacement: ${postShapeLabel(calculation.result.postShape)}`,
       `Net concrete: ${format(calculation.result.totalNetCubicMeters)} m³`,
       `Allowance: ${format(calculation.result.wastePercent)}%`,
+      ...(costLine ? [costLine] : []),
     ].join("\n");
 
     try {
@@ -170,7 +185,7 @@ export function PostHoleConcreteCalculator() {
     const unit = unitSystem === "imperial" ? "in" : "cm";
     saveEstimate({
       label: `${form.holeCount} holes · Ø ${form.holeDiameter} ${unit} × ${form.holeDepth} ${unit}`,
-      summary: resultSummary(calculation.result),
+      summary: `${resultSummary(calculation.result)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
     });
     setNotice("Estimate saved on this device.");
   }
@@ -344,6 +359,24 @@ export function PostHoleConcreteCalculator() {
           </label>
         </div>
 
+        <CalculatorCostFields
+          unitLabel={purchaseUnitLabel}
+          unitPrice={purchaseCost.unitPrice}
+          currencyLabel={purchaseCost.currencyLabel}
+          error={purchaseCost.error}
+          errorId="post-hole-cost-error"
+          onUnitPriceChange={(value) => {
+            markInteraction();
+            purchaseCost.setUnitPrice(value);
+            setNotice("");
+          }}
+          onCurrencyLabelChange={(value) => {
+            markInteraction();
+            purchaseCost.setCurrencyLabel(value);
+            setNotice("");
+          }}
+        />
+
         {calculation.error ? (
           <p className="calculator-error" id="calculator-error" role="alert">
             {calculation.error.message}
@@ -395,6 +428,8 @@ export function PostHoleConcreteCalculator() {
                 <dd>{calculation.result.bags} bags</dd>
               </div>
             </dl>
+
+            <CalculatorCostResult result={purchaseCost.result} />
 
             <p className="result-caution">
               This is a quantity estimate, not a structural post-hole design. Verify
