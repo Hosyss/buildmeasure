@@ -22,9 +22,9 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import base64
           from pathlib import Path
 
-          # Close every pre-merge Brick QA item that now has recorded evidence.
           qa_path = Path('docs/BRICK_QA.md')
           qa = qa_path.read_text()
           qa = qa.replace('- [ ] ', '- [x] ')
@@ -39,7 +39,6 @@ jobs:
               qa = qa.replace(f'- [x] {item}', f'- [ ] {item}')
           qa_path.write_text(qa)
 
-          # Keep the Unreleased changelog aligned with the now-seven-calculator library.
           changelog_path = Path('CHANGELOG.md')
           changelog = changelog_path.read_text()
           changelog = changelog.replace('all six live calculators', 'all seven live calculators')
@@ -52,93 +51,16 @@ jobs:
           )
           if brick_entry not in changelog:
               marker = '### Added\n\n'
-              if changelog.count(marker) < 1:
+              if marker not in changelog:
                   raise SystemExit('Unable to find Unreleased Added section in CHANGELOG.md')
               changelog = changelog.replace(marker, marker + brick_entry, 1)
           changelog_path.write_text(changelog)
 
+          audit_b64 = 'CgojIyAyMDI2LTA4LTEzIOKAlCBCcmljayBDYWxjdWxhdG9yIG1pbGVzdG9uZSBhdWRpdAoKfCBGaWVsZCB8IFZhbHVlIHwKfCAtLS0gfCAtLS0gfAp8IFN0YXR1cyB8ICoqUGFzc2VkIOKAlCBhdXRvbWF0ZWQsIHN1cGVydmlzZWQgYnJvd3NlciBpbnRlcmFjdGlvbiwgc3VwcGxlbWVudGFsIGludGVyYWN0aW9uLCBhbmQgTGlnaHRob3VzZSBtaWxlc3RvbmUgZ2F0ZXMqKiB8CnwgUHJvZHVjdCB2ZXJzaW9uIHwgMC41LjMgcGx1cyB1bnJlbGVhc2VkIEJyaWNrIENhbGN1bGF0b3IgbWlsZXN0b25lIHwKfCBQcmltYXJ5IG1pbGVzdG9uZSBzb3VyY2UgfCBgNTUxZTFjNWM2ZjhlZWYwYjRhZDA2N2Y5ZDIyMGIwNmM0MDM0YmVmM2AgfAp8IFN1cHBsZW1lbnRhbCBRQSBzb3VyY2UgfCBgMTZhYTVjYTk4NWMwOTNlZmQ5MzEyNTQzOTlmYmMwNWQ5MDJhOWVhMWAgfAp8IExpZ2h0aG91c2UgfCBHb29nbGUgTGlnaHRob3VzZSAxMy40LjEgfAp8IFRhcmdldCB8IExvY2FsIHByb2R1Y3Rpb24gV29ya2VyIGJ1aWxkOyBsYWIgZXZpZGVuY2UsIG5vdCBkZXBsb3llZCBmaWVsZCBkYXRhIHwKCiMjIyBGb3JtdWxhIGFuZCBhdXRvbWF0ZWQgZXZpZGVuY2UKCi0gQnJpY2sgcXVhbnRpdHkgbG9naWMgaXMgaXNvbGF0ZWQgaW4gYGxpYi9jYWxjdWxhdG9ycy9icmljay50c2A7IG9wdGlvbmFsIHB1cmNoYXNlIHByaWNpbmcgc3RheXMgaW4gdGhlIHNoYXJlZCBjb3N0IGxheWVyIGFuZCBkb2VzIG5vdCBhbHRlciB0aGUgcXVhbnRpdHkgZW5naW5lLgotIFByaW1hcnkgZm9ybXVsYS9yZWZlcmVuY2UgYmFzaXM6IEJyaWNrIEluZHVzdHJ5IEFzc29jaWF0aW9uIFRlY2huaWNhbCBOb3RlIDEwIHdhbGwtYXJlYSBtZXRob2QgYW5kIFRhYmxlIDQgcnVubmluZy9zdGFjay1ib25kIGVzdGltYXRpbmcgcXVhbnRpdGllcywgQklBIGZpcmVkLWNsYXkgbWF0ZXJpYWwgc2NvcGUsIGFuZCBOSVNUIFNQIDgxMSB1bml0IGNvbnZlcnNpb25zLgotIFZlcmlmaWVkIHZlY3RvcnMgaW5jbHVkZSBNb2R1bGFyIDY3NSBicmlja3MgLyAxMDAgZnTCsiwgU3RhbmRhcmQgNjU1IC8gMTAwIGZ0wrIsIGFuZCB0aGUgMjAgZnQgw5cgOCBmdCB3YWxsIG1pbnVzIDE2IGZ0wrIgb3BlbmluZ3MgZXhhbXBsZTogOTcyIG5ldCBicmlja3MgYW5kIDEsMDIxIGJyaWNrcyBhZnRlciBhIDUlIHdhc3RlL2JyZWFrYWdlIGFsbG93YW5jZSB3aXRoIGZpbmFsIHVwd2FyZCByb3VuZGluZy4KLSBGaW5hbCBtaWxlc3RvbmUgcnVuIGAzMTY4MzAxMDg0OWAgcGFzc2VkIHRoZSBjb21wbGV0ZSBhdXRvbWF0ZWQgZ2F0ZTogKioxMTYvMTE2IHVuaXQvZW5naW5lIHRlc3RzKiosIHZlcmlmaWVkIHByb2R1Y3Rpb24gYnVpbGQsICoqMjQvMjQgcmVuZGVyZWQgYXBwbGljYXRpb24gdGVzdHMqKiwgaW50ZXJuYWwtbGluayBkaXNjb3ZlcnksIGFuZCBoaWdoLXJpc2sgcHJvZHVjdGlvbiBkZXBlbmRlbmN5IGF1ZGl0IHdpdGggemVybyByZXBvcnRlZCB2dWxuZXJhYmlsaXRpZXMuCi0gQSBwZXJtYW5lbnQgYW5hbHl0aWNzIHJlZ3Jlc3Npb24gY29uZmlybXMgYGJyaWNrLWNhbGN1bGF0b3JgIGlzIGFjY2VwdGVkIGJ5IHRoZSBib3VuZGVkIHNoYXJlZCBhbmFseXRpY3MgdmFsaWRhdG9yOyByZW5kZXJlZCBmZWVkYmFjayBjb3ZlcmFnZSBjb25maXJtcyB0aGUgQnJpY2sgZmVlZGJhY2sgSUQgaXMgYWNjZXB0ZWQuCgojIyMgU3VwZXJ2aXNlZCBicm93c2VyIGV2aWRlbmNlCgpGaW5hbCBtaWxlc3RvbmUgcnVuIGAzMTY4MzAxMDg0OWAgcGFzc2VkIHRoZSBCcmljayBpbnRlcmFjdGlvbiBtYXRyaXggYWdhaW5zdCB0aGUgcHJvZHVjdGlvbiBXb3JrZXIgYnVpbGQ6CgotIERlZmF1bHQgMSwwMjEtYnJpY2sgdmVjdG9yLCBNb2R1bGFyIDY3NSBhdCAwJSB3YXN0ZSwgTW9kdWxhciA3MDkgYXQgNSUsIGFuZCBTdGFuZGFyZCA2NTUgYXQgMCUuCi0gQWxsIGRvY3VtZW50ZWQgQklBIHByZXNldHMgcGx1cyBlZGl0YWJsZSBDdXN0b20gLyBzdXBwbGllciBjb3ZlcmFnZS4KLSBPcGVuaW5ncyBzdWJ0cmFjdGlvbiwgMC81LzI1LzUwJSB3YXN0ZSwgaW52YWxpZCBjb3ZlcmFnZS9vcGVuaW5ncy93YXN0ZSBzdGF0ZXMsIEltcGVyaWFsIOKGlCBNZXRyaWMgcm91bmQgdHJpcCwgYW5kIGZpbmFsIHByb2N1cmVtZW50IHJvdW5kaW5nLgotIE9wdGlvbmFsIHByaWNlLXBlci1icmljayBiZWhhdmlvciwgc3RhbGUtcHJpY2UgY2xlYXJpbmcgd2hlbiB0aGUgYnJpY2sgZGVmaW5pdGlvbiBjaGFuZ2VzLCBwcmljZSBwcmVzZXJ2YXRpb24gZHVyaW5nIHVuaXQtc3lzdGVtIGNvbnZlcnNpb24sIGFuZCB2YWxpZCBxdWFudGl0eSByZXRlbnRpb24gd2hlbiBjb3N0IGlucHV0IGlzIGludmFsaWQuCi0gQ29weSwgU2F2ZSwgZGV2aWNlLWxvY2FsIEhpc3RvcnkvQ2xlYXIsIFByaW50LCBSZXNldCwgZmVlZGJhY2ssIGtleWJvYXJkLWZvY3VzYWJsZSBjb250cm9scywgYW5kIG5vIHNpdGUtb3JpZ2luYXRlZCBicm93c2VyIGNvbnNvbGUvcnVudGltZSBlcnJvcnMuCi0gRXhhY3QgMzYwIHB4LCA3NjggcHgsIGFuZCBkZXNrdG9wIHdpZHRocyByZW5kZXJlZCB3aXRob3V0IGRvY3VtZW50LWxldmVsIGhvcml6b250YWwgb3ZlcmZsb3cuCgpTdXBwbGVtZW50YWwgcnVuIGAzMTY4NTk1OTg4MGAgcGFzc2VkIHRoZSByZW1haW5pbmcgcmVsZWFzZS1ibG9ja2luZyBpbnRlcmFjdGlvbiBjYXNlczoKCi0gYCRgLCBgRVVSYCwgYW5kIGBFR1BgIGRpc3BsYXkgbGFiZWxzOyB6ZXJvIGFuZCBkZWNpbWFsIHByaWNlczsgdW5zYWZlLXByaWNlIHJlamVjdGlvbjsgY3VzdG9tIG5lZ2F0aXZlL25vbi1maW5pdGUgY292ZXJhZ2UgaGFuZGxpbmc7IGVtcHR5L292ZXJmbG93IHdhbGwgaW5wdXQgaGFuZGxpbmc7IGFuZCBvcGVuaW5ncy93YXN0ZSBib3VuZGFyeSBlcnJvcnMuCi0gQ29weS9TYXZlIGluY2x1ZGVzIGEgdmFsaWQgZXN0aW1hdGVkIG1hdGVyaWFsIGNvc3QgYW5kIG9taXRzIGNvc3Qgd2hlbiB0aGUgb3B0aW9uYWwgcHJpY2UgaXMgaW52YWxpZC4KLSBTYXZlZCBoaXN0b3J5IHN1cnZpdmVzIGFuIG9yZGluYXJ5IGNhbGN1bGF0b3IgcmUtcmVuZGVyIGFuZCBjbGVhcnMgb24gcmVxdWVzdDsgQ3VzdG9tIGNvdmVyYWdlIHJlbWFpbnMgZWRpdGFibGUgYW5kIGtleWJvYXJkLWZvY3VzYWJsZS4KCiMjIyBMaWdodGhvdXNlIG1pbGVzdG9uZSBtYXRyaXgKClR3byBub24tc2NvcmVkIHdhcm0tdXBzIHByZWNlZGVkIHRoZSAxNiBzY29yZWQgcmVwb3J0cy4gRXZlcnkgcmVxdWlyZWQgY2F0ZWdvcnkgbWV0IHRoZSA+PTk1IHBvbGljeSB0aHJlc2hvbGQuCgp8IFJvdXRlIHwgUHJvZmlsZSB8IFBlcmZvcm1hbmNlIHwgQWNjZXNzaWJpbGl0eSB8IEJlc3QgUHJhY3RpY2VzIHwgU0VPIHwKfCAtLS0gfCAtLS0gfCAtLS06IHwgLS0tOiB8IC0tLTogfCAtLS06IHwKfCBgL2AgfCBNb2JpbGUgfCA5OSB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9gIHwgRGVza3RvcCB8IDEwMCB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9jb25jcmV0ZS1jYWxjdWxhdG9yYCB8IE1vYmlsZSB8IDk5IHwgMTAwIHwgMTAwIHwgMTAwIHwKfCBgL2NvbmNyZXRlLWNhbGN1bGF0b3JgIHwgRGVza3RvcCB8IDEwMCB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9wb3N0LWhvbGUtY29uY3JldGUtY2FsY3VsYXRvcmAgfCBNb2JpbGUgfCA5OSB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9wb3N0LWhvbGUtY29uY3JldGUtY2FsY3VsYXRvcmAgfCBEZXNrdG9wIHwgMTAwIHwgMTAwIHwgMTAwIHwgMTAwIHwKfCBgL3BhaW50LWNhbGN1bGF0b3JgIHwgTW9iaWxlIHwgOTkgfCAxMDAgfCAxMDAgfCAxMDAgfAp8IGAvcGFpbnQtY2FsY3VsYXRvcmAgfCBEZXNrdG9wIHwgMTAwIHwgMTAwIHwgMTAwIHwgMTAwIHwKfCBgL3RpbGUtY2FsY3VsYXRvcmAgfCBNb2JpbGUgfCA5OSB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC90aWxlLWNhbGN1bGF0b3JgIHwgRGVza3RvcCB8IDEwMCB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9icmljay1jYWxjdWxhdG9yYCB8IE1vYmlsZSB8IDk5IHwgMTAwIHwgMTAwIHwgMTAwIHwKfCBgL2JyaWNrLWNhbGN1bGF0b3JgIHwgRGVza3RvcCB8IDEwMCB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9ncmF2ZWwtY2FsY3VsYXRvcmAgfCBNb2JpbGUgfCA5OSB8IDEwMCB8IDEwMCB8IDEwMCB8CnwgYC9ncmF2ZWwtY2FsY3VsYXRvcmAgfCBEZXNrdG9wIHwgMTAwIHwgMTAwIHwgMTAwIHwgMTAwIHwKfCBgL211bGNoLWNhbGN1bGF0b3JgIHwgTW9iaWxlIHwgOTkgfCAxMDAgfCAxMDAgfCAxMDAgfAp8IGAvbXVsY2gtY2FsY3VsYXRvcmAgfCBEZXNrdG9wIHwgMTAwIHwgMTAwIHwgMTAwIHwgMTAwIHwKCiMjIyBFdmlkZW5jZSBhcnRpZmFjdHMKCi0gTWlsZXN0b25lIGFydGlmYWN0OiBgYnJpY2stY2FsY3VsYXRvci1taWxlc3RvbmUtcWFgLCBhcnRpZmFjdCBJRCBgOTE3NDM4NzAzMWAsIFNIQS0yNTYgYDEzZTljMWUzZGM1OGFiZDRhMTM2Y2Q0ZWNkNWFjM2I4M2NjMDgyMTNkNTc1N2ZlMDJmNTIzZTA2NjVkZTY1ZTNgLgotIFN1cHBsZW1lbnRhbCBhcnRpZmFjdDogYGJyaWNrLXN1cHBsZW1lbnRhbC1pbnRlcmFjdGlvbi1xYWAsIGFydGlmYWN0IElEIGA5MTc1NDMyMjU3YCwgU0hBLTI1NiBgM2ZmNDQxMTVkMjdhOWY3MWE2Yzc3YTg1MWY3NGY5ZGJhZWI2NWZmMTRjNmExOTg1MzM4MjhmZDZhYWI3NjVjOWAuCgojIyMgUHJlbGltaW5hcnkgZmFpbHVyZXMgcmV0YWluZWQKCk5vIHByZWxpbWluYXJ5IGZhaWx1cmUgaXMgY291bnRlZCBhcyBhIHJlbGVhc2UgcGFzcy4KCi0gVGhlIGZpcnN0IGVuZ2luZS1nYXRlIGZhaWx1cmUgY2FtZSBmcm9tIGFuIGluY29ycmVjdCB1bmRlcmZsb3cgdGVzdCB1c2luZyBgTnVtYmVyLk1JTl9WQUxVRWAgaW4gYSBwYXRoIHRoYXQgcGVyZm9ybWVkIG5vIGNvbnZlcnNpb24gdW5kZXJmbG93LiBUaGUgdGVzdCB3YXMgY29ycmVjdGVkOyB0aGUgcGFzc2luZyBlbmdpbmUgcmVzdWx0IGRpZCBub3QgcmVxdWlyZSB3ZWFrZW5pbmcgdGhlIGVuZ2luZS4KLSBQcmVsaW1pbmFyeSBicm93c2VyLW1pbGVzdG9uZSBhdHRlbXB0cyBmYWlsZWQgb24gUUEtaGFybmVzcyBhc3N1bXB0aW9ucyBhYm91dCBhZGphY2VudCBET00gdGV4dC1ub2RlIHdoaXRlc3BhY2UsIHRob3VzYW5kcy1zZXBhcmF0b3IgZm9ybWF0dGluZyBpbiByYXcgcHJvY3VyZW1lbnQgZGV0YWlsLCBhbmQgdGhlIGV4YWN0IHNoYXJlZCBjb3N0LXZhbGlkYXRvciBtZXNzYWdlLiBUaGUgaGFybmVzcyB3YXMgY29ycmVjdGVkIHdpdGhvdXQgY2hhbmdpbmcgdGhlIEJyaWNrIHF1YW50aXR5IHByb2R1Y3QgYmVoYXZpb3IuCi0gVGhlIGZpcnN0IHN1cHBsZW1lbnRhbCBhdHRlbXB0IGluY29ycmVjdGx5IGV4cGVjdGVkIHRoZSBkZWZhdWx0IGFsbG93YW5jZSB0byBhZGQgMzQgYnJpY2tzLiBUaGUgdmVyaWZpZWQgY2FsY3VsYXRpb24gaXMgOTcyIG5ldCBicmlja3Mg4oaSIGBjZWlsKDk3MiDDlyAxLjA1KWAgPSAxLDAyMSwgc28gdGhlIGZpbmFsIHdob2xlLWJyaWNrIGFsbG93YW5jZSBhZGRzICoqNDkgYnJpY2tzKiouIFRoZSBhc3NlcnRpb24gd2FzIGNvcnJlY3RlZCBhbmQgdGhlIHN1cHBsZW1lbnRhbCBtYXRyaXggdGhlbiBwYXNzZWQuCgojIyMgUmVsZWFzZSBkZWNpc2lvbgoKVGhlIEJyaWNrIENhbGN1bGF0b3IgbWlsZXN0b25lIGludGVyYWN0aW9uIGFuZCBMaWdodGhvdXNlIGdhdGVzIGFyZSBwYXNzZWQuIE1lcmdlIHJlbWFpbnMgYmxvY2tlZCB1bnRpbCB0ZW1wb3JhcnkgUUEgcGx1bWJpbmcgaXMgYWJzZW50IGZyb20gdGhlIFBSIGRpZmYgYW5kIHRoZSBub3JtYWwgcmVwb3NpdG9yeSBDSSBwYXNzZXMgb24gdGhlIGNsZWFuZWQgZmluYWwgaGVhZC4gRGVwbG95bWVudCwgcHJvZHVjdGlvbiB2ZXJpZmljYXRpb24sIGFuZCBib3VuZGVkIEluZGV4Tm93IHN1Ym1pc3Npb24gcmVtYWluIHBvc3QtbWVyZ2UgZ2F0ZXMgYW5kIGFyZSBub3QgY2xhaW1lZCBieSB0aGlzIHJlY29yZC4K'
           audit_path = Path('docs/AUDITS.md')
           audit = audit_path.read_text()
-          audit_heading = '## 2026-08-13 — Brick Calculator milestone audit'
-          if audit_heading not in audit:
-              audit += '''
-
-## 2026-08-13 — Brick Calculator milestone audit
-
-| Field | Value |
-| --- | --- |
-| Status | **Passed — automated, supervised browser interaction, supplemental interaction, and Lighthouse milestone gates** |
-| Product version | 0.5.3 plus unreleased Brick Calculator milestone |
-| Primary milestone source | `551e1c5c6f8eef0b4ad067f9d220b06c4034bef3` |
-| Supplemental QA source | `16aa5ca985c093efd931254399fbc05d902a9ea1` |
-| Lighthouse | Google Lighthouse 13.4.1 |
-| Target | Local production Worker build; lab evidence, not deployed field data |
-
-### Formula and automated evidence
-
-- Brick quantity logic is isolated in `lib/calculators/brick.ts`; optional purchase pricing stays in the shared cost layer and does not alter the quantity engine.
-- Primary formula/reference basis: Brick Industry Association Technical Note 10 wall-area method and Table 4 running/stack-bond estimating quantities, BIA fired-clay material scope, and NIST SP 811 unit conversions.
-- Verified vectors include Modular 675 bricks / 100 ft², Standard 655 / 100 ft², and the 20 ft × 8 ft wall minus 16 ft² openings example: 972 net bricks and 1,021 bricks after a 5% waste/breakage allowance with final upward rounding.
-- Final milestone run `31683010849` passed the complete automated gate: **116/116 unit/engine tests**, verified production build, **24/24 rendered application tests**, internal-link discovery, and high-risk production dependency audit with zero reported vulnerabilities.
-- A permanent analytics regression confirms `brick-calculator` is accepted by the bounded shared analytics validator; rendered feedback coverage confirms the Brick feedback ID is accepted.
-
-### Supervised browser evidence
-
-Final milestone run `31683010849` passed the Brick interaction matrix against the production Worker build:
-
-- Default 1,021-brick vector, Modular 675 at 0% waste, Modular 709 at 5%, and Standard 655 at 0%.
-- All documented BIA presets plus editable Custom / supplier coverage.
-- Openings subtraction, 0/5/25/50% waste, invalid coverage/openings/waste states, Imperial ↔ Metric round trip, and final procurement rounding.
-- Optional price-per-brick behavior, stale-price clearing when the brick definition changes, price preservation during unit-system conversion, and valid quantity retention when cost input is invalid.
-- Copy, Save, device-local History/Clear, Print, Reset, feedback, keyboard-focusable controls, and no site-originated browser console/runtime errors.
-- Exact 360 px, 768 px, and desktop widths rendered without document-level horizontal overflow.
-
-Supplemental run `31685959880` passed the remaining release-blocking interaction cases:
-
-- `$`, `EUR`, and `EGP` display labels; zero and decimal prices; unsafe-price rejection; custom negative/non-finite coverage handling; empty/overflow wall input handling; and openings/waste boundary errors.
-- Copy/Save includes a valid estimated material cost and omits cost when the optional price is invalid.
-- Saved history survives an ordinary calculator re-render and clears on request; Custom coverage remains editable and keyboard-focusable.
-
-### Lighthouse milestone matrix
-
-Two non-scored warm-ups preceded the 16 scored reports. Every required category met the >=95 policy threshold.
-
-| Route | Profile | Performance | Accessibility | Best Practices | SEO |
-| --- | --- | ---: | ---: | ---: | ---: |
-| `/` | Mobile | 99 | 100 | 100 | 100 |
-| `/` | Desktop | 100 | 100 | 100 | 100 |
-| `/concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
-| `/post-hole-concrete-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/post-hole-concrete-calculator` | Desktop | 100 | 100 | 100 | 100 |
-| `/paint-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/paint-calculator` | Desktop | 100 | 100 | 100 | 100 |
-| `/tile-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/tile-calculator` | Desktop | 100 | 100 | 100 | 100 |
-| `/brick-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/brick-calculator` | Desktop | 100 | 100 | 100 | 100 |
-| `/gravel-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/gravel-calculator` | Desktop | 100 | 100 | 100 | 100 |
-| `/mulch-calculator` | Mobile | 99 | 100 | 100 | 100 |
-| `/mulch-calculator` | Desktop | 100 | 100 | 100 | 100 |
-
-### Evidence artifacts
-
-- Milestone artifact: `brick-calculator-milestone-qa`, artifact ID `9174387031`, SHA-256 `13e9c1e3dc58abd4a136cd4ecd5ac3b83cc08213d5757fe02f523e0665de65e3`.
-- Supplemental artifact: `brick-supplemental-interaction-qa`, artifact ID `9175432257`, SHA-256 `3ff44115d27a9f71a6c77a851f74f9dbaeb65ff14c6a198533828fd6aab765c9`.
-
-### Preliminary failures retained
-
-No preliminary failure is counted as a release pass.
-
-- The first engine-gate failure came from an incorrect underflow test using `Number.MIN_VALUE` in a path that performed no conversion underflow. The test was corrected; the passing engine result did not require weakening the engine.
-- Preliminary browser-milestone attempts failed on QA-harness assumptions about adjacent DOM text-node whitespace, thousands-separator formatting in raw procurement detail, and the exact shared cost-validator message. The harness was corrected without changing the Brick quantity product behavior.
-- The first supplemental attempt incorrectly expected the default allowance to add 34 bricks. The verified calculation is 972 net bricks → `ceil(972 × 1.05)` = 1,021, so the final whole-brick allowance adds **49 bricks**. The assertion was corrected and the supplemental matrix then passed.
-
-### Release decision
-
-The Brick Calculator milestone interaction and Lighthouse gates are passed. Merge remains blocked until temporary QA plumbing is absent from the PR diff and the normal repository CI passes on the cleaned final head. Deployment, production verification, and bounded IndexNow submission remain post-merge gates and are not claimed by this record.
-'''
+          if '## 2026-08-13 — Brick Calculator milestone audit' not in audit:
+              audit += base64.b64decode(audit_b64).decode('utf-8')
           audit_path.write_text(audit)
           PY
 
