@@ -4,7 +4,7 @@ import { UtilityContentPage } from "@/components/utility-content-page";
 export const metadata: Metadata = {
   title: "About BuildMeasure",
   description:
-    "Learn why BuildMeasure publishes transparent, reference-backed construction and DIY calculators.",
+    "Learn who maintains BuildMeasure and why its construction and DIY calculators publish transparent, reference-backed estimates.",
   alternates: { canonical: "/about" },
 };
 
@@ -13,15 +13,25 @@ export default function AboutPage() {
     <UtilityContentPage
       eyebrow="About the project"
       title="Clear calculations for better-built projects."
-      intro="BuildMeasure is an independent calculator project focused on practical material estimates, visible assumptions, and results people can verify before they buy."
+      intro="BuildMeasure is an independently developed calculator project, built and maintained by Hosyss, focused on practical material estimates, visible assumptions, and results people can verify before they buy."
     >
-      <h2>What BuildMeasure is building</h2>
+      <h2>Who maintains BuildMeasure</h2>
       <p>
-        The first release covers five common planning tasks: concrete slabs,
-        room paint, rectangular tile surfaces, gravel layers, and mulch beds.
-        Each tool supports metric and imperial units and keeps allowances,
-        product coverage, density, or package size visible rather than hiding
-        them behind a fixed answer.
+        BuildMeasure is independently built and maintained by{" "}
+        <a href="https://github.com/Hosyss">Hosyss</a>. The source repository,
+        change history, and verified release artifacts are publicly available on{" "}
+        <a href="https://github.com/Hosyss/buildmeasure">GitHub</a>, so the
+        product&apos;s published claims can be checked against the code and release
+        evidence.
+      </p>
+
+      <h2>What is live today</h2>
+      <p>
+        BuildMeasure currently provides six live calculators: concrete slabs,
+        post-hole concrete, room paint, rectangular tile surfaces, gravel
+        layers, and mulch beds. Each tool supports metric and imperial units and
+        keeps allowances, product coverage, density, displacement, or package
+        size visible rather than hiding them behind a fixed answer.
       </p>
 
       <h2>Why the formulas are visible</h2>
@@ -40,6 +50,15 @@ export default function AboutPage() {
           release evidence exist.
         </p>
       </div>
+
+      <h2>Privacy and saved estimates</h2>
+      <p>
+        No account is required to use the calculators. Saved estimates stay in
+        the current browser&apos;s local storage instead of being uploaded to a
+        BuildMeasure account. That improves privacy, but it also means saved
+        estimates do not sync between devices and can be lost if browser site
+        data is cleared.
+      </p>
 
       <h2>What an estimate cannot replace</h2>
       <p>
