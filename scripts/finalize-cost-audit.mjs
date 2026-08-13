@@ -3,98 +3,10 @@ import { readFile, writeFile } from "node:fs/promises";
 const path = "docs/AUDITS.md";
 const marker = "## 2026-08-13 — Optional purchase cost estimator milestone audit";
 const existing = await readFile(path, "utf8");
+const block = Buffer.from("IyMgMjAyNi0wOC0xMyDigJQgT3B0aW9uYWwgcHVyY2hhc2UgY29zdCBlc3RpbWF0b3IgbWlsZXN0b25lIGF1ZGl0Cgp8IEZpZWxkIHwgVmFsdWUgfAp8IC0tLSB8IC0tLSB8CnwgU3RhdHVzIHwgKipQYXNzZWQg4oCUIHNvdXJjZSBtaWxlc3RvbmUgZ2F0ZTsgcHJvZHVjdGlvbiB2ZXJpZmljYXRpb24gc3RpbGwgcmVxdWlyZWQgYWZ0ZXIgbWVyZ2UqKiB8CnwgUHJvZHVjdCB2ZXJzaW9uIHwgMC41LjMgcGx1cyB1bnJlbGVhc2VkIG9wdGlvbmFsIGNvc3QgZXN0aW1hdG9yIHwKfCBWZXJpZmllZCBzb3VyY2UgcmV2aXNpb24gfCBgNzIyMWIwZWI1NTI5OTc1NjFiYWQzYTE4ZmVhYTE5NzMxYjljNzVjYWAgfAp8IEZpbmFsIG1pbGVzdG9uZSBydW4gfCBHaXRIdWIgQWN0aW9ucyBgMzE2NzAyMjAwODNgLCBqb2IgYDk0MzUzMTExNzk5YCB8CnwgQXVkaXQgdG9vbCB8IEdvb2dsZSBMaWdodGhvdXNlIDEzLjQuMSBwbHVzIHN1cGVydmlzZWQgaGVhZGxlc3MgQ2hyb21lIGludGVyYWN0aW9uIFFBIHwKfCBUYXJnZXQgfCBMb2NhbCBwcm9kdWN0aW9uIFdvcmtlciBidWlsZCBvbiBHaXRIdWItaG9zdGVkIFVidW50dTsgbGFiIGV2aWRlbmNlLCBub3QgZGVwbG95ZWQgZmllbGQgZGF0YSB8CnwgUHJvZmlsZXMgfCBFeGFjdCAzNjAgcHgsIDc2OCBweCwgMTI4MCBweCBicm93c2VyIGNoZWNrczsgTGlnaHRob3VzZSBkZWZhdWx0IG1vYmlsZSBhbmQgZGVza3RvcCBwcmVzZXQgfAoKIyMjIEZlYXR1cmUgYm91bmRhcnkKClRoZSBvcHRpb25hbCBjb3N0IGxheWVyIHByaWNlcyBvbmx5IHRoZSBjb21wbGV0ZSBwdXJjaGFzZSBwYWNrYWdlIGFscmVhZHkgcmV0dXJuZWQgYnkgdGhlIHZlcmlmaWVkIGNhbGN1bGF0b3IgZW5naW5lLiBJdCBkb2VzIG5vdCBjaGFuZ2UgZ2VvbWV0cnksIHVuaXQgY29udmVyc2lvbiwgYWxsb3dhbmNlLCBtYXRlcmlhbCBxdWFudGl0eSwgb3IgcHJvY3VyZW1lbnQgcm91bmRpbmcuIE5vIGZpbGUgdW5kZXIgYGxpYi9jYWxjdWxhdG9ycy9gIGNoYW5nZWQgaW4gdGhpcyBtaWxlc3RvbmUuCgotIENvbmNyZXRlIHNsYWI6IHNlbGVjdGVkIDQwLzYwLzgwIGxiIGJhZy4KLSBQb3N0LWhvbGUgY29uY3JldGU6IHNlbGVjdGVkIDQwLzYwLzgwIGxiIGJhZy4KLSBQYWludDogc2VsZWN0ZWQgY2FuL3BhaWwgY29udGFpbmVyLgotIFRpbGU6IGNvbXBsZXRlIGJveC4KLSBHcmF2ZWw6IHVzZXItZGVmaW5lZCBiYWcgd2VpZ2h0LgotIE11bGNoOiB1c2VyLWRlZmluZWQgYmFnIHZvbHVtZS4KLSBObyBsaXZlIHByaWNlLCBleGNoYW5nZSByYXRlLCB0YXgsIGRlbGl2ZXJ5LCBsYWJvciwgZGlzY291bnQsIG9yIHN1cHBsaWVyIG1pbmltdW0gaXMgaW5mZXJyZWQuCgojIyMgQXV0b21hdGVkIGdhdGUKCi0gYG5wbSBydW4gcWE6YXV0b21hdGVkYCBwYXNzZWQgd2l0aCBsaW50LCAqKjEwMy8xMDMqKiB1bml0L2VuZ2luZSB0ZXN0cywgdGhlIHZlcmlmaWVkIHByb2R1Y3Rpb24gYnVpbGQsIGFydGlmYWN0IHZhbGlkYXRpb24sIGFuZCAqKjE5LzE5KiogcmVuZGVyZWQgYXBwbGljYXRpb24vQVBJIHRlc3RzLgotIGBucG0gYXVkaXQgLS1vbWl0PWRldiAtLWF1ZGl0LWxldmVsPWhpZ2hgIHJlcG9ydGVkIHplcm8gdnVsbmVyYWJpbGl0aWVzLgotIENvc3QgaGVscGVyIGNvdmVyYWdlIGluY2x1ZGVzIGJsYW5rIHByaWNlLCB6ZXJvIHByaWNlLCBkZWNpbWFsIHByaWNlLCBjdXJyZW5jeS1sYWJlbCBoYW5kbGluZywgbmVnYXRpdmUvbm9uLWZpbml0ZSBwcmljZSByZWplY3Rpb24sIHVuc2FmZSBwdXJjaGFzZSBxdWFudGl0aWVzLCBib3VuZGVkIGxhYmVscywgYW5kIHVuc2FmZSB0b3RhbHMuCi0gUmVuZGVyZWQtcm91dGUgY292ZXJhZ2UgdmVyaWZpZXMgdGhlIGNvcnJlY3Qgb3B0aW9uYWwgcHVyY2hhc2UtcHJpY2UgZmllbGQgb24gYWxsIHNpeCBsaXZlIGNhbGN1bGF0b3JzIHdoaWxlIHByZXNlcnZpbmcgZXhpc3RpbmcgY2Fub25pY2FsLCBzdHJ1Y3R1cmVkLWNvbnRlbnQsIGFuZCBpbnRlcm5hbC1saW5rIGNoZWNrcy4KCiMjIyBTdXBlcnZpc2VkIGJyb3dzZXIgaW50ZXJhY3Rpb24gZXZpZGVuY2UKClRoZSBmaW5hbCBicm93c2VyIG1hdHJpeCB1c2VkIHRoZSBidWlsdCBXb3JrZXIgd2l0aCBHb29nbGUgQ2hyb21lLCBleHBsaWNpdGx5IGRpc21pc3NlZCB0aGUgQW5hbHl0aWNzIGNvbnNlbnQgcHJvbXB0IHRocm91Z2ggdGhlIHZpc2libGUgKipObyB0aGFua3MqKiBjb250cm9sIGFmdGVyIG5hdmlnYXRpb24sIGFuZCB2ZXJpZmllZCB0aGF0IHRoZSBvdmVybGF5IHdhcyBnb25lIGJlZm9yZSBpbnRlcmFjdGluZyB3aXRoIHRoZSBjYWxjdWxhdG9yLgoKfCBDYWxjdWxhdG9yIHwgUHVyY2hhc2UgdW5pdCB8IERlZmF1bHQgcHVyY2hhc2UgcXR5IHwgVGVzdCBwcmljZSB8IEV4cGVjdGVkL29ic2VydmVkIGNvc3QgfCBQcm9kdWN0IGNoYW5nZSBjbGVhcnMgc3RhbGUgcHJpY2UgfCBNZXRyaWMgc3dpdGNoIHwKfCAtLS0gfCAtLS0gfCAtLS06IHwgLS0tOiB8IC0tLTogfCAtLS0gfCAtLS0gfAp8IENvbmNyZXRlIHwgODAgbGIgYmFnIHwgMTQ3IHwgRUdQIDEwIHwgRUdQIDEsNDcwIHwgODAgbGIg4oaSIDQwIGxiIHwgUHJlc2VydmVzIHNhbWUtcGFja2FnZSBwcmljZSB8CnwgUG9zdC1ob2xlIGNvbmNyZXRlIHwgODAgbGIgYmFnIHwgMTAgfCBFR1AgMTAgfCBFR1AgMTAwIHwgODAgbGIg4oaSIDQwIGxiIHwgUHJlc2VydmVzIHNhbWUtcGFja2FnZSBwcmljZSB8CnwgUGFpbnQgfCAxIGdhbCBjb250YWluZXIgfCAyIHwgRUdQIDEwIHwgRUdQIDIwIHwgMSBnYWwg4oaSIDEgcXQgfCBDbGVhcnMgYmVjYXVzZSBwYWNrYWdlIHNldCBjaGFuZ2VzIHwKfCBUaWxlIHwgYm94IHwgMTQgfCBFR1AgMTAgfCBFR1AgMTQwIHwgMTAg4oaSIDExIHRpbGVzL2JveCB8IFByZXNlcnZlcyBzYW1lLXBhY2thZ2UgcHJpY2UgfAp8IEdyYXZlbCB8IDUwIGxiIGJhZyB8IDEwMyB8IEVHUCAxMCB8IEVHUCAxLDAzMCB8IDUwIGxiIOKGkiA1NSBsYiB8IFByZXNlcnZlcyBzYW1lIHBoeXNpY2FsIGJhZyBwcmljZSB8CnwgTXVsY2ggfCAyIGZ0wrMgYmFnIHwgMjggfCBFR1AgMTAgfCBFR1AgMjgwIHwgMiBmdMKzIOKGkiAzIGZ0wrMgfCBQcmVzZXJ2ZXMgc2FtZSBwaHlzaWNhbCBiYWcgcHJpY2UgfAoKRm9yIGV2ZXJ5IGNhbGN1bGF0b3IgdGhlIHN1cGVydmlzZWQgbWF0cml4IGFsc28gdmVyaWZpZWQ6CgotIGJsYW5rIHByaWNlIGxlYXZlcyB0aGUgbWF0ZXJpYWwgcmVzdWx0IHVuY2hhbmdlZCBhbmQgc2hvd3Mgbm8gY29zdCB0b3RhbDsKLSBgJGAsIGBFVVJgLCBhbmQgYEVHUGAgYmVoYXZlIGFzIGRpc3BsYXkgbGFiZWxzIG9ubHk7Ci0gZXhwbGljaXQgemVybyBwcmljZSBpcyBhY2NlcHRlZDsKLSBuZWdhdGl2ZSBwcmljZSwgbWlzc2luZyBjdXJyZW5jeSBsYWJlbCwgb3ZlcmxvbmcgY3VycmVuY3kgbGFiZWwsIGFuZCB1bnNhZmUgbnVtZXJpYyB0b3RhbHMgcHJvZHVjZSBhIGNvc3Qtb25seSBlcnJvciB3aGlsZSB0aGUgdmFsaWQgbWF0ZXJpYWwgZXN0aW1hdGUgcmVtYWlucyB2aXNpYmxlOwotIGJyb3dzZXIgc2FuaXRpemF0aW9uIG9mIGEgbm9uLWZpbml0ZSBudW1iZXItZmllbGQgZW50cnkgd2FzIG9ic2VydmVkLCB3aGlsZSBkaXJlY3Qgbm9uLWZpbml0ZSByZWplY3Rpb24gcmVtYWlucyBjb3ZlcmVkIGJ5IHVuaXQgdGVzdHM7Ci0gQ29weSBhbmQgZGV2aWNlLWxvY2FsIFNhdmUgaW5jbHVkZSBhIHZhbGlkIGNvc3QgYW5kIHN0YXkgcXVhbnRpdHktb25seSB3aGVuIHByaWNlIGlzIGJsYW5rOwotIFByaW50IHJlbWFpbnMgd2lyZWQgd2l0aCBhbmQgd2l0aG91dCBhIGNvc3QgZXN0aW1hdGU7Ci0ga2V5Ym9hcmQgVGFiIG9yZGVyIG1vdmVzIGZyb20gdGhlIHB1cmNoYXNlLXByaWNlIGlucHV0IHRvIHRoZSBjdXJyZW5jeS1sYWJlbCBpbnB1dDsKLSBwYWNrYWdlLWRlZmluaXRpb24gY2hhbmdlcyBjbGVhciBzdGFsZSBwcmljZXMgYWNjb3JkaW5nIHRvIGBkb2NzL0NPU1RfRVNUSU1BVE9SLm1kYDsKLSBicm93c2VyIGNvbnNvbGUvcnVudGltZSBlcnJvcnMgd2VyZSB6ZXJvLgoKIyMjIFJlc3BvbnNpdmUgYW5kIHZpc3VhbCByZXZpZXcKCkF0IGV4YWN0IDM2MCwgNzY4LCBhbmQgMTI4MCBweCB3aWR0aHMsIGVhY2ggY2FsY3VsYXRvciByZXBvcnRlZCBubyBob3Jpem9udGFsIG92ZXJmbG93LiBUaGUgMzYwIHB4IHNjcmVlbnNob3RzIHNob3cgdGhlIG9wdGlvbmFsIHByaWNlIGFuZCBjdXJyZW5jeSBmaWVsZHMgc3RhY2tlZCBjbGVhcmx5IHdpdGggdGhlIG1hdGVyaWFsLXJlc3VsdCBwYW5lbCByZW1haW5pbmcgd2l0aGluIHRoZSB2aWV3cG9ydCB3aWR0aC4gRGVza3RvcCBzY3JlZW5zaG90cyBzaG93IHRoZSBjb3N0IHN1bW1hcnkgaW5zaWRlIHRoZSBleGlzdGluZyByZXN1bHQgcGFuZWw7IGZvciBleGFtcGxlIHRoZSBDb25jcmV0ZSBkZWZhdWx0IGRpc3BsYXlzIGBFR1AgMSw0NzAuMDBgIGFuZCBgMTQ3IMOXIEVHUCAxMC4wMCBwZXIgODAgbGIgYmFnYC4gVGhlIEFuYWx5dGljcyBjb25zZW50IG92ZXJsYXkgd2FzIGV4cGxpY2l0bHkgcmVtb3ZlZCBiZWZvcmUgdGhlIGZpbmFsIHZpc3VhbCBldmlkZW5jZSB3YXMgY2FwdHVyZWQuCgojIyMgRmluYWwgTGlnaHRob3VzZSBtYXRyaXgKCnwgUm91dGUgfCBNb2JpbGUgUC9BL0JQL1NFTyB8IERlc2t0b3AgUC9BL0JQL1NFTyB8CnwgLS0tIHwgLS0tIHwgLS0tIHwKfCBgL2AgfCA5OSAvIDEwMCAvIDEwMCAvIDEwMCB8IDEwMCAvIDEwMCAvIDEwMCAvIDEwMCB8CnwgYC9jb25jcmV0ZS1jYWxjdWxhdG9yYCB8IDk5IC8gMTAwIC8gMTAwIC8gMTAwIHwgMTAwIC8gMTAwIC8gMTAwIC8gMTAwIHwKfCBgL3Bvc3QtaG9sZS1jb25jcmV0ZS1jYWxjdWxhdG9yYCB8IDk5IC8gMTAwIC8gMTAwIC8gMTAwIHwgMTAwIC8gMTAwIC8gMTAwIC8gMTAwIHwKfCBgL3BhaW50LWNhbGN1bGF0b3JgIHwgOTkgLyAxMDAgLyAxMDAgLyAxMDAgfCAxMDAgLyAxMDAgLyAxMDAgLyAxMDAgfAp8IGAvdGlsZS1jYWxjdWxhdG9yYCB8IDk5IC8gMTAwIC8gMTAwIC8gMTAwIHwgMTAwIC8gMTAwIC8gMTAwIC8gMTAwIHwKfCBgL2dyYXZlbC1jYWxjdWxhdG9yYCB8IDk5IC8gMTAwIC8gMTAwIC8gMTAwIHwgMTAwIC8gMTAwIC8gMTAwIC8gMTAwIHwKfCBgL211bGNoLWNhbGN1bGF0b3JgIHwgOTkgLyAxMDAgLyAxMDAgLyAxMDAgfCAxMDAgLyAxMDAgLyAxMDAgLyAxMDAgfAoKRXZlcnkgcmVxdWlyZWQgY2F0ZWdvcnkgcmVtYWlucyBhYm92ZSB0aGUgcHJvamVjdCBtaW5pbXVtIG9mIDk1LgoKIyMjIEZhaWxlZCBhbmQgaW5jb21wbGV0ZSBhdHRlbXB0cyByZXRhaW5lZCBhcyBldmlkZW5jZQoKMS4gVGhlIGZpcnN0IG5vcm1hbCBQUiBxdWFsaXR5IGdhdGUgZXhwb3NlZCBhIGJyaXR0bGUgcmVuZGVyZWQtSFRNTCBhc3NlcnRpb24gYmVjYXVzZSBSZWFjdCBzcGxpdCBkeW5hbWljIGxhYmVsIHRleHQgd2l0aCBTU1IgY29tbWVudCBtYXJrZXJzLiBVbml0IHRlc3RzIGFuZCBidWlsZCB3ZXJlIGFscmVhZHkgZ3JlZW4uIFRoZSBVSSB3YXMgZ2l2ZW4gYW4gZXhwbGljaXQgYWNjZXNzaWJsZSBgYXJpYS1sYWJlbGAgYW5kIHRoZSByZW5kZXJlZCBhc3NlcnRpb24gd2FzIHN0YWJpbGl6ZWQ7IHRoZSBuZXh0IG5vcm1hbCBnYXRlIHBhc3NlZCBjb21wbGV0ZWx5LgoyLiBBbiBlYXJsaWVyIExpZ2h0aG91c2UgYXR0ZW1wdCBvbiB0aGUgc2FtZSBmZWF0dXJlIG1lYXN1cmVkIFBhaW50IERlc2t0b3AgUGVyZm9ybWFuY2UgYXQgODEgd2hpbGUgUGFpbnQgTW9iaWxlIHdhcyA5OSBhbmQgZXZlcnkgb3RoZXIgZGVza3RvcCByb3V0ZSB3YXMgMTAwLiBUaGUgZmFpbGVkIHJlcG9ydCBzaG93ZWQgYXBwcm94aW1hdGVseSA0MzEgbXMgVG90YWwgQmxvY2tpbmcgVGltZSBkcml2ZW4gYnkgYW4gaXNvbGF0ZWQgcm91Z2hseSA1MDcgbXMgZXhlY3V0aW9uIG9mIHRoZSBzaGFyZWQgZnJhbWV3b3JrIGNodW5rLiBUaGUgZXhhY3Qgc2FtZSBqb2Igd2FzIHJlcnVuIG9uIHRoZSBleGFjdCBzYW1lIHNvdXJjZSB3aXRoIG5vIGFwcGxpY2F0aW9uLCB0aHJlc2hvbGQsIG9yIG1ldGhvZG9sb2d5IGNoYW5nZSBhbmQgdGhlIGNvbXBsZXRlIDE0LXJlcG9ydCBtYXRyaXggcGFzc2VkLiBUaGUgODEgaXMgcmV0YWluZWQgYXMgaG9zdGVkLXJ1bm5lciB2YXJpYW5jZSByYXRoZXIgdGhhbiBzaWxlbnRseSBkaXNjYXJkZWQuCjMuIFJldmlldyBvZiB0aGUgZmlyc3Qgc3VjY2Vzc2Z1bCBzY3JlZW5zaG90IGFydGlmYWN0IGZvdW5kIHRoZSBBbmFseXRpY3MgY29uc2VudCBwcm9tcHQgb2JzY3VyaW5nIHBhcnQgb2YgdGhlIHNjcmVlbnNob3RzLiBUaGF0IHZpc3VhbCBldmlkZW5jZSB3YXMgdGhlcmVmb3JlIHRyZWF0ZWQgYXMgaW5jb21wbGV0ZSwgbm90IHBhc3NlZC4gVGhlIGJyb3dzZXIgaGFybmVzcyB3YXMgY2hhbmdlZCB0byBkaXNtaXNzIHRoZSB2aXNpYmxlIHByb21wdCBiZWZvcmUgaW50ZXJhY3Rpb24gYW5kIGNhcHR1cmUgYSBzdGFibGUgY29zdC1yZXN1bHQgdGFyZ2V0Lgo0LiBUaGUgZmlyc3QgaW1wcm92ZWQgdmlzdWFsIHJ1biBjb3VsZCBub3Qgb3BlbiBDaHJvbWUgcmVtb3RlIGRlYnVnZ2luZyBiZWNhdXNlIHRoZSBjdXJyZW50IGhvc3RlZCBDaHJvbWUgcmVqZWN0cyByZW1vdGUgZGVidWdnaW5nIG9uIHRoZSBkZWZhdWx0IHByb2ZpbGUuIE5vIHByb2R1Y3QgY29kZSBmYWlsZWQuIFRoZSBRQSBoYXJuZXNzIHdhcyB1cGRhdGVkIHRvIHVzZSBhbiBpc29sYXRlZCB0ZW1wb3JhcnkgYC0tdXNlci1kYXRhLWRpcmAsIGFmdGVyIHdoaWNoIHRoZSBjb21wbGV0ZSBicm93c2VyIGFuZCBMaWdodGhvdXNlIG1pbGVzdG9uZSBnYXRlIHBhc3NlZC4KCiMjIyBSZWxlYXNlIGZvbGxvdy11cAoKQmVmb3JlIGRlc2NyaWJpbmcgdGhlIGNvc3QgZXN0aW1hdG9yIGFzIHJlbGVhc2VkLCB0aGUgZmVhdHVyZSBicmFuY2ggbXVzdCByZW1vdmUgYWxsIHRlbXBvcmFyeSBRQSBzY3JpcHRzL3dvcmtmbG93cywgcGFzcyB0aGUgbm9ybWFsIGZpbmFsIEdpdEh1YiBxdWFsaXR5IGdhdGUgb24gdGhlIGNsZWFuZWQgaGVhZCwgbWVyZ2UgdGhyb3VnaCBQUiByZXZpZXcsIHBhc3MgdGhlIG1haW4tYnJhbmNoIHJlbGVhc2UgY2hlY2tzLCBkZXBsb3kgc3VjY2Vzc2Z1bGx5IHRvIHRoZSBleGlzdGluZyBDbG91ZGZsYXJlIFdvcmtlciwgYW5kIGJlIHZlcmlmaWVkIG9uIHRoZSBjYW5vbmljYWwgcHJvZHVjdGlvbiBvcmlnaW4uIE9ubHkgYWZ0ZXIgdmVyaWZpZWQgcHJvZHVjdGlvbiBjb250ZW50IGNoYW5nZXMgc2hvdWxkIEluZGV4Tm93IGJlIHN1Ym1pdHRlZCBvbmNlLCBmb2xsb3dpbmcgYGRvY3MvSU5ERVhJTkcubWRgLg==", "base64").toString("utf8");
 
 if (!existing.includes(marker)) {
-  const block = String.raw`
-
-${marker}
-
-| Field | Value |
-| --- | --- |
-| Status | **Passed — source milestone gate; production verification still required after merge** |
-| Product version | 0.5.3 plus unreleased optional cost estimator |
-| Verified source revision | `7221b0eb552997561bad3a18feaa19731b9c75ca` |
-| Final milestone run | GitHub Actions `31670220083`, job `94353111799` |
-| Audit tool | Google Lighthouse 13.4.1 plus supervised headless Chrome interaction QA |
-| Target | Local production Worker build on GitHub-hosted Ubuntu; lab evidence, not deployed field data |
-| Profiles | Exact 360 px, 768 px, 1280 px browser checks; Lighthouse default mobile and desktop preset |
-
-### Feature boundary
-
-The optional cost layer prices only the complete purchase package already returned by the verified calculator engine. It does not change geometry, unit conversion, allowance, material quantity, or procurement rounding. No file under `lib/calculators/` changed in this milestone.
-
-- Concrete slab: selected 40/60/80 lb bag.
-- Post-hole concrete: selected 40/60/80 lb bag.
-- Paint: selected can/pail container.
-- Tile: complete box.
-- Gravel: user-defined bag weight.
-- Mulch: user-defined bag volume.
-- No live price, exchange rate, tax, delivery, labor, discount, or supplier minimum is inferred.
-
-### Automated gate
-
-- `npm run qa:automated` passed with lint, **103/103** unit/engine tests, the verified production build, artifact validation, and **19/19** rendered application/API tests.
-- `npm audit --omit=dev --audit-level=high` reported zero vulnerabilities.
-- Cost helper coverage includes blank price, zero price, decimal price, currency-label handling, negative/non-finite price rejection, unsafe purchase quantities, bounded labels, and unsafe totals.
-- Rendered-route coverage verifies the correct optional purchase-price field on all six live calculators while preserving existing canonical, structured-content, and internal-link checks.
-
-### Supervised browser interaction evidence
-
-The final browser matrix used the built Worker with Google Chrome, explicitly dismissed the Analytics consent prompt through the visible **No thanks** control after navigation, and verified that the overlay was gone before interacting with the calculator.
-
-| Calculator | Purchase unit | Default purchase qty | Test price | Expected/observed cost | Product change clears stale price | Metric switch |
-| --- | --- | ---: | ---: | ---: | --- | --- |
-| Concrete | 80 lb bag | 147 | EGP 10 | EGP 1,470 | 80 lb → 40 lb | Preserves same-package price |
-| Post-hole concrete | 80 lb bag | 10 | EGP 10 | EGP 100 | 80 lb → 40 lb | Preserves same-package price |
-| Paint | 1 gal container | 2 | EGP 10 | EGP 20 | 1 gal → 1 qt | Clears because package set changes |
-| Tile | box | 14 | EGP 10 | EGP 140 | 10 → 11 tiles/box | Preserves same-package price |
-| Gravel | 50 lb bag | 103 | EGP 10 | EGP 1,030 | 50 lb → 55 lb | Preserves same physical bag price |
-| Mulch | 2 ft³ bag | 28 | EGP 10 | EGP 280 | 2 ft³ → 3 ft³ | Preserves same physical bag price |
-
-For every calculator the supervised matrix also verified:
-
-- blank price leaves the material result unchanged and shows no cost total;
-- `$`, `EUR`, and `EGP` behave as display labels only;
-- explicit zero price is accepted;
-- negative price, missing currency label, overlong currency label, and unsafe numeric totals produce a cost-only error while the valid material estimate remains visible;
-- browser sanitization of a non-finite number-field entry was observed, while direct non-finite rejection remains covered by unit tests;
-- Copy and device-local Save include a valid cost and stay quantity-only when price is blank;
-- Print remains wired with and without a cost estimate;
-- keyboard Tab order moves from the purchase-price input to the currency-label input;
-- package-definition changes clear stale prices according to `docs/COST_ESTIMATOR.md`;
-- browser console/runtime errors were zero.
-
-### Responsive and visual review
-
-At exact 360, 768, and 1280 px widths, each calculator reported no horizontal overflow. The 360 px screenshots show the optional price and currency fields stacked clearly with the material-result panel remaining within the viewport width. Desktop screenshots show the cost summary inside the existing result panel; for example the Concrete default displays `EGP 1,470.00` and `147 × EGP 10.00 per 80 lb bag`. The Analytics consent overlay was explicitly removed before the final visual evidence was captured.
-
-### Final Lighthouse matrix
-
-| Route | Mobile P/A/BP/SEO | Desktop P/A/BP/SEO |
-| --- | --- | --- |
-| `/` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/concrete-calculator` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/post-hole-concrete-calculator` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/paint-calculator` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/tile-calculator` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/gravel-calculator` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/mulch-calculator` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-
-Every required category remains above the project minimum of 95.
-
-### Failed and incomplete attempts retained as evidence
-
-1. The first normal PR quality gate exposed a brittle rendered-HTML assertion because React split dynamic label text with SSR comment markers. Unit tests and build were already green. The UI was given an explicit accessible `aria-label` and the rendered assertion was stabilized; the next normal gate passed completely.
-2. An earlier Lighthouse attempt on the same feature measured Paint Desktop Performance at 81 while Paint Mobile was 99 and every other desktop route was 100. The failed report showed approximately 431 ms Total Blocking Time driven by an isolated roughly 507 ms execution of the shared framework chunk. The exact same job was rerun on the exact same source with no application, threshold, or methodology change and the complete 14-report matrix passed. The 81 is retained as hosted-runner variance rather than silently discarded.
-3. Review of the first successful screenshot artifact found the Analytics consent prompt obscuring part of the screenshots. That visual evidence was therefore treated as incomplete, not passed. The browser harness was changed to dismiss the visible prompt before interaction and capture a stable cost-result target.
-4. The first improved visual run could not open Chrome remote debugging because the current hosted Chrome rejects remote debugging on the default profile. No product code failed. The QA harness was updated to use an isolated temporary `--user-data-dir`, after which the complete browser and Lighthouse milestone gate passed.
-
-### Release follow-up
-
-Before describing the cost estimator as released, the feature branch must remove all temporary QA scripts/workflows, pass the normal final GitHub quality gate on the cleaned head, merge through PR review, pass the main-branch release checks, deploy successfully to the existing Cloudflare Worker, and be verified on the canonical production origin. Only after verified production content changes should IndexNow be submitted once, following `docs/INDEXING.md`.
-`;
-
-  await writeFile(path, `${existing.trimEnd()}${block}\n`, "utf8");
+  await writeFile(path, `${existing.trimEnd()}\n\n${block}\n`, "utf8");
   console.log("Appended cost estimator milestone audit evidence.");
 } else {
   console.log("Cost estimator milestone audit evidence already present.");
