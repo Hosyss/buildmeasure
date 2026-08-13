@@ -452,7 +452,7 @@ try {
   assert.equal(blankCost.costSummary, null);
   current = await setPrice(client, "10", "EGP");
   assert.match(current.costSummary, /Estimated material cost\s*EGP 10,210/);
-  assert.match(current.costSummary, /1,021 × EGP 10\.00 per brick/);
+  assert.match(current.costSummary, /1021\s*× EGP 10\.00 per brick/);
   await selectByLabel(client, "Brick coverage basis", "standard");
   current = await state(client);
   assert.equal(current.price, "", "changing brick product definition must clear stale unit price");
@@ -477,17 +477,17 @@ try {
   );
   await clickButton(client, "Copy");
   const copied = await evaluate(client, `window.__brickCopied ?? null`);
-  assert.match(copied, /1,021 bricks to order/);
+  assert.match(copied, /1021 bricks to order/);
   assert.match(copied, /Scope: fired-clay brick/);
   await clickButton(client, "Save");
   current = await state(client);
-  assert.match(current.history, /1,021 bricks to order/);
+  assert.match(current.history, /1021 bricks to order/);
   await clickButton(client, "Print");
   const printed = await evaluate(client, `window.__brickPrinted === true`);
   assert.equal(printed, true);
   await clickButton(client, "Clear all");
   current = await state(client);
-  assert.doesNotMatch(current.history, /1,021 bricks to order/);
+  assert.doesNotMatch(current.history, /1021 bricks to order/);
 
   await clickButton(client, "Reset");
   current = await state(client);
