@@ -43,9 +43,9 @@ or published documentation. A plan or claim does not earn credit.
 
 | Stage | Commit | Status / evidence | Remaining |
 | --- | --- | --- | --- |
-| Brick coverage clarity | [`8123371`](https://github.com/Hosyss/buildmeasure/commit/8123371186e1e13f517b192f92cfdcad67d2012c) | Preset labels now derive their Imperial/Metric values from existing `brickPresetRate`; preset coverage is a semantic static `<output>` and only Custom exposes an editable input; rendered regression added. No calculator engine file changed. | Browser Imperial/Metric/Custom interaction QA and final gates pending. |
-| Shared UX clarity | [`07e47bc`](https://github.com/Hosyss/buildmeasure/commit/07e47bc52e9ec9666e654c37e27a111da7d999ee) | Header CTA is explicit per context without client pathname logic; homepage hero card is a linked **Example estimate** with no fake input controls; helper/warning copy is raised to ~12.5 px and secondary metadata to ~11.5–12 px; focused guides link to their related calculator and use a denser hero; permanent rendered contracts cover homepage/header/guide semantics. | Responsive browser QA, console/overflow checks, and affected-page Lighthouse pending. |
-| Guide first-screen density | [`653adc5`](https://github.com/Hosyss/buildmeasure/commit/653adc5f9e3b4b63e08c3d003ea300c8aadbd1ed) | Browser QA proved the Brick guide CTA was below a 1280×900 first screen. Shared guide hero/article spacing was reduced conservatively and the Brick quick-answer CTA was moved ahead of its extra reference paragraph. Content and calculator logic are unchanged. | Re-run the complete QA matrix and confirm first-screen placement. |
+| Brick coverage clarity | [`8123371`](https://github.com/Hosyss/buildmeasure/commit/8123371186e1e13f517b192f92cfdcad67d2012c) | Preset labels now derive their Imperial/Metric values from existing `brickPresetRate`; preset coverage is a semantic static `<output>` and only Custom exposes an editable input; rendered regression added. No calculator engine file changed. | **Closed:** Imperial/Metric/Custom browser QA, responsive checks, and affected-surface Lighthouse passed. |
+| Shared UX clarity | [`07e47bc`](https://github.com/Hosyss/buildmeasure/commit/07e47bc52e9ec9666e654c37e27a111da7d999ee) | Header CTA is explicit per context without client pathname logic; homepage hero card is a linked **Example estimate** with no fake input controls; helper/warning copy is raised to ~12.5 px and secondary metadata to ~11.5–12 px; focused guides link to their related calculator and use a denser hero; permanent rendered contracts cover homepage/header/guide semantics. | **Closed:** 360/768/1280 browser QA found no overflow or site errors; representative Lighthouse passed. |
+| Guide first-screen density | [`653adc5`](https://github.com/Hosyss/buildmeasure/commit/653adc5f9e3b4b63e08c3d003ea300c8aadbd1ed) | Browser QA proved the Brick guide CTA was below a 1280×900 first screen. Shared guide hero/article spacing was reduced conservatively and the Brick quick-answer CTA was moved ahead of its extra reference paragraph. Content and calculator logic are unchanged. | **Closed:** final desktop browser QA confirms the primary CTA is inside the first 1280×900 screen. |
 
 ### Static-affordance review
 
@@ -74,18 +74,29 @@ source scan alone as sufficient.
   tooling/type-definition issue. This branch does not make unrelated Cloudflare,
   database, analytics, or feedback changes merely to suppress it.
 
+- Final browser/automated closure on run `31694577543`: 117/117 unit tests,
+  changed-surface TypeScript diagnostics, lint, production build, 29/29 rendered
+  tests, no-readOnly source scan, and exact 360/768/1280 browser interaction all
+  passed. Browser QA covered Brick Imperial/Metric/Custom behavior, page-aware
+  header CTAs, homepage example semantics, guide first-screen CTA placement, no
+  horizontal overflow, and zero site-originated console/runtime errors.
+- Direct local `vinext start` Lighthouse stayed at 88–89 Mobile Performance even
+  after two warmups because shared JS/CSS assets were served essentially
+  uncompressed. This diagnostic is retained; it was not called a pass.
+- Closing run `31695391156` verified gzip on a representative immutable JS asset
+  before scoring the same three affected surfaces. Home, Brick, and Brick guide
+  scored **99/100/100/100 mobile** and **100/100/100/100 desktop**. The high-risk
+  production dependency audit reported zero vulnerabilities. Evidence artifact:
+  `ux-clarity-gzip-lighthouse` ID `9179144912`, SHA-256
+  `0e08a22ef348d6a5d394e9808b3629d502885797a6a52c94e5b7cf9d8737476e`.
+
 ### Next work on this branch
 
-1. Re-run 117 unit tests, changed-surface TypeScript semantic checking, lint,
-   production build, and all rendered tests after the guide density correction.
-2. Exercise Brick Imperial, Metric, preset, and Custom interactions in Chrome.
-3. Capture 360 / 768 / 1280 visual evidence and fail on horizontal overflow or
-   site-originated console/runtime errors; confirm the desktop guide CTA is in
-   the first screen after `653adc5`.
-4. Run Lighthouse only on the directly representative affected surfaces:
-   homepage, Brick Calculator, and Brick guide, mobile and desktop.
-5. Record final QA evidence in `docs/AUDITS.md`, remove temporary QA plumbing,
-   verify the final diff, then open a **Draft PR only** and stop for review.
+1. Remove all temporary UX QA workflows/scripts from the branch.
+2. Run the normal repository quality gate on the cleaned head.
+3. Re-check current `main` and all open PRs for drift/conflicts.
+4. Open a **Draft PR only**, record its link here, and stop for review. Do not
+   merge, deploy Production, close another PR, or submit indexing requests.
 
 ## Master product vision
 
