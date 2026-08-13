@@ -47,6 +47,7 @@ quantity.
 - `/post-hole-concrete-calculator` — round post-hole concrete quantity calculator.
 - `/paint-calculator` — interior rectangular room paint calculator.
 - `/tile-calculator` — rectangular floor and wall tile order calculator.
+- `/brick-calculator` — fired-clay brick wall quantity calculator.
 - `/gravel-calculator` — rectangular gravel coverage and mass calculator.
 - `/mulch-calculator` — rectangular mulch-bed volume and bag calculator.
 - `/about` — ownership, product scope, privacy, and trust information.
