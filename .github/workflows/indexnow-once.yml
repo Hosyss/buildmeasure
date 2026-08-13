@@ -1,0 +1,47 @@
+name: One-time IndexNow submission
+
+on:
+  push:
+    branches:
+      - chore/indexnow-once-2026-08-13
+    paths:
+      - .github/workflows/indexnow-once.yml
+
+permissions:
+  contents: read
+
+jobs:
+  submit-indexnow-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Submit IndexNow exactly once
+        shell: bash
+        run: |
+          set +e
+          output="$(npm run seo:indexnow 2>&1)"
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+
+          if [ "$status" -ne 0 ]; then
+            compact="$(printf '%s' "$output" | tr '\n' ' ' | cut -c1-500)"
+            echo "::error title=IndexNow submission failed::$compact"
+            exit "$status"
+          fi
+
+          accepted="$(printf '%s\n' "$output" | grep -E 'IndexNow accepted [0-9]+ BuildMeasure URLs with HTTP (200|202)\.' | tail -n 1)"
+          if [ -z "$accepted" ]; then
+            echo "::error title=IndexNow evidence missing::The command exited successfully but did not emit the expected acceptance line."
+            exit 1
+          fi
+
+          echo "::notice title=IndexNow submission::$accepted"
