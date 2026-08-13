@@ -21,6 +21,7 @@ export function SiteFooter() {
           <a href="/post-hole-concrete-calculator">Post holes</a>
           <a href="/paint-calculator">Paint</a>
           <a href="/tile-calculator">Tile</a>
+          <a href="/brick-calculator">Brick</a>
           <a href="/gravel-calculator">Gravel</a>
           <a href="/mulch-calculator">Mulch</a>
         </div>
