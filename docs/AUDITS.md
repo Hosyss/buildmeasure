@@ -771,3 +771,26 @@ Investigation traced the overflow to the guide grid's min-content sizing: the re
 ### Release follow-up
 
 Before describing this guide as released, remove all temporary milestone QA workflows/scripts, run the normal GitHub quality gate on the cleaned PR head, merge through PR review, pass main-branch checks, verify the Cloudflare Workers deployment and the new guide on the canonical production origin, then submit only the changed public URLs to IndexNow once. Do not use the exhausted manual Google Search Console indexing quota.
+
+## 2026-08-13 — Post-hole guide primary-action contrast hotfix
+
+| Field | Value |
+| --- | --- |
+| Status | **Passed — targeted accessibility regression closed before release** |
+| Source fix | `app/guides/guides.css` on PR #29 |
+| Root cause | `.guide-body a` overrode `.button-primary` text color, producing Lighthouse-reported 1.11:1 contrast on “Calculate my post holes” |
+| Fix | `.guide-body a.button-primary { color: var(--white); }` |
+| Automated gate | GitHub Actions run `31679009213` passed normal quality gate and production dependency audit |
+| Targeted Lighthouse | GitHub Actions run `31679116129`, job `94380263648`, Lighthouse 13.4.1 |
+| Evidence artifact | `guide-contrast-qa`, ID `9172764363`, SHA-256 `79eeb48c8461ca65a6cd7c45fe6d709fe19c924f01aed9cb22656c97413646d0` |
+
+### Closing scores
+
+- Guide mobile: Performance **99**, Accessibility **100**, Best Practices **100**, SEO **100**.
+- Guide desktop: Performance **100**, Accessibility **100**, Best Practices **100**, SEO **100**.
+- Lighthouse `color-contrast` audit score is **1 (pass)** on both profiles.
+- This hotfix changes only the primary-link text color inside guide content. No calculator engine, formula, route, metadata, or guide copy changed.
+
+### Release follow-up
+
+Remove all temporary contrast-QA workflow/server files, pass the normal clean-head quality gate, merge through PR review, verify the changed guide on the canonical production origin, then submit only that changed guide URL to IndexNow once. Do not use the exhausted manual Google Search Console indexing quota.
