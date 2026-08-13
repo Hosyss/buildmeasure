@@ -5,6 +5,10 @@ The product prioritizes transparent formulas, verified unit conversions,
 maintainable calculator engines, accessible interfaces, and search-friendly
 calculator pages.
 
+BuildMeasure is independently built and maintained by
+[Hosyss](https://github.com/Hosyss). The repository and verified release history
+are public so calculator behavior and release evidence can be inspected.
+
 ## Live site
 
 - [Open BuildMeasure](https://buildmeasure.buildtools.workers.dev/)

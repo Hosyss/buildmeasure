@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { ArrowIcon, CalculatorIcon, CheckIcon, ProjectIcon } from "@/components/icons";
+import { ArrowIcon, CalculatorIcon, CheckIcon } from "@/components/icons";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { CONCRETE_ENGINE_VERSION } from "@/lib/calculators/concrete";
 import { absoluteUrl } from "@/lib/site";
-import previewStyles from "./project-mode-preview.module.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -17,6 +16,12 @@ const websiteSchema = {
   url: absoluteUrl("/"),
   description:
     "Reference-backed construction and DIY calculators with transparent formulas and visible assumptions.",
+  creator: {
+    "@type": "Person",
+    name: "Hosyss",
+    url: "https://github.com/Hosyss",
+  },
+  sameAs: ["https://github.com/Hosyss/buildmeasure"],
 };
 
 const calculators = [
@@ -271,31 +276,6 @@ export default function Home() {
               <p>Separate geometry, allowances, product data, and package rounding.</p>
               <strong>Read the estimating workflow <ArrowIcon /></strong>
             </a>
-          </div>
-        </section>
-
-        <section className="section shell project-section" id="project-mode">
-          <div className={`project-visual ${previewStyles.preview}`} aria-hidden="true">
-            <div className={`project-node project-node-main ${previewStyles.node}`}>
-              <ProjectIcon />
-              <span>Garage project</span>
-            </div>
-            <div className="project-path" />
-            <div className={`project-materials ${previewStyles.materials}`}>
-              <span>Concrete</span>
-              <span>Rebar</span>
-              <span>Gravel</span>
-              <span>Cost</span>
-            </div>
-          </div>
-          <div className="project-copy">
-            <p className="eyebrow">Coming later</p>
-            <h2>One project. Every material.</h2>
-            <p>
-              Project Mode will connect calculators into one estimate, so a
-              garage, deck, or patio becomes a single materials list and report.
-            </p>
-            <span className="roadmap-label">Planned after the core calculator library</span>
           </div>
         </section>
       </main>

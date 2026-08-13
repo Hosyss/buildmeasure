@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     "concrete calculator",
     "DIY calculator",
   ],
-  other: {
-    "codex-preview": "development",
-  },
+  authors: [{ name: "Hosyss", url: "https://github.com/Hosyss" }],
+  creator: "Hosyss",
+  publisher: "BuildMeasure",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

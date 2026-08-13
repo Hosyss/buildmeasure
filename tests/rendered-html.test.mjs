@@ -4,8 +4,10 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import packageInfo from "../package.json" with { type: "json" };
 
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
+const codexPreviewMeta =
+  /<meta(?=[^>]*\bname=["']codex-preview["'])[^>]*>/i;
+const authorMeta =
+  /<meta(?=[^>]*\bname=["']author["'])(?=[^>]*\bcontent=["']Hosyss["'])[^>]*>/i;
 
 test("redirects the legacy Sites host to the canonical Cloudflare origin", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -31,7 +33,7 @@ test("redirects the legacy Sites host to the canonical Cloudflare origin", async
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
 });
 
-test("renders development preview metadata", async () => {
+test("renders production metadata and security headers", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
@@ -73,7 +75,8 @@ test("renders development preview metadata", async () => {
   );
 
   const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
+  assert.doesNotMatch(html, codexPreviewMeta);
+  assert.match(html, authorMeta);
 
   const inlineScripts = [
     ...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi),
@@ -177,11 +180,15 @@ test("renders the product homepage", async () => {
   assert.equal(response.status, 200);
   assert.match(html, /Material estimates you can build on\./);
   assert.match(html, /Concrete Calculator/);
+  assert.match(html, /href="\/post-hole-concrete-calculator"/);
   assert.match(html, /href="\/paint-calculator"/);
   assert.match(html, /href="\/tile-calculator"/);
   assert.match(html, /href="\/gravel-calculator"/);
   assert.match(html, /href="\/mulch-calculator"/);
   assert.match(html, /Accuracy is a feature\./);
+  assert.match(html, /https:\/\/github\.com\/Hosyss\/buildmeasure/);
+  assert.doesNotMatch(html, /href="\/#project-mode"/);
+  assert.doesNotMatch(html, /Coming later/);
   assert.match(html, /0\.1\.1/);
 
   const modulePreloads = html.match(/<link[^>]*\brel=["']modulepreload["'][^>]*>/gi) ?? [];
@@ -220,6 +227,32 @@ test("renders the concrete calculator route and structured content", async () =>
   assert.match(
     html,
     /https:\/\/buildmeasure\.buildtools\.workers\.dev\/concrete-calculator/,
+  );
+});
+
+test("renders the post-hole concrete calculator route and structured content", async () => {
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("post-hole", `${process.pid}-${Date.now()}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  const response = await worker.fetch(
+    new Request("http://localhost/post-hole-concrete-calculator", {
+      headers: { accept: "text/html" },
+    }),
+    {
+      ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
+    },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Post Hole Concrete Calculator/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /href="\/feedback\?calculator=post-hole-concrete-calculator"/);
+  assert.match(
+    html,
+    /https:\/\/buildmeasure\.buildtools\.workers\.dev\/post-hole-concrete-calculator/,
   );
 });
 
@@ -409,6 +442,14 @@ test("renders the launch trust and estimating content", async () => {
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
     assert.match(html, new RegExp(`https://buildmeasure\\.buildtools\\.workers\\.dev${path.replaceAll("/", "\\/")}`));
+
+    if (path === "/about") {
+      assert.match(html, /independently developed calculator project/);
+      assert.match(html, /six live calculators/);
+      assert.match(html, /browser(?:&apos;|')s local storage/);
+      assert.match(html, /https:\/\/github\.com\/Hosyss\/buildmeasure/);
+      assert.match(html, /Hosyss/);
+    }
   }
 });
 
@@ -449,6 +490,10 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   assert.match(
     sitemap,
     /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/concrete-calculator<\/loc>/,
+  );
+  assert.match(
+    sitemap,
+    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/post-hole-concrete-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
@@ -567,6 +612,7 @@ test("every internal page link resolves in the built application", async () => {
   const routes = [
     "/",
     "/concrete-calculator",
+    "/post-hole-concrete-calculator",
     "/paint-calculator",
     "/tile-calculator",
     "/gravel-calculator",
