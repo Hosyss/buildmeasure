@@ -6,6 +6,11 @@ import {
   METERS_PER_FOOT,
   SQUARE_METERS_PER_SQUARE_FOOT,
 } from "../lib/units.ts";
+import {
+  BRICK_PRESETS,
+  brickPresetRate,
+  calculateBrick,
+} from "../lib/calculators/brick.ts";
 
 test("preserves practical dimensions through a displayed unit round trip", () => {
   const metric = Number(formatConvertedInput(8 * METERS_PER_FOOT));
@@ -30,4 +35,31 @@ test("preserves paint coverage through a displayed unit round trip", () => {
   );
 
   assert.equal(imperialCoverage, 400);
+});
+
+test("preserves whole-brick boundaries through displayed metric inputs", () => {
+  const formatBrickInput = (value) => formatConvertedInput(value, 10);
+  const imperial = calculateBrick({
+    unitSystem: "imperial",
+    wallLength: 20,
+    wallHeight: 8,
+    openingsArea: 16,
+    coverageRate: BRICK_PRESETS.modular.bricksPer100SquareFeet,
+    wastePercent: 5,
+  });
+  const metric = calculateBrick({
+    unitSystem: "metric",
+    wallLength: Number(formatBrickInput(20 * METERS_PER_FOOT)),
+    wallHeight: Number(formatBrickInput(8 * METERS_PER_FOOT)),
+    openingsArea: Number(
+      formatBrickInput(16 * SQUARE_METERS_PER_SQUARE_FOOT),
+    ),
+    coverageRate: Number(
+      formatBrickInput(brickPresetRate("modular", "metric")),
+    ),
+    wastePercent: 5,
+  });
+
+  assert.equal(metric.minimumWholeBricks, imperial.minimumWholeBricks);
+  assert.equal(metric.orderBricks, imperial.orderBricks);
 });

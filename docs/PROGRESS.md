@@ -35,9 +35,30 @@ or published documentation. A plan or claim does not earn credit.
 - Earlier temporary production-smoke failures are retained in `docs/AUDITS.md` as QA-harness diagnostics rather than rewritten as successes.
 - No calculator file under `lib/calculators/` changed in the UX release or this closure.
 - PR #27 and PR #32 remain untouched. No Google Search Console manual-indexing request was made.
-- IndexNow remains **not submitted** pending the post-verification indexing decision.
+- IndexNow was submitted once after production verification: run `31713184925`,
+  job `94491147703` — **20 canonical URLs accepted with HTTP 200**. The
+  one-shot workflow removed itself after success and must not be rerun without
+  a new public-content release.
 
 The weighted **Launch-ready v1 remains 97%** because the remaining broader cross-browser/real-user field-data and independent-usability-feedback gaps are unchanged. The approximate master-product vision remains **~2%**.
+
+## Post-launch corrective audit
+
+- A production review found that the Brick Calculator's displayed Imperial to
+  Metric conversion could move the documented example across a whole-brick
+  boundary (`972` to `973`) because converted form values were limited to seven
+  decimal places before recalculation.
+- Branch `agent/fix-unit-conversion-boundary` keeps the shared calculator engine
+  unchanged, preserves extra precision only for Brick form conversions, and
+  adds a permanent regression for the displayed-input path.
+- All `118` unit/engine tests pass locally. The normal GitHub quality gate,
+  rendered/browser verification, merge, and production verification remain
+  required before this corrective release is considered closed.
+- The legacy `buildmeasure.hosys.chatgpt.site` deployment currently redirects
+  to the retired `buildmeasure.hosy-sthdr.workers.dev` origin instead of the
+  canonical production origin. The Worker source already contains the correct
+  canonical redirect, so the remaining fix belongs to the legacy Sites
+  deployment/configuration rather than the calculator engine.
 
 ## Master product vision
 
