@@ -213,7 +213,7 @@ test("rejects underflow, overflow, and unsafe whole-brick quantities", () => {
     () =>
       calculateBrick({
         ...baseInput,
-        unitSystem: "metric",
+        unitSystem: "imperial",
         wallLength: Number.MIN_VALUE,
       }),
     (error) =>
