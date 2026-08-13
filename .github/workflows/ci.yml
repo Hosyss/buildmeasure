@@ -37,3 +37,12 @@ jobs:
 
       - name: Block high-risk production dependency advisories
         run: npm audit --omit=dev --audit-level=high
+
+      - name: Upload PR build artifact for supervised browser QA
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-hole-browser-qa-dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
