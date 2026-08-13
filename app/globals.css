@@ -2993,3 +2993,41 @@ svg {
     background: white;
   }
 }
+
+
+/* A selected Brick preset is reference data, not an editable form control. */
+.brick-rate-display {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 9px;
+}
+
+.brick-rate-output {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid var(--sand-200);
+  border-radius: 8px;
+  background: var(--sand-100);
+  color: var(--ink-900);
+}
+
+.brick-rate-output strong {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+}
+
+.brick-rate-output span {
+  color: var(--ink-500);
+  font-size: 0.75rem;
+}
+
+.brick-rate-display small {
+  color: var(--ink-500);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}

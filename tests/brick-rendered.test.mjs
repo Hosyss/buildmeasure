@@ -43,6 +43,11 @@ test("renders the Brick Calculator with reference-backed scope and structured co
   assert.match(html, /Optional price per brick/);
   assert.match(html, /No live prices are fetched/);
   assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);
+  assert.match(html, /id="brick-rate-output"/);
+  assert.match(html, />675<\/strong>/);
+  assert.match(html, /bricks \/ 100 ft²/);
+  assert.match(html, /Custom \/ supplier rate/);
+  assert.doesNotMatch(html, /readonly/);
   assert.match(html, /href="\/feedback\?calculator=brick-calculator"/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /"@type":"WebApplication"/);

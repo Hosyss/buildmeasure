@@ -84,6 +84,14 @@ function choiceLabel(choice: BrickChoice) {
   return BRICK_PRESETS[choice].label;
 }
 
+function presetCoverageLabel(
+  choice: BrickPresetId,
+  unitSystem: UnitSystem,
+) {
+  const rateAreaUnit = unitSystem === "imperial" ? "100 ft²" : "10 m²";
+  return `${format(brickPresetRate(choice, unitSystem), 3)} bricks / ${rateAreaUnit}`;
+}
+
 function resultSummary(result: BrickResult) {
   return `${result.orderBricks} ${result.orderBricks === 1 ? "brick" : "bricks"} to order`;
 }
@@ -185,9 +193,14 @@ export function BrickCalculator() {
           ? openingsArea * SQUARE_METERS_PER_SQUARE_FOOT
           : openingsArea / SQUARE_METERS_PER_SQUARE_FOOT,
       ),
-      coverageRate: formatConvertedInput(
-        convertBrickCoverageRate(coverageRate, unitSystem, next),
-      ),
+      coverageRate:
+        current.brickChoice === "custom"
+          ? formatConvertedInput(
+              convertBrickCoverageRate(coverageRate, unitSystem, next),
+            )
+          : formatConvertedInput(
+              brickPresetRate(current.brickChoice, next),
+            ),
     }));
     setUnitSystem(next);
     setNotice(
@@ -359,7 +372,7 @@ export function BrickCalculator() {
             >
               {Object.entries(BRICK_PRESETS).map(([key, preset]) => (
                 <option value={key} key={key}>
-                  {preset.label} — {preset.bricksPer100SquareFeet} / 100 ft²
+                  {preset.label} — {presetCoverageLabel(key as BrickPresetId, unitSystem)}
                 </option>
               ))}
               <option value="custom">Custom / supplier rate</option>
@@ -367,28 +380,42 @@ export function BrickCalculator() {
             <small id="brick-choice-help">BIA presets use Technical Note 10 Table 4 running/stack-bond estimating rates.</small>
           </label>
 
-          <label className={fieldError === "coverageRate" ? "field-invalid" : ""}>
-            <span>Brick coverage rate</span>
-            <span className="input-with-unit">
-              <input
-                type="number"
-                min="0"
-                step="any"
-                inputMode="decimal"
-                value={form.coverageRate}
-                readOnly={form.brickChoice !== "custom"}
-                aria-readonly={form.brickChoice !== "custom"}
-                onChange={(event) => setField("coverageRate", event.target.value)}
-                aria-describedby={fieldError === "coverageRate" ? "brick-error" : "brick-rate-help"}
-              />
-              <span>brick / {rateAreaUnit}</span>
-            </span>
-            <small id="brick-rate-help">
-              {form.brickChoice === "custom"
-                ? "Use the coverage rate for the exact brick, supplier estimate, or project specification."
-                : "Preset rate is read-only. Choose Custom to enter a different project-specific rate."}
-            </small>
-          </label>
+          {form.brickChoice === "custom" ? (
+            <label className={fieldError === "coverageRate" ? "field-invalid" : ""}>
+              <span>Brick coverage rate</span>
+              <span className="input-with-unit">
+                <input
+                  id="brick-custom-coverage-rate"
+                  type="number"
+                  min="0"
+                  step="any"
+                  inputMode="decimal"
+                  value={form.coverageRate}
+                  onChange={(event) => setField("coverageRate", event.target.value)}
+                  aria-describedby={fieldError === "coverageRate" ? "brick-error" : "brick-rate-help"}
+                />
+                <span>bricks / {rateAreaUnit}</span>
+              </span>
+              <small id="brick-rate-help">
+                Use the coverage rate for the exact brick, supplier estimate, or project specification.
+              </small>
+            </label>
+          ) : (
+            <div className="brick-rate-display">
+              <span>Brick coverage rate</span>
+              <output
+                id="brick-rate-output"
+                className="brick-rate-output"
+                aria-live="polite"
+              >
+                <strong>{format(brickPresetRate(form.brickChoice, unitSystem), 3)}</strong>
+                <span>bricks / {rateAreaUnit}</span>
+              </output>
+              <small id="brick-rate-help">
+                Preset value from the selected BIA estimating basis. Choose Custom to enter a project-specific rate.
+              </small>
+            </div>
+          )}
 
           <label className={fieldError === "wastePercent" ? "field-invalid" : ""}>
             <span>Waste / breakage allowance</span>
