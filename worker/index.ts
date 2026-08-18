@@ -24,13 +24,26 @@ const CANONICAL_ORIGIN = "https://buildmeasure.buildtools.workers.dev";
 const GOOGLE_VERIFICATION_PATH = "/google6d67c58ff3b5201c.html";
 const CLARITY_SOURCES = ["https://*.clarity.ms", "https://c.bing.com"];
 
+function canonicalFromHtml(html: string, request: Request): string | null {
+  const canonicalTag = html.match(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>/i)?.[0];
+  const href = canonicalTag?.match(/\bhref=["']([^"']+)["']/i)?.[1];
+
+  if (!href) return null;
+
+  try {
+    return new URL(href, request.url).toString();
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Keep route hydration loading early without letting it compete with the
  * render-blocking stylesheet. The generated app shell marks every client
  * bundle as a high-priority module preload by default; these routes render
  * useful HTML before hydration, so a low fetch priority is the better tradeoff.
  */
-async function prepareHtmlResponse(response: Response): Promise<Response> {
+async function prepareHtmlResponse(response: Response, request: Request): Promise<Response> {
   const contentType = response.headers.get("content-type") ?? "";
 
   if (!response.body || !contentType.includes("text/html")) {
@@ -62,6 +75,13 @@ async function prepareHtmlResponse(response: Response): Promise<Response> {
 
   const headers = new Headers(response.headers);
   headers.delete("content-length");
+
+  const canonicalUrl = canonicalFromHtml(html, request);
+  if (canonicalUrl) {
+    const canonicalLink = `<${canonicalUrl}>; rel="canonical"`;
+    const existingLink = headers.get("Link");
+    headers.set("Link", existingLink ? `${existingLink}, ${canonicalLink}` : canonicalLink);
+  }
 
   return applySecurityHeaders(new Response(html, {
     status: response.status,
@@ -145,7 +165,7 @@ const worker = {
     }
 
     const response = await handler.fetch(request, env, ctx);
-    return prepareHtmlResponse(response);
+    return prepareHtmlResponse(response, request);
   },
 };
 
