@@ -40,7 +40,7 @@ or published documentation. A plan or claim does not earn credit.
   one-shot workflow removed itself after success and must not be rerun without
   a new public-content release.
 
-The weighted **Launch-ready v1 remains 97%** because the remaining broader cross-browser/real-user field-data and independent-usability-feedback gaps are unchanged. The approximate master-product vision remains **~2%**.
+At the end of this UX-only closure the weighted Launch-ready v1 figure was still **97%** because broader cross-browser and real-user evidence were still open. The later cross-browser closure recorded below raised the current figure to **99%**. The approximate master-product vision remains **~2%**.
 
 ## Post-launch corrective audit
 
