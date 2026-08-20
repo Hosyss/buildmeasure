@@ -1,19 +1,19 @@
 name: PR41 temporary browser QA
 
 on:
-  push:
-    branches: [maintenance/product-quality-2026-08-20]
+  pull_request:
 
 permissions:
   contents: read
 
 concurrency:
-  group: buildmeasure-pr41-browser-qa
+  group: buildmeasure-pr41-browser-qa-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   browser:
     name: Firefox and WebKit responsive consent QA
+    if: github.head_ref == 'maintenance/product-quality-2026-08-20'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
 
