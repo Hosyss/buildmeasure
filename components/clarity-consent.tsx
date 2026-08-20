@@ -53,25 +53,29 @@ function clearClarityConsent() {
 
 const panelStyle = {
   position: "fixed",
-  right: "16px",
-  bottom: "16px",
+  right: "12px",
+  bottom: "12px",
   zIndex: 1000,
-  width: "min(430px, calc(100vw - 32px))",
+  width: "min(390px, calc(100vw - 24px))",
+  maxHeight: "calc(100vh - 24px)",
+  overflowY: "auto",
   border: "1px solid #183247",
   background: "#ffffff",
   color: "#183247",
-  padding: "18px",
-  boxShadow: "0 14px 36px rgba(17, 36, 50, 0.22)",
+  padding: "14px",
+  boxShadow: "0 10px 28px rgba(17, 36, 50, 0.18)",
 } as const;
 
 const actionRowStyle = {
   display: "flex",
   flexWrap: "wrap",
-  gap: "10px",
-  marginTop: "14px",
+  gap: "8px",
+  marginTop: "12px",
 } as const;
 
 const primaryButtonStyle = {
+  flex: "1 1 150px",
+  minHeight: "44px",
   border: "1px solid #183247",
   background: "#183247",
   color: "#ffffff",
@@ -82,6 +86,8 @@ const primaryButtonStyle = {
 } as const;
 
 const secondaryButtonStyle = {
+  flex: "1 1 150px",
+  minHeight: "44px",
   border: "1px solid #183247",
   background: "#ffffff",
   color: "#183247",
@@ -135,22 +141,32 @@ export function ClarityConsent() {
       aria-live="polite"
       style={panelStyle}
     >
-      <strong style={{ display: "block", fontSize: "1.05rem" }}>
-        Analytics choices
+      <strong style={{ display: "block", fontSize: "1rem" }}>
+        Optional analytics
       </strong>
-      <p style={{ margin: "8px 0 0", lineHeight: 1.55 }}>
-        BuildMeasure can use Microsoft Clarity to understand navigation, clicks,
-        scrolling, and technical friction. Clarity loads only if you allow
-        analytics. Advertising storage remains disabled.
+      <p style={{ margin: "6px 0 0", lineHeight: 1.5 }}>
+        Allow Microsoft Clarity to help us understand navigation and technical
+        friction. Clarity loads only after you allow it, and advertising storage
+        stays disabled.
       </p>
       <div style={actionRowStyle}>
         <button type="button" style={primaryButtonStyle} onClick={() => choose("granted")}>
           Allow analytics
         </button>
         <button type="button" style={secondaryButtonStyle} onClick={() => choose("denied")}>
-          No thanks
+          Decline analytics
         </button>
-        <a href="/privacy" style={{ alignSelf: "center", color: "inherit" }}>
+        <a
+          href="/privacy"
+          style={{
+            alignSelf: "center",
+            color: "inherit",
+            minHeight: "44px",
+            display: "inline-flex",
+            alignItems: "center",
+            padding: "0 2px",
+          }}
+        >
           Privacy policy
         </a>
       </div>
