@@ -2,10 +2,12 @@ import type { AnalyticsSubmission } from "@/lib/analytics";
 
 type AnalyticsTotalsRow = {
   engagedSessions: number;
+  entries: number;
   openings: number;
   interactions: number;
   completed: number;
   failed: number;
+  costUses: number;
   feedback: number;
   errors: number;
 };
@@ -15,6 +17,12 @@ export type CalculatorAnalyticsRow = {
   engagedSessions: number;
   completed: number;
   failed: number;
+};
+
+export type CalculatorEntryAnalyticsRow = {
+  source: string;
+  calculator: string;
+  clicks: number;
 };
 
 export type SourceAnalyticsRow = {
@@ -38,6 +46,7 @@ export type ErrorAnalyticsRow = {
 export type AnalyticsDashboard = {
   totals: AnalyticsTotalsRow;
   calculators: CalculatorAnalyticsRow[];
+  entries: CalculatorEntryAnalyticsRow[];
   sources: SourceAnalyticsRow[];
   pages: PageAnalyticsRow[];
   recentErrors: ErrorAnalyticsRow[];
@@ -163,15 +172,17 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
   const interval = `-${safeDays} days`;
   const database = await getAnalyticsDatabase();
 
-  const [totals, calculators, sources, pages, recentErrors] = await Promise.all([
+  const [totals, calculators, entries, sources, pages, recentErrors] = await Promise.all([
     database
       .prepare(
         `SELECT
           COUNT(DISTINCT CASE WHEN event IN ('page_engaged', 'calculator_interacted') THEN session_token END) AS engagedSessions,
+          SUM(CASE WHEN event = 'calculator_entry_clicked' THEN 1 ELSE 0 END) AS entries,
           SUM(CASE WHEN event = 'calculator_opened' THEN 1 ELSE 0 END) AS openings,
           SUM(CASE WHEN event = 'calculator_interacted' THEN 1 ELSE 0 END) AS interactions,
           SUM(CASE WHEN event = 'calculation_completed' THEN 1 ELSE 0 END) AS completed,
           SUM(CASE WHEN event = 'calculation_failed' THEN 1 ELSE 0 END) AS failed,
+          SUM(CASE WHEN event = 'cost_estimate_used' THEN 1 ELSE 0 END) AS costUses,
           SUM(CASE WHEN event = 'feedback_submitted' THEN 1 ELSE 0 END) AS feedback,
           SUM(CASE WHEN event = 'client_error' THEN 1 ELSE 0 END) AS errors
          FROM analytics_events
@@ -194,6 +205,23 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
       )
       .bind(interval)
       .all<CalculatorAnalyticsRow>(),
+    database
+      .prepare(
+        `SELECT
+          detail AS source,
+          calculator,
+          COUNT(*) AS clicks
+         FROM analytics_events
+         WHERE created_at >= datetime('now', ?)
+           AND event = 'calculator_entry_clicked'
+           AND detail IN ('homepage', 'guide')
+           AND calculator <> ''
+         GROUP BY detail, calculator
+         ORDER BY clicks DESC, detail ASC, calculator ASC
+         LIMIT 30`,
+      )
+      .bind(interval)
+      .all<CalculatorEntryAnalyticsRow>(),
     database
       .prepare(
         `SELECT
@@ -243,10 +271,12 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
   return {
     totals: {
       engagedSessions: Number(totals?.engagedSessions ?? 0),
+      entries: Number(totals?.entries ?? 0),
       openings: Number(totals?.openings ?? 0),
       interactions: Number(totals?.interactions ?? 0),
       completed: Number(totals?.completed ?? 0),
       failed: Number(totals?.failed ?? 0),
+      costUses: Number(totals?.costUses ?? 0),
       feedback: Number(totals?.feedback ?? 0),
       errors: Number(totals?.errors ?? 0),
     },
@@ -255,6 +285,10 @@ export async function getAnalyticsDashboard(days = 30): Promise<AnalyticsDashboa
       engagedSessions: Number(row.engagedSessions ?? 0),
       completed: Number(row.completed ?? 0),
       failed: Number(row.failed ?? 0),
+    })),
+    entries: entries.results.map((row) => ({
+      ...row,
+      clicks: Number(row.clicks ?? 0),
     })),
     sources: sources.results.map((row) => ({
       ...row,

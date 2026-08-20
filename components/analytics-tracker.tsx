@@ -1,7 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { FeedbackCalculator } from "@/lib/feedback";
+import {
+  FEEDBACK_CALCULATORS,
+  type FeedbackCalculator,
+} from "@/lib/feedback";
 import type {
   AnalyticsBrowser,
   AnalyticsDevice,
@@ -16,6 +19,9 @@ type AnalyticsEventInput = {
 
 let pageSessionToken = "";
 const sentOnce = new Set<string>();
+const CALCULATOR_ROUTE_MAP = new Map<string, FeedbackCalculator>(
+  FEEDBACK_CALCULATORS.map(([key]) => [`/${key}`, key] as const),
+);
 
 function createSessionToken() {
   if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
@@ -47,7 +53,7 @@ function deviceClass(): AnalyticsDevice {
   return "desktop";
 }
 
-function limited(value: string | null, maximum: number) {
+function limited(value: string | null | undefined, maximum: number) {
   return (value ?? "")
     .replace(/[\u0000-\u001f\u007f]/g, " ")
     .trim()
@@ -145,6 +151,44 @@ export function useCalculatorAnalytics(
 }
 
 export function AnalyticsTracker() {
+  useEffect(() => {
+    function onCalculatorEntryClick(event: MouseEvent) {
+      if (!(event.target instanceof Element)) return;
+
+      const anchor = event.target.closest("a[href]");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+
+      const sourceRoute = window.location.pathname;
+      const entrySource = sourceRoute === "/"
+        ? "homepage"
+        : sourceRoute.startsWith("/guides/")
+          ? "guide"
+          : null;
+      if (!entrySource) return;
+
+      let targetUrl: URL;
+      try {
+        targetUrl = new URL(anchor.href, window.location.href);
+      } catch {
+        return;
+      }
+      if (targetUrl.origin !== window.location.origin) return;
+
+      const targetPath = targetUrl.pathname.replace(/\/$/, "") || "/";
+      const calculator = CALCULATOR_ROUTE_MAP.get(targetPath);
+      if (!calculator) return;
+
+      trackAnalyticsEvent({
+        event: "calculator_entry_clicked",
+        calculator,
+        detail: entrySource,
+      });
+    }
+
+    document.addEventListener("click", onCalculatorEntryClick, { capture: true });
+    return () => document.removeEventListener("click", onCalculatorEntryClick, { capture: true });
+  }, []);
+
   useEffect(() => {
     let hasHumanSignal = false;
     let isEligible = false;

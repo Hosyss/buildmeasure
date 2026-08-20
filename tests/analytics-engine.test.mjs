@@ -46,6 +46,55 @@ test("accepts Brick Calculator events through the shared calculator registry", (
   }
 });
 
+test("accepts documented calculator entry events without raw project values", () => {
+  for (const [route, detail] of [["/", "homepage"], ["/guides/how-much-paint-do-i-need", "guide"]]) {
+    const result = validateAnalyticsPayload(
+      validPayload({
+        event: "calculator_entry_clicked",
+        calculator: "paint-calculator",
+        route,
+        detail,
+      }),
+    );
+
+    assert.equal(result.ok, true, `${route} ${detail}`);
+  }
+});
+
+test("rejects calculator entry events from undocumented sources or without a calculator", () => {
+  assert.equal(
+    validateAnalyticsPayload(
+      validPayload({ event: "calculator_entry_clicked", detail: "raw-form-value" }),
+    ).ok,
+    false,
+  );
+  assert.equal(
+    validateAnalyticsPayload(
+      validPayload({ event: "calculator_entry_clicked", calculator: "", detail: "homepage" }),
+    ).ok,
+    false,
+  );
+});
+
+test("accepts cost-feature usage without accepting raw price details", () => {
+  assert.equal(
+    validateAnalyticsPayload(validPayload({ event: "cost_estimate_used" })).ok,
+    true,
+  );
+  assert.equal(
+    validateAnalyticsPayload(
+      validPayload({ event: "cost_estimate_used", detail: "125.50 EGP" }),
+    ).ok,
+    false,
+  );
+  assert.equal(
+    validateAnalyticsPayload(
+      validPayload({ event: "cost_estimate_used", calculator: "" }),
+    ).ok,
+    false,
+  );
+});
+
 test("accepts site-wide error events without a calculator", () => {
   const result = validateAnalyticsPayload(
     validPayload({

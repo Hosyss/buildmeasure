@@ -1,161 +1,90 @@
 # BuildMeasure — Persistent Project Status
 
-> آخر تحديث موثّق: **2026-08-11 (Africa/Cairo)**
+> آخر تحديث موثّق: **2026-08-20 (Africa/Cairo)**
 >
-> هذا الملف هو نقطة الاستئناف الرسمية. لا تبدأ المشروع من الصفر، ولا تُنشئ موقعًا أو مستودعًا أو قاعدة بيانات جديدة.
+> هذا الملف هو نقطة الاستئناف المختصرة. أحدث كود وPull Requests ونتائج الاختبارات تتقدم دائمًا على أي handoff أقدم.
 
-## نقطة البداية السريعة
+## الهوية الحالية
 
 - المستودع الرسمي: https://github.com/Hosyss/buildmeasure
 - فرع الإنتاج: `main`
-- رابط الإنتاج الأساسي: https://buildmeasure.buildtools.workers.dev
-- الرابط القديم (تحويل دائم 301): https://buildmeasure.hosys.chatgpt.site
+- أحدث `main` عند بدء دفعة الصيانة الحالية: `134d6d7f6eb73d833a18e40f9cfebbdc0fe7d861`
+- رابط الإنتاج الحالي: https://buildmeasure.buildtools.workers.dev
+- هذا الرابط هو الأصل الحالي المؤقت/التشغيلي، وليس نطاق علامة تجارية نهائيًا مستقلًا.
+- الرابط القديم الذي يجب الحفاظ على تحويله ومساره واستعلامه: https://buildmeasure.hosys.chatgpt.site
 - قاعدة Cloudflare D1 الحالية: `buildmeasure-production`
-- إصدار التطبيق: `0.5.3`
+- إصدار التطبيق في `package.json`: `0.5.3`
+- لا تُنشئ Worker أو D1 أو مستودعًا أو مشروع Cloudflare بديلًا لهذا المشروع.
 
-## الحالة الحالية
+## نطاق المنتج المتحقق في المصدر
 
-| البند | الحالة | الدليل |
-|---|---|---|
-| نقل المصدر إلى GitHub | مكتمل | المستودع والـcommits أدناه |
-| نشر Cloudflare Workers | مكتمل | رابط الإنتاج الأساسي يعمل |
-| ربط D1 بواجهة الصحة والتخزين | مكتمل | `/api/health` يعرض `status: ok` |
-| الحاسبات الخمس | مكتمل | جميع المسارات العامة أعادت HTTP 200 |
-| canonical وsitemap وrobots وllms | مكتمل | تشير إلى رابط Cloudflare الأساسي |
-| Google Search Console للرابط الجديد | مكتمل | تم إثبات الملكية وإرسال `sitemap.xml` بنجاح |
-| تحويل الرابط القديم | مكتمل | Sites version 21؛ تحويل 301 مع حفظ المسار والاستعلام |
-| ملف إثبات Google القديم | محفوظ | `/google6d67c58ff3b5201c.html` ما زال يعرض نص الإثبات |
-| الفهرسة والزيارات العضوية | قيد الانتظار | Google يحتاج وقتًا للزحف ومعالجة الخريطة |
+BuildMeasure يحتوي حاليًا على **7 حاسبات عامة**:
 
-## دفعة العمل النشطة — Traffic Guides Sprint
+1. Concrete Calculator
+2. Post Hole Concrete Calculator
+3. Paint Calculator
+4. Tile Calculator
+5. Brick Calculator
+6. Gravel Calculator
+7. Mulch Calculator
 
-- الفرع: `agent/traffic-guides-sprint`
-- الحالة: **مكتمل — Checkpoint 6/6، مدمج ومنشور ومتحقق حيًا**
-- Pull Request: https://github.com/Hosyss/buildmeasure/pull/14
-- Merge commit: https://github.com/Hosyss/buildmeasure/commit/f98ea45add3cd8acbc57ba8b9428baec99906110
-- الهدف: إضافة أربعة أدلة بحثية مرتبطة بالحاسبات الحالية لزيادة فرص الظهور العضوي دون تغيير الرابط أو البنية المستقرة.
-- التسليمات المخططة:
-  1. دليل حساب دهان الغرفة.
-  2. دليل حساب عدد البلاط.
-  3. دليل حساب كمية الحصى.
-  4. دليل حساب كمية الـmulch.
-  5. روابط داخلية وstructured data وتحديث `sitemap.xml` و`llms.txt`.
-  6. اختبارات كاملة، مراجعة Cloudflare، وتسجيل روابط كل commit هنا.
-- Checkpoint 2 — Paint + Tile:
-  - https://github.com/Hosyss/buildmeasure/commit/cfffc7ab75cd3f40617cf3c373d1982d3d9a5efe
-  - https://github.com/Hosyss/buildmeasure/commit/3fd785e0c23baf34dd97ba4b37bc959922162319
-  - https://github.com/Hosyss/buildmeasure/commit/b1ddf45b48bdb7dbb939e9ae93493d7b7d5db3d9
-  - https://github.com/Hosyss/buildmeasure/commit/d0c8864696767977d4b26ed62917073a6d2bf4b8
-- فحص Checkpoint 2: `git diff --check` وESLint نجحا. فشل تثبيت npm الأول بسبب مسار cache محمي، ثم نجح التثبيت النظيف باستخدام cache مؤقت.
-- Checkpoint 3 — Gravel + Mulch:
-  - https://github.com/Hosyss/buildmeasure/commit/2d8054cf06620a81477f7ef08bfcf32cdf6f40cd
-  - https://github.com/Hosyss/buildmeasure/commit/04d3a835620346257ab5c210aee5bab6f79c1806
-  - https://github.com/Hosyss/buildmeasure/commit/8437072c56d038ffda9999e7512e9e9fd0c170b8
-  - https://github.com/Hosyss/buildmeasure/commit/db94ecf6b93003734fd5164aede75bebf0d134b6
-- فحص Checkpoint 3: `git diff --check` وESLint نجحا.
-- Checkpoint 4 — Internal discovery + SEO files + route coverage:
-  - https://github.com/Hosyss/buildmeasure/commit/89bf34dc4a2ffb0293ef37eaaa063af9dca57f15
-  - https://github.com/Hosyss/buildmeasure/commit/9eb51b76866cf4d471466b282b4bd1b320789a8a
-  - https://github.com/Hosyss/buildmeasure/commit/b2b5cad36d0489acd17401c33a2d619bf1e0b4a0
-  - https://github.com/Hosyss/buildmeasure/commit/d5750a73e907b7b58afec036ad692ccbf001d97e
-- فحص Checkpoint 4: `git diff --check` وESLint نجحا. الصفحة الرئيسية تعرض الأدلة الأربعة، و`sitemap.xml` و`llms.txt` واختبارات المسارات تشملها.
-- Checkpoint 5 — Full automated QA:
-  - `npm run qa:automated`: نجح بالكامل.
-  - ESLint: نجح.
-  - Unit tests: **82/82** نجحت.
-  - Build: نجح، وتضمن المسارات الأربعة الجديدة.
-  - Rendered/route tests: **17/17** نجحت، ومنها الروابط الداخلية و`robots.txt` و`sitemap.xml` و`llms.txt`.
-- GitHub quality gate: نجح بالكامل — https://github.com/Hosyss/buildmeasure/actions/runs/31533469963
-- Checkpoint 6 — Merge + production verification:
-  - تم دمج PR #14 في `main` عبر merge commit أعلاه.
-  - اكتمل نشر Cloudflare على Worker الحالي؛ لم يُنشأ Worker أو D1 أو نطاق جديد.
-  - الصفحة الرئيسية، الحاسبات الخمس، الأدلة الأربعة الجديدة، `sitemap.xml`، `robots.txt`، `llms.txt` و`/api/health`: جميعها أعادت HTTP 200.
-  - الأدلة الأربعة تعرض العنوان الصحيح وcanonical المطابق وArticle/Breadcrumb/FAQ structured data.
-  - `/api/health`: `status: ok` مع `feedbackStorage: ok` و`analyticsStorage: ok`.
-  - `sitemap.xml` و`llms.txt` يحتويان مسارات الأدلة الأربعة الجديدة.
-  - أرسل IndexNow خريطة الإنتاج الكاملة: **16 رابطًا، HTTP 202 Accepted**.
-- نقطة الاستئناف الحالية: راقب Google Search Console وBing Webmaster لظهور الصفحات والاستعلامات والنقرات. لا تعتبر إرسال IndexNow أو Sitemap ضمانًا للترتيب، ولا تعِد إنشاء أي مشروع أو قاعدة بيانات.
+المصدر يحتوي كذلك على **7 أدلة مركزة مرتبطة بالحاسبات السبع**، بالإضافة إلى دليل عام واحد هو `material-estimating-basics`. لذلك عبارة «خمس حاسبات» أو اعتبار الأدلة المركزة أربعة فقط أصبحت تاريخية ولا تصف الحالة الحالية.
 
-## اختبارات الإطلاق المنفّذة
+## الحالة الفنية الحالية
 
-- `npm run qa:automated` نجح بالكامل.
-- ESLint: نجح.
-- Unit tests: **82/82** نجحت.
-- Build: نجح.
-- Rendered/route tests: **17/17** نجحت، ومنها اختبار تحويل الرابط القديم.
-- الصفحة الرئيسية، الحاسبات الخمس، `/status`، `/api/health`، `/robots.txt`، `/sitemap.xml` و`/llms.txt`: HTTP 200 على الإنتاج الجديد.
-- التحويل الحي:
-  - من: `https://buildmeasure.hosys.chatgpt.site/concrete-calculator?system=metric`
-  - إلى: `https://buildmeasure.buildtools.workers.dev/concrete-calculator?system=metric`
-  - الحالة: HTTP 301.
-- رؤوس الأمان الأساسية موجودة: CSP، HSTS، Permissions-Policy، Referrer-Policy، X-Content-Type-Options وX-Frame-Options.
-- خط الأساس قبل النقل:
-  - PageSpeed: **100/100** في الفئات الأربع على الموبايل والديسكتوب.
-  - MDN Observatory: **A+ (115/100)**.
+- PR #33 (`Clarify calculator UX, CTAs, typography, and guide density`) **تم دمجه** في `main` يوم 2026-08-13. لا تعِد تنفيذ تغييراته.
+- إغلاق PR #33 في الإنتاج سُجل في `docs/PROGRESS.md`: فحص إنتاج شمل الحاسبات السبع والأدلة السبعة المركزة والأسطح التقنية و360/768/1280.
+- إصلاح Brick الخاص بحدود تحويل الوحدات تم دمجه لاحقًا مع regression دائم، بدون تغيير صيغة المحرك.
+- فحص Firefox/WebKit المسجل في `docs/PROGRESS.md` نجح **14/14** وأغلق فجوة التوافق التقني الأساسية.
+- PR #40 (`SEO: reinforce canonical URLs at HTTP layer`) تم دمجه، وأحدث Quality Gate على head الخاص به (`32184289738`) نجح.
+- أحدث `main` بعد PR #40 يضيف إشارة canonical عبر HTTP `Link` مع الحفاظ على canonical الموجود في HTML بدل اختراع canonical جديد.
+- لم يتم في هذه الجلسة إثبات أن أحدث `main` بعد PR #40 هو نفسه آخر Version منشور على Cloudflare؛ لا تدّعِ هذا التطابق قبل فحص نشر مستقل.
 
+## القياس والخصوصية
 
-## آخر فحص حي — 2026-08-11
+- يوجد first-party analytics محدود يخزن أحداث استخدام مجهولة في D1 ولا يخزن IP أو raw user-agent أو أسماء أو بريدًا أو قياسات المشروع الخام.
+- Microsoft Clarity خدمة اختيارية منفصلة ولا يجوز تحميل script الخاص بها قبل موافقة المستخدم.
+- دفعة الصيانة الحالية تضيف قياسًا محدودًا لمسار `Homepage/Guide → Calculator` باستخدام اسم الحاسبة ومصدر ثابت فقط (`homepage` أو `guide`)؛ لا تُرسل أبعاد أو كميات أو أسعار.
+- نافذة اختيار Clarity تُحسّن لتكون أقل سيطرة على الشاشات الصغيرة مع إبقاء Allow وDecline وPrivacy واضحة وسهلة الوصول.
 
-- تم فحص **17 مسارًا عامًا** تشمل الصفحة الرئيسية، الحاسبات الخمس، أدلة المحتوى، الصفحات القانونية، `/status`، `/api/health`، `/robots.txt`، `/sitemap.xml` و`/llms.txt`: جميعها أعادت HTTP 200.
-- `/api/health`: الحالة `ok` والإصدار `0.5.3`، مع `feedbackStorage: ok` و`analyticsStorage: ok`.
-- الرابط القديم يعيد HTTP 301 إلى رابط Cloudflare مع حفظ المسار والاستعلام.
-- ملف إثبات Google ما زال يعرض نص الإثبات بعد تتبع التحويل الداخلي.
-- الـcanonical و`og:site_name` وWebSite structured data تحمل اسم **BuildMeasure** ورابط Cloudflare.
-- MDN HTTP Observatory: **A+، 115/100، 10/10 اختبارات ناجحة، 0 فشل** (scan ID: `114021973`).
-- لم يظهر رابط Cloudflare في البحث العام حتى وقت الفحص؛ الفهرسة ما زالت قيد المعالجة، وليس هذا عطلًا في الموقع.
-- إعادة PageSpeed لم تكتمل لأن حصة Google PageSpeed API اليومية كانت منتهية، وChrome DevTools MCP غير متاح في جلسة الفحص. لا توجد أرقام أداء جديدة موثقة، ولم يتم اختلاق نتيجة بديلة.
+## الجودة
 
+- الـCI الرسمي يشغّل `npm run qa:automated` ثم `npm audit --omit=dev --audit-level=high`.
+- حتى بداية دفعة 2026-08-20 كان `qa:automated` يغطي lint + unit tests + build + rendered tests، لكنه لم يكن يشغّل `tsc --noEmit` كبوابة مستقلة.
+- دفعة الصيانة الحالية تضيف `npm run typecheck` إلى `qa:automated`. نجاح الدفعة لا يُعلن قبل نجاح TypeScript والبوابات الحالية معًا.
+- لا تخفف اختبارًا فاشلًا لإجباره على النجاح، ولا تعتبر build بديلًا عن بوابة TypeScript المستقلة بعد إضافتها.
 
-## ما تبقّى — بالترتيب
+## Pull Requests المفتوحة التي لا يجب خلطها بهذه الدفعة
 
-1. انتظار Google لمعالجة خريطة الموقع الجديدة وظهور الصفحات تحت خاصية Cloudflare.
-2. مراجعة Search Console بعد توفر بيانات فعلية: الصفحات المفهرسة، الظهور، النقرات والاستعلامات.
-3. إعادة PageSpeed على رابط Cloudflare عند تجدد حصة Google أو توفر Chrome DevTools MCP، ومقارنة النتيجة بخط الأساس.
-4. مراقبة الأخطاء الفعلية وبيانات Core Web Vitals الميدانية عندما تتوفر عينة كافية.
-5. لا تغيّر الرابط الأساسي ولا تنشئ نطاقًا أو قاعدة D1 أو مشروع Cloudflare جديدًا إلا بقرار صريح من المالك.
+- PR #27 ما زال Draft قديمًا لمسار post-hole guide أصبح موجودًا بالفعل عبر عمل لاحق؛ لا تستخدمه كأساس لحالة المنتج الحالية.
+- PR #32 ما زال Draft لحاسبة Drywall ثامنة مبنية على baseline قديم. لا تدمجه ولا تكمله ضمن صيانة المنتج الحالية؛ لا توجد حاجة مثبتة الآن لإضافة حاسبة ثامنة.
 
-## تعليمات لأي نموذج يكمل لاحقًا
+## الأصول والملفات التي يجب حمايتها
 
-1. اقرأ هذا الملف كاملًا أولًا.
-2. افحص آخر commit على `main` قبل أي تعديل.
-3. استخدم الموجود فقط: `Hosyss/buildmeasure` و`buildmeasure-production` والرابطين أعلاه.
-4. نفّذ التعديل على فرع مستقل، شغّل الاختبارات، افتح PR، ثم ادمج فقط بعد نجاح المراجعة.
-5. حدّث هذا الملف في نفس PR: ما تم، نتائج الاختبار، ما تبقّى وروابط الـPR/commits الجديدة.
-6. لا تدّعِ نجاح نشر أو فهرسة بدون تحقق مباشر.
+- احتفظ بملف إثبات Google الحالي ومسارات إثبات الملكية.
+- لا تكسر `robots.txt` أو `sitemap.xml` أو `llms.txt` أو canonical الحالي.
+- لا تكسر تحويل الرابط القديم أو حفظ path/query.
+- لا تعِد كتابة migrations القديمة المطبقة.
+- توجد بقايا محتملة مثل `examples/d1` وبعض الأصول العامة الافتراضية، لكن لا تُحذف لمجرد الاسم؛ يلزم إثبات عدم استخدامها في build/tests/production أولًا.
 
-## سجل الـPull Requests المهمة
+## التقدم الحالي
 
-- PR #9 — Prepare guarded Cloudflare Workers deployment: https://github.com/Hosyss/buildmeasure/pull/9
-- PR #10 — Switch canonical production origin to Cloudflare: https://github.com/Hosyss/buildmeasure/pull/10
-- PR #12 — Persist launch handoff and legacy redirect: https://github.com/Hosyss/buildmeasure/pull/12
-- PR #13 — Record production launch audit: https://github.com/Hosyss/buildmeasure/pull/13
-- PR #14 — Add reference-backed traffic guides: https://github.com/Hosyss/buildmeasure/pull/14
+- Launch-ready v1: **99%** وفق سجل التقدم الحالي.
+- الـ1% المتبقي ليس «حاسبة جديدة»؛ هو بيانات استخدام حقيقية كافية وملاحظات usability مستقلة تساعد على توجيه ما بعد الإطلاق.
+- الرؤية طويلة المدى أوسع بكثير من v1، لذلك لا تخلط نسبة جاهزية الإطلاق بنسبة اكتمال المنتج النهائي.
 
-## سجل الـCommits الموثّق
+## دفعة الصيانة النشطة — 2026-08-20
 
-كل سجل الـcommits، بما فيه أي commit أحدث من هذا الملف:
-https://github.com/Hosyss/buildmeasure/commits/main/
+- الفرع: `maintenance/product-quality-2026-08-20`
+- النطاق: مزامنة التوثيق، تحسين نافذة Clarity، قياس funnel محدود يحافظ على الخصوصية، وإضافة TypeScript إلى البوابة الآلية.
+- غير داخل النطاق: تغيير formulas، إضافة حاسبة ثامنة، تغيير النطاق، إنشاء D1/Worker جديد، إعادة تصميم الموقع بالكامل، أو حذف starter files بدون إثبات.
+- الحالة: **تحت التحقق — غير مدموجة وغير منشورة**.
 
-| الوصف | Commit |
-|---|---|
-| Initialize BuildMeasure repository | https://github.com/Hosyss/buildmeasure/commit/c0a3043d2d8d8532844f87264c9e9d72e7e27f7a |
-| Import verified BuildMeasure source | https://github.com/Hosyss/buildmeasure/commit/82e90a3ee381022b44bb8bcd1a6392f529d23581 |
-| Release BuildMeasure 0.5.1 | https://github.com/Hosyss/buildmeasure/commit/164c52480a187b7237e4ce488f77ae64843efd92 |
-| Add IndexNow discovery support | https://github.com/Hosyss/buildmeasure/commit/9cde96f30423610c9506fa208845940c3388bb5a |
-| Publish verified BuildMeasure release backups | https://github.com/Hosyss/buildmeasure/commit/291d78653e23bd6904f2716b555a216403d44a56 |
-| Prepare guarded Cloudflare Workers deployment (#9) | https://github.com/Hosyss/buildmeasure/commit/999a847287ab8999dcaf908275b3f182b668551d |
-| Switch canonical production origin to Cloudflare (#10) | https://github.com/Hosyss/buildmeasure/commit/6f08bc8c5ebbdaa4c9e2f21833d422f4c16eab97 |
-| Preserve legacy hostname redirect | https://github.com/Hosyss/buildmeasure/commit/5f700ff22dc9f701e3ada61943a0ab6ea6ce0e03 |
-| Test legacy hostname redirect | https://github.com/Hosyss/buildmeasure/commit/ec05418aaa767bb0f976c992a0d1fcd6a3028f41 |
-| Merge persistent launch handoff and legacy redirect (#12) | https://github.com/Hosyss/buildmeasure/commit/675d0830b6d448a747317c70f72b8434d59d3934 |
-| Record production launch audit (#13) | https://github.com/Hosyss/buildmeasure/commit/a16295201a3ef7653da0713272e82ffcb55727a3 |
+## نقطة الاستئناف التالية
 
-## قاعدة التحديث
+1. انتظر نتيجة Quality Gate للفرع الحالي وافحص TypeScript/lint/tests/build/rendered tests بالأرقام.
+2. إذا فشل TypeScript، افصل فشل baseline القديم عن أي خطأ جديد وأصلح السبب بدون إضعاف الإعدادات.
+3. قبل الدمج، نفّذ/سجّل فحص 360×800 و768×900 و1280×900 وconsole للسطح المتأثر لأن نافذة consent سلوك UI مشترك.
+4. لا تنشر ولا ترسل IndexNow لهذه الدفعة قبل اكتمال البوابات والدمج والنشر المتحقق؛ ولا ترسل IndexNow إذا لم تتغير URLs أو محتويات عامة تستحق الإرسال.
 
-لا تحذف المعلومات التاريخية الصحيحة. عند كل دفعة عمل:
-
-- حدّث تاريخ آخر مراجعة.
-- انقل البنود المكتملة من “ما تبقّى” إلى “الحالة الحالية”.
-- أضف نتائج الاختبارات بالأرقام.
-- أضف روابط PR والـcommits الجديدة.
-- اكتب الخطوة التالية بصيغة قابلة للتنفيذ بدون تخمين.
+للتاريخ التفصيلي راجع `docs/PROGRESS.md` و`docs/AUDITS.md` و`CHANGELOG.md` بدل إعادة نسخ سجلات checkpoints القديمة هنا.

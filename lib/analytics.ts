@@ -5,16 +5,20 @@ import {
 
 export const ANALYTICS_EVENTS = [
   "page_engaged",
+  "calculator_entry_clicked",
   "calculator_opened",
   "calculator_interacted",
   "calculation_completed",
   "calculation_failed",
+  "cost_estimate_used",
   "result_copied",
   "result_saved",
   "result_printed",
   "feedback_submitted",
   "client_error",
 ] as const;
+
+export const ANALYTICS_ENTRY_SOURCES = ["homepage", "guide"] as const;
 
 export const ANALYTICS_BROWSERS = [
   "chrome",
@@ -27,6 +31,7 @@ export const ANALYTICS_BROWSERS = [
 export const ANALYTICS_DEVICES = ["mobile", "tablet", "desktop"] as const;
 
 export type AnalyticsEventName = (typeof ANALYTICS_EVENTS)[number];
+export type AnalyticsEntrySource = (typeof ANALYTICS_ENTRY_SOURCES)[number];
 export type AnalyticsBrowser = (typeof ANALYTICS_BROWSERS)[number];
 export type AnalyticsDevice = (typeof ANALYTICS_DEVICES)[number];
 
@@ -50,6 +55,7 @@ type AnalyticsValidationResult =
   | { ok: false; error: string };
 
 const eventKeys = new Set<string>(ANALYTICS_EVENTS);
+const entrySourceKeys = new Set<string>(ANALYTICS_ENTRY_SOURCES);
 const calculatorKeys = new Set<string>(
   FEEDBACK_CALCULATORS.map(([key]) => key),
 );
@@ -107,6 +113,14 @@ export function validateAnalyticsPayload(
     detail === null
   ) {
     return { ok: false, error: "Analytics field is too long." };
+  }
+  if (event === "calculator_entry_clicked") {
+    if (!calculator || !entrySourceKeys.has(detail)) {
+      return { ok: false, error: "Invalid calculator entry event." };
+    }
+  }
+  if (event === "cost_estimate_used" && (!calculator || detail !== "")) {
+    return { ok: false, error: "Invalid cost analytics event." };
   }
   if (!browser || !browserKeys.has(browser)) {
     return { ok: false, error: "Invalid browser class." };
