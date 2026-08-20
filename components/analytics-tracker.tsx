@@ -53,7 +53,7 @@ function deviceClass(): AnalyticsDevice {
   return "desktop";
 }
 
-function limited(value: string | null, maximum: number) {
+function limited(value: string | null | undefined, maximum: number) {
   return (value ?? "")
     .replace(/[\u0000-\u001f\u007f]/g, " ")
     .trim()
