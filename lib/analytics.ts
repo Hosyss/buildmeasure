@@ -10,6 +10,7 @@ export const ANALYTICS_EVENTS = [
   "calculator_interacted",
   "calculation_completed",
   "calculation_failed",
+  "cost_estimate_used",
   "result_copied",
   "result_saved",
   "result_printed",
@@ -117,6 +118,9 @@ export function validateAnalyticsPayload(
     if (!calculator || !entrySourceKeys.has(detail)) {
       return { ok: false, error: "Invalid calculator entry event." };
     }
+  }
+  if (event === "cost_estimate_used" && (!calculator || detail !== "")) {
+    return { ok: false, error: "Invalid cost analytics event." };
   }
   if (!browser || !browserKeys.has(browser)) {
     return { ok: false, error: "Invalid browser class." };

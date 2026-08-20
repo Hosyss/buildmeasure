@@ -1,5 +1,6 @@
 "use client";
 
+import { trackAnalyticsEvent } from "@/components/analytics-tracker";
 import {
   formatPurchaseCost,
   formatPurchaseUnitPrice,
@@ -7,6 +8,7 @@ import {
   type CostInputError,
   type PurchaseCostResult,
 } from "@/lib/cost-estimate";
+import { isFeedbackCalculator } from "@/lib/feedback";
 
 type CalculatorCostFieldsProps = {
   unitLabel: string;
@@ -17,6 +19,18 @@ type CalculatorCostFieldsProps = {
   onUnitPriceChange: (value: string) => void;
   onCurrencyLabelChange: (value: string) => void;
 };
+
+function trackCostEstimateUse(value: string) {
+  if (!value.trim()) return;
+
+  const calculator = window.location.pathname.replace(/^\/+|\/+$/g, "");
+  if (!isFeedbackCalculator(calculator)) return;
+
+  trackAnalyticsEvent(
+    { event: "cost_estimate_used", calculator },
+    { once: `cost-estimate-used:${calculator}` },
+  );
+}
 
 export function CalculatorCostFields({
   unitLabel,
@@ -42,7 +56,11 @@ export function CalculatorCostFields({
               inputMode="decimal"
               value={unitPrice}
               placeholder="Leave blank"
-              onChange={(event) => onUnitPriceChange(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value;
+                onUnitPriceChange(value);
+                trackCostEstimateUse(value);
+              }}
               aria-label={`Price per ${unitLabel}`}
               aria-describedby={error?.field === "unitPrice" ? errorId : `${errorId}-help`}
             />

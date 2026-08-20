@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <UtilityContentPage
-      eyebrow="Last updated August 12, 2026"
+      eyebrow="Last updated August 20, 2026"
       title="Privacy policy"
       intro="BuildMeasure is designed to calculate locally, request as little information as possible, and explain the data that is stored."
     >
@@ -46,11 +46,18 @@ export default function PrivacyPage() {
       <h2>Anonymous product analytics</h2>
       <p>
         BuildMeasure records limited first-party events such as opening or using
-        a calculator, completing or failing an estimate, using a result action,
-        submitting feedback, and browser errors. The event may include the page,
-        calculator, coarse browser and device classes, language, external
-        referring host, and campaign tags in the link. Browser error details are
-        shortened before storage.
+        a calculator, clicking into a calculator from the homepage or a guide,
+        completing or failing an estimate, using the optional cost feature or a
+        result action, submitting feedback, and browser errors. The event may
+        include the page, calculator, coarse browser and device classes,
+        language, external referring host, and campaign tags in the link.
+        Browser error details are shortened before storage.
+      </p>
+      <p>
+        Calculator-entry events use only a fixed source label (homepage or
+        guide), and cost-feature events record only that the feature was used.
+        Measurements, quantities, entered unit prices, currency labels, and
+        calculated costs are not copied into the first-party analytics event.
       </p>
       <p>
         BuildMeasure&apos;s first-party analytics log does not store IP addresses,

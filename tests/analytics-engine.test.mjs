@@ -76,6 +76,25 @@ test("rejects calculator entry events from undocumented sources or without a cal
   );
 });
 
+test("accepts cost-feature usage without accepting raw price details", () => {
+  assert.equal(
+    validateAnalyticsPayload(validPayload({ event: "cost_estimate_used" })).ok,
+    true,
+  );
+  assert.equal(
+    validateAnalyticsPayload(
+      validPayload({ event: "cost_estimate_used", detail: "125.50 EGP" }),
+    ).ok,
+    false,
+  );
+  assert.equal(
+    validateAnalyticsPayload(
+      validPayload({ event: "cost_estimate_used", calculator: "" }),
+    ).ok,
+    false,
+  );
+});
+
 test("accepts site-wide error events without a calculator", () => {
   const result = validateAnalyticsPayload(
     validPayload({

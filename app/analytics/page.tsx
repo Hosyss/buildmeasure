@@ -29,6 +29,12 @@ function formatUtc(value: string) {
       });
 }
 
+function entrySourceLabel(source: string) {
+  if (source === "homepage") return "Homepage";
+  if (source === "guide") return "Guide";
+  return source;
+}
+
 export default async function AnalyticsPage() {
   const adminEmail = await feedbackAdminEmail();
   if (!adminEmail) notFound();
@@ -58,14 +64,36 @@ export default async function AnalyticsPage() {
         <section className="shell analytics-section">
           <div className="analytics-summary-grid">
             <article><span>Engaged sessions</span><strong>{analytics.totals.engagedSessions}</strong></article>
+            <article><span>Calculator entry clicks</span><strong>{analytics.totals.entries}</strong></article>
             <article><span>Calculator opens</span><strong>{analytics.totals.openings}</strong></article>
             <article><span>Completed estimates</span><strong>{analytics.totals.completed}</strong></article>
+            <article><span>Cost feature uses</span><strong>{analytics.totals.costUses}</strong></article>
             <article><span>Invalid attempts</span><strong>{analytics.totals.failed}</strong></article>
             <article><span>Feedback submitted</span><strong>{analytics.totals.feedback}</strong></article>
             <article><span>Client errors</span><strong>{analytics.totals.errors}</strong></article>
           </div>
 
           <div className="analytics-table-grid">
+            <section>
+              <h2>Calculator entry paths</h2>
+              {analytics.entries.length ? (
+                <div className="analytics-table-wrap">
+                  <table>
+                    <thead><tr><th>Source</th><th>Calculator</th><th>Clicks</th></tr></thead>
+                    <tbody>
+                      {analytics.entries.map((row) => (
+                        <tr key={`${row.source}-${row.calculator}`}>
+                          <td>{entrySourceLabel(row.source)}</td>
+                          <td>{feedbackCalculatorLabel(row.calculator as FeedbackCalculator)}</td>
+                          <td>{row.clicks}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : <p>No calculator entry clicks recorded yet.</p>}
+            </section>
+
             <section>
               <h2>Calculator activity</h2>
               {analytics.calculators.length ? (
@@ -136,9 +164,10 @@ export default async function AnalyticsPage() {
 
           <p className="analytics-privacy-note">
             BuildMeasure does not store IP addresses, names, email addresses,
-            raw user-agent strings, or persistent analytics cookies in this log.
-            Each page load receives a temporary random session identifier, and
-            passive requests are excluded from the engaged-session total.
+            raw user-agent strings, calculator measurements, unit prices, or
+            persistent analytics cookies in this log. Each page load receives a
+            temporary random session identifier, and passive requests are
+            excluded from the engaged-session total.
           </p>
         </section>
       </main>
