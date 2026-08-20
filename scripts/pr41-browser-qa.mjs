@@ -1,3 +1,4 @@
+// Temporary PR #41 browser evidence harness; removed before merge.
 import assert from "node:assert/strict";
 import { firefox, webkit } from "playwright";
 
