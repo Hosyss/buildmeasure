@@ -1,0 +1,61 @@
+name: PR41 temporary browser QA
+
+on:
+  push:
+    branches: [maintenance/product-quality-2026-08-20]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: buildmeasure-pr41-browser-qa
+  cancel-in-progress: true
+
+jobs:
+  browser:
+    name: Firefox and WebKit responsive consent QA
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build verified application
+        run: npm run build
+
+      - name: Install temporary Playwright harness
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          ./node_modules/.bin/playwright install --with-deps firefox webkit
+
+      - name: Start built application
+        run: |
+          npm start -- --host 127.0.0.1 --port 4173 > /tmp/buildmeasure-browser-qa.log 2>&1 &
+          echo $! > /tmp/buildmeasure-browser-qa.pid
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/buildmeasure-browser-qa.log
+          exit 1
+
+      - name: Run exact responsive consent matrix
+        env:
+          BROWSER_QA_BASE_URL: http://127.0.0.1:4173
+        run: node scripts/pr41-browser-qa.mjs
+
+      - name: Print server log
+        if: always()
+        run: cat /tmp/buildmeasure-browser-qa.log || true
