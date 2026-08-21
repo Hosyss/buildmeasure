@@ -6,6 +6,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import { flushSync } from "react-dom";
 import {
   addSavedProject,
   collectAvailableProjectEstimates,
@@ -127,6 +128,7 @@ export function ProjectMode() {
   );
   const [projectName, setProjectName] = useState("");
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+  const [printingProjectId, setPrintingProjectId] = useState<SavedProject["id"] | null>(null);
   const [notice, setNotice] = useState("");
 
   const selectedKeySet = useMemo(() => new Set(selectedKeys), [selectedKeys]);
@@ -142,6 +144,10 @@ export function ProjectMode() {
         items: available.filter((item) => item.calculator === source.id),
       })).filter((group) => group.items.length > 0),
     [available],
+  );
+  const printingProject = useMemo(
+    () => projects.find((project) => project.id === printingProjectId) ?? null,
+    [printingProjectId, projects],
   );
 
   function toggleEstimate(key: string) {
@@ -187,6 +193,19 @@ export function ProjectMode() {
       setNotice(`Copied ${project.name}.`);
     } catch {
       setNotice("Copy is unavailable in this browser.");
+    }
+  }
+
+  function printProject(project: SavedProject) {
+    flushSync(() => {
+      setPrintingProjectId(project.id);
+      setNotice("");
+    });
+
+    try {
+      window.print();
+    } finally {
+      setPrintingProjectId(null);
     }
   }
 
@@ -354,6 +373,10 @@ export function ProjectMode() {
           <div>
             <p className="panel-kicker">This device</p>
             <h2 id="saved-projects-title">Saved projects</h2>
+            <p className={styles.savedHelp}>
+              Print one project or use your browser&apos;s print dialog to save it as
+              a PDF. The report is created locally from the saved project snapshot.
+            </p>
           </div>
           <span className="status-pill">Up to 10</span>
         </div>
@@ -386,6 +409,14 @@ export function ProjectMode() {
                 <div className={styles.cardActions}>
                   <button
                     type="button"
+                    className="button button-primary button-small"
+                    onClick={() => printProject(project)}
+                    aria-label={`Print or save ${project.name} as PDF`}
+                  >
+                    Print / Save PDF
+                  </button>
+                  <button
+                    type="button"
                     className="button button-outline button-small"
                     onClick={() => copyProject(project)}
                   >
@@ -409,6 +440,43 @@ export function ProjectMode() {
           </p>
         )}
       </section>
+
+      {printingProject ? (
+        <section className={styles.printReport} aria-label="Printable project report">
+          <header className={styles.printHeader}>
+            <strong>BuildMeasure</strong>
+            <span>Project report</span>
+          </header>
+          <div className={styles.printTitle}>
+            <p>Saved project</p>
+            <h1>{printingProject.name}</h1>
+            <span>
+              {formatProjectDate(printingProject.createdAt)} · {printingProject.items.length}{" "}
+              estimate{printingProject.items.length === 1 ? "" : "s"}
+            </span>
+          </div>
+          <ul className={styles.printItems}>
+            {printingProject.items.map((item) => {
+              const source = getProjectHistorySource(item.calculator);
+              return (
+                <li key={projectEstimateKey(item)}>
+                  <strong>{source?.label ?? item.calculator}</strong>
+                  <span>{item.label}</span>
+                  <p>{item.summary}</p>
+                </li>
+              );
+            })}
+          </ul>
+          <div className={styles.printNote}>
+            <strong>Estimate note</strong>
+            <p>
+              This report is a local snapshot of saved BuildMeasure estimates.
+              Verify quantities against project plans, site conditions, product
+              coverage, and supplier data before purchasing materials.
+            </p>
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

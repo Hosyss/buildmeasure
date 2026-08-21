@@ -38,7 +38,8 @@
 .helper,
 .empty,
 .projectMeta,
-.sourceCount {
+.sourceCount,
+.savedHelp {
   color: var(--ink-500);
   font-size: 0.76rem;
   line-height: 1.6;
@@ -46,6 +47,11 @@
 
 .helper {
   margin: 10px 0 0;
+}
+
+.savedHelp {
+  max-width: 620px;
+  margin: 6px 0 0;
 }
 
 .selectionHead {
@@ -277,6 +283,131 @@
   border: 1px dashed var(--sand-300);
   border-radius: var(--radius-sm);
   background: var(--sand-50);
+}
+
+.printReport {
+  display: none;
+}
+
+@page {
+  margin: 16mm;
+}
+
+@media print {
+  :global([data-projects-page="true"] .site-header),
+  :global([data-projects-page="true"] .calculator-hero),
+  :global([data-projects-page="true"] .site-footer) {
+    display: none !important;
+  }
+
+  :global([data-projects-page="true"] .calculator-main-section) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .workspace,
+  .saved {
+    display: none !important;
+  }
+
+  .printReport {
+    display: block !important;
+    color: #161b18;
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .printHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #161b18;
+  }
+
+  .printHeader strong {
+    font-size: 18pt;
+    letter-spacing: -0.03em;
+  }
+
+  .printHeader span,
+  .printTitle span {
+    font-size: 9pt;
+    color: #56615b;
+  }
+
+  .printTitle {
+    margin: 26px 0 20px;
+  }
+
+  .printTitle p {
+    margin: 0 0 5px;
+    color: #56615b;
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .printTitle h1 {
+    margin: 0 0 6px;
+    font-size: 23pt;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+  }
+
+  .printItems {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .printItems li {
+    break-inside: avoid;
+    display: grid;
+    grid-template-columns: minmax(115px, 0.7fr) minmax(150px, 1fr) minmax(220px, 1.8fr);
+    gap: 12px;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid #d8dedb;
+  }
+
+  .printItems strong,
+  .printItems span,
+  .printItems p {
+    margin: 0;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .printItems p {
+    color: #3f4944;
+  }
+
+  .printNote {
+    break-inside: avoid;
+    margin-top: 24px;
+    padding: 12px 14px;
+    border: 1px solid #cfd6d2;
+  }
+
+  .printNote strong,
+  .printNote p {
+    margin: 0;
+    font-size: 9pt;
+    line-height: 1.5;
+  }
+
+  .printNote p {
+    margin-top: 4px;
+    color: #3f4944;
+  }
 }
 
 @media (max-width: 900px) {

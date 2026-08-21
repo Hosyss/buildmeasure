@@ -38,13 +38,14 @@ in the verified scope in `README.md`.
 - [x] Cross-calculator material list — select saved estimates from all seven calculators.
 - [ ] Waste and cost summary.
 - [x] Saved projects — stored only in the current browser.
-- [ ] Printable/PDF report.
+- [x] Printable/PDF report — one saved project at a time through the browser print dialog.
 - [ ] Shopping list.
 
-The first Project Mode slice deliberately does not total costs from display
+The first Project Mode slices deliberately do not total costs from display
 strings because saved estimates can use different currencies and free-form
 currency labels. A future cost summary must use structured, validated data rather
-than parsing human-readable result text.
+than parsing human-readable result text. Printable reports therefore preserve the
+saved estimate snapshot exactly as the user stored it and do not invent totals.
 
 ## Later
 

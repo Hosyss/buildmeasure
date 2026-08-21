@@ -12,6 +12,7 @@ are public so calculator behavior and release evidence can be inspected.
 ## Live site
 
 - [Open BuildMeasure](https://buildmeasure.buildtools.workers.dev/)
+- [Projects](https://buildmeasure.buildtools.workers.dev/projects)
 - [Concrete Calculator](https://buildmeasure.buildtools.workers.dev/concrete-calculator)
 - [Post Hole Concrete Calculator](https://buildmeasure.buildtools.workers.dev/post-hole-concrete-calculator)
 - [Paint Calculator](https://buildmeasure.buildtools.workers.dev/paint-calculator)
@@ -45,7 +46,9 @@ are public so calculator behavior and release evidence can be inspected.
   complete bags with an explicit material-density assumption.
 - Mulch net/order volume, bed area, per-bag coverage, and complete bags without
   an invented density assumption.
-- Copy, print, reset, and device-local save/history actions.
+- Copy, print, reset, and device-local save/history actions on calculators.
+- Local-first Project Mode for grouping saved estimates from all seven calculators into named projects stored only in the current browser.
+- Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
 - Pure, versioned concrete, post-hole concrete, paint, tile, brick, gravel, and mulch engines with
   automated unit tests.

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="calculator-page">
+    <main className="calculator-page" data-projects-page="true">
       <SiteHeader ctaHref="/#calculators" ctaLabel="Add an estimate" />
 
       <section className="calculator-hero">
@@ -36,7 +36,8 @@ export default function ProjectsPage() {
               <p>
                 Combine estimates already saved from different BuildMeasure
                 calculators into a single material list. Projects stay on this
-                device and can be copied when you are ready to plan or shop.
+                device and can be copied, printed, or saved as a PDF when you are
+                ready to plan or shop.
               </p>
             </div>
             <ul>
