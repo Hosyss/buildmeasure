@@ -131,6 +131,7 @@ export function BrickCalculator() {
     }
   }, [form, unitSystem]);
 
+  const purchaseUnitLabel = "brick";
   const purchaseCost = usePurchaseCost(
     calculation.result?.orderBricks ?? null,
     "brick",
