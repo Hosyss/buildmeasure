@@ -3,14 +3,14 @@ import { UtilityContentPage } from "@/components/utility-content-page";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How BuildMeasure handles calculator inputs, saved estimates, analytics, and feedback reports.",
+  description: "How BuildMeasure handles calculator inputs, saved estimates and projects, analytics, and feedback reports.",
   alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
     <UtilityContentPage
-      eyebrow="Last updated August 20, 2026"
+      eyebrow="Last updated August 21, 2026"
       title="Privacy policy"
       intro="BuildMeasure is designed to calculate locally, request as little information as possible, and explain the data that is stored."
     >
@@ -22,11 +22,20 @@ export default function PrivacyPage() {
         the feedback form.
       </p>
 
-      <h2>Saved estimates on this device</h2>
+      <h2>Saved estimates and projects on this device</h2>
       <p>
         The Save action stores an estimate in your browser&apos;s local storage so it
-        remains available on that device. It is not synchronized to an account.
-        Use Clear all in the calculator to remove that saved history.
+        remains available on that device. Project Mode can copy selected saved
+        estimates into a named project, which is also stored only in local
+        browser storage. Estimates and projects are not synchronized to an
+        account or sent to BuildMeasure.
+      </p>
+      <p>
+        Use Clear all in a calculator to remove that calculator&apos;s saved-history
+        list. A project is a separate local snapshot, so clearing calculator
+        history does not delete an existing project. Use Delete in Project Mode
+        to remove a project. Clearing browser site data can remove both saved
+        estimates and projects.
       </p>
 
       <h2>Calculator feedback</h2>
