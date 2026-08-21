@@ -86,7 +86,9 @@ export default function PrivacyPage() {
       </p>
       <p>
         Microsoft Clarity masks input-box and dropdown content in its recordings
-        by default. Clarity may otherwise process device, browser, approximate
+        by default. BuildMeasure also explicitly masks the Project Mode workspace
+        so project names and saved-estimate text are not uploaded in Clarity
+        recordings. Clarity may otherwise process device, browser, approximate
         location, interaction, and session data under Microsoft&apos;s privacy terms.
         You can change or withdraw your analytics choice at any time using
         Analytics choices in the site footer. Withdrawing consent clears Clarity
