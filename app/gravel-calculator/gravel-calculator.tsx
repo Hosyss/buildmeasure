@@ -9,6 +9,7 @@ import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
+import { createSavedEstimatePurchase } from "@/lib/history";
 import {
   calculateGravel,
   GRAVEL_ENGINE_VERSION,
@@ -213,6 +214,11 @@ export function GravelCalculator() {
           ? `${form.length} × ${form.width} ft · ${form.depth} in deep`
           : `${form.length} × ${form.width} m · ${form.depth} cm deep`,
       summary: `${resultSummary(calculation.result, unitSystem)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
+      purchase: createSavedEstimatePurchase(
+        calculation.result?.bags ?? null,
+        purchaseUnitLabel,
+        purchaseCost.result,
+      ),
     });
     setNotice("Estimate saved on this device.");
   }

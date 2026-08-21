@@ -39,13 +39,16 @@ in the verified scope in `README.md`.
 - [ ] Waste and cost summary.
 - [x] Saved projects — stored only in the current browser.
 - [x] Printable/PDF report — one saved project at a time through the browser print dialog.
-- [ ] Shopping list.
+- [x] Shopping list — structured purchase quantities from saved estimates.
 
 The first Project Mode slices deliberately do not total costs from display
 strings because saved estimates can use different currencies and free-form
 currency labels. A future cost summary must use structured, validated data rather
 than parsing human-readable result text. Printable reports therefore preserve the
 saved estimate snapshot exactly as the user stored it and do not invent totals.
+Shopping lists now use structured purchase quantity and unit fields stored with
+new estimates. Older snapshots remain compatible but are not parsed to invent
+missing purchase data. Waste/cost roll-up remains a separate future slice.
 
 ## Later
 

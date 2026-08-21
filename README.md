@@ -49,6 +49,7 @@ are public so calculator behavior and release evidence can be inspected.
 - Copy, print, reset, and device-local save/history actions on calculators.
 - Local-first Project Mode for grouping saved estimates from all seven calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
+- Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
 - Pure, versioned concrete, post-hole concrete, paint, tile, brick, gravel, and mulch engines with
   automated unit tests.

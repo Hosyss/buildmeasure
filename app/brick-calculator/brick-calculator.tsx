@@ -11,6 +11,7 @@ import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { usePurchaseCost } from "@/hooks/use-purchase-cost";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
+import { createSavedEstimatePurchase } from "@/lib/history";
 import {
   BRICK_ENGINE_VERSION,
   BRICK_PRESETS,
@@ -257,6 +258,11 @@ export function BrickCalculator() {
     saveEstimate({
       label: `${form.wallLength} × ${form.wallHeight} ${unitSystem === "imperial" ? "ft" : "m"} wall · ${choiceLabel(form.brickChoice)}`,
       summary: `${resultSummary(calculation.result)} · ${format(displayArea(calculation.result.netAreaSquareMeters, unitSystem))} ${areaUnit} net${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}`,
+      purchase: createSavedEstimatePurchase(
+        calculation.result?.orderBricks ?? null,
+        purchaseUnitLabel,
+        purchaseCost.result,
+      ),
     });
     setNotice("Estimate saved on this device.");
   }

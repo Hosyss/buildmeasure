@@ -27,8 +27,12 @@ export default function PrivacyPage() {
         The Save action stores an estimate in your browser&apos;s local storage so it
         remains available on that device. Project Mode can copy selected saved
         estimates into a named project, which is also stored only in local
-        browser storage. Estimates and projects are not synchronized to an
-        account or sent to BuildMeasure.
+        browser storage. Newly saved estimates may also keep the calculated
+        purchase quantity, purchase-unit label, and any optional local price and
+        currency snapshot you entered. Project Mode uses those structured local
+        fields for shopping lists instead of reading numbers back from display
+        text. Estimates and projects are not synchronized to an account or sent
+        to BuildMeasure.
       </p>
       <p>
         Use Clear all in a calculator to remove that calculator&apos;s saved-history

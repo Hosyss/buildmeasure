@@ -9,6 +9,7 @@ import {
 import { flushSync } from "react-dom";
 import {
   addSavedProject,
+  buildProjectShoppingList,
   collectAvailableProjectEstimates,
   formatSavedProject,
   getProjectHistorySource,
@@ -114,6 +115,53 @@ function formatProjectDate(iso: string) {
   } catch {
     return "Saved on this device";
   }
+}
+
+
+function ProjectShoppingList({
+  project,
+  printable = false,
+}: {
+  project: SavedProject;
+  printable?: boolean;
+}) {
+  const items = buildProjectShoppingList(project);
+  if (!items.length) return null;
+
+  return (
+    <section
+      className={printable ? styles.printShopping : styles.shopping}
+      aria-label="Shopping list"
+    >
+      <div className={styles.shoppingHead}>
+        <div>
+          <p className="panel-kicker">Shopping list</p>
+          <h4>Purchase quantities</h4>
+        </div>
+        {!printable ? (
+          <span className={styles.sourceCount}>
+            {items.length} line{items.length === 1 ? "" : "s"}
+          </span>
+        ) : null}
+      </div>
+      <ul className={styles.shoppingList}>
+        {items.map((item) => {
+          const source = getProjectHistorySource(item.calculator);
+          return (
+            <li key={`${item.calculator}:${item.estimateId}:${item.unitLabel}`}>
+              <span>
+                <strong>{source?.label ?? item.calculator}</strong>
+                <small>{item.estimateLabel}</small>
+              </span>
+              <b>
+                {item.quantity.toLocaleString("en-US")} × {item.unitLabel}
+              </b>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
 }
 
 export function ProjectMode() {
@@ -375,7 +423,9 @@ export function ProjectMode() {
             <h2 id="saved-projects-title">Saved projects</h2>
             <p className={styles.savedHelp}>
               Print one project or use your browser&apos;s print dialog to save it as
-              a PDF. The report is created locally from the saved project snapshot.
+              a PDF. Shopping lists use structured purchase quantities from newly
+              saved estimates; older snapshots stay readable and are never parsed
+              to invent quantities.
             </p>
           </div>
           <span className="status-pill">Up to 10</span>
@@ -406,6 +456,7 @@ export function ProjectMode() {
                     );
                   })}
                 </ul>
+                <ProjectShoppingList project={project} />
                 <div className={styles.cardActions}>
                   <button
                     type="button"
@@ -467,6 +518,7 @@ export function ProjectMode() {
               );
             })}
           </ul>
+          <ProjectShoppingList project={printingProject} printable />
           <div className={styles.printNote}>
             <strong>Estimate note</strong>
             <p>

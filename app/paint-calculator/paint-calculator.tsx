@@ -9,6 +9,7 @@ import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
+import { createSavedEstimatePurchase } from "@/lib/history";
 import {
   calculatePaint,
   DEFAULT_COVERAGE_SQ_FT_PER_GALLON,
@@ -276,6 +277,11 @@ export function PaintCalculator() {
         unitSystem === "imperial" ? "ft" : "m"
       } · ${formatQuantityLabel(Number(form.coats), "coat")}`,
       summary: `${resultSummary(calculation.result, unitSystem, form.containerLiters)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}`,
+      purchase: createSavedEstimatePurchase(
+        calculation.result?.containers ?? null,
+        purchaseUnitLabel,
+        purchaseCost.result,
+      ),
     });
     setNotice("Estimate saved on this device.");
   }
