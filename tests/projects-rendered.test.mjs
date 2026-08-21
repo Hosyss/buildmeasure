@@ -13,7 +13,7 @@ const env = {
 };
 const ctx = { waitUntil() {}, passThroughOnException() {} };
 
-test("Project Mode renders as a local-only, non-indexed workspace", async () => {
+test("Project Mode renders as a local-only, masked, non-indexed workspace", async () => {
   const worker = await loadWorker("project-mode");
   const response = await worker.fetch(
     new Request("http://localhost/projects", { headers: { accept: "text/html" } }),
@@ -29,6 +29,7 @@ test("Project Mode renders as a local-only, non-indexed workspace", async () => 
   assert.match(html, /Projects are saved in this browser/);
   assert.match(html, /No saved estimates yet/);
   assert.match(html, /href="\/projects"/);
+  assert.match(html, /data-clarity-mask="true"/);
   assert.match(html, /name="robots"/);
   assert.match(html, /noindex/);
 });
