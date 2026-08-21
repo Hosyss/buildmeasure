@@ -1,0 +1,190 @@
+name: Project Mode print browser QA
+
+on:
+  push:
+    branches: [feature/project-mode-print-report]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build production app
+        run: npm run build
+
+      - name: Install temporary Playwright harness
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@1.55.0
+          npx playwright install --with-deps firefox webkit
+
+      - name: Create temporary browser test
+        shell: bash
+        run: |
+          cat > playwright.project-print.config.mjs <<'EOF'
+          import { defineConfig } from "@playwright/test";
+
+          const sizes = [
+            [360, 800],
+            [768, 900],
+            [1280, 900],
+          ];
+
+          export default defineConfig({
+            testDir: ".tmp-project-print-tests",
+            timeout: 30_000,
+            workers: 1,
+            reporter: "line",
+            use: {
+              baseURL: "http://127.0.0.1:4173",
+            },
+            projects: ["firefox", "webkit"].flatMap((browserName) =>
+              sizes.map(([width, height]) => ({
+                name: `${browserName}-${width}x${height}`,
+                use: { browserName, viewport: { width, height } },
+              })),
+            ),
+          });
+          EOF
+
+          mkdir -p .tmp-project-print-tests
+          cat > .tmp-project-print-tests/project-print.spec.mjs <<'EOF'
+          import { expect, test } from "@playwright/test";
+
+          const projects = [
+            {
+              id: 2002,
+              name: "Back patio",
+              createdAt: "2026-08-21T12:00:00.000Z",
+              items: [
+                {
+                  calculator: "concrete",
+                  estimateId: 101,
+                  label: "Patio slab",
+                  summary: "2.25 yd³ ready-mix · 135 bags (60 lb)",
+                },
+                {
+                  calculator: "brick",
+                  estimateId: 102,
+                  label: "Garden wall",
+                  summary: "640 bricks including waste allowance",
+                },
+              ],
+            },
+            {
+              id: 2001,
+              name: "Guest room",
+              createdAt: "2026-08-20T12:00:00.000Z",
+              items: [
+                {
+                  calculator: "paint",
+                  estimateId: 99,
+                  label: "Walls and ceiling",
+                  summary: "4 gallons · 2 coats",
+                },
+              ],
+            },
+          ];
+
+          test.beforeEach(async ({ page }) => {
+            const errors = [];
+            page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
+            page.on("console", (message) => {
+              if (message.type() === "error") errors.push(`console: ${message.text()}`);
+            });
+            page.__qaErrors = errors;
+
+            await page.addInitScript((seedProjects) => {
+              localStorage.setItem("buildmeasure.projects.v1", JSON.stringify(seedProjects));
+              window.__printEvidence = null;
+              window.print = () => {
+                const report = document.querySelector('[aria-label="Printable project report"]');
+                window.__printEvidence = {
+                  count: document.querySelectorAll('[aria-label="Printable project report"]').length,
+                  text: report?.textContent ?? "",
+                  localProjects: localStorage.getItem("buildmeasure.projects.v1"),
+                };
+              };
+            }, projects);
+          });
+
+          test("prints only the selected saved project without mutating local data", async ({ page }) => {
+            const response = await page.goto("/projects");
+            expect(response?.status()).toBe(200);
+            await expect(page.getByRole("heading", { name: "Saved projects" })).toBeVisible();
+            await expect(page.getByText("Back patio", { exact: true })).toBeVisible();
+            await expect(page.getByText("Guest room", { exact: true })).toBeVisible();
+
+            const overflow = await page.evaluate(() =>
+              document.documentElement.scrollWidth > document.documentElement.clientWidth,
+            );
+            expect(overflow).toBe(false);
+
+            const printButton = page.getByRole("button", {
+              name: "Print or save Back patio as PDF",
+            });
+            await expect(printButton).toBeVisible();
+            const box = await printButton.boundingBox();
+            expect(box).not.toBeNull();
+            expect(box.height).toBeGreaterThanOrEqual(44);
+
+            const beforeStorage = await page.evaluate(() =>
+              localStorage.getItem("buildmeasure.projects.v1"),
+            );
+            await printButton.click();
+
+            const evidence = await page.evaluate(() => window.__printEvidence);
+            expect(evidence).not.toBeNull();
+            expect(evidence.count).toBe(1);
+            expect(evidence.text).toContain("BuildMeasure");
+            expect(evidence.text).toContain("Project report");
+            expect(evidence.text).toContain("Back patio");
+            expect(evidence.text).toContain("Patio slab");
+            expect(evidence.text).toContain("Garden wall");
+            expect(evidence.text).not.toContain("Guest room");
+            expect(evidence.localProjects).toBe(beforeStorage);
+
+            await expect(page.locator('[aria-label="Printable project report"]')).toHaveCount(0);
+            const afterStorage = await page.evaluate(() =>
+              localStorage.getItem("buildmeasure.projects.v1"),
+            );
+            expect(afterStorage).toBe(beforeStorage);
+            expect(page.__qaErrors).toEqual([]);
+          });
+          EOF
+
+      - name: Start production server
+        shell: bash
+        run: |
+          PORT=4173 npm run start > /tmp/buildmeasure-print-qa-server.log 2>&1 &
+          echo $! > /tmp/buildmeasure-print-qa-server.pid
+          for attempt in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4173/projects >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/buildmeasure-print-qa-server.log
+          exit 1
+
+      - name: Run Firefox and WebKit print QA
+        run: npx playwright test --config=playwright.project-print.config.mjs
+
+      - name: Show server log on failure
+        if: failure()
+        run: cat /tmp/buildmeasure-print-qa-server.log || true
