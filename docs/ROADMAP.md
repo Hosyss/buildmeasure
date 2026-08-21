@@ -34,12 +34,17 @@ in the verified scope in `README.md`.
 
 ## Phase 4 — Project Mode
 
-- [ ] Project creation.
-- [ ] Cross-calculator material list.
+- [x] Project creation — local-first project names and estimate snapshots.
+- [x] Cross-calculator material list — select saved estimates from all seven calculators.
 - [ ] Waste and cost summary.
-- [ ] Saved projects.
+- [x] Saved projects — stored only in the current browser.
 - [ ] Printable/PDF report.
 - [ ] Shopping list.
+
+The first Project Mode slice deliberately does not total costs from display
+strings because saved estimates can use different currencies and free-form
+currency labels. A future cost summary must use structured, validated data rather
+than parsing human-readable result text.
 
 ## Later
 
