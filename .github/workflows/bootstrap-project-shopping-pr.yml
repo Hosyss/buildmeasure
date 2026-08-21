@@ -37,6 +37,24 @@ jobs:
               line[10:] if line.startswith("          ") else line
               for line in raw.splitlines()
           ) + "\n"
+
+          script = script.replace(
+              'if "usePurchaseCost(" in text and "saveEstimate({" in text and "purchaseUnitLabel" in text:',
+              'if "usePurchaseCost(" in text and "saveEstimate({" in text:',
+          )
+          script = script.replace(
+              'r"const purchaseCost = usePurchaseCost\\(\\s*(?P<quantity>[^,\\n]+),\\s*purchaseUnitLabel,\\s*\\);",',
+              'r"const purchaseCost = usePurchaseCost\\(\\s*(?P<quantity>[^,\\n]+),\\s*(?P<unit>[^,\\n]+),\\s*\\);",',
+          )
+          script = script.replace(
+              '            quantity = cost_match.group("quantity").strip()\n\n            save_anchor',
+              '            quantity = cost_match.group("quantity").strip()\n            unit_label = cost_match.group("unit").strip()\n\n            save_anchor',
+          )
+          script = script.replace(
+              "              '        purchaseUnitLabel,\\n'\n",
+              "              f'        {unit_label},\\n'\n",
+          )
+
           Path('/tmp/project-shopping-bootstrap.py').write_text(script, encoding='utf-8')
           subprocess.run(['python3', '/tmp/project-shopping-bootstrap.py'], check=True)
           PY
