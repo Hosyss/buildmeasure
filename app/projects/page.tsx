@@ -48,7 +48,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="shell calculator-main-section">
+      <section className="shell calculator-main-section" data-clarity-mask="true">
         <ProjectMode />
       </section>
 
