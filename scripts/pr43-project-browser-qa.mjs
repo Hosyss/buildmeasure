@@ -50,11 +50,14 @@ for (const [browserName, browserType] of browsers) {
       });
 
       await page.addInitScript(({ histories }) => {
+        if (sessionStorage.getItem("buildmeasure-pr43-qa-seeded") === "1") return;
+
         localStorage.clear();
         for (const [key, value] of Object.entries(histories)) {
           localStorage.setItem(key, value);
         }
         localStorage.setItem("buildmeasure-analytics-consent-v1", "denied");
+        sessionStorage.setItem("buildmeasure-pr43-qa-seeded", "1");
       }, { histories: seededHistories });
 
       const response = await page.goto(`${baseUrl}/projects`, {
