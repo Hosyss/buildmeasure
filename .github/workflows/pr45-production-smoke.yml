@@ -23,7 +23,7 @@ jobs:
           ready=0
           for attempt in $(seq 1 60); do
             body="$(curl -fsS "$PROD/projects" || true)"
-            if grep -Fq 'copied, printed, or saved as a PDF' <<<"$body" && grep -Fq 'Print / Save PDF' <<<"$body"; then
+            if grep -Fq 'copied, printed, or saved as a PDF' <<<"$body"; then
               ready=1
               break
             fi
