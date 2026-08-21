@@ -3,6 +3,8 @@ name: Post-merge Project Mode verification
 on:
   push:
     branches: [qa/post-merge-project-mode]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
