@@ -1,0 +1,62 @@
+name: PR43 Project Mode browser QA
+
+on:
+  push:
+    branches:
+      - feature/project-mode-foundation
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr43-project-browser-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-qa:
+    name: Firefox and WebKit Project Mode flow
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install temporary Playwright harness
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps firefox webkit
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Start built application
+        run: |
+          npm run start -- --port 3000 > /tmp/buildmeasure-pr43.log 2>&1 &
+          echo $! > /tmp/buildmeasure-pr43.pid
+          for attempt in {1..60}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/projects >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/buildmeasure-pr43.log
+          exit 1
+
+      - name: Run Project Mode browser QA
+        env:
+          BROWSER_QA_BASE_URL: http://127.0.0.1:3000
+        run: node scripts/pr43-project-browser-qa.mjs
+
+      - name: Show server log on failure
+        if: failure()
+        run: cat /tmp/buildmeasure-pr43.log || true
