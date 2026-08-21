@@ -24,18 +24,15 @@ jobs:
           from pathlib import Path
           path = Path('app/brick-calculator/brick-calculator.tsx')
           text = path.read_text(encoding='utf-8')
-          old = '''  const purchaseCost = usePurchaseCost(
-            calculation.result?.orderBricks ?? null,
-            "brick",
-          );'''
-          new = '''  const purchaseUnitLabel = "brick";
-          const purchaseCost = usePurchaseCost(
-            calculation.result?.orderBricks ?? null,
-            purchaseUnitLabel,
-          );'''
-          if text.count(old) != 1:
-              raise SystemExit(f'Expected one Brick purchase-cost anchor, found {text.count(old)}')
-          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          marker = '  const purchaseCost = usePurchaseCost('
+          if text.count(marker) != 1:
+              raise SystemExit(f'Expected one Brick purchase-cost marker, found {text.count(marker)}')
+          text = text.replace(
+              marker,
+              '  const purchaseUnitLabel = "brick";\n' + marker,
+              1,
+          )
+          path.write_text(text, encoding='utf-8')
           PY
           git diff --check
           git rm .github/workflows/fix-pr47-brick.yml
