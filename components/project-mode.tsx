@@ -128,7 +128,7 @@ export function ProjectMode() {
   );
   const [projectName, setProjectName] = useState("");
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  const [printingProjectId, setPrintingProjectId] = useState<string | null>(null);
+  const [printingProjectId, setPrintingProjectId] = useState<SavedProject["id"] | null>(null);
   const [notice, setNotice] = useState("");
 
   const selectedKeySet = useMemo(() => new Set(selectedKeys), [selectedKeys]);
