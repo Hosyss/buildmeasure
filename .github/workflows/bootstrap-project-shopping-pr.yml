@@ -25,6 +25,7 @@ jobs:
           set -euo pipefail
           python3 <<'PY'
           from pathlib import Path
+          import re
           import subprocess
 
           workflow = Path('.github/workflows/bootstrap-project-shopping.yml').read_text(encoding='utf-8')
@@ -54,6 +55,21 @@ jobs:
               "              '        purchaseUnitLabel,\\n'\n",
               "              f'        {unit_label},\\n'\n",
           )
+
+          help_patch = '''          old_help = "Print one project or use your browser&apos;s print dialog to save it as\\n              a PDF. The report is created locally from the saved project snapshot."
+          new_help = "Print one project or use your browser&apos;s print dialog to save it as\\n              a PDF. Shopping lists use structured purchase quantities from newly\\n              saved estimates; older snapshots stay readable and are never parsed\\n              to invent quantities."
+          if old_help not in mode:
+            raise SystemExit("Missing saved-project help anchor")
+          mode = mode.replace(old_help, new_help, 1)
+'''
+          script, count = re.subn(
+              r"          old_help = '''[\\s\\S]*?          mode = mode\\.replace\\(old_help, new_help, 1\\)\\n",
+              lambda _: help_patch,
+              script,
+              count=1,
+          )
+          if count != 1:
+              raise SystemExit("Could not rewrite saved-project help bootstrap block")
 
           Path('/tmp/project-shopping-bootstrap.py').write_text(script, encoding='utf-8')
           subprocess.run(['python3', '/tmp/project-shopping-bootstrap.py'], check=True)
