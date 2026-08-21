@@ -1,15 +1,14 @@
 name: PR43 Project Mode browser QA
 
 on:
-  push:
-    branches:
-      - feature/project-mode-foundation
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
 
 concurrency:
-  group: pr43-project-browser-qa-${{ github.ref }}
+  group: pr43-project-browser-qa-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
