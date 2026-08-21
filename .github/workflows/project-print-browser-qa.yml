@@ -1,8 +1,7 @@
 name: Project Mode print browser QA
 
 on:
-  push:
-    branches: [feature/project-mode-print-report]
+  pull_request:
   workflow_dispatch:
 
 permissions:
