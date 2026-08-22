@@ -3,6 +3,8 @@ name: Temporary production AdSense smoke
 on:
   push:
     branches: [maintenance/adsense-readiness-2026-08-22]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
@@ -27,7 +29,6 @@ jobs:
             return { response, text };
           }
 
-          // Give the hosting integration time to publish the new main commit.
           let deployed = false;
           for (let attempt = 1; attempt <= 60; attempt += 1) {
             try {
@@ -130,7 +131,6 @@ jobs:
           const healthJson = JSON.parse(health.text);
           assert.equal(healthJson.status, "ok");
 
-          // Crawl same-origin links exposed by substantive public pages and fail on broken public navigation.
           const hrefs = new Set();
           for (const html of htmlByRoute.values()) {
             for (const match of html.matchAll(/href="(\/[^"]*)"/g)) {
@@ -143,7 +143,6 @@ jobs:
             assert.ok(response.status >= 200 && response.status < 400, `Broken internal link ${href}: ${response.status}`);
           }
 
-          // Legacy hostname should be redirect-only and preserve path/query.
           const legacyUrl = "https://buildmeasure.hosys.chatgpt.site/guides/how-many-bricks-do-i-need?qa=1";
           const legacy = await fetch(legacyUrl, { redirect: "manual", cache: "no-store" });
           assert.ok([301, 302, 307, 308].includes(legacy.status), `Legacy host must redirect, got ${legacy.status}`);
