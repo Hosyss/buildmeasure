@@ -1,0 +1,220 @@
+name: Project shopping browser QA
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  browser-qa:
+    if: github.head_ref == 'feature/project-shopping-list'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build production app
+        run: npm run build
+
+      - name: Install temporary Playwright harness
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@1.55.0
+          npx playwright install --with-deps firefox webkit
+
+      - name: Create temporary browser test
+        shell: bash
+        run: |
+          cat > playwright.project-shopping.config.mjs <<'EOF'
+          import { defineConfig } from "@playwright/test";
+
+          const sizes = [
+            [360, 800],
+            [768, 900],
+            [1280, 900],
+          ];
+
+          export default defineConfig({
+            testDir: ".tmp-project-shopping-tests",
+            timeout: 30_000,
+            workers: 1,
+            reporter: "line",
+            use: {
+              baseURL: "http://127.0.0.1:4173",
+            },
+            projects: ["firefox", "webkit"].flatMap((browserName) =>
+              sizes.map(([width, height]) => ({
+                name: `${browserName}-${width}x${height}`,
+                use: { browserName, viewport: { width, height } },
+              })),
+            ),
+          });
+          EOF
+
+          mkdir -p .tmp-project-shopping-tests
+          cat > .tmp-project-shopping-tests/project-shopping.spec.mjs <<'EOF'
+          import { expect, test } from "@playwright/test";
+
+          const concreteHistory = [
+            {
+              id: 101,
+              label: "Patio slab",
+              summary: "62 × 80 lb bags · Est. cost $341",
+              purchase: {
+                quantity: 62,
+                unitLabel: "80 lb bag",
+                unitPrice: 5.5,
+                total: 341,
+                currencyLabel: "$",
+              },
+            },
+          ];
+
+          const legacyPaintHistory = [
+            {
+              id: 99,
+              label: "Legacy room",
+              summary: "2 × 1 gal cans · legacy display text only",
+            },
+          ];
+
+          test.beforeEach(async ({ page }) => {
+            const errors = [];
+            page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
+            page.on("console", (message) => {
+              if (message.type() === "error") errors.push(`console: ${message.text()}`);
+            });
+            page.__qaErrors = errors;
+
+            await page.addInitScript(({ concrete, paint }) => {
+              localStorage.setItem("buildmeasure.projects.v1", "[]");
+              localStorage.setItem("buildmeasure.concrete.history.v1", JSON.stringify(concrete));
+              localStorage.setItem("buildmeasure.paint.history.v1", JSON.stringify(paint));
+              window.__printEvidence = null;
+              window.print = () => {
+                const report = document.querySelector('[aria-label="Printable project report"]');
+                const shopping = report?.querySelector('[aria-label="Shopping list"]');
+                window.__printEvidence = {
+                  reportCount: document.querySelectorAll('[aria-label="Printable project report"]').length,
+                  reportText: report?.textContent ?? "",
+                  shoppingText: shopping?.textContent ?? "",
+                  localProjects: localStorage.getItem("buildmeasure.projects.v1"),
+                };
+              };
+            }, { concrete: concreteHistory, paint: legacyPaintHistory });
+          });
+
+          test("builds a structured shopping list without parsing legacy estimate text", async ({ page }) => {
+            const response = await page.goto("/projects");
+            expect(response?.status()).toBe(200);
+            await expect(page.getByRole("heading", { name: "Create a project" })).toBeVisible();
+            await expect(page.getByText("Patio slab", { exact: true })).toBeVisible();
+            await expect(page.getByText("Legacy room", { exact: true })).toBeVisible();
+
+            const assertNoOverflow = async () => {
+              const overflow = await page.evaluate(() =>
+                document.documentElement.scrollWidth > document.documentElement.clientWidth,
+              );
+              expect(overflow).toBe(false);
+            };
+            await assertNoOverflow();
+
+            await page.locator("label").filter({ hasText: "Patio slab" }).getByRole("checkbox").check();
+            await page.locator("label").filter({ hasText: "Legacy room" }).getByRole("checkbox").check();
+            await page.getByLabel("Project name").fill("Back patio refresh");
+
+            const saveButton = page.getByRole("button", { name: "Save project" });
+            await expect(saveButton).toBeEnabled();
+            await saveButton.click();
+            await expect(page.getByText("Project saved on this device.", { exact: true })).toBeVisible();
+
+            const projectCard = page.locator("article").filter({ has: page.getByRole("heading", { name: "Back patio refresh" }) });
+            await expect(projectCard).toBeVisible();
+            const shopping = projectCard.locator('[aria-label="Shopping list"]');
+            await expect(shopping).toBeVisible();
+            await expect(shopping).toContainText("Concrete");
+            await expect(shopping).toContainText("Patio slab");
+            await expect(shopping).toContainText("62 × 80 lb bag");
+            await expect(shopping).not.toContainText("Legacy room");
+            await expect(shopping).not.toContainText("1 gal");
+            await expect(shopping).not.toContainText("341");
+            await assertNoOverflow();
+
+            const savedBeforeReload = await page.evaluate(() =>
+              localStorage.getItem("buildmeasure.projects.v1"),
+            );
+            expect(savedBeforeReload).toContain('"purchase"');
+            expect(savedBeforeReload).toContain('"quantity":62');
+
+            await page.reload();
+            await expect(page.getByRole("heading", { name: "Back patio refresh" })).toBeVisible();
+            const reloadedCard = page.locator("article").filter({ has: page.getByRole("heading", { name: "Back patio refresh" }) });
+            const reloadedShopping = reloadedCard.locator('[aria-label="Shopping list"]');
+            await expect(reloadedShopping).toContainText("62 × 80 lb bag");
+            await expect(reloadedShopping).not.toContainText("1 gal");
+            await assertNoOverflow();
+
+            const beforePrintStorage = await page.evaluate(() =>
+              localStorage.getItem("buildmeasure.projects.v1"),
+            );
+            const printButton = page.getByRole("button", {
+              name: "Print or save Back patio refresh as PDF",
+            });
+            await expect(printButton).toBeVisible();
+            const box = await printButton.boundingBox();
+            expect(box).not.toBeNull();
+            expect(box.height).toBeGreaterThanOrEqual(44);
+            await printButton.click();
+
+            const evidence = await page.evaluate(() => window.__printEvidence);
+            expect(evidence).not.toBeNull();
+            expect(evidence.reportCount).toBe(1);
+            expect(evidence.reportText).toContain("Back patio refresh");
+            expect(evidence.reportText).toContain("Patio slab");
+            expect(evidence.reportText).toContain("Legacy room");
+            expect(evidence.shoppingText).toContain("62 × 80 lb bag");
+            expect(evidence.shoppingText).not.toContain("Legacy room");
+            expect(evidence.shoppingText).not.toContain("1 gal");
+            expect(evidence.shoppingText).not.toContain("341");
+            expect(evidence.localProjects).toBe(beforePrintStorage);
+
+            await expect(page.locator('[aria-label="Printable project report"]')).toHaveCount(0);
+            const afterPrintStorage = await page.evaluate(() =>
+              localStorage.getItem("buildmeasure.projects.v1"),
+            );
+            expect(afterPrintStorage).toBe(beforePrintStorage);
+            expect(page.__qaErrors).toEqual([]);
+          });
+          EOF
+
+      - name: Start production server
+        shell: bash
+        run: |
+          PORT=4173 npm run start > /tmp/buildmeasure-shopping-qa-server.log 2>&1 &
+          echo $! > /tmp/buildmeasure-shopping-qa-server.pid
+          for attempt in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4173/projects >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/buildmeasure-shopping-qa-server.log
+          exit 1
+
+      - name: Run Firefox and WebKit shopping QA
+        run: npx playwright test --config=playwright.project-shopping.config.mjs
+
+      - name: Show server log on failure
+        if: failure()
+        run: cat /tmp/buildmeasure-shopping-qa-server.log || true
