@@ -1,4 +1,8 @@
-import { parseSavedEstimateHistory } from "./history.ts";
+import {
+  isSavedEstimatePurchase,
+  parseSavedEstimateHistory,
+  type SavedEstimatePurchase,
+} from "./history.ts";
 
 export const PROJECTS_STORAGE_KEY = "buildmeasure.projects.v1";
 export const PROJECT_NAME_MAX_LENGTH = 80;
@@ -71,6 +75,7 @@ export type ProjectEstimate = {
   estimateId: number;
   label: string;
   summary: string;
+  purchase?: SavedEstimatePurchase;
 };
 
 export type SavedProject = {
@@ -78,6 +83,14 @@ export type SavedProject = {
   name: string;
   createdAt: string;
   items: ProjectEstimate[];
+};
+
+export type ProjectShoppingItem = {
+  calculator: ProjectCalculatorId;
+  estimateId: number;
+  estimateLabel: string;
+  quantity: number;
+  unitLabel: string;
 };
 
 export type SerializedProjectHistories = Partial<
@@ -110,7 +123,9 @@ function isProjectEstimate(value: unknown): value is ProjectEstimate {
     typeof candidate.label === "string" &&
     candidate.label.length > 0 &&
     typeof candidate.summary === "string" &&
-    candidate.summary.length > 0
+    candidate.summary.length > 0 &&
+    (candidate.purchase === undefined ||
+      isSavedEstimatePurchase(candidate.purchase))
   );
 }
 
@@ -154,6 +169,7 @@ export function collectAvailableProjectEstimates(
       estimateId: estimate.id,
       label: estimate.label,
       summary: estimate.summary,
+      ...(estimate.purchase ? { purchase: estimate.purchase } : {}),
     })),
   ).sort((a, b) => b.estimateId - a.estimateId);
 }
@@ -198,10 +214,32 @@ export function removeSavedProject(projects: SavedProject[], projectId: number) 
   return projects.filter((project) => project.id !== projectId);
 }
 
+export function buildProjectShoppingList(
+  project: Pick<SavedProject, "items">,
+): ProjectShoppingItem[] {
+  return project.items.flatMap((item) =>
+    item.purchase
+      ? [
+          {
+            calculator: item.calculator,
+            estimateId: item.estimateId,
+            estimateLabel: item.label,
+            quantity: item.purchase.quantity,
+            unitLabel: item.purchase.unitLabel,
+          },
+        ]
+      : [],
+  );
+}
+
 export function formatSavedProject(project: SavedProject) {
   const lines = project.items.map((item) => {
     const source = getProjectHistorySource(item.calculator);
     return `- ${source?.label ?? item.calculator}: ${item.label} — ${item.summary}`;
+  });
+  const shopping = buildProjectShoppingList(project).map((item) => {
+    const source = getProjectHistorySource(item.calculator);
+    return `- ${source?.label ?? item.calculator}: ${item.quantity} × ${item.unitLabel} — ${item.estimateLabel}`;
   });
 
   return [
@@ -209,5 +247,6 @@ export function formatSavedProject(project: SavedProject) {
     `${project.items.length} saved estimate${project.items.length === 1 ? "" : "s"}`,
     "",
     ...lines,
+    ...(shopping.length ? ["", "Shopping list", ...shopping] : []),
   ].join("\n");
 }

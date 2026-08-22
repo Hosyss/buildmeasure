@@ -29,6 +29,7 @@ test("Project Mode renders as a local-only, masked, non-indexed workspace", asyn
   assert.match(html, /Projects are saved in this browser/);
   assert.match(html, /Print one project/);
   assert.match(html, /save it as a PDF/);
+  assert.match(html, /Shopping lists use structured purchase quantities/);
   assert.match(html, /data-projects-page="true"/);
   assert.match(html, /href="\/projects"/);
   assert.match(html, /data-clarity-mask="true"/);

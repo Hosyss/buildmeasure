@@ -9,6 +9,7 @@ import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { ResetIcon } from "@/components/icons";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
+import { createSavedEstimatePurchase } from "@/lib/history";
 import {
   calculateTile,
   TILE_ENGINE_VERSION,
@@ -234,6 +235,11 @@ export function TileCalculator() {
         unitSystem === "imperial" ? "in" : "mm"
       } tile`,
       summary: `${resultSummary(calculation.result)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
+      purchase: createSavedEstimatePurchase(
+        calculation.result?.boxes ?? null,
+        purchaseUnitLabel,
+        purchaseCost.result,
+      ),
     });
     setNotice("Estimate saved on this device.");
   }

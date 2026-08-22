@@ -20,6 +20,7 @@ import { usePurchaseCost } from "@/hooks/use-purchase-cost";
 import { formatPurchaseCost } from "@/lib/cost-estimate";
 import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
+import { createSavedEstimatePurchase } from "@/lib/history";
 import { formatConvertedInput } from "@/lib/units";
 
 type FormState = {
@@ -173,6 +174,11 @@ export function ConcreteCalculator() {
         unitSystem === "imperial" ? "ft / in" : "m / cm"
       }`,
       summary: `${resultSummary(calculation.result)}${purchaseCost.result ? ` · Est. cost ${formatPurchaseCost(purchaseCost.result)}` : ""}` ,
+      purchase: createSavedEstimatePurchase(
+        calculation.result?.bags ?? null,
+        purchaseUnitLabel,
+        purchaseCost.result,
+      ),
     });
     setNotice("Estimate saved on this device.");
   }

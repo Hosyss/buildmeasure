@@ -277,6 +277,71 @@
   margin: 4px 0 0;
 }
 
+
+.shopping,
+.printShopping {
+  display: grid;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sand-200);
+}
+
+.shoppingHead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.shoppingHead h4 {
+  margin: 0;
+  font-size: 0.88rem;
+  letter-spacing: -0.02em;
+}
+
+.shoppingList {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shoppingList li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 9px 10px;
+  border: 1px solid var(--sand-200);
+  border-radius: 7px;
+  background: var(--white);
+}
+
+.shoppingList li > span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.shoppingList strong,
+.shoppingList b {
+  font-size: 0.74rem;
+}
+
+.shoppingList small {
+  color: var(--ink-500);
+  font-size: 0.66rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.shoppingList b {
+  text-align: right;
+  white-space: nowrap;
+}
+
+
 .empty {
   margin: 18px 0 0;
   padding: 16px;
@@ -390,6 +455,28 @@
     color: #3f4944;
   }
 
+
+  .printShopping {
+    break-inside: avoid;
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid #cfd6d2;
+  }
+
+  .printShopping .shoppingHead h4,
+  .printShopping .shoppingList strong,
+  .printShopping .shoppingList b,
+  .printShopping .shoppingList small {
+    color: #161b18;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .printShopping .shoppingList li {
+    border-color: #d8dedb;
+    background: #fff;
+  }
+
+
   .printNote {
     break-inside: avoid;
     margin-top: 24px;
@@ -432,6 +519,14 @@
   .projectHead {
     align-items: start;
     flex-direction: column;
+  }
+
+  .shoppingList li {
+    grid-template-columns: 1fr;
+  }
+
+  .shoppingList b {
+    text-align: left;
   }
 
   .selectionActions,
