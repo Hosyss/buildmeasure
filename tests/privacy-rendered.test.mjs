@@ -33,8 +33,12 @@ test("privacy page documents local projects, analytics, and AdSense disclosures"
   assert.match(html, /Measurements, quantities, entered unit prices, currency labels, and/);
   assert.match(html, /Clarity is not loaded before that choice/);
   assert.match(html, /Advertising and Google AdSense/);
-  assert.match(html, /third-party vendors including Google may use cookies or similar/);
+  assert.match(html, /third-party vendors, including Google, may use cookies, web/);
+  assert.match(html, /web beacons, IP addresses, or similar identifiers/);
   assert.match(html, /Google Ads Settings/);
+  assert.match(html, /other third-party vendors or ad networks participating through AdSense/);
+  assert.match(html, /policies\.google\.com\/technologies\/partner-sites/);
   assert.match(html, /Google-certified consent management platform/);
+  assert.match(html, /feedback text are not intentionally supplied to/);
   assert.match(html, /contact page/);
 });
