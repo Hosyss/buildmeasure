@@ -13,6 +13,7 @@ export default function ContactPage() {
     <UtilityContentPage
       eyebrow="Contact"
       title="Get in touch with BuildMeasure"
+      titleStyle={{ fontSize: "clamp(2.65rem, 6vw, 5rem)" }}
       intro="Use the route that best matches your question so calculation issues, privacy requests, and project feedback reach the right review flow."
     >
       <h2>Calculator accuracy or usability</h2>
