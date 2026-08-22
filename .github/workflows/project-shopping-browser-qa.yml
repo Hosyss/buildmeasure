@@ -98,9 +98,15 @@ jobs:
             page.__qaErrors = errors;
 
             await page.addInitScript(({ concrete, paint }) => {
-              localStorage.setItem("buildmeasure.projects.v1", "[]");
-              localStorage.setItem("buildmeasure.concrete.history.v1", JSON.stringify(concrete));
-              localStorage.setItem("buildmeasure.paint.history.v1", JSON.stringify(paint));
+              if (localStorage.getItem("buildmeasure.projects.v1") === null) {
+                localStorage.setItem("buildmeasure.projects.v1", "[]");
+              }
+              if (localStorage.getItem("buildmeasure.concrete.history.v1") === null) {
+                localStorage.setItem("buildmeasure.concrete.history.v1", JSON.stringify(concrete));
+              }
+              if (localStorage.getItem("buildmeasure.paint.history.v1") === null) {
+                localStorage.setItem("buildmeasure.paint.history.v1", JSON.stringify(paint));
+              }
               window.__printEvidence = null;
               window.print = () => {
                 const report = document.querySelector('[aria-label="Printable project report"]');
