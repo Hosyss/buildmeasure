@@ -112,8 +112,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: absoluteUrl("/contact"),
+      lastModified: new Date("2026-08-22"),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
       url: absoluteUrl("/privacy"),
-      lastModified: new Date("2026-08-21"),
+      lastModified: new Date("2026-08-22"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
