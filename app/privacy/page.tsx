@@ -3,16 +3,16 @@ import { UtilityContentPage } from "@/components/utility-content-page";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How BuildMeasure handles calculator inputs, saved estimates and projects, analytics, and feedback reports.",
+  description: "How BuildMeasure handles calculator inputs, saved estimates and projects, analytics, advertising, and feedback reports.",
   alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
   return (
     <UtilityContentPage
-      eyebrow="Last updated August 21, 2026"
+      eyebrow="Last updated August 22, 2026"
       title="Privacy policy"
-      intro="BuildMeasure is designed to calculate locally, request as little information as possible, and explain the data that is stored."
+      intro="BuildMeasure is designed to calculate locally, request as little information as possible, and explain the data that is stored or processed."
     >
       <h2>Calculator inputs</h2>
       <p>
@@ -99,20 +99,51 @@ export default function PrivacyPage() {
         cookie consent and reloads the page without loading Clarity again.
       </p>
 
+      <h2>Advertising and Google AdSense</h2>
+      <p>
+        BuildMeasure may use Google AdSense. During AdSense site review, the site
+        may expose account verification metadata and an ads.txt declaration
+        before advertising code or ad units are enabled. If Google ads are
+        enabled, third-party vendors, including Google, may use cookies, web
+        beacons, IP addresses, or similar identifiers to serve and measure ads.
+      </p>
+      <p>
+        Google&apos;s use of advertising cookies enables Google and its partners to
+        serve ads based on a visitor&apos;s prior visits to BuildMeasure or other
+        sites on the Internet. Visitors can manage or opt out of personalized
+        advertising through{" "}
+        <a href="https://adssettings.google.com/">Google Ads Settings</a>. Other
+        third-party vendors or ad networks participating through AdSense may also
+        use cookies or similar technologies; where applicable, the consent flow
+        will identify participating vendors and provide available choices.
+      </p>
+      <p>
+        For more information, see{" "}
+        <a href="https://policies.google.com/technologies/partner-sites">
+          how Google uses data when you use sites or apps of its partners
+        </a>.
+        Where consent is required, BuildMeasure will use a Google-certified
+        consent management platform before personalized ads are served.
+        Calculator measurements, saved project names, entered unit prices,
+        calculated costs, and feedback text are not intentionally supplied to
+        AdSense as custom advertising-targeting data.
+      </p>
+
       <h2>Hosting and security data</h2>
       <p>
         The managed hosting service may process request metadata and technical
-        logs needed to deliver, secure, and diagnose the site. BuildMeasure does
-        not currently run advertising and does not intentionally enable
-        advertising storage through Clarity. If advertising is introduced, this
-        policy and any required consent controls will be updated before launch.
+        logs needed to deliver, secure, and diagnose the site. The AdSense site
+        verification metadata and ads.txt declaration do not themselves create
+        an advertising profile. Advertising code will be enabled only as part of
+        the approved AdSense setup and with required consent controls.
       </p>
 
       <h2>Questions or deletion requests</h2>
       <p>
-        Use the <a href="/feedback">feedback form</a>, choose Other feedback, and
-        include the relevant report reference. Do not place sensitive information
-        in the request.
+        Use the <a href="/contact">contact page</a> or the{" "}
+        <a href="/feedback">feedback form</a>. For a stored feedback report,
+        include the relevant report reference and do not place sensitive
+        information in the request.
       </p>
     </UtilityContentPage>
   );
