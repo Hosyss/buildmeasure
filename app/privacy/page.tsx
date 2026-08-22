@@ -105,12 +105,13 @@ export default function PrivacyPage() {
       <p>
         Google&apos;s use of advertising cookies enables Google and its partners to
         serve ads based on visits to this site and other sites on the Internet.
-        Visitors can manage or opt out of personalized advertising through
-        Google Ads Settings. Where consent is required, BuildMeasure will use a
-        Google-certified consent management platform before personalized ads are
-        served. Calculator measurements, saved project names, entered unit
-        prices, and calculated costs are not intentionally supplied to AdSense as
-        custom advertising-targeting data.
+        Visitors can manage or opt out of personalized advertising through{" "}
+        <a href="https://adssettings.google.com/">Google Ads Settings</a>. Where
+        consent is required, BuildMeasure will use a Google-certified consent
+        management platform before personalized ads are served. Calculator
+        measurements, saved project names, entered unit prices, and calculated
+        costs are not intentionally supplied to AdSense as custom
+        advertising-targeting data.
       </p>
 
       <h2>Hosting and security data</h2>
