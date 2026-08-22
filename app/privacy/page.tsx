@@ -97,21 +97,32 @@ export default function PrivacyPage() {
 
       <h2>Advertising and Google AdSense</h2>
       <p>
-        BuildMeasure is being prepared to use Google AdSense. If Google ads are
-        enabled, third-party vendors including Google may use cookies or similar
-        identifiers to serve, measure, and personalize ads based on a visitor&apos;s
-        prior visits to BuildMeasure or other websites.
+        BuildMeasure may use Google AdSense. During AdSense site review, the site
+        may expose account verification metadata and an ads.txt declaration
+        before advertising code or ad units are enabled. If Google ads are
+        enabled, third-party vendors, including Google, may use cookies, web
+        beacons, IP addresses, or similar identifiers to serve and measure ads.
       </p>
       <p>
         Google&apos;s use of advertising cookies enables Google and its partners to
-        serve ads based on visits to this site and other sites on the Internet.
-        Visitors can manage or opt out of personalized advertising through{" "}
-        <a href="https://adssettings.google.com/">Google Ads Settings</a>. Where
-        consent is required, BuildMeasure will use a Google-certified consent
-        management platform before personalized ads are served. Calculator
-        measurements, saved project names, entered unit prices, and calculated
-        costs are not intentionally supplied to AdSense as custom
-        advertising-targeting data.
+        serve ads based on a visitor&apos;s prior visits to BuildMeasure or other
+        sites on the Internet. Visitors can manage or opt out of personalized
+        advertising through{" "}
+        <a href="https://adssettings.google.com/">Google Ads Settings</a>. Other
+        third-party vendors or ad networks participating through AdSense may also
+        use cookies or similar technologies; where applicable, the consent flow
+        will identify participating vendors and provide available choices.
+      </p>
+      <p>
+        For more information, see{" "}
+        <a href="https://policies.google.com/technologies/partner-sites">
+          how Google uses data when you use sites or apps of its partners
+        </a>.
+        Where consent is required, BuildMeasure will use a Google-certified
+        consent management platform before personalized ads are served.
+        Calculator measurements, saved project names, entered unit prices,
+        calculated costs, and feedback text are not intentionally supplied to
+        AdSense as custom advertising-targeting data.
       </p>
 
       <h2>Hosting and security data</h2>
