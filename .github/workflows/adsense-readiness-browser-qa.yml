@@ -71,11 +71,33 @@ jobs:
               if (message.type() === "error") errors.push(`console: ${message.text()}`);
             });
 
-            const assertNoOverflow = async () => {
-              const overflow = await page.evaluate(() =>
-                document.documentElement.scrollWidth > document.documentElement.clientWidth,
-              );
-              expect(overflow).toBe(false);
+            const assertNoOverflow = async (label) => {
+              const result = await page.evaluate(() => {
+                const viewport = document.documentElement.clientWidth;
+                const offenders = [...document.querySelectorAll("*")]
+                  .map((element) => {
+                    const rect = element.getBoundingClientRect();
+                    return {
+                      tag: element.tagName.toLowerCase(),
+                      id: element.id,
+                      className: typeof element.className === "string" ? element.className : "",
+                      text: (element.textContent || "").trim().replace(/\s+/g, " ").slice(0, 100),
+                      left: Math.round(rect.left * 10) / 10,
+                      right: Math.round(rect.right * 10) / 10,
+                      width: Math.round(rect.width * 10) / 10,
+                    };
+                  })
+                  .filter((item) => item.width > 0 && (item.right > viewport + 1 || item.left < -1));
+                return {
+                  clientWidth: viewport,
+                  scrollWidth: document.documentElement.scrollWidth,
+                  offenders: offenders.slice(0, 20),
+                };
+              });
+              if (result.scrollWidth > result.clientWidth) {
+                console.log(`OVERFLOW ${label}: ${JSON.stringify(result)}`);
+              }
+              expect(result.scrollWidth).toBeLessThanOrEqual(result.clientWidth);
             };
 
             const home = await page.goto("/");
@@ -90,14 +112,14 @@ jobs:
             await expect(page.getByRole("link", { name: "Contact", exact: true }).last()).toBeVisible();
             await expect(page.getByRole("link", { name: "Privacy", exact: true }).last()).toBeVisible();
             await expect(page.getByRole("link", { name: "Terms", exact: true }).last()).toBeVisible();
-            await assertNoOverflow();
+            await assertNoOverflow("home");
 
             const contact = await page.goto("/contact");
             expect(contact?.status()).toBe(200);
             await expect(page.getByRole("heading", { name: "Get in touch with BuildMeasure" })).toBeVisible();
             await expect(page.getByRole("heading", { name: "Calculator accuracy or usability" })).toBeVisible();
             await expect(page.getByRole("heading", { name: "Privacy or data request" })).toBeVisible();
-            await assertNoOverflow();
+            await assertNoOverflow("contact");
 
             const privacy = await page.goto("/privacy");
             expect(privacy?.status()).toBe(200);
@@ -107,7 +129,7 @@ jobs:
               "https://adssettings.google.com/",
             );
             await expect(page.getByText("Google-certified consent management platform", { exact: false })).toBeVisible();
-            await assertNoOverflow();
+            await assertNoOverflow("privacy");
 
             const adsTxt = await request.get("/ads.txt");
             expect(adsTxt.status()).toBe(200);
