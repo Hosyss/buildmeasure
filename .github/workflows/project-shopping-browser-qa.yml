@@ -130,8 +130,12 @@ jobs:
             };
             await assertNoOverflow();
 
-            await page.locator("label").filter({ hasText: "Patio slab" }).getByRole("checkbox").check();
-            await page.locator("label").filter({ hasText: "Legacy room" }).getByRole("checkbox").check();
+            const patioLabel = page.locator("label").filter({ hasText: "Patio slab" });
+            const legacyLabel = page.locator("label").filter({ hasText: "Legacy room" });
+            await patioLabel.click();
+            await legacyLabel.click();
+            await expect(patioLabel.getByRole("checkbox")).toBeChecked();
+            await expect(legacyLabel.getByRole("checkbox")).toBeChecked();
             await page.getByLabel("Project name").fill("Back patio refresh");
 
             const saveButton = page.getByRole("button", { name: "Save project" });
