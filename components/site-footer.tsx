@@ -28,6 +28,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <strong>Product</strong>
           <a href="/about">About</a>
+          <a href="/contact">Contact</a>
           <a href="/methodology">Methodology</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
           <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
