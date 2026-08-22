@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Hosyss", url: "https://github.com/Hosyss" }],
   creator: "Hosyss",
   publisher: "BuildMeasure",
+  other: {
+    "google-adsense-account": "ca-pub-3369551572403499",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
