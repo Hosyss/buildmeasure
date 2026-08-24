@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const BRICK_PATH = "/brick-calculator";
-const BRICK_URL = `https://buildmeasure.buildtools.workers.dev${BRICK_PATH}`;
+const BRICK_URL = `https://buildmeasuretools.pages.dev${BRICK_PATH}`;
 
 async function loadWorker(label) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -81,14 +81,14 @@ test("discovers Brick Calculator from public product surfaces", async () => {
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/brick-calculator<\/loc>/,
+    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/brick-calculator<\/loc>/,
   );
 
   const llmsSource = await readFile(
     new URL("../public/llms.txt", import.meta.url),
     "utf8",
   );
-  assert.match(llmsSource, /\[Brick Calculator\]\(https:\/\/buildmeasure\.buildtools\.workers\.dev\/brick-calculator\)/);
+  assert.match(llmsSource, /\[Brick Calculator\]\(https:\/\/buildmeasuretools\.pages\.dev\/brick-calculator\)/);
   assert.match(llmsSource, /fired-clay brick quantity/);
 });
 

@@ -1,6 +1,6 @@
 # BuildMeasure AdSense readiness gate
 
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-25
 
 This document is the release gate for submitting BuildMeasure to Google AdSense and for enabling ads after approval.
 
@@ -14,14 +14,14 @@ This document is the release gate for submitting BuildMeasure to Google AdSense 
 - No AdSense ad script or ad units are enabled during the review-preparation stage.
 - Privacy copy explains first-party analytics, optional Microsoft Clarity, planned Google advertising, cookies/identifiers, and consent requirements.
 
-## Blocking check before requesting review
+## Submission-host check before requesting review
 
 Do **not** request the final AdSense review until the submitted site URL is accepted by AdSense and matches the canonical production host.
 
-The current production host is `buildmeasure.buildtools.workers.dev`. Google normally asks for a standard domain and does not accept ordinary nested subdomains as separate sites. `workers.dev` is a Public Suffix List platform, but BuildMeasure is one level below the account-level `buildtools.workers.dev` name. Before submission, either:
-
-1. confirm in the AdSense Sites UI that the exact current BuildMeasure host is accepted as the site being reviewed, or
-2. move BuildMeasure to a registrable custom domain and update `SITE_URL`, canonicals, sitemap, structured data, redirects, and verification tests before requesting review.
+The production host is `buildmeasuretools.pages.dev`, a single Pages project
+hostname that the AdSense Sites UI accepts. Submit that exact hostname. The
+former `buildmeasure.buildtools.workers.dev` and Sites host must return permanent
+path-preserving redirects to the Pages origin before requesting review.
 
 Do not change canonicals to a domain that is not already live and serving the same content.
 

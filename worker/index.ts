@@ -19,8 +19,11 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
-const LEGACY_HOSTNAME = "buildmeasure.hosys.chatgpt.site";
-const CANONICAL_ORIGIN = "https://buildmeasure.buildtools.workers.dev";
+const LEGACY_HOSTNAMES = new Set([
+  "buildmeasure.hosys.chatgpt.site",
+  "buildmeasure.buildtools.workers.dev",
+]);
+const CANONICAL_ORIGIN = "https://buildmeasuretools.pages.dev";
 const GOOGLE_VERIFICATION_PATH = "/google6d67c58ff3b5201c.html";
 const CLARITY_SOURCES = ["https://*.clarity.ms", "https://c.bing.com"];
 
@@ -138,7 +141,7 @@ const worker = {
     const url = new URL(request.url);
 
     if (
-      url.hostname === LEGACY_HOSTNAME &&
+      LEGACY_HOSTNAMES.has(url.hostname) &&
       url.pathname !== GOOGLE_VERIFICATION_PATH &&
       (request.method === "GET" || request.method === "HEAD")
     ) {
