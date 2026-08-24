@@ -52,6 +52,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: absoluteUrl("/drywall-calculator"),
+      lastModified: new Date("2026-08-24"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/guides"),
+      lastModified: new Date("2026-08-24"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: absoluteUrl("/guides/material-estimating-basics"),
       lastModified: new Date("2026-08-01"),
       changeFrequency: "monthly",
@@ -96,6 +108,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: absoluteUrl("/guides/how-much-mulch-do-i-need"),
       lastModified: new Date("2026-08-11"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/guides/how-many-drywall-sheets-do-i-need"),
+      lastModified: new Date("2026-08-24"),
       changeFrequency: "monthly",
       priority: 0.8,
     },

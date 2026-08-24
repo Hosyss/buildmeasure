@@ -10,10 +10,11 @@ const calculatorFiles = [
   "app/brick-calculator/brick-calculator.tsx",
   "app/gravel-calculator/gravel-calculator.tsx",
   "app/mulch-calculator/mulch-calculator.tsx",
+  "app/drywall-calculator/drywall-calculator.tsx",
 ];
 
-test("all seven calculator save actions persist structured purchase quantities", () => {
-  assert.equal(calculatorFiles.length, 7);
+test("all eight calculator save actions persist structured purchase quantities", () => {
+  assert.equal(calculatorFiles.length, 8);
   for (const file of calculatorFiles) {
     const source = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
     assert.match(source, /createSavedEstimatePurchase/);

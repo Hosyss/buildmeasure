@@ -74,6 +74,13 @@ const calculators = [
     status: "Live",
     tag: "Outdoors",
   },
+  {
+    name: "Drywall Calculator",
+    description: "Estimate complete sheets for rectangular room walls and an optional ceiling.",
+    href: "/drywall-calculator",
+    status: "Live",
+    tag: "Interior walls",
+  },
 ];
 
 const standards = [
@@ -238,7 +245,7 @@ export default function Home() {
               <p className="eyebrow">Plan with context</p>
               <h2 id="resource-title">From measurements to a purchase plan.</h2>
             </div>
-            <p>Use the workflow, then inspect how every result is verified.</p>
+            <p>Use the <a href="/guides">guide library</a>, then inspect how every result is verified.</p>
           </div>
           <div className="resource-grid">
             <a href="/guides/how-many-bags-of-concrete">

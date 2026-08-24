@@ -24,12 +24,14 @@ export function SiteFooter() {
           <a href="/brick-calculator">Brick</a>
           <a href="/gravel-calculator">Gravel</a>
           <a href="/mulch-calculator">Mulch</a>
+          <a href="/drywall-calculator">Drywall</a>
         </div>
         <div className="footer-links">
           <strong>Product</strong>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
           <a href="/methodology">Methodology</a>
+          <a href="/guides">Guide library</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
           <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
           <a href="/feedback">Report an issue</a>

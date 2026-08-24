@@ -27,9 +27,9 @@ export default function AboutPage() {
 
       <h2>What is live today</h2>
       <p>
-        BuildMeasure currently provides seven live calculators: concrete slabs,
+        BuildMeasure currently provides eight live calculators: concrete slabs,
         post-hole concrete, room paint, rectangular tile surfaces, fired-clay
-        brick walls, gravel layers, and mulch beds. Each tool supports metric
+        brick walls, gravel layers, mulch beds, and drywall sheets. Each tool supports metric
         and imperial units and keeps allowances, product coverage, density,
         displacement, or package size visible rather than hiding them behind a
         fixed answer.

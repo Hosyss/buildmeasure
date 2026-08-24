@@ -28,7 +28,7 @@ export function SiteHeader({
         <nav className="main-nav" aria-label="Primary navigation">
           <a href="/#calculators">Calculators</a>
           <a href="/projects">Projects</a>
-          <a href="/guides/material-estimating-basics">Estimating guide</a>
+          <a href="/guides">Guides</a>
           <a href="/methodology">Methodology</a>
         </nav>
         <a className="button button-small button-outline" href={ctaHref}>

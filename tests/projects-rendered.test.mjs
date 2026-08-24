@@ -25,7 +25,7 @@ test("Project Mode renders as a local-only, masked, non-indexed workspace", asyn
   assert.equal(response.status, 200);
   assert.match(html, /Project Mode/);
   assert.match(html, /Group estimates into one project/);
-  assert.match(html, /Works across all seven calculators/);
+  assert.match(html, /Works across all eight calculators/);
   assert.match(html, /Projects are saved in this browser/);
   assert.match(html, /Print one project/);
   assert.match(html, /save it as a PDF/);

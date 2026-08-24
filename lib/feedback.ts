@@ -6,6 +6,7 @@ export const FEEDBACK_CALCULATORS = [
   ["gravel-calculator", "Gravel Calculator"],
   ["mulch-calculator", "Mulch Calculator"],
   ["brick-calculator", "Brick Calculator"],
+  ["drywall-calculator", "Drywall Calculator"],
 ] as const;
 
 export const FEEDBACK_CATEGORIES = [

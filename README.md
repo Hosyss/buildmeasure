@@ -20,6 +20,7 @@ are public so calculator behavior and release evidence can be inspected.
 - [Brick Calculator](https://buildmeasure.buildtools.workers.dev/brick-calculator)
 - [Gravel Calculator](https://buildmeasure.buildtools.workers.dev/gravel-calculator)
 - [Mulch Calculator](https://buildmeasure.buildtools.workers.dev/mulch-calculator)
+- [Drywall Calculator](https://buildmeasure.buildtools.workers.dev/drywall-calculator)
 
 ## Current verified scope
 
@@ -31,6 +32,7 @@ are public so calculator behavior and release evidence can be inspected.
 - Fired-clay brick wall quantity calculator with measured openings, BIA running/stack-bond coverage presets, custom project coverage, and explicit waste/breakage allowance.
 - Rectangular gravel coverage calculator with adjustable bulk density.
 - Rectangular mulch-bed calculator with exact package-volume input.
+- Rectangular-room drywall sheet calculator with optional ceiling, measured openings, exact panel size, and visible allowance.
 - Imperial and metric input systems.
 - Ready-mix volume and 40/60/80 lb bag estimates.
 - Adjustable waste allowance.
@@ -47,11 +49,11 @@ are public so calculator behavior and release evidence can be inspected.
 - Mulch net/order volume, bed area, per-bag coverage, and complete bags without
   an invented density assumption.
 - Copy, print, reset, and device-local save/history actions on calculators.
-- Local-first Project Mode for grouping saved estimates from all seven calculators into named projects stored only in the current browser.
+- Local-first Project Mode for grouping saved estimates from all eight calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
-- Pure, versioned concrete, post-hole concrete, paint, tile, brick, gravel, and mulch engines with
+- Pure, versioned concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with
   automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
