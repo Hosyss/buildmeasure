@@ -22,6 +22,7 @@ in the verified scope in `README.md`.
 - [x] Gravel calculator.
 - [x] Mulch calculator.
 - [x] Shared exact unit constants and validation helpers after reuse was proven.
+- [x] Rectangular-room drywall sheet calculator.
 
 ## Phase 3 — Concrete expansion
 
@@ -35,7 +36,7 @@ in the verified scope in `README.md`.
 ## Phase 4 — Project Mode
 
 - [x] Project creation — local-first project names and estimate snapshots.
-- [x] Cross-calculator material list — select saved estimates from all seven calculators.
+- [x] Cross-calculator material list — select saved estimates from all eight calculators.
 - [ ] Waste and cost summary.
 - [x] Saved projects — stored only in the current browser.
 - [x] Printable/PDF report — one saved project at a time through the browser print dialog.

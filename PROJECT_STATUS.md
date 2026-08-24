@@ -13,12 +13,12 @@
 - هذا الرابط هو الأصل الحالي المؤقت/التشغيلي، وليس نطاق علامة تجارية نهائيًا مستقلًا.
 - الرابط القديم الذي يجب الحفاظ على تحويله ومساره واستعلامه: https://buildmeasure.hosys.chatgpt.site
 - قاعدة Cloudflare D1 الحالية: `buildmeasure-production`
-- إصدار التطبيق في `package.json`: `0.5.3`
+- إصدار التطبيق في `package.json`: `0.6.0`
 - لا تُنشئ Worker أو D1 أو مستودعًا أو مشروع Cloudflare بديلًا لهذا المشروع.
 
 ## نطاق المنتج المتحقق في المصدر
 
-BuildMeasure يحتوي حاليًا على **7 حاسبات عامة**:
+BuildMeasure يحتوي حاليًا على **8 حاسبات عامة**:
 
 1. Concrete Calculator
 2. Post Hole Concrete Calculator
@@ -27,6 +27,7 @@ BuildMeasure يحتوي حاليًا على **7 حاسبات عامة**:
 5. Brick Calculator
 6. Gravel Calculator
 7. Mulch Calculator
+8. Drywall Calculator
 
 المصدر يحتوي كذلك على **7 أدلة مركزة مرتبطة بالحاسبات السبع**، بالإضافة إلى دليل عام واحد هو `material-estimating-basics`. لذلك عبارة «خمس حاسبات» أو اعتبار الأدلة المركزة أربعة فقط أصبحت تاريخية ولا تصف الحالة الحالية.
 

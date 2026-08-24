@@ -50,6 +50,8 @@ quantity.
 - `/brick-calculator` — fired-clay brick wall quantity calculator.
 - `/gravel-calculator` — rectangular gravel coverage and mass calculator.
 - `/mulch-calculator` — rectangular mulch-bed volume and bag calculator.
+- `/drywall-calculator` — rectangular-room drywall sheet quantity calculator.
+- `/guides` — public material-estimating guide library.
 - `/about` — ownership, product scope, privacy, and trust information.
 - `/methodology` — calculation and QA methodology.
 - `/robots.txt` — crawler policy.

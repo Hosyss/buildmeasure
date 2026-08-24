@@ -16,7 +16,8 @@ export type ProjectCalculatorId =
   | "tile"
   | "brick"
   | "gravel"
-  | "mulch";
+  | "mulch"
+  | "drywall";
 
 export type ProjectHistorySource = {
   id: ProjectCalculatorId;
@@ -67,6 +68,12 @@ export const PROJECT_HISTORY_SOURCES: readonly ProjectHistorySource[] = [
     label: "Mulch",
     href: "/mulch-calculator",
     storageKey: "buildmeasure.mulch.history.v1",
+  },
+  {
+    id: "drywall",
+    label: "Drywall",
+    href: "/drywall-calculator",
+    storageKey: "buildmeasure.drywall.history.v1",
   },
 ];
 

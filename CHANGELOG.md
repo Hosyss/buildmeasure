@@ -5,6 +5,12 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+### Added
+
+- Added a reference-backed Drywall Calculator for rectangular room walls and an optional ceiling, with measured openings, exact panel dimensions, explicit waste, unit conversion, device-local history, optional cost, Project Mode, feedback, and privacy-limited analytics wiring.
+- Added a substantive drywall measurement and scope guide plus a public material-estimating guide library.
+- Expanded sitemap, homepage, navigation, footer, machine-readable discovery, structured data, documentation, and regression coverage for the eighth calculator and eighth focused guide.
+
 ### Changed
 
 - Removed development-preview metadata and the unimplemented Project Mode
