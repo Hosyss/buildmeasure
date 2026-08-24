@@ -22,8 +22,21 @@ mkdir -p "${pages_dir}/_worker.js"
 cp -R "${client_dir}/." "${pages_dir}/"
 cp -R "${server_dir}/." "${pages_dir}/_worker.js/"
 
+cat > "${pages_dir}/_routes.json" <<'JSON'
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": ["/_next/static/*"]
+}
+JSON
+
 [[ -f "${pages_dir}/_worker.js/index.js" ]] || {
   echo "Missing Pages advanced-mode Worker entry" >&2
+  exit 66
+}
+
+[[ -f "${pages_dir}/_routes.json" ]] || {
+  echo "Missing Pages static-asset routing manifest" >&2
   exit 66
 }
 
