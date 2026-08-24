@@ -1,4 +1,4 @@
-export const SITE_URL = "https://buildmeasure.buildtools.workers.dev";
+export const SITE_URL = "https://buildmeasuretools.pages.dev";
 
 export function absoluteUrl(path = "/") {
   return new URL(path, SITE_URL).toString();

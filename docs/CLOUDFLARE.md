@@ -1,10 +1,10 @@
 # Cloudflare deployment
 
-BuildMeasure is deployed at `https://buildmeasure.buildtools.workers.dev`
-with the production D1 binding. The original Sites deployment remains available
-during the rollback window, but the Cloudflare Worker is the canonical origin.
-Keep both deployments until Search Console accepts the new URL-prefix property
-and the Cloudflare production checks remain healthy.
+BuildMeasure is deployed at `https://buildmeasuretools.pages.dev`
+with the production D1 binding. The former Workers and original Sites deployments
+remain available only as path-preserving redirects during the migration window.
+Keep both redirects until Search Console accepts the new URL-prefix property and
+the Pages production checks remain healthy.
 
 ## Architecture
 
@@ -14,33 +14,24 @@ bundle and the application uses a D1 binding named `DB` for privacy-conscious
 analytics and feedback.
 
 The normal Sites build continues to use its local placeholder D1 identifier.
-Cloudflare Workers Builds must provide the real production D1 identifier in an
-environment variable. The deployment guard refuses to publish a build that
-still contains the placeholder.
+The Pages project uses `npm run build:pages`, publishes `dist/pages`, and binds
+the existing `buildmeasure-production` database at runtime as `DB`.
 
-## One-time Cloudflare dashboard setup
+## Cloudflare Pages dashboard setup
 
-1. Create a D1 database named `buildmeasure-production`.
-2. Copy its database UUID from the D1 database overview.
-3. In **Workers & Pages**, choose **Create application**, then **Import a
+1. In **Workers & Pages**, choose **Create application**, then **Import a
    repository**.
-4. Connect GitHub and select `Hosyss/buildmeasure`.
-5. Use the Worker name `buildmeasure`, repository root `/`, and production
+2. Connect GitHub and select `Hosyss/buildmeasure`.
+3. Use the Pages project name `buildmeasuretools`, repository root `/`, and production
    branch `main`.
-6. Set the build command to `npm run build`.
-7. Set the deploy command to `npm run deploy:cloudflare:built`.
-8. Add these Workers Builds variables:
-   - `CLOUDFLARE_D1_DATABASE_ID`: the copied D1 UUID.
-   - `CLOUDFLARE_D1_DATABASE_NAME`: `buildmeasure-production`.
-9. Save and deploy. Never put an API token or account credential in the
-   repository or in either variable above.
-
-The Worker name in Cloudflare must exactly match `buildmeasure`; Cloudflare
-requires the dashboard Worker name and the generated Wrangler name to match.
+4. Set the build command to `npm run build:pages` and output directory to
+   `dist/pages`.
+5. Bind the existing D1 database `buildmeasure-production` with variable name
+   `DB`, then trigger a new production deployment.
 
 ## Verification before switching search traffic
 
-Verify all of the following on the assigned `workers.dev` address:
+Verify all of the following on `https://buildmeasuretools.pages.dev`:
 
 - `/`
 - `/concrete-calculator`

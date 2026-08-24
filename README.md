@@ -11,16 +11,16 @@ are public so calculator behavior and release evidence can be inspected.
 
 ## Live site
 
-- [Open BuildMeasure](https://buildmeasure.buildtools.workers.dev/)
-- [Projects](https://buildmeasure.buildtools.workers.dev/projects)
-- [Concrete Calculator](https://buildmeasure.buildtools.workers.dev/concrete-calculator)
-- [Post Hole Concrete Calculator](https://buildmeasure.buildtools.workers.dev/post-hole-concrete-calculator)
-- [Paint Calculator](https://buildmeasure.buildtools.workers.dev/paint-calculator)
-- [Tile Calculator](https://buildmeasure.buildtools.workers.dev/tile-calculator)
-- [Brick Calculator](https://buildmeasure.buildtools.workers.dev/brick-calculator)
-- [Gravel Calculator](https://buildmeasure.buildtools.workers.dev/gravel-calculator)
-- [Mulch Calculator](https://buildmeasure.buildtools.workers.dev/mulch-calculator)
-- [Drywall Calculator](https://buildmeasure.buildtools.workers.dev/drywall-calculator)
+- [Open BuildMeasure](https://buildmeasuretools.pages.dev/)
+- [Projects](https://buildmeasuretools.pages.dev/projects)
+- [Concrete Calculator](https://buildmeasuretools.pages.dev/concrete-calculator)
+- [Post Hole Concrete Calculator](https://buildmeasuretools.pages.dev/post-hole-concrete-calculator)
+- [Paint Calculator](https://buildmeasuretools.pages.dev/paint-calculator)
+- [Tile Calculator](https://buildmeasuretools.pages.dev/tile-calculator)
+- [Brick Calculator](https://buildmeasuretools.pages.dev/brick-calculator)
+- [Gravel Calculator](https://buildmeasuretools.pages.dev/gravel-calculator)
+- [Mulch Calculator](https://buildmeasuretools.pages.dev/mulch-calculator)
+- [Drywall Calculator](https://buildmeasuretools.pages.dev/drywall-calculator)
 
 ## Current verified scope
 

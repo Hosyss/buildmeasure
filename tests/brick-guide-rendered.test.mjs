@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const GUIDE_PATH = "/guides/how-many-bricks-do-i-need";
-const GUIDE_URL = `https://buildmeasure.buildtools.workers.dev${GUIDE_PATH}`;
+const GUIDE_URL = `https://buildmeasuretools.pages.dev${GUIDE_PATH}`;
 
 async function loadWorker(label) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -69,12 +69,12 @@ test("discovers the Brick wall guide from the calculator, homepage, sitemap, and
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-many-bricks-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-bricks-do-i-need<\/loc>/,
   );
 
   const llmsSource = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
   assert.match(
     llmsSource,
-    /\[How Many Bricks Do I Need for a Wall\?\]\(https:\/\/buildmeasure\.buildtools\.workers\.dev\/guides\/how-many-bricks-do-i-need\)/,
+    /\[How Many Bricks Do I Need for a Wall\?\]\(https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-bricks-do-i-need\)/,
   );
 });

@@ -29,7 +29,7 @@ SEO, storage, or framework changes also require the checks documented in
   tracking identifiers in analytics.
 - Do not commit secrets, tokens, `.env` files, build output, or dependencies.
 - Keep production canonical URLs on
-  `https://buildmeasure.buildtools.workers.dev` unless a separately verified
+  `https://buildmeasuretools.pages.dev` unless a separately verified
   domain migration is explicitly approved and completed.
 
 ## Publishing
