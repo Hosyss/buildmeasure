@@ -2,7 +2,7 @@
 
 ## Goals
 
-BuildMeasure is designed to scale from one calculator to hundreds without
+JobsiteQuant is designed to scale from one calculator to hundreds without
 duplicating formulas or coupling calculation logic to a page component.
 
 ## Layers
