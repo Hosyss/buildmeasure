@@ -27,12 +27,12 @@ const articleSchema = {
   mainEntityOfPage: absoluteUrl("/guides/material-estimating-basics"),
   author: {
     "@type": "Organization",
-    name: "BuildMeasure",
+    name: "BuildNumbers",
     url: absoluteUrl("/about"),
   },
   publisher: {
     "@type": "Organization",
-    name: "BuildMeasure",
+    name: "BuildNumbers",
     url: absoluteUrl("/"),
   },
 };
@@ -62,7 +62,7 @@ export default function MaterialEstimatingBasicsPage() {
             </p>
             <div className="guide-meta">
               <span>Published August 1, 2026</span>
-              <span>Reviewed against the BuildMeasure calculation standard</span>
+              <span>Reviewed against the BuildNumbers calculation standard</span>
             </div>
           </div>
         </section>
@@ -111,7 +111,7 @@ export default function MaterialEstimatingBasicsPage() {
                 <strong>Unit-safe rule</strong>
                 <p>
                   Convert dimensions to one consistent system before multiplying.
-                  Four inches is one-third of a foot, not 0.4 ft. BuildMeasure
+                  Four inches is one-third of a foot, not 0.4 ft. BuildNumbers
                   performs this conversion internally and preserves full precision.
                 </p>
               </div>
@@ -212,7 +212,7 @@ export default function MaterialEstimatingBasicsPage() {
             <div className="utility-callout">
               <strong>Want to inspect the engineering behind the tools?</strong>
               <p>
-                Read the <a href="/methodology">BuildMeasure methodology</a> for
+                Read the <a href="/methodology">BuildNumbers methodology</a> for
                 formula sourcing, numeric safety, regression tests, and release
                 evidence.
               </p>
