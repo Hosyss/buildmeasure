@@ -163,7 +163,7 @@ export default async function AnalyticsPage() {
           </section>
 
           <p className="analytics-privacy-note">
-            BuildMeasure does not store IP addresses, names, email addresses,
+            JobsiteQuant does not store IP addresses, names, email addresses,
             raw user-agent strings, calculator measurements, unit prices, or
             persistent analytics cookies in this log. Each page load receives a
             temporary random session identifier, and passive requests are
