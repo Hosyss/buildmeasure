@@ -49,8 +49,8 @@ const schema = [
     datePublished: "2026-08-11",
     dateModified: "2026-08-13",
     mainEntityOfPage: absoluteUrl("/guides/how-much-gravel-do-i-need"),
-    author: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/about") },
-    publisher: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/") },
+    author: { "@type": "Organization", name: "BuildNumbers", url: absoluteUrl("/about") },
+    publisher: { "@type": "Organization", name: "BuildNumbers", url: absoluteUrl("/") },
   },
   {
     "@context": "https://schema.org",
@@ -175,7 +175,7 @@ export default function GravelGuidePage() {
                 As an explicit planning example, USACE HEC-HMS documents 93
                 lb/ft³ (about 1,490 kg/m³) as a default dry value for sand through
                 gravel and says it should be replaced when another value better
-                matches the watershed. BuildMeasure exposes the value instead of
+                matches the watershed. BuildNumbers exposes the value instead of
                 treating it as a universal gravel density.
               </p>
               <div className="guide-assumption-grid">
@@ -233,7 +233,7 @@ export default function GravelGuidePage() {
             <div className="utility-callout">
               <strong>Need cubic yards, tons, tonnes, and bags in one result?</strong>
               <p>
-                Open the <a href="/gravel-calculator">BuildMeasure Gravel Calculator</a> and replace the example density with supplier data.
+                Open the <a href="/gravel-calculator">BuildNumbers Gravel Calculator</a> and replace the example density with supplier data.
               </p>
             </div>
           </div>
