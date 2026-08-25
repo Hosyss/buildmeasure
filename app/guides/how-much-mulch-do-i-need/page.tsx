@@ -49,8 +49,8 @@ const schema = [
     datePublished: "2026-08-11",
     dateModified: "2026-08-11",
     mainEntityOfPage: absoluteUrl("/guides/how-much-mulch-do-i-need"),
-    author: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/about") },
-    publisher: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/") },
+    author: { "@type": "Organization", name: "JobsiteQuant", url: absoluteUrl("/about") },
+    publisher: { "@type": "Organization", name: "JobsiteQuant", url: absoluteUrl("/") },
   },
   {
     "@context": "https://schema.org",
@@ -231,7 +231,7 @@ export default function MulchGuidePage() {
             <div className="utility-callout">
               <strong>Need cubic yards, liters, coverage, and bags in one result?</strong>
               <p>
-                Open the <a href="/mulch-calculator">BuildMeasure Mulch Calculator</a> and enter the exact package volume.
+                Open the <a href="/mulch-calculator">JobsiteQuant Mulch Calculator</a> and enter the exact package volume.
               </p>
             </div>
           </div>
