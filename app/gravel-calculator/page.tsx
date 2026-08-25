@@ -40,7 +40,7 @@ const faqs = [
   {
     question: "Why can I change gravel density?",
     answer:
-      "Gravel bulk density changes with stone type, grading, moisture, voids, and whether the material is loose or compacted. A fixed universal density would create false precision, so BuildMeasure exposes the value and lets you replace the planning example with supplier or test data.",
+      "Gravel bulk density changes with stone type, grading, moisture, voids, and whether the material is loose or compacted. A fixed universal density would create false precision, so JobsiteQuant exposes the value and lets you replace the planning example with supplier or test data.",
   },
   {
     question: "Should I use loose or compacted bulk density?",
@@ -68,7 +68,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Gravel Calculator",
+    name: "JobsiteQuant Gravel Calculator",
     url: absoluteUrl("/gravel-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
@@ -156,7 +156,7 @@ export default function GravelCalculatorPage() {
             <p className="eyebrow">Transparent by design</p>
             <h2>Gravel volume and weight formula</h2>
             <p>
-              A rectangular gravel layer is a rectangular prism. BuildMeasure
+              A rectangular gravel layer is a rectangular prism. JobsiteQuant
               keeps geometry separate from the material-density assumption so
               you can inspect exactly where volume ends and estimated weight begins.
             </p>
