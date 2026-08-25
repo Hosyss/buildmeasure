@@ -63,7 +63,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Post Hole Concrete Calculator",
+    name: "JobsiteQuant Post Hole Concrete Calculator",
     url: absoluteUrl("/post-hole-concrete-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
