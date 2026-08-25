@@ -1,8 +1,9 @@
-# BuildMeasure agent instructions
+# JobsiteQuant agent instructions
 
-This repository is the durable source of truth for the existing BuildMeasure
-site. Preserve `.openai/hosting.json` and always open the existing site with
-slug `buildmeasure`; never create a replacement site.
+This repository is the durable source of truth for the existing JobsiteQuant
+site. Preserve `.openai/hosting.json` and the existing Sites identity with slug
+`buildmeasure`. The approved Cloudflare rebrand uses `jobsitequant.pages.dev`;
+the previous Pages and Worker hosts remain redirect-only migration origins.
 
 ## Before changing code
 
@@ -29,13 +30,13 @@ SEO, storage, or framework changes also require the checks documented in
   tracking identifiers in analytics.
 - Do not commit secrets, tokens, `.env` files, build output, or dependencies.
 - Keep production canonical URLs on
-  `https://buildmeasuretools.pages.dev` unless a separately verified
+  `https://jobsitequant.pages.dev` unless a separately verified
   domain migration is explicitly approved and completed.
 
 ## Publishing
 
 Publish through a branch and reviewed pull request on GitHub. Deploy only a
-validated commit to the existing Site, then verify the homepage, seven
+validated commit to the existing Site, then verify the homepage, eight
 calculators, `/status`, `/api/health`, `/robots.txt`, `/sitemap.xml`, and
 `/llms.txt` in production. When public content URLs changed, run
 `npm run seo:indexnow` once after the production deployment is verified; never
