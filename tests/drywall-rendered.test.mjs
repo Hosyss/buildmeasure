@@ -30,7 +30,7 @@ test("renders the Drywall Calculator as a complete reference-backed product", as
   assert.match(html, /"@type":"WebApplication"/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /href="\/feedback\?calculator=drywall-calculator"/);
-  assert.match(html, /https:\/\/buildmeasuretools\.pages\.dev\/drywall-calculator/);
+  assert.match(html, /https:\/\/jobsitequant\.pages\.dev\/drywall-calculator/);
 });
 
 test("renders and discovers the drywall guide and guide library", async () => {
@@ -56,13 +56,13 @@ test("renders and discovers the drywall guide and guide library", async () => {
 
   const sitemap = await worker.fetch(new Request("http://localhost/sitemap.xml"), env, ctx);
   const sitemapXml = await sitemap.text();
-  assert.match(sitemapXml, /<loc>https:\/\/buildmeasuretools\.pages\.dev\/drywall-calculator<\/loc>/);
-  assert.match(sitemapXml, /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-drywall-sheets-do-i-need<\/loc>/);
-  assert.match(sitemapXml, /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides<\/loc>/);
+  assert.match(sitemapXml, /<loc>https:\/\/jobsitequant\.pages\.dev\/drywall-calculator<\/loc>/);
+  assert.match(sitemapXml, /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/how-many-drywall-sheets-do-i-need<\/loc>/);
+  assert.match(sitemapXml, /<loc>https:\/\/jobsitequant\.pages\.dev\/guides<\/loc>/);
 
   const llms = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
-  assert.match(llms, /\[Drywall Calculator\]\(https:\/\/buildmeasuretools\.pages\.dev\/drywall-calculator\)/);
-  assert.match(llms, /\[How Many Drywall Sheets Do I Need\?\]\(https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-drywall-sheets-do-i-need\)/);
+  assert.match(llms, /\[Drywall Calculator\]\(https:\/\/jobsitequant\.pages\.dev\/drywall-calculator\)/);
+  assert.match(llms, /\[How Many Drywall Sheets Do I Need\?\]\(https:\/\/jobsitequant\.pages\.dev\/guides\/how-many-drywall-sheets-do-i-need\)/);
 });
 
 test("registers Drywall in feedback and Project Mode", async () => {
