@@ -85,7 +85,7 @@ export function CalculatorCostFields({
             <span>label</span>
           </span>
           <small id={`${errorId}-currency-help`}>
-            Display only. BuildMeasure does not convert currencies or exchange rates.
+            Display only. JobsiteQuant does not convert currencies or exchange rates.
           </small>
         </label>
       </div>
