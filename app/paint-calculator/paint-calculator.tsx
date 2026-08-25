@@ -253,7 +253,7 @@ export function PaintCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure paint estimate",
+      "JobsiteQuant paint estimate",
       resultSummary(calculation.result, unitSystem, form.containerLiters),
       `Paintable area: ${format(displayArea(calculation.result.paintableAreaSquareMeters, unitSystem))} ${unitSystem === "imperial" ? "ft²" : "m²"}`,
       `Coats: ${calculation.result.coats}`,
