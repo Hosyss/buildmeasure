@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const GUIDE_PATH = "/guides/how-many-bags-of-concrete-for-post-holes";
-const GUIDE_URL = `https://buildmeasuretools.pages.dev${GUIDE_PATH}`;
+const GUIDE_URL = `https://buildnumbers.pages.dev${GUIDE_PATH}`;
 
 async function loadWorker(label) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
