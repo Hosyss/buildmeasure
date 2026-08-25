@@ -294,7 +294,7 @@ export function ProjectMode() {
           </label>
           <p className={styles.helper}>
             Projects are saved in this browser. They are not synchronized to an
-            account or sent to BuildMeasure.
+            account or sent to JobsiteQuant.
           </p>
 
           <div className={styles.selectionHead}>
@@ -495,7 +495,7 @@ export function ProjectMode() {
       {printingProject ? (
         <section className={styles.printReport} aria-label="Printable project report">
           <header className={styles.printHeader}>
-            <strong>BuildMeasure</strong>
+            <strong>JobsiteQuant</strong>
             <span>Project report</span>
           </header>
           <div className={styles.printTitle}>
@@ -522,7 +522,7 @@ export function ProjectMode() {
           <div className={styles.printNote}>
             <strong>Estimate note</strong>
             <p>
-              This report is a local snapshot of saved BuildMeasure estimates.
+              This report is a local snapshot of saved JobsiteQuant estimates.
               Verify quantities against project plans, site conditions, product
               coverage, and supplier data before purchasing materials.
             </p>
