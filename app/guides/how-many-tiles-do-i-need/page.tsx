@@ -30,7 +30,7 @@ const faqs = [
   {
     question: "Does grout spacing reduce the tile purchase quantity?",
     answer:
-      "BuildMeasure keeps grout spacing out of the area-based purchase formula. Joint width helps check rows and columns, while the explicit waste allowance handles cut loss without pretending every grid position consumes a new tile.",
+      "BuildNumbers keeps grout spacing out of the area-based purchase formula. Joint width helps check rows and columns, while the explicit waste allowance handles cut loss without pretending every grid position consumes a new tile.",
   },
   {
     question: "Can the formula estimate wall tile?",
@@ -51,12 +51,12 @@ const schema = [
     mainEntityOfPage: absoluteUrl("/guides/how-many-tiles-do-i-need"),
     author: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "BuildNumbers",
       url: absoluteUrl("/about"),
     },
     publisher: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "BuildNumbers",
       url: absoluteUrl("/"),
     },
   },
@@ -254,7 +254,7 @@ export default function TileGuidePage() {
               <h2>Keep grout spacing separate from purchase area</h2>
               <p>
                 TCNA guidance explains that joint choice depends on the tile,
-                variation, edge, substrate, and installation. BuildMeasure uses
+                variation, edge, substrate, and installation. BuildNumbers uses
                 the entered grout joint to compare row-and-column layouts, but
                 it does not subtract joint area from the tile purchase quantity.
                 Cut pieces may be reused, so a grid is not a cutting optimizer.
@@ -290,7 +290,7 @@ export default function TileGuidePage() {
             <div className="utility-callout">
               <strong>Need tiles, boxes, waste, and layout in one result?</strong>
               <p>
-                Open the <a href="/tile-calculator">BuildMeasure Tile Calculator</a> and enter the exact product carton quantity.
+                Open the <a href="/tile-calculator">BuildNumbers Tile Calculator</a> and enter the exact product carton quantity.
               </p>
             </div>
           </div>
