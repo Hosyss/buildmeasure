@@ -1,6 +1,6 @@
 # Cloudflare deployment
 
-BuildMeasure is deployed at `https://buildmeasuretools.pages.dev`
+JobsiteQuant is deployed at `https://jobsitequant.pages.dev`
 with the production D1 binding. The former Workers and original Sites deployments
 remain available only as path-preserving redirects during the migration window.
 Keep both redirects until Search Console accepts the new URL-prefix property and
@@ -31,7 +31,7 @@ the existing `buildmeasure-production` database at runtime as `DB`.
 
 ## Verification before switching search traffic
 
-Verify all of the following on `https://buildmeasuretools.pages.dev`:
+Verify all of the following on `https://jobsitequant.pages.dev`:
 
 - `/`
 - `/concrete-calculator`
