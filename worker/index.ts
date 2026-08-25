@@ -22,8 +22,9 @@ interface ExecutionContext {
 const LEGACY_HOSTNAMES = new Set([
   "buildmeasure.hosys.chatgpt.site",
   "buildmeasure.buildtools.workers.dev",
+  "buildmeasuretools.pages.dev",
 ]);
-const CANONICAL_ORIGIN = "https://buildmeasuretools.pages.dev";
+const CANONICAL_ORIGIN = "https://jobsitequant.pages.dev";
 const GOOGLE_VERIFICATION_PATH = "/google6d67c58ff3b5201c.html";
 const CLARITY_SOURCES = ["https://*.clarity.ms", "https://c.bing.com"];
 
