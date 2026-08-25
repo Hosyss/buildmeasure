@@ -5,6 +5,15 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+### Rebrand
+
+- Rebranded the public product from BuildMeasure to JobsiteQuant after verifying
+  that an unrelated, established calculator site already used the BuildMeasure
+  name and the closely matching `buildmeasuretools.com` domain.
+- Moved canonical, sitemap, robots, structured-data, social, and IndexNow URLs to
+  `https://jobsitequant.pages.dev` while preserving path-and-query redirects from
+  the former Worker, Sites, and `buildmeasuretools.pages.dev` hosts.
+
 ### Added
 
 - Added a reference-backed Drywall Calculator for rectangular room walls and an optional ceiling, with measured openings, exact panel dimensions, explicit waste, unit conversion, device-local history, optional cost, Project Mode, feedback, and privacy-limited analytics wiring.
