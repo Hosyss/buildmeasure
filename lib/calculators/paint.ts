@@ -1,5 +1,5 @@
 /**
- * BuildMeasure rectangular room paint engine.
+ * JobsiteQuant rectangular room paint engine.
  *
  * Formula version: 1.0.0
  * Engine version: 0.1.1
