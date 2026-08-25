@@ -51,12 +51,12 @@ const schema = [
     mainEntityOfPage: absoluteUrl("/guides/how-many-bags-of-concrete"),
     author: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "JobsiteQuant",
       url: absoluteUrl("/about"),
     },
     publisher: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "JobsiteQuant",
       url: absoluteUrl("/"),
     },
   },
@@ -269,7 +269,7 @@ export default function ConcreteBagGuidePage() {
             <div className="utility-callout">
               <strong>Need dimensions, waste, yards, meters, and bags in one result?</strong>
               <p>
-                Open the <a href="/concrete-calculator">BuildMeasure Concrete Calculator for cubic yards and bags</a> and keep the product yield adjustable.
+                Open the <a href="/concrete-calculator">JobsiteQuant Concrete Calculator for cubic yards and bags</a> and keep the product yield adjustable.
               </p>
             </div>
           </div>
