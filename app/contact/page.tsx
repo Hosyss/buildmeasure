@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { UtilityContentPage } from "@/components/utility-content-page";
 
 export const metadata: Metadata = {
-  title: "Contact BuildMeasure",
+  title: "Contact JobsiteQuant",
   description:
-    "Contact BuildMeasure about calculator accuracy, privacy, site feedback, or the open-source project.",
+    "Contact JobsiteQuant about calculator accuracy, privacy, site feedback, or the open-source project.",
   alternates: { canonical: "/contact" },
 };
 
@@ -12,7 +12,7 @@ export default function ContactPage() {
   return (
     <UtilityContentPage
       eyebrow="Contact"
-      title="Get in touch with BuildMeasure"
+      title="Get in touch with JobsiteQuant"
       titleStyle={{ fontSize: "clamp(2.65rem, 6vw, 5rem)" }}
       intro="Use the route that best matches your question so calculation issues, privacy requests, and project feedback reach the right review flow."
     >
@@ -34,16 +34,16 @@ export default function ContactPage() {
 
       <h2>Source code and technical issues</h2>
       <p>
-        BuildMeasure is independently maintained and its source is public. You
+        JobsiteQuant is independently maintained and its source is public. You
         can review the implementation and release history in the{" "}
-        <a href="https://github.com/Hosyss/buildmeasure">BuildMeasure repository</a>.
+        <a href="https://github.com/Hosyss/buildmeasure">JobsiteQuant repository</a>.
         Technical reports can also be filed through the site feedback form so
         they follow the same reproduce, test, fix, and verify process.
       </p>
 
       <h2>Before relying on an estimate</h2>
       <p>
-        BuildMeasure provides planning estimates, not project drawings,
+        JobsiteQuant provides planning estimates, not project drawings,
         structural approval, supplier quotations, or professional advice. Verify
         material quantities against measured site conditions, manufacturer data,
         supplier order increments, local requirements, and a qualified project
@@ -52,7 +52,7 @@ export default function ContactPage() {
 
       <div className="utility-link-row">
         <a className="button button-primary" href="/feedback">Report or ask something</a>
-        <a className="button button-quiet" href="/about">About BuildMeasure</a>
+        <a className="button button-quiet" href="/about">About JobsiteQuant</a>
       </div>
     </UtilityContentPage>
   );
