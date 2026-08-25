@@ -40,7 +40,7 @@ const faqs = [
   {
     question: "How much area does one gallon of paint cover?",
     answer:
-      "Sherwin-Williams says a gallon typically covers about 350 to 400 square feet, but coverage changes with the product, texture, porosity, and application method. BuildMeasure starts at 400 square feet per gallon and lets you replace it with the value on your product label.",
+      "Sherwin-Williams says a gallon typically covers about 350 to 400 square feet, but coverage changes with the product, texture, porosity, and application method. BuildNumbers starts at 400 square feet per gallon and lets you replace it with the value on your product label.",
   },
   {
     question: "Should doors and windows be subtracted?",
@@ -63,7 +63,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Paint Calculator",
+    name: "BuildNumbers Paint Calculator",
     url: absoluteUrl("/paint-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
@@ -165,7 +165,7 @@ export default function PaintCalculatorPage() {
             </div>
             <p>
               Coverage is not universal. Use the spread rate printed on the
-              selected product. BuildMeasure keeps the full calculation
+              selected product. BuildNumbers keeps the full calculation
               unrounded, then rounds only the final container count upward.
             </p>
           </article>
