@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const BRICK_PATH = "/brick-calculator";
-const BRICK_URL = `https://buildmeasuretools.pages.dev${BRICK_PATH}`;
+const BRICK_URL = `https://buildnumbers.pages.dev${BRICK_PATH}`;
 
 async function loadWorker(label) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -42,7 +42,7 @@ test("renders the Brick Calculator with reference-backed scope and structured co
   assert.match(html, /Order 1,021 bricks/);
   assert.match(html, /Optional price per brick/);
   assert.match(html, /No live prices are fetched/);
-  assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);
+  assert.match(html, /BuildNumbers does not convert currencies or exchange rates/);
   assert.match(html, /id="brick-rate-output"/);
   assert.match(html, />675<\/strong>/);
   assert.match(html, /bricks \/ 100 ft²/);
@@ -81,14 +81,14 @@ test("discovers Brick Calculator from public product surfaces", async () => {
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/brick-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/brick-calculator<\/loc>/,
   );
 
   const llmsSource = await readFile(
     new URL("../public/llms.txt", import.meta.url),
     "utf8",
   );
-  assert.match(llmsSource, /\[Brick Calculator\]\(https:\/\/buildmeasuretools\.pages\.dev\/brick-calculator\)/);
+  assert.match(llmsSource, /\[Brick Calculator\]\(https:\/\/buildnumbers\.pages\.dev\/brick-calculator\)/);
   assert.match(llmsSource, /fired-clay brick quantity/);
 });
 
