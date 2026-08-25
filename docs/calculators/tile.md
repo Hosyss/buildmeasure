@@ -68,7 +68,7 @@ aligned orientation.
 
 The grid is a planning aid and is not used as the purchase quantity. Counting
 every grid cell as a new tile can overstate material because installers may
-reuse cut pieces. BuildMeasure uses the explicit waste allowance for cut loss
+reuse cut pieces. JobsiteQuant uses the explicit waste allowance for cut loss
 instead of claiming to solve the cutting-stock problem.
 
 ## Waste assumption
