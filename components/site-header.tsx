@@ -17,13 +17,13 @@ export function SiteHeader({
         </div>
       </div>
       <div className="shell nav-wrap">
-        <a className="brand" href="/" aria-label="BuildMeasure home">
+        <a className="brand" href="/" aria-label="BuildNumbers home">
           <span className="brand-mark" aria-hidden="true">
             <span />
             <span />
             <span />
           </span>
-          <span>BuildMeasure</span>
+          <span>BuildNumbers</span>
         </a>
         <nav className="main-nav" aria-label="Primary navigation">
           <a href="/#calculators">Calculators</a>
