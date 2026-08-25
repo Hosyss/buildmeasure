@@ -26,7 +26,7 @@ test("privacy page documents local projects, analytics, and AdSense disclosures"
   assert.match(html, /Last updated August 22, 2026/);
   assert.match(html, /Saved estimates and projects on this device/);
   assert.match(html, /Project Mode can copy selected saved/);
-  assert.match(html, /not synchronized to an account or sent to BuildMeasure/);
+  assert.match(html, /not synchronized to an account or sent to JobsiteQuant/);
   assert.match(html, /explicitly masks the Project Mode workspace/);
   assert.match(html, /clicking into a calculator from the homepage or a guide/);
   assert.match(html, /cost-feature events record only that the feature was used/);
