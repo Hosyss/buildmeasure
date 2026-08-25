@@ -1,6 +1,6 @@
 # Progress Measurement
 
-BuildMeasure reports two progress figures so a short-term launch target is not
+JobsiteQuant reports two progress figures so a short-term launch target is not
 confused with the multi-year product vision.
 
 ## Launch-ready v1
@@ -29,7 +29,7 @@ or published documentation. A plan or claim does not earn credit.
 - Merge commit: `38fcad44ab803e5167f392547f2b4815301a1885`.
 - Main quality gate: GitHub Actions `31698057960` — **passed**.
 - Verified-source backup: GitHub Actions `31698119121` — **passed**.
-- Cloudflare Production: `https://buildmeasuretools.pages.dev/`.
+- Cloudflare Production: `https://jobsitequant.pages.dev/`.
 - Definitive production smoke: `31699354811`, job `94444463894` — **passed**.
 - Verification covered all seven calculators, all seven focused material guides, health/status/robots/sitemap/llms, a valid analytics POST, exact 360/768/1280 browser widths, homepage Example-estimate semantics, Brick Imperial/Metric/Custom interaction, guide/header CTAs, critical internal destinations, overflow, page errors, and non-analytics same-origin request failures.
 - Earlier temporary production-smoke failures are retained in `docs/AUDITS.md` as QA-harness diagnostics rather than rewritten as successes.
@@ -56,7 +56,7 @@ At the end of this UX-only closure the weighted Launch-ready v1 figure was still
   (`31719529624`, job `94512682405`) and the final `main` quality gate
   (run 222) completed successfully.
 - Production verification at
-  `https://buildmeasuretools.pages.dev/brick-calculator` confirmed the
+  `https://jobsitequant.pages.dev/brick-calculator` confirmed the
   default Metric result remains aligned with Imperial: minimum `972`, allowance
   `49`, and order quantity `1,021`.
 - The existing public legacy Sites deployment was updated in place to redirect
