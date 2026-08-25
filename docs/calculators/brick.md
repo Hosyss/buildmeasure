@@ -62,7 +62,7 @@ engine receives a numeric coverage rate and does not depend on the preset name.
 | Meridian | 4 × 4 × 16 in nominal | 225 |
 | Standard | non-modular Standard designation | 655 |
 
-The BIA table also prints rounded metric rates per 10 m². BuildMeasure stores
+The BIA table also prints rounded metric rates per 10 m². JobsiteQuant stores
 one canonical physical rate from the `brick per 100 ft²` value and converts it
 with the exact square-foot definition so Imperial and Metric descriptions of
 the same wall remain equivalent. The converted display can therefore differ
@@ -133,7 +133,7 @@ this one-wall area estimate does not claim to model that detailing.
 BIA Technical Note 10 states that net brick quantities should be determined
 before allowances are added and gives a general rule of **at least 5%** for
 brick breakage and waste, while noting that job conditions may justify a higher
-percentage. BuildMeasure therefore defaults to 5% but keeps the value explicit
+percentage. JobsiteQuant therefore defaults to 5% but keeps the value explicit
 and editable from 0% to 50%.
 
 ## Known verification vectors
