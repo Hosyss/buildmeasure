@@ -130,7 +130,7 @@ export function DrywallCalculator() {
     if (!calculation.result) return;
     const cost = purchaseCost.result ? `\nEstimated material cost: ${formatPurchaseCost(purchaseCost.result)}` : "";
     try {
-      await navigator.clipboard.writeText(`BuildMeasure drywall estimate\n${summary(calculation.result, unitSystem)}\nNet area: ${format(unitSystem === "imperial" ? calculation.result.netAreaSquareFeet : calculation.result.netAreaSquareMeters)} ${unitSystem === "imperial" ? "ft²" : "m²"}\nAllowance: ${form.wastePercent}%${cost}`);
+      await navigator.clipboard.writeText(`JobsiteQuant drywall estimate\n${summary(calculation.result, unitSystem)}\nNet area: ${format(unitSystem === "imperial" ? calculation.result.netAreaSquareFeet : calculation.result.netAreaSquareMeters)} ${unitSystem === "imperial" ? "ft²" : "m²"}\nAllowance: ${form.wastePercent}%${cost}`);
       setNotice("Estimate copied.");
     } catch { setNotice("Copy is unavailable in this browser."); }
   }
