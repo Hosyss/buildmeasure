@@ -40,11 +40,11 @@ test("contact page is public, canonical, and links to the support flows", async 
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /Get in touch with BuildMeasure/);
+  assert.match(html, /Get in touch with BuildNumbers/);
   assert.match(html, /calculator feedback form/);
   assert.match(html, /Privacy or data request/);
-  assert.match(html, /BuildMeasure repository/);
-  assert.match(html, /rel="canonical" href="https:\/\/buildmeasuretools\.pages\.dev\/contact"/);
+  assert.match(html, /BuildNumbers repository/);
+  assert.match(html, /rel="canonical" href="https:\/\/buildnumbers\.pages\.dev\/contact"/);
 });
 
 test("ads.txt authorizes only the current Google AdSense publisher ID", async () => {
@@ -65,6 +65,6 @@ test("sitemap includes contact and updated privacy pages", async () => {
   const xml = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(xml, /https:\/\/buildmeasuretools\.pages\.dev\/contact/);
+  assert.match(xml, /https:\/\/buildnumbers\.pages\.dev\/contact/);
   assert.match(xml, /<lastmod>2026-08-22T00:00:00\.000Z<\/lastmod>/);
 });
