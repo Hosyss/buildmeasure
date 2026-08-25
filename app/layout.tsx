@@ -7,12 +7,12 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "BuildMeasure — Construction & DIY Calculators",
-    template: "%s | BuildMeasure",
+    default: "BuildNumbers — Construction & DIY Calculators",
+    template: "%s | BuildNumbers",
   },
   description:
     "Reference-backed construction and DIY calculators for concrete, paint, flooring, landscaping, and more.",
-  applicationName: "BuildMeasure",
+  applicationName: "BuildNumbers",
   category: "Construction",
   keywords: [
     "construction calculator",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Hosyss", url: "https://github.com/Hosyss" }],
   creator: "Hosyss",
-  publisher: "BuildMeasure",
+  publisher: "BuildNumbers",
   other: {
     "google-adsense-account": "ca-pub-3369551572403499",
   },
@@ -32,14 +32,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: "BuildMeasure",
-    title: "BuildMeasure — Construction & DIY Calculators",
+    siteName: "BuildNumbers",
+    title: "BuildNumbers — Construction & DIY Calculators",
     description:
       "Transparent, practical material estimates for construction and DIY projects.",
   },
   twitter: {
     card: "summary",
-    title: "BuildMeasure — Construction & DIY Calculators",
+    title: "BuildNumbers — Construction & DIY Calculators",
     description:
       "Transparent, practical material estimates for construction and DIY projects.",
   },
