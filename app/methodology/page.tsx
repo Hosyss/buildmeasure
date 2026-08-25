@@ -4,14 +4,14 @@ import { UtilityContentPage } from "@/components/utility-content-page";
 export const metadata: Metadata = {
   title: "Calculation Methodology & Quality Standard",
   description:
-    "See how BuildMeasure sources formulas, converts units, rounds procurement quantities, tests calculators, and handles defects.",
+    "See how BuildNumbers sources formulas, converts units, rounds procurement quantities, tests calculators, and handles defects.",
   alternates: { canonical: "/methodology" },
 };
 
 export default function MethodologyPage() {
   return (
     <UtilityContentPage
-      eyebrow="The BuildMeasure standard"
+      eyebrow="The BuildNumbers standard"
       title="How every calculator earns trust."
       intro="The interface is not the source of truth. Each result comes from a deterministic calculation engine with documented inputs, references, versions, and repeatable tests."
     >
