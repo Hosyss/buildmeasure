@@ -45,7 +45,7 @@ const faqs = [
   {
     question: "How much extra brick should I allow for waste and breakage?",
     answer:
-      "BIA Technical Note 10 gives at least 5% as a general rule for brick breakage and waste and notes that project conditions or experience may justify a higher percentage. BuildMeasure defaults to 5% but keeps the allowance editable.",
+      "BIA Technical Note 10 gives at least 5% as a general rule for brick breakage and waste and notes that project conditions or experience may justify a higher percentage. JobsiteQuant defaults to 5% but keeps the allowance editable.",
   },
   {
     question: "Can I subtract doors and windows?",
@@ -60,7 +60,7 @@ const faqs = [
   {
     question: "Can I use these presets for concrete brick?",
     answer:
-      "Not as a verified BuildMeasure assumption. BIA states that its Technical Notes are based on fired-clay brick and should not be assumed to apply to concrete, fly-ash, or other non-clay brick products. Use a supplier-specific custom coverage rate only when it is appropriate for the exact product and project.",
+      "Not as a verified JobsiteQuant assumption. BIA states that its Technical Notes are based on fired-clay brick and should not be assumed to apply to concrete, fly-ash, or other non-clay brick products. Use a supplier-specific custom coverage rate only when it is appropriate for the exact product and project.",
   },
 ];
 
@@ -68,7 +68,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Brick Calculator",
+    name: "JobsiteQuant Brick Calculator",
     url: absoluteUrl("/brick-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
@@ -157,7 +157,7 @@ export default function BrickCalculatorPage() {
             <p className="eyebrow">Transparent by design</p>
             <h2>Brick wall quantity formula</h2>
             <p>
-              BuildMeasure follows the Brick Industry Association wall-area
+              JobsiteQuant follows the Brick Industry Association wall-area
               estimating method: find net wall area first, then multiply by a
               known brick quantity per unit area. Waste and breakage are added
               only after the net quantity is known.
