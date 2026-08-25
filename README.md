@@ -1,26 +1,26 @@
-# BuildMeasure
+# JobsiteQuant
 
-BuildMeasure is an English-language construction and DIY calculator platform.
+JobsiteQuant is an English-language construction and DIY calculator platform.
 The product prioritizes transparent formulas, verified unit conversions,
 maintainable calculator engines, accessible interfaces, and search-friendly
 calculator pages.
 
-BuildMeasure is independently built and maintained by
+JobsiteQuant is independently built and maintained by
 [Hosyss](https://github.com/Hosyss). The repository and verified release history
 are public so calculator behavior and release evidence can be inspected.
 
 ## Live site
 
-- [Open BuildMeasure](https://buildmeasuretools.pages.dev/)
-- [Projects](https://buildmeasuretools.pages.dev/projects)
-- [Concrete Calculator](https://buildmeasuretools.pages.dev/concrete-calculator)
-- [Post Hole Concrete Calculator](https://buildmeasuretools.pages.dev/post-hole-concrete-calculator)
-- [Paint Calculator](https://buildmeasuretools.pages.dev/paint-calculator)
-- [Tile Calculator](https://buildmeasuretools.pages.dev/tile-calculator)
-- [Brick Calculator](https://buildmeasuretools.pages.dev/brick-calculator)
-- [Gravel Calculator](https://buildmeasuretools.pages.dev/gravel-calculator)
-- [Mulch Calculator](https://buildmeasuretools.pages.dev/mulch-calculator)
-- [Drywall Calculator](https://buildmeasuretools.pages.dev/drywall-calculator)
+- [Open JobsiteQuant](https://jobsitequant.pages.dev/)
+- [Projects](https://jobsitequant.pages.dev/projects)
+- [Concrete Calculator](https://jobsitequant.pages.dev/concrete-calculator)
+- [Post Hole Concrete Calculator](https://jobsitequant.pages.dev/post-hole-concrete-calculator)
+- [Paint Calculator](https://jobsitequant.pages.dev/paint-calculator)
+- [Tile Calculator](https://jobsitequant.pages.dev/tile-calculator)
+- [Brick Calculator](https://jobsitequant.pages.dev/brick-calculator)
+- [Gravel Calculator](https://jobsitequant.pages.dev/gravel-calculator)
+- [Mulch Calculator](https://jobsitequant.pages.dev/mulch-calculator)
+- [Drywall Calculator](https://jobsitequant.pages.dev/drywall-calculator)
 
 ## Current verified scope
 
@@ -62,7 +62,7 @@ are public so calculator behavior and release evidence can be inspected.
 
 Anything not listed above should be treated as planned, not implemented.
 
-## Download BuildMeasure
+## Download JobsiteQuant
 
 - [Latest verified release](https://github.com/Hosyss/buildmeasure/releases/latest)
   includes the current source ZIP, a full-history Git bundle, and SHA-256
@@ -133,7 +133,7 @@ location when possible. See [the recovery guide](docs/RECOVERY.md) for the
 restore and rollback procedure.
 
 The repository-level `AGENTS.md` keeps future coding agents on the existing
-BuildMeasure Site, preserves the deployment identity, and requires the full
+JobsiteQuant Site, preserves the deployment identity, and requires the full
 quality gate before publishing.
 
 ## Product rule
