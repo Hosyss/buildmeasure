@@ -1,26 +1,26 @@
-# BuildMeasure
+# BuildNumbers
 
-BuildMeasure is an English-language construction and DIY calculator platform.
+BuildNumbers is an English-language construction and DIY calculator platform.
 The product prioritizes transparent formulas, verified unit conversions,
 maintainable calculator engines, accessible interfaces, and search-friendly
 calculator pages.
 
-BuildMeasure is independently built and maintained by
+BuildNumbers is independently built and maintained by
 [Hosyss](https://github.com/Hosyss). The repository and verified release history
 are public so calculator behavior and release evidence can be inspected.
 
 ## Live site
 
-- [Open BuildMeasure](https://buildmeasuretools.pages.dev/)
-- [Projects](https://buildmeasuretools.pages.dev/projects)
-- [Concrete Calculator](https://buildmeasuretools.pages.dev/concrete-calculator)
-- [Post Hole Concrete Calculator](https://buildmeasuretools.pages.dev/post-hole-concrete-calculator)
-- [Paint Calculator](https://buildmeasuretools.pages.dev/paint-calculator)
-- [Tile Calculator](https://buildmeasuretools.pages.dev/tile-calculator)
-- [Brick Calculator](https://buildmeasuretools.pages.dev/brick-calculator)
-- [Gravel Calculator](https://buildmeasuretools.pages.dev/gravel-calculator)
-- [Mulch Calculator](https://buildmeasuretools.pages.dev/mulch-calculator)
-- [Drywall Calculator](https://buildmeasuretools.pages.dev/drywall-calculator)
+- [Open BuildNumbers](https://buildnumbers.pages.dev/)
+- [Projects](https://buildnumbers.pages.dev/projects)
+- [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator)
+- [Post Hole Concrete Calculator](https://buildnumbers.pages.dev/post-hole-concrete-calculator)
+- [Paint Calculator](https://buildnumbers.pages.dev/paint-calculator)
+- [Tile Calculator](https://buildnumbers.pages.dev/tile-calculator)
+- [Brick Calculator](https://buildnumbers.pages.dev/brick-calculator)
+- [Gravel Calculator](https://buildnumbers.pages.dev/gravel-calculator)
+- [Mulch Calculator](https://buildnumbers.pages.dev/mulch-calculator)
+- [Drywall Calculator](https://buildnumbers.pages.dev/drywall-calculator)
 
 ## Current verified scope
 
@@ -62,7 +62,7 @@ are public so calculator behavior and release evidence can be inspected.
 
 Anything not listed above should be treated as planned, not implemented.
 
-## Download BuildMeasure
+## Download BuildNumbers
 
 - [Latest verified release](https://github.com/Hosyss/buildmeasure/releases/latest)
   includes the current source ZIP, a full-history Git bundle, and SHA-256
@@ -133,7 +133,7 @@ location when possible. See [the recovery guide](docs/RECOVERY.md) for the
 restore and rollback procedure.
 
 The repository-level `AGENTS.md` keeps future coding agents on the existing
-BuildMeasure Site, preserves the deployment identity, and requires the full
+BuildNumbers Site, preserves the deployment identity, and requires the full
 quality gate before publishing.
 
 ## Product rule
