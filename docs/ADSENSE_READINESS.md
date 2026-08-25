@@ -1,8 +1,8 @@
-# BuildMeasure AdSense readiness gate
+# JobsiteQuant AdSense readiness gate
 
 Last reviewed: 2026-08-25
 
-This document is the release gate for submitting BuildMeasure to Google AdSense and for enabling ads after approval.
+This document is the release gate for submitting JobsiteQuant to Google AdSense and for enabling ads after approval.
 
 ## Current readiness
 
@@ -18,9 +18,9 @@ This document is the release gate for submitting BuildMeasure to Google AdSense 
 
 Do **not** request the final AdSense review until the submitted site URL is accepted by AdSense and matches the canonical production host.
 
-The production host is `buildmeasuretools.pages.dev`, a single Pages project
+The production host is `jobsitequant.pages.dev`, a single Pages project
 hostname that the AdSense Sites UI accepts. Submit that exact hostname. The
-former `buildmeasure.buildtools.workers.dev` and Sites host must return permanent
+former `buildmeasuretools.pages.dev`, `buildmeasure.buildtools.workers.dev`, and Sites hosts must return permanent
 path-preserving redirects to the Pages origin before requesting review.
 
 Do not change canonicals to a domain that is not already live and serving the same content.
@@ -61,5 +61,5 @@ After ads are enabled:
 - verify `ads.txt` is reachable from the approved site root;
 - verify no console/page errors are introduced by ad code;
 - verify calculator input latency and layout stability remain acceptable on mobile;
-- rerun the normal BuildMeasure quality gate and responsive browser QA;
+- rerun the normal JobsiteQuant quality gate and responsive browser QA;
 - inspect real production pages rather than relying only on local build output.
