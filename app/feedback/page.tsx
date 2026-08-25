@@ -10,7 +10,7 @@ import {
 export const metadata: Metadata = {
   title: "Report a Calculator Issue",
   description:
-    "Report a calculation, conversion, usability, or documentation issue to BuildMeasure.",
+    "Report a calculation, conversion, usability, or documentation issue to JobsiteQuant.",
   alternates: { canonical: "/feedback" },
   robots: { index: false, follow: true },
 };
@@ -35,7 +35,7 @@ export default async function FeedbackPage({
               <p className="eyebrow">Accuracy feedback</p>
               <h1>Report a calculator issue</h1>
               <p>
-                Tell us exactly what you entered, what BuildMeasure returned, and
+                Tell us exactly what you entered, what JobsiteQuant returned, and
                 what looked wrong. Every confirmed calculation defect gets a
                 regression test before it is fixed.
               </p>
