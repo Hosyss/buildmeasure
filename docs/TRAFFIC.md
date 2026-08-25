@@ -1,6 +1,6 @@
 # Traffic and search operations
 
-BuildMeasure is technically crawlable, but crawlability does not guarantee
+JobsiteQuant is technically crawlable, but crawlability does not guarantee
 rankings or visitors. Search growth requires useful query-targeted pages,
 indexing, external discovery, and enough time for search engines to evaluate
 the site.
