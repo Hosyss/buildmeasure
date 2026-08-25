@@ -96,7 +96,7 @@ test("formats and removes saved projects without exposing storage internals", ()
   };
   const text = formatSavedProject(project);
 
-  assert.match(text, /^BuildMeasure project: Kitchen/m);
+  assert.match(text, /^BuildNumbers project: Kitchen/m);
   assert.match(text, /Concrete: 10 × 10 × 4 ft \/ in/);
   assert.match(text, /Paint: 12 × 10 × 8 ft/);
   assert.doesNotMatch(text, /buildmeasure\./);
