@@ -151,7 +151,7 @@ export function ConcreteCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure concrete estimate",
+      "JobsiteQuant concrete estimate",
       resultSummary(calculation.result),
       `Net volume: ${format(calculation.result.netCubicMeters)} m³`,
       `Waste allowance: ${format(calculation.result.wastePercent)}%`,
