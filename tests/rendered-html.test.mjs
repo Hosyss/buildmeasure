@@ -17,6 +17,7 @@ test("redirects legacy production hosts to the canonical Pages origin", async ()
   for (const hostname of [
     "buildmeasure.hosys.chatgpt.site",
     "buildmeasure.buildtools.workers.dev",
+    "buildmeasuretools.pages.dev",
   ]) {
     const response = await worker.fetch(
       new Request(
@@ -32,7 +33,7 @@ test("redirects legacy production hosts to the canonical Pages origin", async ()
     assert.equal(response.status, 301);
     assert.equal(
       response.headers.get("location"),
-      "https://buildmeasuretools.pages.dev/concrete-calculator?system=metric",
+      "https://jobsitequant.pages.dev/concrete-calculator?system=metric",
     );
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   }
@@ -231,7 +232,7 @@ test("renders the concrete calculator route and structured content", async () =>
   assert.match(html, /href="\/feedback\?calculator=concrete-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/concrete-calculator/,
+    /https:\/\/jobsitequant\.pages\.dev\/concrete-calculator/,
   );
 });
 
@@ -257,7 +258,7 @@ test("renders the post-hole concrete calculator route and structured content", a
   assert.match(html, /href="\/feedback\?calculator=post-hole-concrete-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/post-hole-concrete-calculator/,
+    /https:\/\/jobsitequant\.pages\.dev\/post-hole-concrete-calculator/,
   );
 });
 
@@ -289,7 +290,7 @@ test("renders the paint calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=paint-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/paint-calculator/,
+    /https:\/\/jobsitequant\.pages\.dev\/paint-calculator/,
   );
 });
 
@@ -321,7 +322,7 @@ test("renders the tile calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=tile-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/tile-calculator/,
+    /https:\/\/jobsitequant\.pages\.dev\/tile-calculator/,
   );
 });
 
@@ -353,7 +354,7 @@ test("renders the gravel calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=gravel-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/gravel-calculator/,
+    /https:\/\/jobsitequant\.pages\.dev\/gravel-calculator/,
   );
 });
 
@@ -385,7 +386,7 @@ test("renders the mulch calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=mulch-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/mulch-calculator/,
+    /https:\/\/jobsitequant\.pages\.dev\/mulch-calculator/,
   );
 });
 
@@ -446,7 +447,7 @@ test("renders the launch trust and estimating content", async () => {
     const html = await response.text();
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
-    assert.match(html, new RegExp(`https://buildmeasuretools\\.pages\\.dev${path.replaceAll("/", "\\/")}`));
+    assert.match(html, new RegExp(`https://jobsitequant\\.pages\\.dev${path.replaceAll("/", "\\/")}`));
 
     if (path === "/about") {
       assert.match(html, /independently developed calculator project/);
@@ -484,65 +485,65 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     robots,
-    /Sitemap: https:\/\/buildmeasuretools\.pages\.dev\/sitemap\.xml/,
+    /Sitemap: https:\/\/jobsitequant\.pages\.dev\/sitemap\.xml/,
   );
   assert.match(robots, /Disallow: \/api\//);
   assert.match(robots, /Disallow: \/feedback\/inbox/);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/concrete-calculator<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/concrete-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/post-hole-concrete-calculator<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/post-hole-concrete-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/paint-calculator<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/paint-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/tile-calculator<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/tile-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/gravel-calculator<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/gravel-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/mulch-calculator<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/mulch-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/material-estimating-basics<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/material-estimating-basics<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-bags-of-concrete<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/how-many-bags-of-concrete<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/methodology<\/loc>/,
+    /<loc>https:\/\/jobsitequant\.pages\.dev\/methodology<\/loc>/,
   );
 });
 
@@ -562,7 +563,7 @@ test("serves a concise machine-readable site guide", async () => {
           const url = new URL(request.url);
           if (url.pathname === "/llms.txt") {
             return new Response(
-              "# BuildMeasure\n\nCanonical site: https://buildmeasuretools.pages.dev/\n",
+              "# JobsiteQuant\n\nCanonical site: https://jobsitequant.pages.dev/\n",
               { headers: { "content-type": "text/plain; charset=utf-8" } },
             );
           }
@@ -576,8 +577,8 @@ test("serves a concise machine-readable site guide", async () => {
 
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
-  assert.match(body, /# BuildMeasure/);
-  assert.match(body, /https:\/\/buildmeasuretools\.pages\.dev\//);
+  assert.match(body, /# JobsiteQuant/);
+  assert.match(body, /https:\/\/jobsitequant\.pages\.dev\//);
   assert.match(llmsSource, /guides\/how-much-paint-do-i-need/);
   assert.match(llmsSource, /guides\/how-many-tiles-do-i-need/);
   assert.match(llmsSource, /guides\/how-much-gravel-do-i-need/);
@@ -635,7 +636,7 @@ test("renders optional package cost fields on every live calculator", async () =
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
     assert.match(html, /No live prices are fetched/);
-    assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);
+    assert.match(html, /JobsiteQuant does not convert currencies or exchange rates/);
   }
 });
 
