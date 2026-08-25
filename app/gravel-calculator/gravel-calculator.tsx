@@ -189,7 +189,7 @@ export function GravelCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure gravel estimate",
+      "JobsiteQuant gravel estimate",
       resultSummary(calculation.result, unitSystem),
       `Net volume: ${format(calculation.result.netCubicMeters, 3)} m³`,
       `Allowance: ${format(calculation.result.wastePercent)}%`,
