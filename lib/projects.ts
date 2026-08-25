@@ -250,7 +250,7 @@ export function formatSavedProject(project: SavedProject) {
   });
 
   return [
-    `BuildMeasure project: ${project.name}`,
+    `BuildNumbers project: ${project.name}`,
     `${project.items.length} saved estimate${project.items.length === 1 ? "" : "s"}`,
     "",
     ...lines,
