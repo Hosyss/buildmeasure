@@ -4,7 +4,7 @@ import { UtilityContentPage } from "@/components/utility-content-page";
 export const metadata: Metadata = {
   title: "Terms of Use & Estimating Disclaimer",
   description:
-    "The terms, limitations, and user responsibilities that apply to BuildMeasure estimates.",
+    "The terms, limitations, and user responsibilities that apply to JobsiteQuant estimates.",
   alternates: { canonical: "/terms" },
 };
 
@@ -13,11 +13,11 @@ export default function TermsPage() {
     <UtilityContentPage
       eyebrow="Last updated August 1, 2026"
       title="Terms of use and estimating disclaimer"
-      intro="BuildMeasure provides planning estimates. Using a calculator does not create project drawings, a supplier quotation, or professional approval."
+      intro="JobsiteQuant provides planning estimates. Using a calculator does not create project drawings, a supplier quotation, or professional approval."
     >
       <h2>Planning use</h2>
       <p>
-        BuildMeasure may be used to estimate material quantities for personal,
+        JobsiteQuant may be used to estimate material quantities for personal,
         educational, construction, and DIY planning. You are responsible for the
         accuracy, units, and suitability of every value you enter.
       </p>
@@ -34,7 +34,7 @@ export default function TermsPage() {
       <h2>Visible assumptions are still assumptions</h2>
       <p>
         Waste percentages, coverage rates, bulk density, bag volume, bag weight,
-        and package size can vary. BuildMeasure exposes these inputs so they can
+        and package size can vary. JobsiteQuant exposes these inputs so they can
         be replaced with project- and product-specific values; it cannot verify
         those values for you.
       </p>
@@ -60,7 +60,7 @@ export default function TermsPage() {
       <p>
         Calculators, formulas, references, and these terms may be updated as the
         product develops. Material formula changes are versioned and tested under
-        the published <a href="/methodology">BuildMeasure methodology</a>.
+        the published <a href="/methodology">JobsiteQuant methodology</a>.
       </p>
     </UtilityContentPage>
   );
