@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "BuildMeasure",
+  name: "BuildNumbers",
   url: absoluteUrl("/"),
   description:
     "Reference-backed construction and DIY calculators with transparent formulas and visible assumptions.",
@@ -121,7 +121,7 @@ export default function Home() {
                   Browse calculators
                 </a>
               </div>
-              <ul className="trust-row" aria-label="BuildMeasure quality commitments">
+              <ul className="trust-row" aria-label="BuildNumbers quality commitments">
                 <li><CheckIcon /> Reference-backed</li>
                 <li><CheckIcon /> Tested engine</li>
                 <li><CheckIcon /> No sign-up</li>
@@ -219,7 +219,7 @@ export default function Home() {
         <section className="standards-section" id="standards">
           <div className="shell standards-grid">
             <div>
-              <p className="eyebrow eyebrow-light">The BuildMeasure standard</p>
+              <p className="eyebrow eyebrow-light">The BuildNumbers standard</p>
               <h2>Accuracy is a feature.</h2>
               <p className="standards-lede">
                 Useful estimates begin with visible assumptions. We publish how
