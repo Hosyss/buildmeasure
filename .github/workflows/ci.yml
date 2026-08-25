@@ -1,4 +1,4 @@
-name: BuildMeasure quality gate
+name: JobsiteQuant quality gate
 
 on:
   push:
