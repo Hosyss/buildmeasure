@@ -45,7 +45,7 @@ const faqs = [
   {
     question: "Does grout-joint width reduce the number of tiles to buy?",
     answer:
-      "BuildMeasure does not subtract grout area from the purchase quantity. Tile is sold by its face coverage, and a transparent waste allowance handles cuts and loss. Joint width is used only for the row-and-column layout check.",
+      "JobsiteQuant does not subtract grout area from the purchase quantity. Tile is sold by its face coverage, and a transparent waste allowance handles cuts and loss. Joint width is used only for the row-and-column layout check.",
   },
   {
     question: "What does automatic orientation do?",
@@ -63,7 +63,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Tile Calculator",
+    name: "JobsiteQuant Tile Calculator",
     url: absoluteUrl("/tile-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
