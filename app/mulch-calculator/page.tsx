@@ -55,7 +55,7 @@ const faqs = [
   {
     question: "Should I estimate mulch by weight or volume?",
     answer:
-      "Mulch bags and bulk deliveries are commonly labeled by volume. BuildMeasure therefore uses the exact bag volume or bulk volume without inventing a density that may change with mulch type, particle size, and moisture.",
+      "Mulch bags and bulk deliveries are commonly labeled by volume. JobsiteQuant therefore uses the exact bag volume or bulk volume without inventing a density that may change with mulch type, particle size, and moisture.",
   },
   {
     question: "Can I use metric measurements?",
@@ -68,7 +68,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Mulch Calculator",
+    name: "JobsiteQuant Mulch Calculator",
     url: absoluteUrl("/mulch-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
@@ -157,7 +157,7 @@ export default function MulchCalculatorPage() {
             <h2>Mulch volume and bag formula</h2>
             <p>
               A rectangular mulch bed is a shallow rectangular prism.
-              BuildMeasure calculates its geometric volume first, then keeps
+              JobsiteQuant calculates its geometric volume first, then keeps
               your project allowance and package size visible.
             </p>
             <div className="formula-block">
