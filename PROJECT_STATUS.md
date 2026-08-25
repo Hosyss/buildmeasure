@@ -1,4 +1,4 @@
-# BuildMeasure — Persistent Project Status
+# JobsiteQuant — Persistent Project Status
 
 > آخر تحديث موثّق: **2026-08-20 (Africa/Cairo)**
 >
@@ -9,7 +9,7 @@
 - المستودع الرسمي: https://github.com/Hosyss/buildmeasure
 - فرع الإنتاج: `main`
 - أحدث `main` عند بدء دفعة الصيانة الحالية: `134d6d7f6eb73d833a18e40f9cfebbdc0fe7d861`
-- رابط الإنتاج الحالي: https://buildmeasuretools.pages.dev
+- رابط الإنتاج الحالي: https://jobsitequant.pages.dev
 - هذا الرابط هو الأصل الحالي المؤقت/التشغيلي، وليس نطاق علامة تجارية نهائيًا مستقلًا.
 - الرابط القديم الذي يجب الحفاظ على تحويله ومساره واستعلامه: https://buildmeasure.hosys.chatgpt.site
 - قاعدة Cloudflare D1 الحالية: `buildmeasure-production`
@@ -18,7 +18,7 @@
 
 ## نطاق المنتج المتحقق في المصدر
 
-BuildMeasure يحتوي حاليًا على **8 حاسبات عامة**:
+JobsiteQuant يحتوي حاليًا على **8 حاسبات عامة**:
 
 1. Concrete Calculator
 2. Post Hole Concrete Calculator
