@@ -45,4 +45,4 @@ git bundle verify "$history_bundle"
     > "$(basename "$checksum_manifest")"
 )
 
-echo "Created verified BuildMeasure ${version} backups in ${output_dir}"
+echo "Created verified JobsiteQuant ${version} backups in ${output_dir}"
