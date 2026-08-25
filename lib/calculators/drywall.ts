@@ -1,5 +1,5 @@
 /**
- * BuildMeasure rectangular-room drywall sheet quantity engine.
+ * JobsiteQuant rectangular-room drywall sheet quantity engine.
  *
  * Formula version: 1.0.0
  * Engine version: 0.1.0
