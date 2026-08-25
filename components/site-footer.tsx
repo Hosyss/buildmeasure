@@ -11,7 +11,7 @@ export function SiteFooter() {
               <span />
               <span />
             </span>
-            <span>BuildMeasure</span>
+            <span>JobsiteQuant</span>
           </a>
           <p>Clear calculations for better-built projects.</p>
         </div>
@@ -42,7 +42,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>© 2026 BuildMeasure · Independently maintained by Hosyss</span>
+        <span>© 2026 JobsiteQuant · Independently maintained by Hosyss</span>
         <span>Estimates should be verified against project plans and supplier data.</span>
       </div>
     </footer>
