@@ -1,4 +1,4 @@
-name: BuildMeasure quality gate
+name: BuildNumbers quality gate
 
 on:
   push:
