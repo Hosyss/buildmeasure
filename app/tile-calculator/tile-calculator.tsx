@@ -209,7 +209,7 @@ export function TileCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure tile estimate",
+      "BuildNumbers tile estimate",
       resultSummary(calculation.result),
       `Surface area: ${format(displayArea(calculation.result.surfaceAreaSquareMeters, unitSystem))} ${areaUnit}`,
       `Tiles with ${format(calculation.result.wastePercent)}% waste: ${calculation.result.orderTileCount}`,
