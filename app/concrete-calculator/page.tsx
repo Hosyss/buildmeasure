@@ -63,7 +63,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "BuildMeasure Concrete Calculator",
+    name: "JobsiteQuant Concrete Calculator",
     url: absoluteUrl("/concrete-calculator"),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
