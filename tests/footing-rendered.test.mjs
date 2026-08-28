@@ -51,6 +51,16 @@ test("renders the footing concrete guide with a calculator link and structural s
   );
 });
 
+test("homepage surfaces the Footing Calculator and its guide", async () => {
+  const { response, html } = await render("/", "footing-homepage");
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Footing Concrete Calculator/);
+  assert.match(html, /href="\/footing-calculator"/);
+  assert.match(html, /href="\/guides\/how-much-concrete-for-footings"/);
+  assert.match(html, /Foundations/);
+});
+
 test("exposes footing routes through guide library, sitemap, footer, and llms", async () => {
   const guideLibrary = await render("/guides", "footing-library");
   assert.equal(guideLibrary.response.status, 200);
