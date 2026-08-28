@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CheckIcon } from "@/components/icons";
+import { ProjectCostSummaryPanel } from "@/components/project-cost-summary-panel";
 import { ProjectMode } from "@/components/project-mode";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -51,6 +52,7 @@ export default function ProjectsPage() {
 
       <section className="shell calculator-main-section" data-clarity-mask="true">
         <ProjectMode />
+        <ProjectCostSummaryPanel />
       </section>
 
       <SiteFooter />
