@@ -1,5 +1,6 @@
 import { countRecentFeedback, insertFeedback } from "@/db/feedback";
 import { validateFeedbackPayload } from "@/lib/feedback";
+import { readBoundedJson } from "@/lib/request-body";
 
 export const dynamic = "force-dynamic";
 
@@ -22,19 +23,14 @@ export async function POST(request: Request) {
     return json({ error: "Submit the feedback form again." }, 415);
   }
 
-  const contentLength = Number(request.headers.get("content-length") ?? 0);
-  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
-    return json({ error: "This report is too large to submit." }, 413);
+  const body = await readBoundedJson(request, MAX_REQUEST_BYTES);
+  if (!body.ok) {
+    return body.reason === "too_large"
+      ? json({ error: "This report is too large to submit." }, 413)
+      : json({ error: "Submit the feedback form again." }, 400);
   }
 
-  let payload: unknown;
-  try {
-    payload = await request.json();
-  } catch {
-    return json({ error: "Submit the feedback form again." }, 400);
-  }
-
-  const validation = validateFeedbackPayload(payload);
+  const validation = validateFeedbackPayload(body.value);
   if (!validation.ok) {
     return json({ error: validation.error }, 400);
   }
