@@ -8,6 +8,10 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 import {
+  buildProjectCostSummary,
+  formatProjectCostGroup,
+} from "@/lib/project-cost-summary";
+import {
   addSavedProject,
   buildProjectShoppingList,
   collectAvailableProjectEstimates,
@@ -117,7 +121,6 @@ function formatProjectDate(iso: string) {
   }
 }
 
-
 function ProjectShoppingList({
   project,
   printable = false,
@@ -160,6 +163,91 @@ function ProjectShoppingList({
           );
         })}
       </ul>
+    </section>
+  );
+}
+
+function ProjectCostSummaryBlock({
+  project,
+  printable = false,
+}: {
+  project: SavedProject;
+  printable?: boolean;
+}) {
+  let summary;
+
+  try {
+    summary = buildProjectCostSummary(project);
+  } catch {
+    return (
+      <section
+        className={printable ? styles.printShopping : styles.shopping}
+        aria-label="Cost summary"
+      >
+        <div className={styles.shoppingHead}>
+          <div>
+            <p className="panel-kicker">Cost summary</p>
+            <h4>Estimated material cost</h4>
+          </div>
+        </div>
+        <p className={styles.empty} role="alert">
+          The saved totals exceed the safe numeric range, so BuildNumbers will
+          not display an aggregate cost.
+        </p>
+      </section>
+    );
+  }
+
+  if (!summary.purchaseLineCount) return null;
+
+  return (
+    <section
+      className={printable ? styles.printShopping : styles.shopping}
+      aria-label="Cost summary"
+    >
+      <div className={styles.shoppingHead}>
+        <div>
+          <p className="panel-kicker">Cost summary</p>
+          <h4>Estimated material cost</h4>
+        </div>
+        {!printable ? (
+          <span className={styles.sourceCount}>
+            {summary.pricedLineCount} priced / {summary.purchaseLineCount} lines
+          </span>
+        ) : null}
+      </div>
+
+      {summary.groups.length ? (
+        <ul className={styles.shoppingList}>
+          {summary.groups.map((group) => (
+            <li key={group.currencyLabel}>
+              <span>
+                <strong>{group.currencyLabel}</strong>
+                <small>
+                  {group.pricedLineCount} priced line
+                  {group.pricedLineCount === 1 ? "" : "s"}; exact saved currency
+                  label
+                </small>
+              </span>
+              <b>{formatProjectCostGroup(group)}</b>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className={styles.empty}>No saved prices are available for this project yet.</p>
+      )}
+
+      {summary.unpricedLineCount > 0 ? (
+        <p className={styles.helper}>
+          {summary.unpricedLineCount} purchase line
+          {summary.unpricedLineCount === 1 ? " is" : "s are"} excluded because no
+          price was saved with the estimate.
+        </p>
+      ) : null}
+      <p className={styles.helper}>
+        Currency labels are never combined or converted. BuildNumbers does not
+        infer exchange rates.
+      </p>
     </section>
   );
 }
@@ -423,9 +511,10 @@ export function ProjectMode() {
             <h2 id="saved-projects-title">Saved projects</h2>
             <p className={styles.savedHelp}>
               Print one project or use your browser&apos;s print dialog to save it as
-              a PDF. Shopping lists use structured purchase quantities from newly
-              saved estimates; older snapshots stay readable and are never parsed
-              to invent quantities.
+              a PDF. Shopping lists and cost summaries use structured purchase
+              data from newly saved estimates; older snapshots stay readable and
+              are never parsed to invent quantities or prices. Currency labels
+              remain separate exactly as saved and are never converted.
             </p>
           </div>
           <span className="status-pill">Up to 10</span>
@@ -457,6 +546,7 @@ export function ProjectMode() {
                   })}
                 </ul>
                 <ProjectShoppingList project={project} />
+                <ProjectCostSummaryBlock project={project} />
                 <div className={styles.cardActions}>
                   <button
                     type="button"
@@ -519,12 +609,14 @@ export function ProjectMode() {
             })}
           </ul>
           <ProjectShoppingList project={printingProject} printable />
+          <ProjectCostSummaryBlock project={printingProject} printable />
           <div className={styles.printNote}>
             <strong>Estimate note</strong>
             <p>
               This report is a local snapshot of saved BuildNumbers estimates.
-              Verify quantities against project plans, site conditions, product
-              coverage, and supplier data before purchasing materials.
+              Verify quantities, optional prices, currency labels, project plans,
+              site conditions, product coverage, and supplier data before
+              purchasing materials.
             </p>
           </div>
         </section>
