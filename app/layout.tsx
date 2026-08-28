@@ -3,6 +3,7 @@ import { AnalyticsTracker } from "@/components/analytics-tracker";
 import { ClarityConsent } from "@/components/clarity-consent";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
+import "./professional.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
