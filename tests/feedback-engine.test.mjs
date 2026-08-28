@@ -50,6 +50,16 @@ test("accepts the Column Calculator as a first-class feedback target", () => {
   if (result.ok) assert.equal(result.value.calculator, "column-calculator");
 });
 
+test("accepts the Concrete Wall Calculator as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "wall-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "wall-calculator");
+});
+
 test("rejects unknown calculators and categories", () => {
   assert.equal(
     validateFeedbackPayload(validPayload({ calculator: "roofing-calculator" }), now).ok,
