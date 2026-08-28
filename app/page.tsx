@@ -33,6 +33,13 @@ const calculators = [
     tag: "Most popular",
   },
   {
+    name: "Footing Concrete Calculator",
+    description: "Estimate concrete volume and complete bags for identical rectangular footings.",
+    href: "/footing-calculator",
+    status: "Live",
+    tag: "Foundations",
+  },
+  {
     name: "Post Hole Concrete Calculator",
     description: "Estimate concrete volume and complete bags for multiple round post holes.",
     href: "/post-hole-concrete-calculator",
@@ -253,6 +260,12 @@ export default function Home() {
               <h3>How much concrete do I need for a slab?</h3>
               <p>Convert slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
               <strong>Calculate slab yards and bags <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-much-concrete-for-footings">
+              <span>Footing concrete guide</span>
+              <h3>How much concrete do I need for footings?</h3>
+              <p>Turn measured rectangular footing dimensions into total volume and complete bags without guessing structural footing size.</p>
+              <strong>Plan footing concrete <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-many-bags-of-concrete-for-post-holes">
               <span>Post-hole concrete guide</span>
