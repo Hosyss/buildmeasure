@@ -11,6 +11,7 @@ export const PROJECT_LIMIT = 10;
 
 export type ProjectCalculatorId =
   | "concrete"
+  | "footing"
   | "post-hole-concrete"
   | "paint"
   | "tile"
@@ -32,6 +33,12 @@ export const PROJECT_HISTORY_SOURCES: readonly ProjectHistorySource[] = [
     label: "Concrete",
     href: "/concrete-calculator",
     storageKey: "buildmeasure.concrete.history.v1",
+  },
+  {
+    id: "footing",
+    label: "Footing concrete",
+    href: "/footing-calculator",
+    storageKey: "buildmeasure.footing.history.v1",
   },
   {
     id: "post-hole-concrete",
