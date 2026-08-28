@@ -30,6 +30,16 @@ test("accepts a bounded anonymous calculator report", () => {
   }
 });
 
+test("accepts the Circular Slab Calculator as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "circular-slab-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "circular-slab-calculator");
+});
+
 test("accepts the Footing Calculator as a first-class feedback target", () => {
   const result = validateFeedbackPayload(
     validPayload({ calculator: "footing-calculator" }),
