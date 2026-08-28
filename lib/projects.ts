@@ -11,6 +11,7 @@ export const PROJECT_LIMIT = 10;
 
 export type ProjectCalculatorId =
   | "concrete"
+  | "circular-slab"
   | "footing"
   | "column"
   | "wall"
@@ -35,6 +36,12 @@ export const PROJECT_HISTORY_SOURCES: readonly ProjectHistorySource[] = [
     label: "Concrete",
     href: "/concrete-calculator",
     storageKey: "buildmeasure.concrete.history.v1",
+  },
+  {
+    id: "circular-slab",
+    label: "Circular slab concrete",
+    href: "/circular-slab-calculator",
+    storageKey: "buildmeasure.circular-slab.history.v1",
   },
   {
     id: "footing",
