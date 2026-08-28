@@ -14,6 +14,7 @@ are public so calculator behavior and release evidence can be inspected.
 - [Open BuildNumbers](https://buildnumbers.pages.dev/)
 - [Projects](https://buildnumbers.pages.dev/projects)
 - [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator)
+- [Circular Slab Concrete Calculator](https://buildnumbers.pages.dev/circular-slab-calculator)
 - [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator)
 - [Column Concrete Calculator](https://buildnumbers.pages.dev/column-calculator)
 - [Concrete Wall Calculator](https://buildnumbers.pages.dev/wall-calculator)
@@ -28,7 +29,8 @@ are public so calculator behavior and release evidence can be inspected.
 ## Current verified scope
 
 - Responsive product homepage.
-- Concrete slab calculator.
+- Rectangular concrete slab calculator.
+- Full circular slab/pad concrete quantity calculator from diameter and actual depth, with identical-pour quantity, explicit allowance, and final-project bag rounding but no structural thickness or reinforcement assumptions.
 - Rectangular footing concrete quantity calculator for one or more identical footings, with explicit allowance and final-project bag rounding but no structural sizing assumptions.
 - Rectangular/square and circular column concrete quantity calculator for one or more identical columns, with explicit allowance and final-project bag rounding but no structural sizing, reinforcement, load, or code assumptions.
 - Rectangular concrete wall quantity calculator with measured full-depth opening subtraction, repeated-wall quantity, explicit allowance, and final-project bag rounding but no structural or retaining-wall design assumptions.
@@ -43,11 +45,11 @@ are public so calculator behavior and release evidence can be inspected.
 - Ready-mix volume and 40/60/80 lb bag estimates.
 - Adjustable waste allowance.
 - Copy, print, reset, and device-local save/history actions on calculators.
-- Local-first Project Mode for grouping saved estimates from all eleven calculators into named projects stored only in the current browser.
+- Local-first Project Mode for grouping saved estimates from all twelve calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
-- Pure, versioned concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
+- Pure, versioned concrete, circular slab concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
 - Calculator metadata, FAQ, breadcrumb, and WebApplication structured data.
@@ -94,6 +96,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Concrete calculator specification](docs/calculators/concrete.md)
+- [Circular slab calculator specification](docs/calculators/circular-slab.md)
 - [Footing concrete calculator specification](docs/calculators/footing.md)
 - [Column concrete calculator specification](docs/calculators/column.md)
 - [Concrete wall calculator specification](docs/calculators/wall.md)
