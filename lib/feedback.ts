@@ -2,6 +2,7 @@ export const FEEDBACK_CALCULATORS = [
   ["concrete-calculator", "Concrete Calculator"],
   ["footing-calculator", "Footing Concrete Calculator"],
   ["column-calculator", "Column Concrete Calculator"],
+  ["wall-calculator", "Concrete Wall Calculator"],
   ["post-hole-concrete-calculator", "Post Hole Concrete Calculator"],
   ["paint-calculator", "Paint Calculator"],
   ["tile-calculator", "Tile Calculator"],
