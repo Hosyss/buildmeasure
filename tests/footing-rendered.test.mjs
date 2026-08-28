@@ -52,7 +52,7 @@ test("renders the footing concrete guide with a calculator link and structural s
   );
 });
 
-test("homepage and About surface Footing as the ninth live calculator", async () => {
+test("homepage and About continue to surface Footing after the library expands", async () => {
   const home = await render("/", "footing-homepage");
 
   assert.equal(home.response.status, 200);
@@ -63,7 +63,9 @@ test("homepage and About surface Footing as the ninth live calculator", async ()
 
   const about = await render("/about", "footing-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides nine live calculators/i);
+  assert.match(about.html, /ten live calculators/i);
+  assert.match(about.html, /nine live calculators/i);
+  assert.match(about.html, /eight live calculators/i);
   assert.match(about.html, /rectangular concrete footings/i);
 });
 
@@ -71,7 +73,7 @@ test("exposes footing routes through guide library, sitemap, footer, and llms", 
   const guideLibrary = await render("/guides", "footing-library");
   assert.equal(guideLibrary.response.status, 200);
   assert.match(guideLibrary.html, /href="\/guides\/how-much-concrete-for-footings"/);
-  assert.match(guideLibrary.html, /Nine focused guides/);
+  assert.match(guideLibrary.html, /Ten focused guides/);
   assert.match(guideLibrary.html, /href="\/footing-calculator"/);
 
   const worker = await loadWorker("footing-discovery");

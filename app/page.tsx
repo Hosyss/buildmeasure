@@ -40,6 +40,13 @@ const calculators = [
     tag: "Foundations",
   },
   {
+    name: "Column Concrete Calculator",
+    description: "Estimate concrete for square, rectangular, or circular columns from actual project dimensions.",
+    href: "/column-calculator",
+    status: "Live",
+    tag: "Structural concrete",
+  },
+  {
     name: "Post Hole Concrete Calculator",
     description: "Estimate concrete volume and complete bags for multiple round post holes.",
     href: "/post-hole-concrete-calculator",
@@ -266,6 +273,12 @@ export default function Home() {
               <h3>How much concrete do I need for footings?</h3>
               <p>Turn measured rectangular footing dimensions into total volume and complete bags without guessing structural footing size.</p>
               <strong>Plan footing concrete <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-much-concrete-for-columns">
+              <span>Column concrete guide</span>
+              <h3>How much concrete do I need for columns?</h3>
+              <p>Estimate square, rectangular, and circular column volume from actual project dimensions without structural sizing assumptions.</p>
+              <strong>Plan column concrete <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-many-bags-of-concrete-for-post-holes">
               <span>Post-hole concrete guide</span>
