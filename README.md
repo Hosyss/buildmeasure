@@ -48,6 +48,8 @@ are public so calculator behavior and release evidence can be inspected.
 - Local-first Project Mode for grouping saved estimates from all twelve calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
+- Structured per-project cost roll-ups from saved purchase data, grouped only by exact user-entered currency label; BuildNumbers performs no FX conversion or currency inference.
+- The same structured cost roll-up appears in saved project cards and printable/PDF reports; unpriced lines are disclosed rather than guessed and unsafe totals are suppressed.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
 - Pure, versioned concrete, circular slab concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
