@@ -17,6 +17,13 @@ const concrete = {
   summary: "1.36 yd³ · 62 × 80 lb bags",
 };
 
+const circularSlab = {
+  calculator: "circular-slab",
+  estimateId: 125,
+  label: "1 × Ø12 ft × 4 in",
+  summary: "1.396 yd³ · 63 × 80 lb bags",
+};
+
 const footing = {
   calculator: "footing",
   estimateId: 150,
@@ -51,6 +58,9 @@ test("collects valid saved estimates across calculator histories newest first", 
       { id: 100, label: concrete.label, summary: concrete.summary },
       { id: 99, label: 123, summary: "invalid" },
     ]),
+    "circular-slab": JSON.stringify([
+      { id: 125, label: circularSlab.label, summary: circularSlab.summary },
+    ]),
     footing: JSON.stringify([
       { id: 150, label: footing.label, summary: footing.summary },
     ]),
@@ -66,7 +76,16 @@ test("collects valid saved estimates across calculator histories newest first", 
     tile: "{",
   });
 
-  assert.deepEqual(result, [paint, wall, column, footing, concrete]);
+  assert.deepEqual(result, [paint, wall, column, footing, circularSlab, concrete]);
+});
+
+test("registers Circular Slab Calculator as a Project Mode history source", () => {
+  assert.deepEqual(getProjectHistorySource("circular-slab"), {
+    id: "circular-slab",
+    label: "Circular slab concrete",
+    href: "/circular-slab-calculator",
+    storageKey: "buildmeasure.circular-slab.history.v1",
+  });
 });
 
 test("registers Footing Calculator as a Project Mode history source", () => {
@@ -150,17 +169,19 @@ test("formats and removes saved projects without exposing storage internals", ()
     id: 10,
     name: "Kitchen",
     createdAt: "2026-08-21T00:00:00.000Z",
-    items: [concrete, footing, column, wall, paint],
+    items: [concrete, circularSlab, footing, column, wall, paint],
   };
   const text = formatSavedProject(project);
 
   assert.match(text, /^BuildNumbers project: Kitchen/m);
   assert.match(text, /Concrete: 10 × 10 × 4 ft \/ in/);
+  assert.match(text, /Circular slab concrete: 1 × Ø12 ft × 4 in/);
   assert.match(text, /Footing concrete: 3 × 10 ft × 2 ft × 8 in/);
   assert.match(text, /Column concrete: 3 × 12 × 12 in × 10 ft/);
   assert.match(text, /Wall concrete: 1 × 10 × 8 ft × 6 in; openings 16 ft²/);
   assert.match(text, /Paint: 12 × 10 × 8 ft/);
   assert.doesNotMatch(text, /buildmeasure\./);
   assert.equal(projectEstimateKey(concrete), "concrete:100");
+  assert.equal(projectEstimateKey(circularSlab), "circular-slab:125");
   assert.deepEqual(removeSavedProject([project], project.id), []);
 });
