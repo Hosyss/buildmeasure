@@ -18,6 +18,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <strong>Calculators</strong>
           <a href="/concrete-calculator">Concrete</a>
+          <a href="/circular-slab-calculator">Circular slabs</a>
           <a href="/footing-calculator">Footings</a>
           <a href="/column-calculator">Columns</a>
           <a href="/wall-calculator">Walls</a>
