@@ -42,7 +42,7 @@ export default function ProjectsPage() {
             </div>
             <ul>
               <li><CheckIcon /> Uses your saved estimates</li>
-              <li><CheckIcon /> Works across all nine calculators</li>
+              <li><CheckIcon /> Works across all ten calculators</li>
               <li><CheckIcon /> Stored only in this browser</li>
             </ul>
           </div>
