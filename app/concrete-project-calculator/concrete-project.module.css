@@ -1,0 +1,225 @@
+.partStack {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.partCard {
+  padding: 18px;
+  border: 1px solid var(--sand-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.partCardInvalid {
+  border-color: var(--orange-700);
+  box-shadow: 0 0 0 2px rgba(174, 71, 8, 0.08);
+}
+
+.partHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.partHead h3 {
+  margin: 2px 0 0;
+  font-size: 1.05rem;
+}
+
+.partIndex {
+  display: block;
+  color: var(--ink-600);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.partActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.partActions button {
+  min-height: 38px;
+}
+
+.partMetaGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(120px, 0.6fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.partFields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.partMetaGrid label,
+.partFields label,
+.projectOptions label {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  color: var(--ink-800);
+  font-weight: 650;
+}
+
+.partMetaGrid input,
+.partMetaGrid select,
+.partFields input,
+.partFields select,
+.projectOptions input,
+.projectOptions select {
+  width: 100%;
+}
+
+.unitPair {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: stretch;
+}
+
+.unitPair input {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.unitPair span {
+  min-width: 54px;
+  display: grid;
+  place-items: center;
+  padding: 0 10px;
+  border: 1px solid var(--sand-300);
+  border-left: 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--sand-100);
+  color: var(--ink-600);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.partHelp {
+  margin: 12px 0 0;
+  color: var(--ink-600);
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+.builderActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--sand-200);
+}
+
+.projectOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--sand-200);
+}
+
+.breakdown {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breakdown li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 0;
+  border-top: 1px solid var(--sand-200);
+}
+
+.breakdown li:first-child {
+  border-top: 0;
+}
+
+.breakdown strong,
+.breakdown small {
+  display: block;
+}
+
+.breakdown small {
+  margin-top: 3px;
+  color: var(--ink-600);
+}
+
+.breakdown b {
+  text-align: right;
+  font-size: 0.92rem;
+}
+
+.breakdown b small {
+  font-weight: 500;
+}
+
+@media (max-width: 820px) {
+  .partMetaGrid,
+  .partFields,
+  .projectOptions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .partMetaGrid label:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .partCard {
+    padding: 15px;
+  }
+
+  .partHead {
+    display: grid;
+  }
+
+  .partActions {
+    justify-content: flex-start;
+  }
+
+  .partMetaGrid,
+  .partFields,
+  .projectOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .partMetaGrid label:first-child {
+    grid-column: auto;
+  }
+
+  .builderActions {
+    align-items: stretch;
+  }
+
+  .builderActions > * {
+    width: 100%;
+  }
+
+  .breakdown li {
+    grid-template-columns: 1fr;
+  }
+
+  .breakdown b {
+    text-align: left;
+  }
+}
