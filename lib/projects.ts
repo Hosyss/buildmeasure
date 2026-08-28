@@ -13,6 +13,7 @@ export type ProjectCalculatorId =
   | "concrete"
   | "footing"
   | "column"
+  | "wall"
   | "post-hole-concrete"
   | "paint"
   | "tile"
@@ -46,6 +47,12 @@ export const PROJECT_HISTORY_SOURCES: readonly ProjectHistorySource[] = [
     label: "Column concrete",
     href: "/column-calculator",
     storageKey: "buildmeasure.column.history.v1",
+  },
+  {
+    id: "wall",
+    label: "Wall concrete",
+    href: "/wall-calculator",
+    storageKey: "buildmeasure.wall.history.v1",
   },
   {
     id: "post-hole-concrete",
