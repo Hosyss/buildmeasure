@@ -4,6 +4,7 @@ import {
   addSavedProject,
   collectAvailableProjectEstimates,
   formatSavedProject,
+  getProjectHistorySource,
   parseSavedProjects,
   projectEstimateKey,
   removeSavedProject,
@@ -14,6 +15,13 @@ const concrete = {
   estimateId: 100,
   label: "10 × 10 × 4 ft / in",
   summary: "1.36 yd³ · 62 × 80 lb bags",
+};
+
+const footing = {
+  calculator: "footing",
+  estimateId: 150,
+  label: "3 × 10 ft × 2 ft × 8 in",
+  summary: "1.481 yd³ · 67 × 80 lb bags",
 };
 
 const paint = {
@@ -29,13 +37,25 @@ test("collects valid saved estimates across calculator histories newest first", 
       { id: 100, label: concrete.label, summary: concrete.summary },
       { id: 99, label: 123, summary: "invalid" },
     ]),
+    footing: JSON.stringify([
+      { id: 150, label: footing.label, summary: footing.summary },
+    ]),
     paint: JSON.stringify([
       { id: 200, label: paint.label, summary: paint.summary },
     ]),
     tile: "{",
   });
 
-  assert.deepEqual(result, [paint, concrete]);
+  assert.deepEqual(result, [paint, footing, concrete]);
+});
+
+test("registers Footing Calculator as a Project Mode history source", () => {
+  assert.deepEqual(getProjectHistorySource("footing"), {
+    id: "footing",
+    label: "Footing concrete",
+    href: "/footing-calculator",
+    storageKey: "buildmeasure.footing.history.v1",
+  });
 });
 
 test("creates a trimmed project, deduplicates estimate snapshots, and keeps newest first", () => {
@@ -92,12 +112,13 @@ test("formats and removes saved projects without exposing storage internals", ()
     id: 10,
     name: "Kitchen",
     createdAt: "2026-08-21T00:00:00.000Z",
-    items: [concrete, paint],
+    items: [concrete, footing, paint],
   };
   const text = formatSavedProject(project);
 
   assert.match(text, /^BuildNumbers project: Kitchen/m);
   assert.match(text, /Concrete: 10 × 10 × 4 ft \/ in/);
+  assert.match(text, /Footing concrete: 3 × 10 ft × 2 ft × 8 in/);
   assert.match(text, /Paint: 12 × 10 × 8 ft/);
   assert.doesNotMatch(text, /buildmeasure\./);
   assert.equal(projectEstimateKey(concrete), "concrete:100");
