@@ -56,7 +56,7 @@ test("renders the column guide with rectangular and circular formulas and struct
   );
 });
 
-test("homepage, About, guide library, and feedback keep Column first-class after Wall expands the library", async () => {
+test("homepage, About, guide library, and feedback keep Column first-class as the library expands", async () => {
   const home = await render("/", "column-homepage");
   assert.equal(home.response.status, 200);
   assert.match(home.html, /Column Concrete Calculator/);
@@ -66,13 +66,14 @@ test("homepage, About, guide library, and feedback keep Column first-class after
 
   const about = await render("/about", "column-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides eleven live calculators/i);
+  assert.match(about.html, /currently provides twelve live calculators/i);
+  assert.match(about.html, /eleven live calculators/i);
   assert.match(about.html, /ten live calculators/i);
   assert.match(about.html, /circular concrete columns/i);
 
   const guides = await render("/guides", "column-library");
   assert.equal(guides.response.status, 200);
-  assert.match(guides.html, /Eleven focused guides/);
+  assert.match(guides.html, /Twelve focused guides/);
   assert.match(guides.html, /href="\/guides\/how-much-concrete-for-columns"/);
 
   const feedback = await render(
