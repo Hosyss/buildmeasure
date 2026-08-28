@@ -13,7 +13,7 @@ export function SiteFooter() {
             </span>
             <span>BuildNumbers</span>
           </a>
-          <p>Clear calculations for better-built projects.</p>
+          <p>Material estimates you can build on. Clear calculations for better-built projects.</p>
         </div>
         <div className="footer-links">
           <strong>Calculators</strong>
