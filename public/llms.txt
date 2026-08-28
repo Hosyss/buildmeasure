@@ -9,6 +9,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 ## Calculators
 
 - [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
+- [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator): identical rectangular footing volume, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
 - [Post Hole Concrete Calculator](https://buildnumbers.pages.dev/post-hole-concrete-calculator): round-hole concrete volume, multiple holes, optional round or square post displacement, allowance, and 40/60/80 lb bag estimates.
 - [Paint Calculator](https://buildnumbers.pages.dev/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
 - [Tile Calculator](https://buildnumbers.pages.dev/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
@@ -22,6 +23,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 - [Material Estimating Guide Library](https://buildnumbers.pages.dev/guides)
 
 - [How Much Concrete Do I Need for a Slab?](https://buildnumbers.pages.dev/guides/how-many-bags-of-concrete)
+- [How Much Concrete Do I Need for Footings?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-footings)
 - [How Many Bags of Concrete for Post Holes?](https://buildnumbers.pages.dev/guides/how-many-bags-of-concrete-for-post-holes)
 - [How Much Paint Do I Need for a Room?](https://buildnumbers.pages.dev/guides/how-much-paint-do-i-need)
 - [How Many Tiles Do I Need?](https://buildnumbers.pages.dev/guides/how-many-tiles-do-i-need)
