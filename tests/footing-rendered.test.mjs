@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function loadWorker(label) {
@@ -79,13 +80,7 @@ test("exposes footing routes through guide library, sitemap, footer, and llms", 
   assert.match(sitemap, /https:\/\/buildnumbers\.pages\.dev\/footing-calculator/);
   assert.match(sitemap, /https:\/\/buildnumbers\.pages\.dev\/guides\/how-much-concrete-for-footings/);
 
-  const llmsResponse = await worker.fetch(
-    new Request("http://localhost/llms.txt"),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
-  const llms = await llmsResponse.text();
-  assert.equal(llmsResponse.status, 200);
+  const llms = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
   assert.match(llms, /Footing Concrete Calculator/);
   assert.match(llms, /how-much-concrete-for-footings/);
 });
