@@ -30,6 +30,16 @@ test("accepts a bounded anonymous calculator report", () => {
   }
 });
 
+test("accepts Multi-Shape Concrete Project as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "concrete-project-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "concrete-project-calculator");
+});
+
 test("accepts the Circular Slab Calculator as a first-class feedback target", () => {
   const result = validateFeedbackPayload(
     validPayload({ calculator: "circular-slab-calculator" }),
