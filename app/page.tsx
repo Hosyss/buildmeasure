@@ -27,10 +27,17 @@ const websiteSchema = {
 const calculators = [
   {
     name: "Concrete Calculator",
-    description: "Estimate ready-mix volume and bag quantities for slabs.",
+    description: "Estimate ready-mix volume and bag quantities for rectangular slabs.",
     href: "/concrete-calculator",
     status: "Live",
     tag: "Most popular",
+  },
+  {
+    name: "Circular Slab Concrete Calculator",
+    description: "Estimate circular slab or pad concrete from diameter, actual depth, quantity, and allowance.",
+    href: "/circular-slab-calculator",
+    status: "Live",
+    tag: "Circular pours",
   },
   {
     name: "Footing Concrete Calculator",
@@ -270,10 +277,16 @@ export default function Home() {
           </div>
           <div className="resource-grid">
             <a href="/guides/how-many-bags-of-concrete">
-              <span>Concrete slab guide</span>
+              <span>Rectangular slab guide</span>
               <h3>How much concrete do I need for a slab?</h3>
-              <p>Convert slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
+              <p>Convert rectangular slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
               <strong>Calculate slab yards and bags <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-much-concrete-for-circular-slabs">
+              <span>Circular slab guide</span>
+              <h3>How much concrete do I need for a circular slab?</h3>
+              <p>Convert measured diameter to radius and circle area, then calculate concrete volume from the actual project depth.</p>
+              <strong>Plan circular slab concrete <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-much-concrete-for-footings">
               <span>Footing concrete guide</span>
