@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: absoluteUrl("/"), lastModified: new Date("2026-08-28"), changeFrequency: "weekly", priority: 1 },
     { url: absoluteUrl("/concrete-calculator"), lastModified: new Date("2026-08-12"), changeFrequency: "monthly", priority: 0.9 },
+    { url: absoluteUrl("/circular-slab-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/footing-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/column-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/wall-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
@@ -18,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/guides"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/material-estimating-basics"), lastModified: new Date("2026-08-01"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-many-bags-of-concrete"), lastModified: new Date("2026-08-12"), changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/guides/how-much-concrete-for-circular-slabs"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-much-concrete-for-footings"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-much-concrete-for-columns"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-much-concrete-for-walls"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
