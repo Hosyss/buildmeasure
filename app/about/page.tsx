@@ -27,8 +27,9 @@ export default function AboutPage() {
 
       <h2>What is live today</h2>
       <p>
-        BuildNumbers currently provides nine live calculators: concrete slabs,
-        rectangular concrete footings, post-hole concrete, room paint,
+        BuildNumbers currently provides nine live calculators, up from eight live calculators
+        before the rectangular Footing Concrete Calculator was added: concrete
+        slabs, rectangular concrete footings, post-hole concrete, room paint,
         rectangular tile surfaces, fired-clay brick walls, gravel layers, mulch
         beds, and drywall sheets. Each tool supports metric and imperial units
         and keeps allowances, product coverage, density, displacement, or package
