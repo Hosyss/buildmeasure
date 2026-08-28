@@ -54,7 +54,7 @@ test("renders the concrete wall guide with opening subtraction and structural sc
   );
 });
 
-test("feedback and Project Mode surface Wall as a first-class calculator", async () => {
+test("feedback and Project Mode keep Wall first-class after Circular Slab expands the library", async () => {
   const feedback = await render(
     "/feedback?calculator=wall-calculator",
     "wall-feedback",
@@ -65,10 +65,12 @@ test("feedback and Project Mode surface Wall as a first-class calculator", async
 
   const projects = await render("/projects", "wall-projects");
   assert.equal(projects.response.status, 200);
-  assert.match(projects.html, /Works across all eleven calculators/);
+  assert.match(projects.html, /Works across all twelve calculators/);
 });
 
 test("wall static source remains discoverable after the public integration commit", async () => {
   const llms = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
   assert.match(llms, /BuildNumbers/);
+  assert.match(llms, /Concrete Wall Calculator/);
+  assert.match(llms, /how-much-concrete-for-walls/);
 });
