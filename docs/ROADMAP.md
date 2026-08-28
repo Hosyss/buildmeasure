@@ -26,7 +26,7 @@ in the verified scope in `README.md`.
 
 ## Phase 3 — Concrete expansion
 
-- [ ] Footing calculator.
+- [x] Footing calculator.
 - [ ] Column calculator.
 - [ ] Wall calculator.
 - [x] Post-hole calculator.
@@ -36,7 +36,7 @@ in the verified scope in `README.md`.
 ## Phase 4 — Project Mode
 
 - [x] Project creation — local-first project names and estimate snapshots.
-- [x] Cross-calculator material list — select saved estimates from all eight calculators.
+- [x] Cross-calculator material list — select saved estimates from all nine calculators.
 - [ ] Waste and cost summary.
 - [x] Saved projects — stored only in the current browser.
 - [x] Printable/PDF report — one saved project at a time through the browser print dialog.
