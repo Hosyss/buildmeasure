@@ -3,6 +3,13 @@ type SiteHeaderProps = {
   ctaLabel?: string;
 };
 
+const navigation = [
+  ["Calculators", "/#calculators"],
+  ["Projects", "/projects"],
+  ["Guides", "/guides"],
+  ["Methodology", "/methodology"],
+] as const;
+
 export function SiteHeader({
   ctaHref = "/#calculators",
   ctaLabel = "Browse calculators",
@@ -11,9 +18,9 @@ export function SiteHeader({
     <header className="site-header">
       <div className="utility-bar">
         <div className="shell utility-inner">
-          <span>Free construction calculators</span>
+          <span>Reference-backed construction planning</span>
           <span className="utility-separator" aria-hidden="true" />
-          <span>Metric &amp; Imperial</span>
+          <span>Metric &amp; Imperial · No sign-up</span>
         </div>
       </div>
       <div className="shell nav-wrap">
@@ -25,15 +32,32 @@ export function SiteHeader({
           </span>
           <span>BuildNumbers</span>
         </a>
+
         <nav className="main-nav" aria-label="Primary navigation">
-          <a href="/#calculators">Calculators</a>
-          <a href="/projects">Projects</a>
-          <a href="/guides">Guides</a>
-          <a href="/methodology">Methodology</a>
+          {navigation.map(([label, href]) => (
+            <a href={href} key={href}>{label}</a>
+          ))}
         </nav>
+
         <a className="button button-small button-outline" href={ctaHref}>
           {ctaLabel}
         </a>
+
+        <details className="mobile-nav">
+          <summary aria-label="Open navigation menu">Menu</summary>
+          <nav className="mobile-nav-panel" aria-label="Mobile navigation">
+            {navigation.map(([label, href]) => (
+              <a href={href} key={href}>
+                <span>{label}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            ))}
+            <a href={ctaHref}>
+              <span>{ctaLabel}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </nav>
+        </details>
       </div>
     </header>
   );

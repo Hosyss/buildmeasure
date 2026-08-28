@@ -13,7 +13,7 @@ export function SiteFooter() {
             </span>
             <span>BuildNumbers</span>
           </a>
-          <p>Clear calculations for better-built projects.</p>
+          <p>Material estimates you can build on. Clear calculations for better-built projects.</p>
         </div>
         <div className="footer-links">
           <strong>Calculators</strong>
@@ -37,6 +37,7 @@ export function SiteFooter() {
           <a href="/methodology">Methodology</a>
           <a href="/guides">Guide library</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
+          <a href="/guides/how-many-bricks-do-i-need">Brick guide</a>
           <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
           <a href="/feedback">Report an issue</a>
           <a href="/status">System status</a>
