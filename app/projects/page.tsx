@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { CheckIcon } from "@/components/icons";
-import { ProjectCostSummaryPanel } from "@/components/project-cost-summary-panel";
 import { ProjectMode } from "@/components/project-mode";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -8,7 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata: Metadata = {
   title: "Projects — Group Saved Material Estimates",
   description:
-    "Group estimates saved from BuildNumbers calculators into local project lists that stay in your browser.",
+    "Group BuildNumbers estimates into local projects with structured shopping lists and optional same-currency cost roll-ups.",
   alternates: {
     canonical: "/projects",
   },
@@ -52,7 +51,6 @@ export default function ProjectsPage() {
 
       <section className="shell calculator-main-section" data-clarity-mask="true">
         <ProjectMode />
-        <ProjectCostSummaryPanel />
       </section>
 
       <SiteFooter />
