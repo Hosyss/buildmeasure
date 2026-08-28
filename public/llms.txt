@@ -9,6 +9,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 ## Calculators
 
 - [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
+- [Circular Slab Concrete Calculator](https://buildnumbers.pages.dev/circular-slab-calculator): full circular slab or pad volume from diameter and depth, identical-pour quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
 - [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator): identical rectangular footing volume, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
 - [Column Concrete Calculator](https://buildnumbers.pages.dev/column-calculator): rectangular/square and circular column concrete volume, quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
 - [Concrete Wall Calculator](https://buildnumbers.pages.dev/wall-calculator): rectangular wall volume with measured full-depth opening subtraction, repeated-wall quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
@@ -24,6 +25,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 
 - [Material Estimating Guide Library](https://buildnumbers.pages.dev/guides)
 - [How Much Concrete Do I Need for a Slab?](https://buildnumbers.pages.dev/guides/how-many-bags-of-concrete)
+- [How Much Concrete Do I Need for a Circular Slab?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-circular-slabs)
 - [How Much Concrete Do I Need for Footings?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-footings)
 - [How Much Concrete Do I Need for Columns?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-columns)
 - [How Much Concrete Do I Need for a Wall?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-walls)
