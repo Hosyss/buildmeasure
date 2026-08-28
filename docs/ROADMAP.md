@@ -37,20 +37,18 @@ in the verified scope in `README.md`.
 
 - [x] Project creation — local-first project names and estimate snapshots.
 - [x] Cross-calculator material list — select saved estimates from all twelve calculators.
-- [ ] Waste and cost summary.
+- [x] Structured cost summary — grouped only by exact saved currency label with no FX inference or conversion.
 - [x] Saved projects — stored only in the current browser.
 - [x] Printable/PDF report — one saved project at a time through the browser print dialog.
 - [x] Shopping list — structured purchase quantities from saved estimates.
+- [x] Printable cost roll-up — uses the same structured cost summary as the saved project card.
 
-The first Project Mode slices deliberately do not total costs from display
-strings because saved estimates can use different currencies and free-form
-currency labels. A cost summary must use structured, validated data rather than
-parsing human-readable result text. A structured same-label cost-summary engine
-and printable roll-up are under review separately and must not combine or convert
-unlike currency labels. Printable reports preserve the saved estimate snapshot
-exactly as the user stored it and do not invent totals. Shopping lists use
-structured purchase quantity and unit fields stored with new estimates. Older
-snapshots remain compatible but are not parsed to invent missing purchase data.
+Project Mode never totals costs from human-readable display strings. Cost
+summaries use only structured, validated purchase data. Unlike currency labels
+remain separate exactly as entered, unpriced purchase lines are disclosed rather
+than guessed, and totals outside the safe numeric range are suppressed instead
+of displayed. Older snapshots remain compatible but are not parsed to invent
+missing purchase quantities or prices.
 
 ## Next concrete milestone
 
