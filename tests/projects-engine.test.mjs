@@ -31,6 +31,13 @@ const column = {
   summary: "1.222 yd³ · 55 × 80 lb bags",
 };
 
+const wall = {
+  calculator: "wall",
+  estimateId: 185,
+  label: "1 × 10 × 8 ft × 6 in; openings 16 ft²",
+  summary: "1.304 yd³ · 59 × 80 lb bags",
+};
+
 const paint = {
   calculator: "paint",
   estimateId: 200,
@@ -50,13 +57,16 @@ test("collects valid saved estimates across calculator histories newest first", 
     column: JSON.stringify([
       { id: 175, label: column.label, summary: column.summary },
     ]),
+    wall: JSON.stringify([
+      { id: 185, label: wall.label, summary: wall.summary },
+    ]),
     paint: JSON.stringify([
       { id: 200, label: paint.label, summary: paint.summary },
     ]),
     tile: "{",
   });
 
-  assert.deepEqual(result, [paint, column, footing, concrete]);
+  assert.deepEqual(result, [paint, wall, column, footing, concrete]);
 });
 
 test("registers Footing Calculator as a Project Mode history source", () => {
@@ -74,6 +84,15 @@ test("registers Column Calculator as a Project Mode history source", () => {
     label: "Column concrete",
     href: "/column-calculator",
     storageKey: "buildmeasure.column.history.v1",
+  });
+});
+
+test("registers Wall Calculator as a Project Mode history source", () => {
+  assert.deepEqual(getProjectHistorySource("wall"), {
+    id: "wall",
+    label: "Wall concrete",
+    href: "/wall-calculator",
+    storageKey: "buildmeasure.wall.history.v1",
   });
 });
 
@@ -131,7 +150,7 @@ test("formats and removes saved projects without exposing storage internals", ()
     id: 10,
     name: "Kitchen",
     createdAt: "2026-08-21T00:00:00.000Z",
-    items: [concrete, footing, column, paint],
+    items: [concrete, footing, column, wall, paint],
   };
   const text = formatSavedProject(project);
 
@@ -139,6 +158,7 @@ test("formats and removes saved projects without exposing storage internals", ()
   assert.match(text, /Concrete: 10 × 10 × 4 ft \/ in/);
   assert.match(text, /Footing concrete: 3 × 10 ft × 2 ft × 8 in/);
   assert.match(text, /Column concrete: 3 × 12 × 12 in × 10 ft/);
+  assert.match(text, /Wall concrete: 1 × 10 × 8 ft × 6 in; openings 16 ft²/);
   assert.match(text, /Paint: 12 × 10 × 8 ft/);
   assert.doesNotMatch(text, /buildmeasure\./);
   assert.equal(projectEstimateKey(concrete), "concrete:100");
