@@ -47,6 +47,13 @@ const calculators = [
     tag: "Structural concrete",
   },
   {
+    name: "Concrete Wall Calculator",
+    description: "Estimate rectangular wall concrete after measured full-depth openings are subtracted.",
+    href: "/wall-calculator",
+    status: "Live",
+    tag: "Walls & forms",
+  },
+  {
     name: "Post Hole Concrete Calculator",
     description: "Estimate concrete volume and complete bags for multiple round post holes.",
     href: "/post-hole-concrete-calculator",
@@ -279,6 +286,12 @@ export default function Home() {
               <h3>How much concrete do I need for columns?</h3>
               <p>Estimate square, rectangular, and circular column volume from actual project dimensions without structural sizing assumptions.</p>
               <strong>Plan column concrete <ArrowIcon /></strong>
+            </a>
+            <a href="/guides/how-much-concrete-for-walls">
+              <span>Concrete wall guide</span>
+              <h3>How much concrete do I need for a wall?</h3>
+              <p>Subtract measured full-depth openings from wall face area, then calculate concrete volume from the actual wall thickness.</p>
+              <strong>Plan wall concrete <ArrowIcon /></strong>
             </a>
             <a href="/guides/how-many-bags-of-concrete-for-post-holes">
               <span>Post-hole concrete guide</span>

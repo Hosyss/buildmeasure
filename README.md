@@ -16,6 +16,7 @@ are public so calculator behavior and release evidence can be inspected.
 - [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator)
 - [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator)
 - [Column Concrete Calculator](https://buildnumbers.pages.dev/column-calculator)
+- [Concrete Wall Calculator](https://buildnumbers.pages.dev/wall-calculator)
 - [Post Hole Concrete Calculator](https://buildnumbers.pages.dev/post-hole-concrete-calculator)
 - [Paint Calculator](https://buildnumbers.pages.dev/paint-calculator)
 - [Tile Calculator](https://buildnumbers.pages.dev/tile-calculator)
@@ -30,6 +31,7 @@ are public so calculator behavior and release evidence can be inspected.
 - Concrete slab calculator.
 - Rectangular footing concrete quantity calculator for one or more identical footings, with explicit allowance and final-project bag rounding but no structural sizing assumptions.
 - Rectangular/square and circular column concrete quantity calculator for one or more identical columns, with explicit allowance and final-project bag rounding but no structural sizing, reinforcement, load, or code assumptions.
+- Rectangular concrete wall quantity calculator with measured full-depth opening subtraction, repeated-wall quantity, explicit allowance, and final-project bag rounding but no structural or retaining-wall design assumptions.
 - Round post-hole concrete quantity calculator with optional round or square post displacement.
 - Interior room paint calculator for walls and optional ceilings.
 - Rectangular floor and wall tile calculator.
@@ -40,26 +42,12 @@ are public so calculator behavior and release evidence can be inspected.
 - Imperial and metric input systems.
 - Ready-mix volume and 40/60/80 lb bag estimates.
 - Adjustable waste allowance.
-- Footing count, rectangular geometry, explicit allowance, and complete bag estimates without structural-design recommendations.
-- Column count, rectangular/square or circular geometry, explicit allowance, and complete bag estimates without structural-design recommendations.
-- Post-hole count, round-hole geometry, optional post displacement, and complete bag estimates without structural-design recommendations.
-- Paint area, coats, measured openings, adjustable coverage, gallons/liters,
-  and selected container count.
-- Tile area, adjustable waste, full-box rounding, grout-aware layout check,
-  and automatic rectangular-tile orientation.
-- Brick gross/net wall area, measured openings, fired-clay coverage rates,
-  whole-brick rounding, and running/stack-bond quantity scope without mortar,
-  structural-design, or header-pattern assumptions.
-- Gravel net/order volume, estimated mass, short tons, metric tonnes, and
-  complete bags with an explicit material-density assumption.
-- Mulch net/order volume, bed area, per-bag coverage, and complete bags without
-  an invented density assumption.
 - Copy, print, reset, and device-local save/history actions on calculators.
-- Local-first Project Mode for grouping saved estimates from all ten calculators into named projects stored only in the current browser.
+- Local-first Project Mode for grouping saved estimates from all eleven calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
-- Pure, versioned concrete, footing concrete, column concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
+- Pure, versioned concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
 - Calculator metadata, FAQ, breadcrumb, and WebApplication structured data.
@@ -108,6 +96,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 - [Concrete calculator specification](docs/calculators/concrete.md)
 - [Footing concrete calculator specification](docs/calculators/footing.md)
 - [Column concrete calculator specification](docs/calculators/column.md)
+- [Concrete wall calculator specification](docs/calculators/wall.md)
 - [Post-hole concrete calculator specification](docs/calculators/post-hole-concrete.md)
 - [Paint calculator specification](docs/calculators/paint.md)
 - [Tile calculator specification](docs/calculators/tile.md)

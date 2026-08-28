@@ -63,6 +63,7 @@ test("homepage and About continue to surface Footing after the library expands",
 
   const about = await render("/about", "footing-about");
   assert.equal(about.response.status, 200);
+  assert.match(about.html, /eleven live calculators/i);
   assert.match(about.html, /ten live calculators/i);
   assert.match(about.html, /nine live calculators/i);
   assert.match(about.html, /eight live calculators/i);
@@ -73,7 +74,7 @@ test("exposes footing routes through guide library, sitemap, footer, and llms", 
   const guideLibrary = await render("/guides", "footing-library");
   assert.equal(guideLibrary.response.status, 200);
   assert.match(guideLibrary.html, /href="\/guides\/how-much-concrete-for-footings"/);
-  assert.match(guideLibrary.html, /Ten focused guides/);
+  assert.match(guideLibrary.html, /Eleven focused guides/);
   assert.match(guideLibrary.html, /href="\/footing-calculator"/);
 
   const worker = await loadWorker("footing-discovery");

@@ -27,15 +27,17 @@ export default function AboutPage() {
 
       <h2>What is live today</h2>
       <p>
-        BuildNumbers currently provides ten live calculators, up from nine live
-        calculators before the Column Concrete Calculator was added and from eight
+        BuildNumbers currently provides eleven live calculators, up from ten live
+        calculators before the Concrete Wall Calculator was added, from nine live
+        calculators before the Column Concrete Calculator was added, and from eight
         live calculators before the rectangular Footing Concrete Calculator was
         added: concrete slabs, rectangular concrete footings, rectangular, square,
-        and circular concrete columns, post-hole concrete, room paint, rectangular
-        tile surfaces, fired-clay brick walls, gravel layers, mulch beds, and drywall
+        and circular concrete columns, rectangular concrete walls with measured
+        opening subtraction, post-hole concrete, room paint, rectangular tile
+        surfaces, fired-clay brick walls, gravel layers, mulch beds, and drywall
         sheets. Each tool supports metric and imperial units and keeps allowances,
-        product coverage, density, displacement, geometry, or package size visible
-        rather than hiding them behind a fixed answer.
+        product coverage, density, displacement, geometry, openings, or package size
+        visible rather than hiding them behind a fixed answer.
       </p>
 
       <h2>Why the formulas are visible</h2>
