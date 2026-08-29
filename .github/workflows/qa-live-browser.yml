@@ -1,7 +1,9 @@
 name: QA live BuildNumbers browser smoke
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - qa/buildnumbers-preview-smoke-e8288bc
 
 permissions:
   contents: read
@@ -9,5 +11,121 @@ permissions:
 jobs:
   live-browser:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PREVIEW_ORIGIN: https://bcf298ce.buildnumbers.pages.dev
     steps:
-      - run: echo "Browser QA checkpoint preserved; push trigger intentionally disabled during focused API diagnostics."
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install focused browser harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install chromium
+
+      - name: Isolate analytics and CSS behavior
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { chromium } from "playwright";
+
+          const origin = process.env.PREVIEW_ORIGIN;
+          const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ viewport: { width: 360, height: 800 } });
+          const page = await context.newPage();
+          const analyticsRequests = [];
+
+          page.on("request", (request) => {
+            if (request.url().endsWith("/api/analytics")) {
+              analyticsRequests.push({
+                method: request.method(),
+                postData: request.postData(),
+                headers: request.headers(),
+              });
+            }
+          });
+
+          const automaticResponsePromise = page.waitForResponse(
+            (response) => response.url().endsWith("/api/analytics"),
+            { timeout: 5000 },
+          );
+          await page.goto(`${origin}/column-calculator`, { waitUntil: "domcontentloaded", timeout: 15000 });
+          const automaticResponse = await automaticResponsePromise;
+          const automaticBody = await automaticResponse.text().catch(() => "");
+          await page.waitForTimeout(300);
+
+          const captured = analyticsRequests[0]?.postData || "";
+          console.log(`AUTO_ANALYTICS_STATUS=${automaticResponse.status()}`);
+          console.log(`AUTO_ANALYTICS_BODY=${automaticBody}`);
+          console.log(`AUTO_ANALYTICS_PAYLOAD=${captured}`);
+          console.log(`AUTO_ANALYTICS_HEADERS=${JSON.stringify(analyticsRequests[0]?.headers || {})}`);
+
+          const replays = await page.evaluate(async (payload) => {
+            async function send(keepalive) {
+              const response = await fetch("/api/analytics", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: payload,
+                keepalive,
+              });
+              return { status: response.status, body: await response.text() };
+            }
+            return {
+              noKeepalive: await send(false),
+              keepalive: await send(true),
+            };
+          }, captured);
+          console.log(`ANALYTICS_REPLAYS=${JSON.stringify(replays)}`);
+
+          const css = await page.evaluate(() => {
+            const measure = () => ({
+              html: document.documentElement.scrollWidth,
+              body: document.body.scrollWidth,
+              panel: Math.round((document.querySelector(".calculator-panel")?.getBoundingClientRect().width || 0) * 100) / 100,
+            });
+            const baseline = measure();
+            const style = document.createElement("style");
+            style.textContent = `
+              .calculator-panel { min-width: 0 !important; }
+              .unit-toggle {
+                min-width: 0 !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+              }
+              .unit-toggle button {
+                min-width: 0 !important;
+                flex-direction: column !important;
+                gap: 2px !important;
+                text-align: center !important;
+              }
+            `;
+            document.head.append(style);
+            const afterFix = measure();
+            const remaining = [...document.querySelectorAll("body *")]
+              .map((el) => {
+                const r = el.getBoundingClientRect();
+                return {
+                  tag: el.tagName.toLowerCase(),
+                  className: typeof el.className === "string" ? el.className : "",
+                  text: (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 100),
+                  left: Math.round(r.left * 100) / 100,
+                  right: Math.round(r.right * 100) / 100,
+                  width: Math.round(r.width * 100) / 100,
+                  display: getComputedStyle(el).display,
+                  visibility: getComputedStyle(el).visibility,
+                };
+              })
+              .filter((item) => item.right > innerWidth + 1 || item.left < -1 || item.width > innerWidth + 1)
+              .slice(0, 30);
+            return { baseline, afterFix, remaining };
+          });
+          console.log(`CSS_FINAL_EXPERIMENT=${JSON.stringify(css)}`);
+
+          await page.close();
+          await context.close();
+          await browser.close();
+          NODE
