@@ -9,10 +9,16 @@ BuildNumbers is independently built and maintained by
 [Hosyss](https://github.com/Hosyss). The repository and verified release history
 are public so calculator behavior and release evidence can be inspected.
 
-## Live site
+## Canonical rollout target
 
-- [Open BuildNumbers](https://buildnumbers.pages.dev/)
+The BuildNumbers rebrand is being prepared for `https://buildnumbers.pages.dev/`.
+The links below describe the intended canonical routes after the Cloudflare
+cutover gate passes; they must not be treated as proof that the new hostname has
+already been deployed.
+
+- [BuildNumbers](https://buildnumbers.pages.dev/)
 - [Projects](https://buildnumbers.pages.dev/projects)
+- [Multi-Shape Concrete Project Calculator](https://buildnumbers.pages.dev/concrete-project-calculator)
 - [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator)
 - [Circular Slab Concrete Calculator](https://buildnumbers.pages.dev/circular-slab-calculator)
 - [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator)
@@ -28,7 +34,8 @@ are public so calculator behavior and release evidence can be inspected.
 
 ## Current verified scope
 
-- Responsive product homepage.
+- Professional responsive workspace homepage with job categories, a complete calculator directory, project workflow, and no-JavaScript mobile navigation.
+- Multi-Shape Concrete Project Calculator that combines independently validated rectangular slabs, circular slabs, footings, rectangular/circular columns, walls with openings, and post holes with optional displacement; supports mixed Imperial/Metric parts, one project-level allowance, one final bag-rounding step, per-part breakdown, local history, optional cost, and Project Mode purchase data.
 - Rectangular concrete slab calculator.
 - Full circular slab/pad concrete quantity calculator from diameter and actual depth, with identical-pour quantity, explicit allowance, and final-project bag rounding but no structural thickness or reinforcement assumptions.
 - Rectangular footing concrete quantity calculator for one or more identical footings, with explicit allowance and final-project bag rounding but no structural sizing assumptions.
@@ -41,17 +48,18 @@ are public so calculator behavior and release evidence can be inspected.
 - Rectangular gravel coverage calculator with adjustable bulk density.
 - Rectangular mulch-bed calculator with exact package-volume input.
 - Rectangular-room drywall sheet calculator with optional ceiling, measured openings, exact panel size, and visible allowance.
+- Thirteen focused calculator guides plus the general material-estimating workflow.
 - Imperial and metric input systems.
 - Ready-mix volume and 40/60/80 lb bag estimates.
-- Adjustable waste allowance.
+- Adjustable waste/project allowance where the relevant calculator supports it.
 - Copy, print, reset, and device-local save/history actions on calculators.
-- Local-first Project Mode for grouping saved estimates from all twelve calculators into named projects stored only in the current browser.
+- Local-first Project Mode for grouping saved estimates from all thirteen calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
 - Structured per-project cost roll-ups from saved purchase data, grouped only by exact user-entered currency label; BuildNumbers performs no FX conversion or currency inference.
 - The same structured cost roll-up appears in saved project cards and printable/PDF reports; unpriced lines are disclosed rather than guessed and unsafe totals are suppressed.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
-- Pure, versioned concrete, circular slab concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
+- Pure, versioned concrete, multi-shape concrete project, circular slab concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
 - Calculator metadata, FAQ, breadcrumb, and WebApplication structured data.
@@ -98,6 +106,7 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Concrete calculator specification](docs/calculators/concrete.md)
+- [Multi-shape concrete project specification](docs/calculators/concrete-project.md)
 - [Circular slab calculator specification](docs/calculators/circular-slab.md)
 - [Footing concrete calculator specification](docs/calculators/footing.md)
 - [Column concrete calculator specification](docs/calculators/column.md)
