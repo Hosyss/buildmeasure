@@ -27,7 +27,25 @@ jobs:
             test "${code}" = "200"
           done
 
-      - name: Verify D1-backed health endpoint
+      - name: Compare D1 health across candidate and existing origins
+        shell: bash
+        run: |
+          set -u
+          for origin in \
+            "https://bcf298ce.buildnumbers.pages.dev" \
+            "https://buildnumbers.pages.dev" \
+            "https://buildmeasuretools.pages.dev" \
+            "https://buildmeasure.buildtools.workers.dev"
+          do
+            health_file="$(mktemp)"
+            code="$(curl --silent --show-error --location --output "${health_file}" --write-out '%{http_code}' --max-time 30 "${origin}/api/health" || true)"
+            body="$(cat "${health_file}")"
+            echo "HEALTH_ORIGIN=${origin}"
+            echo "HEALTH_HTTP=${code}"
+            printf 'HEALTH_BODY=%s\n' "${body}"
+          done
+
+      - name: Enforce D1-backed health on immutable candidate
         shell: bash
         run: |
           set -euo pipefail
