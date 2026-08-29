@@ -76,3 +76,50 @@ test("Project Mode accepts saved Multi-Shape Concrete Project estimates as sourc
   assert.match(projectSource, /href: "\/concrete-project-calculator"/);
   assert.match(projectSource, /buildmeasure\.concrete-project\.history\.v1/);
 });
+
+test("Multi-Shape is discoverable from the professional workspace, guide library, footer, sitemap, and llms", async () => {
+  const home = await render("/", "concrete-project-home");
+  assert.equal(home.response.status, 200);
+  assert.match(home.html, /Thirteen focused tools/);
+  assert.match(home.html, /Multi-Shape Concrete Project Calculator/);
+  assert.match(home.html, /href="\/concrete-project-calculator"/);
+  assert.match(home.html, /href="\/guides\/how-to-estimate-multi-shape-concrete-project"/);
+  assert.match(home.html, /href="\/concrete-project-calculator">Multi-shape concrete<\/a>/);
+
+  const guides = await render("/guides", "concrete-project-guides");
+  assert.equal(guides.response.status, 200);
+  assert.match(guides.html, /Thirteen focused guides/);
+  assert.match(guides.html, /How do I estimate a multi-shape concrete project\?/i);
+  assert.match(guides.html, /href="\/guides\/how-to-estimate-multi-shape-concrete-project"/);
+
+  const guide = await render(
+    "/guides/how-to-estimate-multi-shape-concrete-project",
+    "concrete-project-guide",
+  );
+  assert.equal(guide.response.status, 200);
+  assert.match(guide.html, /Combine volume first\. Round packages last\./);
+  assert.match(guide.html, /does not choose slab thickness/i);
+  assert.match(guide.html, /href="\/concrete-project-calculator"/);
+  assert.match(guide.html, /application\/ld\+json/);
+  assert.match(guide.html, /https:\/\/buildnumbers\.pages\.dev\/guides\/how-to-estimate-multi-shape-concrete-project/);
+
+  const about = await render("/about", "concrete-project-about");
+  assert.equal(about.response.status, 200);
+  assert.match(about.html, /currently provides thirteen live calculators/i);
+  assert.match(about.html, /Multi-Shape Concrete Project Calculator/);
+
+  const worker = await loadWorker("concrete-project-sitemap");
+  const sitemapResponse = await worker.fetch(
+    new Request("http://localhost/sitemap.xml"),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  const sitemap = await sitemapResponse.text();
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(sitemap, /https:\/\/buildnumbers\.pages\.dev\/concrete-project-calculator/);
+  assert.match(sitemap, /https:\/\/buildnumbers\.pages\.dev\/guides\/how-to-estimate-multi-shape-concrete-project/);
+
+  const llms = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
+  assert.match(llms, /Multi-Shape Concrete Project Calculator/);
+  assert.match(llms, /how-to-estimate-multi-shape-concrete-project/);
+});
