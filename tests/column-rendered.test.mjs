@@ -66,14 +66,15 @@ test("homepage, About, guide library, and feedback keep Column first-class as th
 
   const about = await render("/about", "column-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides twelve live calculators/i);
+  assert.match(about.html, /currently provides thirteen live calculators/i);
+  assert.match(about.html, /twelve live calculators/i);
   assert.match(about.html, /eleven live calculators/i);
   assert.match(about.html, /ten live calculators/i);
   assert.match(about.html, /circular concrete columns/i);
 
   const guides = await render("/guides", "column-library");
   assert.equal(guides.response.status, 200);
-  assert.match(guides.html, /Twelve focused guides/);
+  assert.match(guides.html, /Thirteen focused guides/);
   assert.match(guides.html, /href="\/guides\/how-much-concrete-for-columns"/);
 
   const feedback = await render(
