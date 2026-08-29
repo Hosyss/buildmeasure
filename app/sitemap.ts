@@ -4,6 +4,7 @@ import { absoluteUrl } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: absoluteUrl("/"), lastModified: new Date("2026-08-29"), changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl("/calculators"), lastModified: new Date("2026-08-29"), changeFrequency: "weekly", priority: 0.95 },
     { url: absoluteUrl("/concrete-project-calculator"), lastModified: new Date("2026-08-29"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/concrete-calculator"), lastModified: new Date("2026-08-12"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/circular-slab-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
