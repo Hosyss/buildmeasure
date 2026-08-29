@@ -11,24 +11,11 @@ permissions:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 5
     env:
-      PREVIEW_ORIGIN: https://336d30db.buildnumbers.pages.dev
+      PREVIEW_ORIGIN: https://3825aef3.buildnumbers.pages.dev
     steps:
-      - name: Wait for immutable preview
-        shell: bash
-        run: |
-          set -euo pipefail
-          for attempt in {1..36}; do
-            code="$(curl --silent --show-error --location --output /tmp/root --write-out '%{http_code}' --max-time 15 "${PREVIEW_ORIGIN}/" || true)"
-            echo "attempt=${attempt} root_http=${code}"
-            if [[ "${code}" == "200" ]]; then exit 0; fi
-            sleep 5
-          done
-          echo "Immutable preview did not become reachable" >&2
-          exit 1
-
-      - name: Verify final routes and D1 health
+      - name: Verify immutable preview routes and D1 health
         shell: bash
         run: |
           set -euo pipefail
