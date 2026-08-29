@@ -1,7 +1,17 @@
 @media (max-width: 650px) {
+  .calculator-panel {
+    min-width: 0;
+  }
+
+  .unit-toggle {
+    min-width: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .unit-toggle > button {
     min-width: 0;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 2px;
     text-align: center;
   }
 
