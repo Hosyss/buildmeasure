@@ -25,7 +25,8 @@ test("homepage is organized as a workspace instead of a flat calculator card wal
   assert.equal(response.status, 200);
   assert.match(html, /Construction estimating workspace/);
   assert.match(html, /Choose by job/);
-  assert.match(html, /Three work areas\. Twelve focused tools\./);
+  assert.match(html, /Three work areas\. Thirteen focused tools\./);
+  assert.match(html, /13<\/strong><span>live calculators/);
   assert.match(html, /Calculator directory/);
   assert.match(html, /Everything, organized in one table\./);
   assert.match(html, /Professional workflow/);
@@ -34,10 +35,11 @@ test("homepage is organized as a workspace instead of a flat calculator card wal
   assert.match(html, /aria-label="Open Concrete Calculator from this example estimate"/);
 });
 
-test("homepage directory preserves all twelve calculator and guide entry points", async () => {
+test("homepage directory preserves all thirteen calculator and guide entry points", async () => {
   const { html } = await render("/", "professional-directory");
 
   const calculatorRoutes = [
+    "/concrete-project-calculator",
     "/concrete-calculator",
     "/circular-slab-calculator",
     "/footing-calculator",
@@ -53,6 +55,7 @@ test("homepage directory preserves all twelve calculator and guide entry points"
   ];
 
   const guideRoutes = [
+    "/guides/how-to-estimate-multi-shape-concrete-project",
     "/guides/how-many-bags-of-concrete",
     "/guides/how-much-concrete-for-circular-slabs",
     "/guides/how-much-concrete-for-footings",
@@ -70,6 +73,9 @@ test("homepage directory preserves all twelve calculator and guide entry points"
   for (const route of [...calculatorRoutes, ...guideRoutes]) {
     assert.match(html, new RegExp(`href=\\"${route.replaceAll("/", "\\/")}\\"`));
   }
+
+  assert.match(html, /Multi-Shape Concrete Project Calculator/);
+  assert.match(html, /7 tools/);
 });
 
 test("responsive navigation exposes primary destinations without JavaScript", async () => {

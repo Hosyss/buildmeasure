@@ -27,6 +27,14 @@ const websiteSchema = {
 const calculators = [
   {
     group: "Concrete",
+    tag: "Project builder",
+    name: "Multi-Shape Concrete Project Calculator",
+    description: "Combine slabs, circular pours, footings, columns, walls, and post holes into one auditable concrete order.",
+    href: "/concrete-project-calculator",
+    guide: "/guides/how-to-estimate-multi-shape-concrete-project",
+  },
+  {
+    group: "Concrete",
     tag: "Most popular",
     name: "Concrete Calculator",
     description: "Rectangular slab volume, ready-mix quantity, allowance, and complete bags.",
@@ -133,9 +141,9 @@ const standards = [
 const categories = [
   {
     label: "Concrete & foundations",
-    count: "6 tools",
-    description: "Slabs, circular pads, footings, columns, walls, and post holes in one focused concrete suite.",
-    href: "/concrete-calculator",
+    count: "7 tools",
+    description: "Build a mixed-geometry concrete project or estimate slabs, circular pads, footings, columns, walls, and post holes individually.",
+    href: "/concrete-project-calculator",
   },
   {
     label: "Interiors & finishes",
@@ -190,8 +198,8 @@ export default function Home() {
                 <li><CheckIcon /> No sign-up</li>
               </ul>
               <div className="hero-stat-grid" aria-label="BuildNumbers workspace summary">
-                <div className="hero-stat"><strong>12</strong><span>live calculators</span></div>
-                <div className="hero-stat"><strong>12+</strong><span>practical guides</span></div>
+                <div className="hero-stat"><strong>13</strong><span>live calculators</span></div>
+                <div className="hero-stat"><strong>13+</strong><span>practical guides</span></div>
                 <div className="hero-stat"><strong>2</strong><span>unit systems</span></div>
                 <div className="hero-stat"><strong>1</strong><span>project workspace</span></div>
               </div>
@@ -212,9 +220,14 @@ export default function Home() {
                     <span><strong>Estimate one material</strong><small>Open a focused calculator and see the formula.</small></span>
                     <ArrowIcon />
                   </a>
+                  <a className="command-link" href="/concrete-project-calculator">
+                    <span className="command-icon"><CalculatorIcon /></span>
+                    <span><strong>Combine concrete shapes</strong><small>Build one concrete order from independently measured parts.</small></span>
+                    <ArrowIcon />
+                  </a>
                   <a className="command-link" href="/projects">
                     <span className="command-icon"><CalculatorIcon /></span>
-                    <span><strong>Combine a project</strong><small>Group saved estimates, shopping quantities, and costs.</small></span>
+                    <span><strong>Combine a full project</strong><small>Group saved estimates, shopping quantities, and costs across materials.</small></span>
                     <ArrowIcon />
                   </a>
                   <a className="command-link" href="/guides">
@@ -269,7 +282,7 @@ export default function Home() {
           <div className="section-heading">
             <div>
               <p className="eyebrow">Choose by job</p>
-              <h2>Three work areas. Twelve focused tools.</h2>
+              <h2>Three work areas. Thirteen focused tools.</h2>
             </div>
             <p>
               Start with the type of work instead of scanning a wall of nearly
@@ -357,7 +370,7 @@ export default function Home() {
             <div className="workflow-steps">
               <article className="workflow-step">
                 <span>01</span>
-                <div><h3>Choose the correct geometry</h3><p>Use the directory to match the physical job to a focused calculator.</p></div>
+                <div><h3>Choose the correct geometry</h3><p>Use the directory to match the physical job to a focused calculator or the multi-shape concrete builder.</p></div>
               </article>
               <article className="workflow-step">
                 <span>02</span>
@@ -410,6 +423,12 @@ export default function Home() {
             </p>
           </div>
           <div className="resource-grid">
+            <a href="/guides/how-to-estimate-multi-shape-concrete-project">
+              <span>Concrete project guide</span>
+              <h3>How do I estimate a multi-shape concrete project?</h3>
+              <p>Combine independently measured concrete parts before project allowance and final whole-bag rounding.</p>
+              <strong>Read the project guide <ArrowIcon /></strong>
+            </a>
             <a href="/guides/how-many-bags-of-concrete">
               <span>Concrete slab guide</span>
               <h3>How much concrete do I need for a slab?</h3>

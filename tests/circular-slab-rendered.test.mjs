@@ -68,12 +68,13 @@ test("homepage, About, guide library, feedback, and Project Mode surface Circula
 
   const about = await render("/about", "circular-slab-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides twelve live calculators/i);
+  assert.match(about.html, /currently provides thirteen live calculators/i);
+  assert.match(about.html, /twelve live calculators/i);
   assert.match(about.html, /full circular concrete slabs and pads/i);
 
   const guides = await render("/guides", "circular-slab-library");
   assert.equal(guides.response.status, 200);
-  assert.match(guides.html, /Twelve focused guides/);
+  assert.match(guides.html, /Thirteen focused guides/);
   assert.match(guides.html, /href="\/guides\/how-much-concrete-for-circular-slabs"/);
 
   const feedback = await render(
@@ -86,7 +87,7 @@ test("homepage, About, guide library, feedback, and Project Mode surface Circula
 
   const projects = await render("/projects", "circular-slab-projects");
   assert.equal(projects.response.status, 200);
-  assert.match(projects.html, /Works across all twelve calculators/);
+  assert.match(projects.html, /Works across all thirteen calculators/);
 });
 
 test("exposes circular slab routes through sitemap, footer, and llms", async () => {

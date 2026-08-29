@@ -1,5 +1,6 @@
 export const FEEDBACK_CALCULATORS = [
   ["concrete-calculator", "Concrete Calculator"],
+  ["concrete-project-calculator", "Multi-Shape Concrete Project"],
   ["circular-slab-calculator", "Circular Slab Concrete Calculator"],
   ["footing-calculator", "Footing Concrete Calculator"],
   ["column-calculator", "Column Concrete Calculator"],
