@@ -1,57 +1,96 @@
 # Cloudflare deployment
 
-BuildNumbers is deployed at `https://buildnumbers.pages.dev`
-with the production D1 binding. The former Workers and original Sites deployments
-remain available only as path-preserving redirects during the migration window.
-Keep both redirects until Search Console accepts the new URL-prefix property and
-the Pages production checks remain healthy.
+BuildNumbers uses Cloudflare Pages with the intended canonical public origin
+`https://buildnumbers.pages.dev`. The release candidate is developed on
+`feat/buildnumbers-rebrand-safe` and must not be assumed to be the code currently
+served by the canonical Production hostname until an explicit release/cutover and
+post-deploy verification are completed.
+
+The former `buildmeasuretools` Pages project and the former Worker origin are
+migration/rollback surfaces. Preserve path-and-query redirects when the cutover is
+completed; do not destroy the old deployment as part of ordinary application work.
 
 ## Architecture
 
-The repository already builds a full-stack Cloudflare Worker through Vinext,
-Vite, and `@cloudflare/vite-plugin`. Static assets are emitted beside the Worker
-bundle and the application uses a D1 binding named `DB` for privacy-conscious
-analytics and feedback.
+The repository builds a full-stack Cloudflare Worker through Vinext, Vite, and
+`@cloudflare/vite-plugin`. Static assets are packaged for Pages advanced mode and
+the application uses a D1 binding named `DB` for privacy-conscious analytics and
+feedback.
 
-The normal Sites build continues to use its local placeholder D1 identifier.
-The Pages project uses `npm run build:pages`, publishes `dist/pages`, and binds
-the existing `buildmeasure-production` database at runtime as `DB`.
+The Pages build command is:
 
-## Cloudflare Pages dashboard setup
+```bash
+npm run build:pages
+```
 
-1. In **Workers & Pages**, choose **Create application**, then **Import a
-   repository**.
-2. Connect GitHub and select `Hosyss/buildmeasure`.
-3. Use the Pages project name `buildmeasuretools`, repository root `/`, and production
-   branch `main`.
-4. Set the build command to `npm run build:pages` and output directory to
-   `dist/pages`.
-5. Bind the existing D1 database `buildmeasure-production` with variable name
-   `DB`, then trigger a new production deployment.
+and the published output directory is:
 
-## Verification before switching search traffic
+```text
+dist/pages
+```
 
-Verify all of the following on `https://buildnumbers.pages.dev`:
+The existing D1 database is `buildmeasure-production`. Both Cloudflare Pages
+**Preview** and **Production** environments must expose that database to the
+application under the binding name `DB`.
+
+Preview and Production bindings are separate release concerns. A successful Pages
+deployment does not by itself prove that D1 is available; verify the runtime health
+endpoint on the exact deployment being evaluated.
+
+## BuildNumbers Pages project
+
+Use these settings for the canonical Pages project:
+
+- Project name: `buildnumbers`
+- Repository: `Hosyss/buildmeasure`
+- Repository root: `/`
+- Production branch: `main`
+- Build command: `npm run build:pages`
+- Output directory: `dist/pages`
+- D1 binding name: `DB`
+- D1 database: `buildmeasure-production`
+
+Do not create another D1 database just to satisfy a missing Preview binding. Fix the
+environment binding instead.
+
+## Release verification
+
+Before merging the release PR or treating a deployment as Production-ready, verify
+on an immutable Preview generated from the exact candidate SHA:
 
 - `/`
-- `/concrete-calculator`
-- `/paint-calculator`
-- `/tile-calculator`
-- `/gravel-calculator`
-- `/mulch-calculator`
+- `/calculators`
+- all 13 calculator routes
+- `/guides`
+- `/projects`
 - `/status`
-- `/api/health` with both D1 checks reporting `ok`
-- `/robots.txt`, `/sitemap.xml`, and `/llms.txt`
-- analytics event submission and feedback submission
-- mobile and desktop Lighthouse and HTTP security checks
+- `/api/health`
+- `/robots.txt`
+- `/sitemap.xml`
+- `/llms.txt`
 
-The route, storage, canonical-host, metadata, security-policy, and IndexNow
-cutover checks passed on the Cloudflare origin. Keep the old deployment
-available during the Search Console migration and rollback window.
+The required `/api/health` result is HTTP 200 with both:
 
-## Local or CI validation
+- `feedbackStorage: ok`
+- `analyticsStorage: ok`
 
-With the Cloudflare build variables set in the environment:
+Also verify the supported responsive matrix, absence of horizontal overflow and
+page/runtime errors, and successful first-party analytics submission from every
+calculator. Deployment success alone is not a substitute for these checks.
+
+After an authorized merge/cutover, repeat the same read-only smoke against
+`https://buildnumbers.pages.dev` before calling Production verified. Do not run a
+D1 remote migration unless a separately reviewed schema change actually requires
+one.
+
+## Historical Worker deployment path
+
+The repository retains guarded Worker-deployment tooling that can inject a real D1
+UUID through `CLOUDFLARE_D1_DATABASE_ID` and validate the generated Worker config.
+That path is historical/operational tooling; it is not the mechanism used to prove
+the Pages runtime binding.
+
+For local or authenticated Worker-path validation, when intentionally needed:
 
 ```bash
 npm run build
@@ -59,7 +98,5 @@ npm run validate:cloudflare
 bash scripts/deploy-cloudflare.sh --dry-run
 ```
 
-For an authenticated deployment, use `npm run deploy:cloudflare`. The command
-rebuilds, validates the generated Worker, and deploys only when the D1 binding
-is a real UUID. The deployment script repeats the validation itself, so direct
-invocation cannot bypass the placeholder-storage guard.
+Never commit Cloudflare API tokens, account credentials, or production database
+UUID secrets into the repository.
