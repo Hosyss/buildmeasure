@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/guides/how-much-mulch-do-i-need"), lastModified: new Date("2026-08-11"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-many-drywall-sheets-do-i-need"), lastModified: new Date("2026-08-24"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/methodology"), lastModified: new Date("2026-08-01"), changeFrequency: "monthly", priority: 0.7 },
+    { url: absoluteUrl("/editorial-policy"), lastModified: new Date("2026-08-29"), changeFrequency: "yearly", priority: 0.6 },
     { url: absoluteUrl("/about"), lastModified: new Date("2026-08-29"), changeFrequency: "yearly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: new Date("2026-08-22"), changeFrequency: "yearly", priority: 0.4 },
     { url: absoluteUrl("/privacy"), lastModified: new Date("2026-08-22"), changeFrequency: "yearly", priority: 0.3 },
