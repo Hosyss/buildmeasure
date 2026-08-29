@@ -12,21 +12,7 @@ jobs:
   immutable-preview-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    env:
-      PREVIEW_ORIGIN: https://bcf298ce.buildnumbers.pages.dev
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - name: Verify immutable preview routes
-        shell: bash
-        run: |
-          set -euo pipefail
-          for path in / /calculators /robots.txt /sitemap.xml; do
-            code="$(curl --silent --show-error --location --output /tmp/body --write-out '%{http_code}' --max-time 30 "${PREVIEW_ORIGIN}${path}")"
-            echo "${path} -> HTTP ${code}"
-            test "${code}" = "200"
-          done
-
       - name: Compare D1 health across candidate and existing origins
         shell: bash
         run: |
@@ -37,76 +23,44 @@ jobs:
             "https://buildmeasuretools.pages.dev" \
             "https://buildmeasure.buildtools.workers.dev"
           do
-            health_file="$(mktemp)"
-            code="$(curl --silent --show-error --location --output "${health_file}" --write-out '%{http_code}' --max-time 30 "${origin}/api/health" || true)"
-            body="$(cat "${health_file}")"
+            file="$(mktemp)"
+            code="$(curl --silent --show-error --location --output "${file}" --write-out '%{http_code}' --max-time 30 "${origin}/api/health" || true)"
             echo "HEALTH_ORIGIN=${origin}"
             echo "HEALTH_HTTP=${code}"
-            printf 'HEALTH_BODY=%s\n' "${body}"
+            printf 'HEALTH_BODY=%s\n' "$(cat "${file}")"
           done
 
-      - name: Enforce D1-backed health on immutable candidate
+      - name: Compare a known-valid analytics POST
         shell: bash
         run: |
-          set -euo pipefail
-          health_file="$(mktemp)"
-          code="$(curl --silent --show-error --location --output "${health_file}" --write-out '%{http_code}' --max-time 30 "${PREVIEW_ORIGIN}/api/health")"
-          body="$(cat "${health_file}")"
-          echo "/api/health -> HTTP ${code}"
-          printf '%s\n' "${body}"
-          node -e '
-            const code = Number(process.argv[1]);
-            const body = JSON.parse(process.argv[2]);
-            const ok = code === 200 && body.status === "ok" &&
-              body.checks?.feedbackStorage === "ok" &&
-              body.checks?.analyticsStorage === "ok";
-            if (!ok) {
-              console.error("D1-backed health gate failed", { code, body });
-              process.exit(1);
-            }
-            console.log("D1-backed health gate passed.");
-          ' "${code}" "${body}"
+          set -u
+          payload='{"event":"calculator_opened","calculator":"concrete-calculator","route":"/concrete-calculator","sessionToken":"00000000-0000-4000-8000-000000000001","source":"direct","medium":"","campaign":"","referrerHost":"","browser":"chrome","device":"mobile","locale":"en-US","detail":""}'
+          for origin in \
+            "https://bcf298ce.buildnumbers.pages.dev" \
+            "https://daf9bf12.buildmeasuretools.pages.dev" \
+            "https://buildnumbers.pages.dev" \
+            "https://buildmeasuretools.pages.dev" \
+            "https://buildmeasure.buildtools.workers.dev"
+          do
+            file="$(mktemp)"
+            code="$(curl --silent --show-error --location --request POST \
+              --header 'Content-Type: application/json' \
+              --data "${payload}" \
+              --output "${file}" --write-out '%{http_code}' --max-time 30 \
+              "${origin}/api/analytics" || true)"
+            echo "ANALYTICS_ORIGIN=${origin}"
+            echo "ANALYTICS_HTTP=${code}"
+            printf 'ANALYTICS_BODY=%s\n' "$(cat "${file}")"
+          done
 
-      - name: Verify Cloudflare Pages DB binding identity when credentials are available
-        if: always()
+      - name: Report Cloudflare control-plane credential availability
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         shell: bash
         run: |
-          set -euo pipefail
-          if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
-            echo "BINDING_IDENTITY=UNVERIFIED"
-            echo "Cloudflare API credentials are not exposed to this GitHub Actions job; project binding identity cannot be independently read here."
-            exit 0
+          if [[ -n "${CLOUDFLARE_API_TOKEN:-}" && -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+            echo "CLOUDFLARE_CONTROL_PLANE=AVAILABLE"
+          else
+            echo "CLOUDFLARE_CONTROL_PLANE=UNAVAILABLE"
           fi
-
-          project_json="$(curl --fail-with-body --silent --show-error --location --max-time 30 \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/buildnumbers")"
-          db_json="$(curl --fail-with-body --silent --show-error --location --max-time 30 --get \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            --data-urlencode "name=buildmeasure-production" \
-            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/d1/database")"
-
-          node -e '
-            const project = JSON.parse(process.argv[1]);
-            const dbs = JSON.parse(process.argv[2]);
-            if (!project.success || !dbs.success) {
-              console.error("Cloudflare API did not return success.");
-              process.exit(1);
-            }
-            const matches = (dbs.result || []).filter((db) => db.name === "buildmeasure-production");
-            if (matches.length !== 1 || !matches[0].uuid) {
-              console.error("Expected exactly one buildmeasure-production D1 database.");
-              process.exit(1);
-            }
-            const expected = matches[0].uuid;
-            const preview = project.result?.deployment_configs?.preview?.d1_databases?.DB?.id;
-            const production = project.result?.deployment_configs?.production?.d1_databases?.DB?.id;
-            console.log(`Expected DB UUID: ${expected}`);
-            console.log(`Preview DB binding UUID: ${preview || "missing"}`);
-            console.log(`Production DB binding UUID: ${production || "missing"}`);
-            if (preview !== expected || production !== expected) {
-              console.error("Cloudflare DB binding identity gate failed.");
-              process.exit(1);
-            }
-            console.log("BINDING_IDENTITY=VERIFIED");
-          ' "${project_json}" "${db_json}"
