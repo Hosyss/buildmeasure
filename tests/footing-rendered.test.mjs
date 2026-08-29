@@ -75,7 +75,7 @@ test("exposes footing routes through guide library, sitemap, footer, and llms", 
   const guideLibrary = await render("/guides", "footing-library");
   assert.equal(guideLibrary.response.status, 200);
   assert.match(guideLibrary.html, /href="\/guides\/how-much-concrete-for-footings"/);
-  assert.match(guideLibrary.html, /Twelve focused guides/);
+  assert.match(guideLibrary.html, /Thirteen focused guides/);
   assert.match(guideLibrary.html, /href="\/footing-calculator"/);
 
   const worker = await loadWorker("footing-discovery");
