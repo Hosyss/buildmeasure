@@ -13,20 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      PREVIEW_ORIGIN: https://qa-buildnumbers-final-8c80cecf.buildnumbers.pages.dev
+      PREVIEW_ORIGIN: https://c4ee9786.buildnumbers.pages.dev
     steps:
-      - name: Wait for exact candidate branch preview
+      - name: Verify immutable candidate preview
         shell: bash
         run: |
           set -euo pipefail
-          for attempt in {1..30}; do
-            code="$(curl --silent --show-error --location --output /tmp/home --write-out '%{http_code}' --max-time 15 "${PREVIEW_ORIGIN}/" || true)"
-            echo "attempt=${attempt} root_http=${code}"
-            if [[ "${code}" == "200" ]]; then exit 0; fi
-            sleep 5
-          done
-          echo "Exact candidate branch preview did not become ready" >&2
-          exit 1
+          code="$(curl --silent --show-error --location --output /tmp/home --write-out '%{http_code}' --max-time 15 "${PREVIEW_ORIGIN}/")"
+          echo "root_http=${code}"
+          test "${code}" = "200"
 
       - name: Use Node.js 22
         uses: actions/setup-node@v4
