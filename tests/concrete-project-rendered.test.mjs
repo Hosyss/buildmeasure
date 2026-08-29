@@ -80,7 +80,7 @@ test("Project Mode accepts saved Multi-Shape Concrete Project estimates as sourc
 test("Multi-Shape is discoverable from the professional workspace, guide library, footer, sitemap, and llms", async () => {
   const home = await render("/", "concrete-project-home");
   assert.equal(home.response.status, 200);
-  assert.match(home.html, /Thirteen focused tools/);
+  assert.match(home.html, /Browse all 13 calculators/);
   assert.match(home.html, /Multi-Shape Concrete Project Calculator/);
   assert.match(home.html, /href="\/concrete-project-calculator"/);
   assert.match(home.html, /href="\/guides\/how-to-estimate-multi-shape-concrete-project"/);
