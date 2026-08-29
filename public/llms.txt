@@ -8,6 +8,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 
 ## Calculators
 
+- [Multi-Shape Concrete Project Calculator](https://buildnumbers.pages.dev/concrete-project-calculator): combine rectangular slabs, circular slabs, footings, rectangular or circular columns, walls with measured openings, and post holes with optional post displacement into one project quantity; supports mixed unit systems, one explicit project allowance, one final 40/60/80 lb bag rounding step, and an auditable per-part breakdown.
 - [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
 - [Circular Slab Concrete Calculator](https://buildnumbers.pages.dev/circular-slab-calculator): full circular slab or pad volume from diameter and depth, identical-pour quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
 - [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator): identical rectangular footing volume, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
@@ -24,6 +25,7 @@ Source and verified releases: https://github.com/Hosyss/buildmeasure
 ## Guides and methodology
 
 - [Material Estimating Guide Library](https://buildnumbers.pages.dev/guides)
+- [How to Estimate a Multi-Shape Concrete Project](https://buildnumbers.pages.dev/guides/how-to-estimate-multi-shape-concrete-project)
 - [How Much Concrete Do I Need for a Slab?](https://buildnumbers.pages.dev/guides/how-many-bags-of-concrete)
 - [How Much Concrete Do I Need for a Circular Slab?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-circular-slabs)
 - [How Much Concrete Do I Need for Footings?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-footings)
