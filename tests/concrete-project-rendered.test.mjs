@@ -45,17 +45,22 @@ test("client workspace preserves dynamic part controls, cost, save, and feedback
     new URL("../app/concrete-project-calculator/project-part-editor.tsx", import.meta.url),
     "utf8",
   );
+  const result = await readFile(
+    new URL("../app/concrete-project-calculator/project-result.tsx", import.meta.url),
+    "utf8",
+  );
 
   assert.match(source, /\+ Add concrete part/);
   assert.match(source, /movePart/);
   assert.match(source, /removePart/);
   assert.match(source, /CalculatorCostFields/);
   assert.match(source, /createSavedEstimatePurchase/);
-  assert.match(source, /concrete-project-calculator/);
   assert.match(editor, /Move up/);
   assert.match(editor, /Move down/);
   assert.match(editor, /convertDraftPartUnits/);
   assert.match(editor, /Post displacement/);
+  assert.match(result, /CalculatorActions/);
+  assert.match(result, /calculator="concrete-project-calculator"/);
 });
 
 test("Project Mode accepts saved Multi-Shape Concrete Project estimates as source thirteen", async () => {
