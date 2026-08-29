@@ -4,6 +4,7 @@ import { ClarityConsent } from "@/components/clarity-consent";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import "./professional.css";
+import "./home-product.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
