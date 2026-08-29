@@ -86,7 +86,7 @@ test("homepage, About, guide library, feedback, and Project Mode surface Circula
 
   const projects = await render("/projects", "circular-slab-projects");
   assert.equal(projects.response.status, 200);
-  assert.match(projects.html, /Works across all twelve calculators/);
+  assert.match(projects.html, /Works across all thirteen calculators/);
 });
 
 test("exposes circular slab routes through sitemap, footer, and llms", async () => {
