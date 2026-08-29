@@ -45,7 +45,7 @@ export function CalculatorLibrary() {
             />
           </label>
           <div className={styles.resultCount} aria-live="polite">
-            {filtered.length} of {CALCULATOR_CATALOG.length} tools
+            {`${filtered.length} of ${CALCULATOR_CATALOG.length} tools`}
           </div>
         </div>
 
