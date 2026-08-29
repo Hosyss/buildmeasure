@@ -243,9 +243,8 @@ test("renders the product homepage and delegates full tool discovery to the calc
   ];
 
   for (const route of discoveryRoutes) {
-    assert.match(
-      libraryHtml,
-      new RegExp(`href=\\"${route.replaceAll("/", "\\/")}\\"`),
+    assert.ok(
+      libraryHtml.includes(`href="${route}"`),
       `expected the SSR calculator library to expose ${route}`,
     );
   }
