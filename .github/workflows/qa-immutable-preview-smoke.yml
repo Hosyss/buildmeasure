@@ -31,21 +31,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          body="$(curl --fail-with-body --silent --show-error --location --max-time 30 "${PREVIEW_ORIGIN}/api/health")"
+          health_file="$(mktemp)"
+          code="$(curl --silent --show-error --location --output "${health_file}" --write-out '%{http_code}' --max-time 30 "${PREVIEW_ORIGIN}/api/health")"
+          body="$(cat "${health_file}")"
+          echo "/api/health -> HTTP ${code}"
           printf '%s\n' "${body}"
           node -e '
-            const body = JSON.parse(process.argv[1]);
-            const ok = body.status === "ok" &&
+            const code = Number(process.argv[1]);
+            const body = JSON.parse(process.argv[2]);
+            const ok = code === 200 && body.status === "ok" &&
               body.checks?.feedbackStorage === "ok" &&
               body.checks?.analyticsStorage === "ok";
             if (!ok) {
-              console.error("D1-backed health gate failed", body);
+              console.error("D1-backed health gate failed", { code, body });
               process.exit(1);
             }
             console.log("D1-backed health gate passed.");
-          ' "${body}"
+          ' "${code}" "${body}"
 
       - name: Verify Cloudflare Pages DB binding identity when credentials are available
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
