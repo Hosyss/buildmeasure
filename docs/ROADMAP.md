@@ -31,12 +31,12 @@ in the verified scope in `README.md`.
 - [x] Wall calculator.
 - [x] Post-hole calculator.
 - [x] Circular slab calculator.
-- [ ] Multi-shape concrete project.
+- [x] Multi-shape concrete project.
 
 ## Phase 4 — Project Mode
 
 - [x] Project creation — local-first project names and estimate snapshots.
-- [x] Cross-calculator material list — select saved estimates from all twelve calculators.
+- [x] Cross-calculator material list — select saved estimates from all thirteen calculators.
 - [x] Structured cost summary — grouped only by exact saved currency label with no FX inference or conversion.
 - [x] Saved projects — stored only in the current browser.
 - [x] Printable/PDF report — one saved project at a time through the browser print dialog.
@@ -50,12 +50,14 @@ than guessed, and totals outside the safe numeric range are suppressed instead
 of displayed. Older snapshots remain compatible but are not parsed to invent
 missing purchase quantities or prices.
 
-## Next concrete milestone
+## Completed concrete milestone
 
-The next expansion item is a **Multi-Shape Concrete Project** workflow. It should
-combine independently validated concrete geometries without averaging dimensions
-or parsing display strings. Each shape remains auditable on its own before totals,
-allowance, purchase units, or optional cost are aggregated.
+The **Multi-Shape Concrete Project** workflow combines independently validated
+concrete geometries without averaging dimensions or parsing display strings.
+Each shape remains auditable on its own; unrounded physical volumes are summed,
+one project-level allowance is applied, and package rounding happens once at the
+final project total. The project can mix Imperial and Metric parts and can save
+its structured purchase quantity into Project Mode like the focused calculators.
 
 ## Later
 
