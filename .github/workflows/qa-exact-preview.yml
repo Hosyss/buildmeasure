@@ -1,0 +1,129 @@
+name: QA exact BuildNumbers candidate live fixes
+
+on:
+  push:
+    branches:
+      - qa/live-smoke-7ddd136a
+
+permissions:
+  contents: read
+
+jobs:
+  exact-live-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PREVIEW_ORIGIN: https://69ca8022.buildnumbers.pages.dev
+    steps:
+      - name: Wait for exact immutable preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in {1..24}; do
+            code="$(curl --silent --show-error --location --output /tmp/home --write-out '%{http_code}' --max-time 15 "${PREVIEW_ORIGIN}/" || true)"
+            echo "attempt=${attempt} root_http=${code}"
+            if [[ "${code}" == "200" ]]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Exact preview did not become ready" >&2
+          exit 1
+
+      - name: Record exact preview D1 health
+        shell: bash
+        run: |
+          set -euo pipefail
+          code="$(curl --silent --show-error --location --output /tmp/health --write-out '%{http_code}' --max-time 15 "${PREVIEW_ORIGIN}/api/health" || true)"
+          body="$(cat /tmp/health)"
+          echo "HEALTH_HTTP=${code}"
+          echo "HEALTH_BODY=${body}"
+          node -e '
+            const code = Number(process.argv[1]);
+            const body = JSON.parse(process.argv[2]);
+            if (code === 200 && body.status === "ok") {
+              console.log("D1_HEALTH=OK");
+              process.exit(0);
+            }
+            if (code === 503 && body.status === "degraded" && body.checks?.feedbackStorage === "unavailable" && body.checks?.analyticsStorage === "unavailable") {
+              console.log("D1_HEALTH=PREVIEW_BINDING_BLOCKER_CONFIRMED");
+              process.exit(0);
+            }
+            console.error("Unexpected health response", { code, body });
+            process.exit(1);
+          ' "${code}" "${body}"
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install focused browser harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install chromium
+
+      - name: Verify mobile overflow and analytics validation fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { chromium } from "playwright";
+
+          const origin = process.env.PREVIEW_ORIGIN;
+          const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ viewport: { width: 360, height: 800 }, locale: "en-US@posix" });
+          const page = await context.newPage();
+          const analytics = [];
+          const pageErrors = [];
+
+          page.on("pageerror", (error) => pageErrors.push(String(error)));
+          page.on("response", async (response) => {
+            if (!response.url().endsWith("/api/analytics")) return;
+            let body = "";
+            try { body = await response.text(); } catch {}
+            analytics.push({ status: response.status(), body });
+          });
+
+          const response = await page.goto(`${origin}/column-calculator`, {
+            waitUntil: "domcontentloaded",
+            timeout: 15000,
+          });
+          await page.waitForTimeout(2500);
+
+          const metrics = await page.evaluate(() => ({
+            viewport: window.innerWidth,
+            html: document.documentElement.scrollWidth,
+            body: document.body.scrollWidth,
+            panel: Math.round((document.querySelector(".calculator-panel")?.getBoundingClientRect().width || 0) * 100) / 100,
+            h1: document.querySelector("h1")?.textContent?.trim() || "",
+          }));
+
+          console.log(`COLUMN_HTTP=${response?.status() ?? 0}`);
+          console.log(`COLUMN_METRICS=${JSON.stringify(metrics)}`);
+          console.log(`ANALYTICS_RESPONSES=${JSON.stringify(analytics)}`);
+          console.log(`PAGE_ERRORS=${JSON.stringify(pageErrors)}`);
+
+          const failures = [];
+          if ((response?.status() ?? 0) !== 200) failures.push(`column HTTP ${response?.status()}`);
+          if (!metrics.h1) failures.push("missing H1");
+          if (metrics.html > metrics.viewport + 1 || metrics.body > metrics.viewport + 1) {
+            failures.push(`horizontal overflow html=${metrics.html} body=${metrics.body} viewport=${metrics.viewport}`);
+          }
+          if (pageErrors.length) failures.push(`page errors: ${pageErrors.join(" | ")}`);
+          if (!analytics.length) failures.push("analytics request did not complete");
+          if (analytics.some((entry) => entry.status === 400)) failures.push("analytics payload is still rejected with HTTP 400");
+
+          await page.close();
+          await context.close();
+          await browser.close();
+
+          if (failures.length) {
+            console.error("LIVE_FIX_FAILURES");
+            for (const failure of failures) console.error(`- ${failure}`);
+            process.exit(1);
+          }
+          console.log("LIVE_FIXES_PASS");
+          NODE
