@@ -19,6 +19,10 @@ async function render(path, label) {
   return { response, html: await response.text() };
 }
 
+function withoutReactComments(html) {
+  return html.replace(/<!--[\s\S]*?-->/g, "");
+}
+
 const calculatorRoutes = [
   "/concrete-project-calculator",
   "/concrete-calculator",
@@ -37,22 +41,26 @@ const calculatorRoutes = [
 
 test("calculator library renders all thirteen tools with search, filters, and matching guides", async () => {
   const { response, html } = await render("/calculators", "calculator-library");
+  const visibleHtml = withoutReactComments(html);
 
   assert.equal(response.status, 200);
   assert.match(html, /Calculator library/);
   assert.match(html, /Find the right tool without hunting through the site\./);
-  assert.match(html, /Search 13 live calculators/);
+  assert.match(visibleHtml, /Search 13 live calculators/);
   assert.match(html, /Search calculators/);
   assert.match(html, /All tools/);
   assert.match(html, /Concrete &amp; foundations/);
   assert.match(html, /Interiors &amp; finishes/);
   assert.match(html, /Masonry &amp; landscape/);
-  assert.match(html, /13 of 13 tools/);
+  assert.match(visibleHtml, /13 of 13 tools/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /https:\/\/buildnumbers\.pages\.dev\/calculators/);
 
   for (const route of calculatorRoutes) {
-    assert.match(html, new RegExp(`href=\\"${route.replaceAll("/", "\\/")}\\"`));
+    assert.ok(
+      html.includes(`href="${route}"`),
+      `expected calculator library to expose ${route}`,
+    );
   }
 });
 

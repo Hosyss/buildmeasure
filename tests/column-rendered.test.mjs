@@ -56,13 +56,13 @@ test("renders the column guide with rectangular and circular formulas and struct
   );
 });
 
-test("homepage, About, guide library, and feedback keep Column first-class as the library expands", async () => {
-  const home = await render("/", "column-homepage");
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /Column Concrete Calculator/);
-  assert.match(home.html, /href="\/column-calculator"/);
-  assert.match(home.html, /href="\/guides\/how-much-concrete-for-columns"/);
-  assert.match(home.html, /Structural concrete/);
+test("calculator library, About, guide library, and feedback keep Column first-class as the library expands", async () => {
+  const library = await render("/calculators", "column-library-page");
+  assert.equal(library.response.status, 200);
+  assert.match(library.html, /Column Concrete Calculator/);
+  assert.match(library.html, /href="\/column-calculator"/);
+  assert.match(library.html, /href="\/guides\/how-much-concrete-for-columns"/);
+  assert.match(library.html, /Concrete &amp; foundations/);
 
   const about = await render("/about", "column-about");
   assert.equal(about.response.status, 200);

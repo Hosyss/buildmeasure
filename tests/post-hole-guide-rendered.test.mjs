@@ -45,7 +45,7 @@ test("renders the post-hole concrete bag guide with canonical structured content
 test("discovers the post-hole guide from public entry points", async () => {
   const worker = await loadWorker("post-hole-guide-links");
 
-  for (const path of ["/", "/post-hole-concrete-calculator"]) {
+  for (const path of ["/calculators", "/post-hole-concrete-calculator"]) {
     const response = await worker.fetch(
       new Request(`http://localhost${path}`, {
         headers: { accept: "text/html" },

@@ -26,21 +26,21 @@ function assertHeaderCta(html, label, href) {
   assert.match(html, new RegExp(`href="${href.replaceAll("/", "\\/")}"[^>]*>${label}<\\/a>`));
 }
 
-test("homepage labels the hero sample as an example and makes the whole card actionable", async () => {
+test("homepage keeps calculator discovery and the example workflow actionable", async () => {
   const worker = await loadWorker("ux-home");
   const { response, html } = await render(worker, "/");
   assert.equal(response.status, 200);
-  assertHeaderCta(html, "Browse calculators", "/#calculators");
-  assert.match(html, /class="estimate-card estimate-card-link"/);
-  assert.match(html, /href="\/concrete-calculator" aria-label="Open Concrete Calculator from this example estimate"/);
-  assert.match(html, /<h2>Example estimate<\/h2>/);
-  assert.match(html, /Open Concrete Calculator/);
-  const card = html.match(/<a class="estimate-card estimate-card-link"[\s\S]*?<\/a>/)?.[0];
-  assert.ok(card, "expected the linked example estimate card");
-  assert.doesNotMatch(card, /<(input|select|button)\b/);
+  assertHeaderCta(html, "Browse calculators", "/calculators");
+  assert.match(html, /class="hero-story"/);
+  assert.match(html, /aria-label="Example BuildNumbers workflow"/);
+  assert.match(html, /<h2>Patio slab estimate<\/h2>/);
+  assert.match(html, /href="\/concrete-calculator" aria-label="Open the Concrete Calculator"/);
+  assert.match(html, /Open example/);
+  assert.match(html, /href="\/calculators"[^>]*>Start an estimate/);
+  assert.doesNotMatch(html, /href="\/#calculators"/);
 });
 
-test("calculator headers return to the calculator library instead of Concrete", async () => {
+test("calculator headers return to the calculator library instead of a homepage anchor", async () => {
   const worker = await loadWorker("ux-calculator-headers");
   const routes = [
     "/concrete-calculator",
@@ -54,7 +54,8 @@ test("calculator headers return to the calculator library instead of Concrete", 
   for (const route of routes) {
     const { response, html } = await render(worker, route);
     assert.equal(response.status, 200, route);
-    assertHeaderCta(html, "All calculators", "/#calculators");
+    assertHeaderCta(html, "All calculators", "/calculators");
+    assert.doesNotMatch(html, /href="\/#calculators"/);
   }
 });
 

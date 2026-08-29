@@ -62,14 +62,15 @@ test("renders the Brick Calculator with reference-backed scope and structured co
 test("discovers Brick Calculator from public product surfaces", async () => {
   const worker = await loadWorker("brick-discovery");
 
-  const home = await render(worker, "/");
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /href="\/brick-calculator"/);
-  assert.match(home.html, /Masonry/);
+  const library = await render(worker, "/calculators");
+  assert.equal(library.response.status, 200);
+  assert.match(library.html, /href="\/brick-calculator"/);
+  assert.match(library.html, /Brick Calculator/);
+  assert.match(library.html, /Masonry &amp; landscape/);
 
   const about = await render(worker, "/about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /eight live calculators/i);
+  assert.match(about.html, /currently provides thirteen live calculators/i);
   assert.match(about.html, /fired-clay brick walls/i);
 
   const sitemapResponse = await worker.fetch(

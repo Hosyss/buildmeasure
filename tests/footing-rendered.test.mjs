@@ -52,22 +52,18 @@ test("renders the footing concrete guide with a calculator link and structural s
   );
 });
 
-test("homepage and About continue to surface Footing after the library expands", async () => {
-  const home = await render("/", "footing-homepage");
+test("calculator library and About continue to surface Footing after the library expands", async () => {
+  const library = await render("/calculators", "footing-library-page");
 
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /Footing Concrete Calculator/);
-  assert.match(home.html, /href="\/footing-calculator"/);
-  assert.match(home.html, /href="\/guides\/how-much-concrete-for-footings"/);
-  assert.match(home.html, /Foundations/);
+  assert.equal(library.response.status, 200);
+  assert.match(library.html, /Footing Concrete Calculator/);
+  assert.match(library.html, /href="\/footing-calculator"/);
+  assert.match(library.html, /href="\/guides\/how-much-concrete-for-footings"/);
+  assert.match(library.html, /Concrete &amp; foundations/);
 
   const about = await render("/about", "footing-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /twelve live calculators/i);
-  assert.match(about.html, /eleven live calculators/i);
-  assert.match(about.html, /ten live calculators/i);
-  assert.match(about.html, /nine live calculators/i);
-  assert.match(about.html, /eight live calculators/i);
+  assert.match(about.html, /currently provides thirteen live calculators/i);
   assert.match(about.html, /rectangular concrete footings/i);
 });
 

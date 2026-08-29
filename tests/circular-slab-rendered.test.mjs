@@ -58,13 +58,13 @@ test("renders the circular slab guide with diameter, radius, package rounding, a
   );
 });
 
-test("homepage, About, guide library, feedback, and Project Mode surface Circular Slab as a first-class product", async () => {
-  const home = await render("/", "circular-slab-homepage");
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /Circular Slab Concrete Calculator/);
-  assert.match(home.html, /href="\/circular-slab-calculator"/);
-  assert.match(home.html, /href="\/guides\/how-much-concrete-for-circular-slabs"/);
-  assert.match(home.html, /Circular pours/);
+test("calculator library, About, guide library, feedback, and Project Mode surface Circular Slab as a first-class product", async () => {
+  const library = await render("/calculators", "circular-slab-library-page");
+  assert.equal(library.response.status, 200);
+  assert.match(library.html, /Circular Slab Concrete Calculator/);
+  assert.match(library.html, /href="\/circular-slab-calculator"/);
+  assert.match(library.html, /href="\/guides\/how-much-concrete-for-circular-slabs"/);
+  assert.match(library.html, /Concrete &amp; foundations/);
 
   const about = await render("/about", "circular-slab-about");
   assert.equal(about.response.status, 200);

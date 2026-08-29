@@ -33,7 +33,7 @@ test("renders the Drywall Calculator as a complete reference-backed product", as
   assert.match(html, /https:\/\/buildnumbers\.pages\.dev\/drywall-calculator/);
 });
 
-test("renders and discovers the drywall guide and guide library", async () => {
+test("renders and discovers the drywall guide and calculator library", async () => {
   const worker = await loadWorker("drywall-guide");
   const guide = await render(worker, "/guides/how-many-drywall-sheets-do-i-need");
   assert.equal(guide.response.status, 200);
@@ -44,15 +44,16 @@ test("renders and discovers the drywall guide and guide library", async () => {
   assert.match(guide.html, /"@type":"Article"/);
   assert.doesNotMatch(guide.html, /"@type":"HowTo"/);
 
-  const library = await render(worker, "/guides");
-  assert.equal(library.response.status, 200);
-  assert.match(library.html, /Material estimating guides/);
-  assert.match(library.html, /href="\/guides\/how-many-drywall-sheets-do-i-need"/);
+  const guideLibrary = await render(worker, "/guides");
+  assert.equal(guideLibrary.response.status, 200);
+  assert.match(guideLibrary.html, /Material estimating guides/);
+  assert.match(guideLibrary.html, /href="\/guides\/how-many-drywall-sheets-do-i-need"/);
 
-  const home = await render(worker, "/");
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /href="\/drywall-calculator"/);
-  assert.match(home.html, /Drywall Calculator/);
+  const calculatorLibrary = await render(worker, "/calculators");
+  assert.equal(calculatorLibrary.response.status, 200);
+  assert.match(calculatorLibrary.html, /href="\/drywall-calculator"/);
+  assert.match(calculatorLibrary.html, /Drywall Calculator/);
+  assert.match(calculatorLibrary.html, /href="\/guides\/how-many-drywall-sheets-do-i-need"/);
 
   const sitemap = await worker.fetch(new Request("http://localhost/sitemap.xml"), env, ctx);
   const sitemapXml = await sitemap.text();

@@ -47,7 +47,7 @@ test("renders the Brick wall guide with canonical reference-backed content", asy
   assert.match(html, /nist\.gov\/pml\/special-publication-811/);
 });
 
-test("discovers the Brick wall guide from the calculator, homepage, sitemap, and llms.txt", async () => {
+test("discovers the Brick wall guide from the calculator library, calculator, sitemap, and llms.txt", async () => {
   const worker = await loadWorker("brick-guide-discovery");
 
   const calculator = await render(worker, "/brick-calculator");
@@ -55,10 +55,11 @@ test("discovers the Brick wall guide from the calculator, homepage, sitemap, and
   assert.match(calculator.html, /href="\/guides\/how-many-bricks-do-i-need"/);
   assert.match(calculator.html, /How Many Bricks Do I Need\?/);
 
-  const home = await render(worker, "/");
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /href="\/guides\/how-many-bricks-do-i-need"/);
-  assert.match(home.html, /Brick guide/);
+  const library = await render(worker, "/calculators");
+  assert.equal(library.response.status, 200);
+  assert.match(library.html, /href="\/guides\/how-many-bricks-do-i-need"/);
+  assert.match(library.html, /href="\/brick-calculator"/);
+  assert.match(library.html, /Brick Calculator/);
 
   const sitemapResponse = await worker.fetch(
     new Request("http://localhost/sitemap.xml"),
