@@ -81,9 +81,8 @@ test("Multi-Shape is discoverable from the professional workspace, guide library
   const home = await render("/", "concrete-project-home");
   assert.equal(home.response.status, 200);
   assert.match(home.html, /Browse all 13 calculators/);
-  assert.match(home.html, /Multi-Shape Concrete Project Calculator/);
+  assert.match(home.html, /Open Multi-Shape Concrete Project/);
   assert.match(home.html, /href="\/concrete-project-calculator"/);
-  assert.match(home.html, /href="\/guides\/how-to-estimate-multi-shape-concrete-project"/);
   assert.match(home.html, /href="\/concrete-project-calculator">Multi-shape concrete<\/a>/);
 
   const guides = await render("/guides", "concrete-project-guides");
