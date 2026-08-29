@@ -167,35 +167,32 @@ test("rejects invalid analytics before touching storage", async () => {
   assert.equal(typeof payload.error, "string");
 });
 
-test("renders the product homepage", async () => {
+test("renders the product homepage and delegates full tool discovery to the calculator library", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("home", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
+  const env = {
+    ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
+  };
+  const ctx = { waitUntil() {}, passThroughOnException() {} };
 
   const response = await worker.fetch(
     new Request("http://localhost/", {
       headers: { accept: "text/html" },
     }),
-    {
-      ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
-    },
-    { waitUntil() {}, passThroughOnException() {} },
+    env,
+    ctx,
   );
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /Material estimates you can build on\./);
-  assert.match(html, /Concrete Calculator/);
-  assert.match(html, /href="\/post-hole-concrete-calculator"/);
-  assert.match(html, /href="\/paint-calculator"/);
-  assert.match(html, /href="\/tile-calculator"/);
-  assert.match(html, /href="\/gravel-calculator"/);
-  assert.match(html, /href="\/mulch-calculator"/);
-  assert.match(html, /Accuracy is a feature\./);
+  assert.match(html, /Know what to buy before you build\./);
+  assert.match(html, /BuildNumbers is a free estimating workspace for construction and DIY projects\./);
+  assert.match(html, /href="\/calculators"/);
+  assert.match(html, /Why trust the result\?/);
   assert.match(html, /https:\/\/github\.com\/Hosyss\/buildmeasure/);
-  assert.doesNotMatch(html, /href="\/#project-mode"/);
+  assert.doesNotMatch(html, /<table class="tool-directory">/);
   assert.doesNotMatch(html, /Coming later/);
-  assert.match(html, /0\.1\.1/);
 
   const modulePreloads = html.match(/<link[^>]*\brel=["']modulepreload["'][^>]*>/gi) ?? [];
   assert.ok(modulePreloads.length > 0, "expected the app shell to preload client modules");
@@ -203,6 +200,55 @@ test("renders the product homepage", async () => {
     assert.match(preload, /\bfetchpriority=["']low["']/i);
   }
   assert.doesNotMatch(html, /<link[^>]*\bas=["']font["'][^>]*>/i);
+
+  const libraryResponse = await worker.fetch(
+    new Request("http://localhost/calculators", {
+      headers: { accept: "text/html" },
+    }),
+    env,
+    ctx,
+  );
+  const libraryHtml = await libraryResponse.text();
+  assert.equal(libraryResponse.status, 200);
+  assert.match(libraryHtml, /Calculator library/);
+  assert.match(libraryHtml, /13 of 13 tools/);
+
+  const discoveryRoutes = [
+    "/concrete-project-calculator",
+    "/concrete-calculator",
+    "/circular-slab-calculator",
+    "/footing-calculator",
+    "/column-calculator",
+    "/wall-calculator",
+    "/post-hole-concrete-calculator",
+    "/paint-calculator",
+    "/tile-calculator",
+    "/drywall-calculator",
+    "/brick-calculator",
+    "/gravel-calculator",
+    "/mulch-calculator",
+    "/guides/how-to-estimate-multi-shape-concrete-project",
+    "/guides/how-many-bags-of-concrete",
+    "/guides/how-much-concrete-for-circular-slabs",
+    "/guides/how-much-concrete-for-footings",
+    "/guides/how-much-concrete-for-columns",
+    "/guides/how-much-concrete-for-walls",
+    "/guides/how-many-bags-of-concrete-for-post-holes",
+    "/guides/how-much-paint-do-i-need",
+    "/guides/how-many-tiles-do-i-need",
+    "/guides/how-many-drywall-sheets-do-i-need",
+    "/guides/how-many-bricks-do-i-need",
+    "/guides/how-much-gravel-do-i-need",
+    "/guides/how-much-mulch-do-i-need",
+  ];
+
+  for (const route of discoveryRoutes) {
+    assert.match(
+      libraryHtml,
+      new RegExp(`href=\\"${route.replaceAll("/", "\\/")}\\"`),
+      `expected the SSR calculator library to expose ${route}`,
+    );
+  }
 });
 
 test("renders the concrete calculator route and structured content", async () => {
