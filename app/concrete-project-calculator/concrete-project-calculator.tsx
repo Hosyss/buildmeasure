@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useCalculatorAnalytics } from "@/components/analytics-tracker";
 import { CalculatorCostFields } from "@/components/calculator-cost";
 import { usePurchaseCost } from "@/hooks/use-purchase-cost";
 import { useSavedEstimates } from "@/hooks/use-saved-estimates";
@@ -53,8 +54,14 @@ export function ConcreteProjectCalculator() {
     calculation.result?.bags ?? null,
     `${bagSize} lb bag`,
   );
+  const markInteraction = useCalculatorAnalytics(
+    "concrete-project-calculator",
+    Boolean(calculation.result),
+    calculation.error?.field ?? "",
+  );
 
   function patchPart(id: number, patch: Partial<DraftPart>) {
+    markInteraction();
     setParts((current) =>
       current.map((part) => (part.id === id ? { ...part, ...patch } : part)),
     );
@@ -62,6 +69,7 @@ export function ConcreteProjectCalculator() {
   }
 
   function replacePart(id: number, replacement: DraftPart) {
+    markInteraction();
     setParts((current) =>
       current.map((part) => (part.id === id ? replacement : part)),
     );
@@ -70,6 +78,7 @@ export function ConcreteProjectCalculator() {
 
   function addPart() {
     if (parts.length >= MAX_CONCRETE_PROJECT_PARTS) return;
+    markInteraction();
     setParts((current) => [
       ...current,
       createDraftPart(nextId, current.length),
@@ -80,6 +89,7 @@ export function ConcreteProjectCalculator() {
 
   function removePart(id: number) {
     if (parts.length === 1) return;
+    markInteraction();
     setParts((current) => current.filter((part) => part.id !== id));
     setNotice("");
   }
@@ -87,6 +97,7 @@ export function ConcreteProjectCalculator() {
   function movePart(index: number, direction: -1 | 1) {
     const target = index + direction;
     if (target < 0 || target >= parts.length) return;
+    markInteraction();
     setParts((current) => {
       const next = [...current];
       [next[index], next[target]] = [next[target], next[index]];
@@ -96,6 +107,7 @@ export function ConcreteProjectCalculator() {
   }
 
   function reset() {
+    markInteraction();
     setParts([createDraftPart(nextId, 0)]);
     setNextId((value) => value + 1);
     setWastePercent("10");
@@ -214,7 +226,10 @@ export function ConcreteProjectCalculator() {
                   step="any"
                   inputMode="decimal"
                   value={wastePercent}
-                  onChange={(event) => setWastePercent(event.target.value)}
+                  onChange={(event) => {
+                    markInteraction();
+                    setWastePercent(event.target.value);
+                  }}
                 />
                 <span>%</span>
               </span>
@@ -223,9 +238,10 @@ export function ConcreteProjectCalculator() {
               <span>Concrete bag size</span>
               <select
                 value={bagSize}
-                onChange={(event) =>
-                  setBagSize(Number(event.target.value) as BagSize)
-                }
+                onChange={(event) => {
+                  markInteraction();
+                  setBagSize(Number(event.target.value) as BagSize);
+                }}
               >
                 <option value={40}>40 lb bag</option>
                 <option value={60}>60 lb bag</option>
@@ -240,8 +256,14 @@ export function ConcreteProjectCalculator() {
             currencyLabel={cost.currencyLabel}
             error={cost.error}
             errorId="concrete-project-cost-error"
-            onUnitPriceChange={cost.setUnitPrice}
-            onCurrencyLabelChange={cost.setCurrencyLabel}
+            onUnitPriceChange={(value) => {
+              markInteraction();
+              cost.setUnitPrice(value);
+            }}
+            onCurrencyLabelChange={(value) => {
+              markInteraction();
+              cost.setCurrencyLabel(value);
+            }}
           />
 
           {calculation.error && calculation.error.partIndex === undefined ? (
