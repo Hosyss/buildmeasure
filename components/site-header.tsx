@@ -4,16 +4,21 @@ type SiteHeaderProps = {
 };
 
 const navigation = [
-  ["Calculators", "/#calculators"],
+  ["Calculators", "/calculators"],
   ["Projects", "/projects"],
   ["Guides", "/guides"],
   ["Methodology", "/methodology"],
 ] as const;
 
 export function SiteHeader({
-  ctaHref = "/#calculators",
+  ctaHref = "/calculators",
   ctaLabel = "Browse calculators",
 }: SiteHeaderProps) {
+  // Older calculator pages explicitly passed the homepage calculator anchor.
+  // Normalize that legacy destination here so every header now uses the
+  // dedicated scalable library without requiring a risky multi-file rewrite.
+  const resolvedCtaHref = ctaHref === "/#calculators" ? "/calculators" : ctaHref;
+
   return (
     <header className="site-header">
       <div className="utility-bar">
@@ -39,7 +44,7 @@ export function SiteHeader({
           ))}
         </nav>
 
-        <a className="button button-small button-outline" href={ctaHref}>
+        <a className="button button-small button-outline" href={resolvedCtaHref}>
           {ctaLabel}
         </a>
 
@@ -52,7 +57,7 @@ export function SiteHeader({
                 <span aria-hidden="true">→</span>
               </a>
             ))}
-            <a href={ctaHref}>
+            <a href={resolvedCtaHref}>
               <span>{ctaLabel}</span>
               <span aria-hidden="true">→</span>
             </a>
