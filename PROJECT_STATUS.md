@@ -1,91 +1,102 @@
 # BuildNumbers — Persistent Project Status
 
-> آخر تحديث موثّق: **2026-08-20 (Africa/Cairo)**
+> آخر تحديث موثّق: **2026-08-29**
 >
-> هذا الملف هو نقطة الاستئناف المختصرة. أحدث كود وPull Requests ونتائج الاختبارات تتقدم دائمًا على أي handoff أقدم.
+> هذا الملف نقطة استئناف مختصرة. GitHub (`main`, PR #56, check runs) هو مصدر الحقيقة إذا تغيرت الحالة بعد هذا السجل.
 
-## الهوية الحالية
+## الهوية والحالة الآمنة
 
-- المستودع الرسمي: https://github.com/Hosyss/buildmeasure
+- المستودع: `Hosyss/buildmeasure`
 - فرع الإنتاج: `main`
-- أحدث `main` عند بدء دفعة الصيانة الحالية: `134d6d7f6eb73d833a18e40f9cfebbdc0fe7d861`
-- رابط الإنتاج الحالي: https://buildnumbers.pages.dev
-- هذا الرابط هو الأصل الحالي المؤقت/التشغيلي، وليس نطاق علامة تجارية نهائيًا مستقلًا.
-- الرابط القديم الذي يجب الحفاظ على تحويله ومساره واستعلامه: https://buildmeasure.hosys.chatgpt.site
-- قاعدة Cloudflare D1 الحالية: `buildmeasure-production`
+- `main` المؤكد قبل إغلاق بوابات الإصدار: `616894b34033bd26039321b49dfabe2b73bc8ca9`
+- فرع مرشح الإصدار: `feat/buildnumbers-rebrand-safe`
+- PR الإصدار: **#56 — Rebrand public site as BuildNumbers**
+- الرابط العام المقصود: `https://buildnumbers.pages.dev`
+- مشروع Pages الجديد: `buildnumbers`
+- مشروع Pages القديم أثناء نافذة الانتقال: `buildmeasuretools`
+- قاعدة D1 الحالية: `buildmeasure-production`
+- اسم الـbinding الذي يعتمد عليه التطبيق: `DB`
 - إصدار التطبيق في `package.json`: `0.6.0`
-- لا تُنشئ Worker أو D1 أو مستودعًا أو مشروع Cloudflare بديلًا لهذا المشروع.
 
-## نطاق المنتج المتحقق في المصدر
+لا تدمج إلى `main`، ولا تعمل Production deployment أو D1 remote migration، قبل إعادة فحص أحدث head وتحقق بوابات الإصدار. لا تعتبر نجاح Preview أو Production أقدم دليلًا أن أحدث head منشور.
 
-BuildNumbers يحتوي حاليًا على **8 حاسبات عامة**:
+## نطاق المنتج الحالي
 
-1. Concrete Calculator
-2. Post Hole Concrete Calculator
-3. Paint Calculator
-4. Tile Calculator
-5. Brick Calculator
-6. Gravel Calculator
-7. Mulch Calculator
-8. Drywall Calculator
+BuildNumbers يحتوي على **13 حاسبة عامة**:
 
-المصدر يحتوي كذلك على **7 أدلة مركزة مرتبطة بالحاسبات السبع**، بالإضافة إلى دليل عام واحد هو `material-estimating-basics`. لذلك عبارة «خمس حاسبات» أو اعتبار الأدلة المركزة أربعة فقط أصبحت تاريخية ولا تصف الحالة الحالية.
+1. Multi-Shape Concrete Project Calculator
+2. Concrete Calculator
+3. Circular Slab Concrete Calculator
+4. Footing Concrete Calculator
+5. Column Concrete Calculator
+6. Concrete Wall Calculator
+7. Post Hole Concrete Calculator
+8. Paint Calculator
+9. Tile Calculator
+10. Brick Calculator
+11. Gravel Calculator
+12. Mulch Calculator
+13. Drywall Calculator
 
-## الحالة الفنية الحالية
+يوجد كذلك **13 دليلًا مركزًا للحاسبات** بالإضافة إلى دليل `material-estimating-basics` العام.
 
-- PR #33 (`Clarify calculator UX, CTAs, typography, and guide density`) **تم دمجه** في `main` يوم 2026-08-13. لا تعِد تنفيذ تغييراته.
-- إغلاق PR #33 في الإنتاج سُجل في `docs/PROGRESS.md`: فحص إنتاج شمل الحاسبات السبع والأدلة السبعة المركزة والأسطح التقنية و360/768/1280.
-- إصلاح Brick الخاص بحدود تحويل الوحدات تم دمجه لاحقًا مع regression دائم، بدون تغيير صيغة المحرك.
-- فحص Firefox/WebKit المسجل في `docs/PROGRESS.md` نجح **14/14** وأغلق فجوة التوافق التقني الأساسية.
-- PR #40 (`SEO: reinforce canonical URLs at HTTP layer`) تم دمجه، وأحدث Quality Gate على head الخاص به (`32184289738`) نجح.
-- أحدث `main` بعد PR #40 يضيف إشارة canonical عبر HTTP `Link` مع الحفاظ على canonical الموجود في HTML بدل اختراع canonical جديد.
-- لم يتم في هذه الجلسة إثبات أن أحدث `main` بعد PR #40 هو نفسه آخر Version منشور على Cloudflare؛ لا تدّعِ هذا التطابق قبل فحص نشر مستقل.
+المنتج يدعم Imperial/Metric، تقديرات الشراء والتكلفة الاختيارية، الحفظ المحلي، Project Mode، shopping lists، cost roll-ups، copy/print/Save as PDF، feedback، وfirst-party analytics محدود يحافظ على الخصوصية. أي قدرة غير موجودة في المصدر والاختبارات لا تُعتبر منفذة لمجرد أنها مذكورة في handoff أقدم.
 
-## القياس والخصوصية
+## خط التطوير المدمج في PR #56
 
-- يوجد first-party analytics محدود يخزن أحداث استخدام مجهولة في D1 ولا يخزن IP أو raw user-agent أو أسماء أو بريدًا أو قياسات المشروع الخام.
-- Microsoft Clarity خدمة اختيارية منفصلة ولا يجوز تحميل script الخاص بها قبل موافقة المستخدم.
-- دفعة الصيانة الحالية تضيف قياسًا محدودًا لمسار `Homepage/Guide → Calculator` باستخدام اسم الحاسبة ومصدر ثابت فقط (`homepage` أو `guide`)؛ لا تُرسل أبعاد أو كميات أو أسعار.
-- نافذة اختيار Clarity تُحسّن لتكون أقل سيطرة على الشاشات الصغيرة مع إبقاء Allow وDecline وPrivacy واضحة وسهلة الوصول.
+تم تجميع خط التطوير المتراكم داخل PR #56، بما في ذلك PRs #57 و#58 و#59 و#60 و#61 و#62 و#69. Hardening الخاص بـPR #59 دخل عبر merge حقيقي ذي parentين ويشمل bounded streaming JSON reads لمسارات analytics والfeedback.
 
-## الجودة
+أثناء فحص الإصدار الحي تم اكتشاف وإصلاح regressions حقيقية مع اختبارات دائمة:
 
-- الـCI الرسمي يشغّل `npm run qa:automated` ثم `npm audit --omit=dev --audit-level=high`.
-- حتى بداية دفعة 2026-08-20 كان `qa:automated` يغطي lint + unit tests + build + rendered tests، لكنه لم يكن يشغّل `tsc --noEmit` كبوابة مستقلة.
-- دفعة الصيانة الحالية تضيف `npm run typecheck` إلى `qa:automated`. نجاح الدفعة لا يُعلن قبل نجاح TypeScript والبوابات الحالية معًا.
-- لا تخفف اختبارًا فاشلًا لإجباره على النجاح، ولا تعتبر build بديلًا عن بوابة TypeScript المستقلة بعد إضافتها.
+- Mobile overflow في Column Calculator عند 360px.
+- رفض analytics للـlocale `en-US@posix` بـHTTP 400 رغم أنه locale صالح صادر من بيئة متصفح فعلية.
+- غياب shared analytics lifecycle عن Multi-Shape Concrete Project Calculator.
 
-## Pull Requests المفتوحة التي لا يجب خلطها بهذه الدفعة
+## الجودة الحالية
 
-- PR #27 ما زال Draft قديمًا لمسار post-hole guide أصبح موجودًا بالفعل عبر عمل لاحق؛ لا تستخدمه كأساس لحالة المنتج الحالية.
-- PR #32 ما زال Draft لحاسبة Drywall ثامنة مبنية على baseline قديم. لا تدمجه ولا تكمله ضمن صيانة المنتج الحالية؛ لا توجد حاجة مثبتة الآن لإضافة حاسبة ثامنة.
+الـCI الرسمي يشغّل TypeScript + ESLint + unit/engine tests + build + rendered tests + production dependency audit.
 
-## الأصول والملفات التي يجب حمايتها
+آخر بوابة كاملة مؤكدة قبل تحديث هذا المستند كانت **Quality Gate #457** على functional head الذي أغلق regressions أعلاه:
 
-- احتفظ بملف إثبات Google الحالي ومسارات إثبات الملكية.
-- لا تكسر `robots.txt` أو `sitemap.xml` أو `llms.txt` أو canonical الحالي.
-- لا تكسر تحويل الرابط القديم أو حفظ path/query.
-- لا تعِد كتابة migrations القديمة المطبقة.
-- توجد بقايا محتملة مثل `examples/d1` وبعض الأصول العامة الافتراضية، لكن لا تُحذف لمجرد الاسم؛ يلزم إثبات عدم استخدامها في build/tests/production أولًا.
+- **223/223** unit/engine tests
+- **68/68** rendered tests
+- TypeScript: PASS
+- ESLint: PASS
+- production build: PASS
+- `npm audit --omit=dev --audit-level=high`: **0 vulnerabilities**
 
-## التقدم الحالي
+أي commit لاحق، حتى لو كان documentation-only، يجب أن يمر بالبوابة مرة أخرى قبل اعتباره head نهائيًا.
 
-- Launch-ready v1: **99%** وفق سجل التقدم الحالي.
-- الـ1% المتبقي ليس «حاسبة جديدة»؛ هو بيانات استخدام حقيقية كافية وملاحظات usability مستقلة تساعد على توجيه ما بعد الإطلاق.
-- الرؤية طويلة المدى أوسع بكثير من v1، لذلك لا تخلط نسبة جاهزية الإطلاق بنسبة اكتمال المنتج النهائي.
+## Cloudflare / D1 evidence
 
-## دفعة الصيانة النشطة — 2026-08-20
+تم تنفيذ read-only smoke من GitHub-hosted runners بدل الاعتماد على نجاح deploy وحده.
 
-- الفرع: `maintenance/product-quality-2026-08-20`
-- النطاق: مزامنة التوثيق، تحسين نافذة Clarity، قياس funnel محدود يحافظ على الخصوصية، وإضافة TypeScript إلى البوابة الآلية.
-- غير داخل النطاق: تغيير formulas، إضافة حاسبة ثامنة، تغيير النطاق، إنشاء D1/Worker جديد، إعادة تصميم الموقع بالكامل، أو حذف starter files بدون إثبات.
-- الحالة: **تحت التحقق — غير مدموجة وغير منشورة**.
+في مرحلة مبكرة كان Preview قديم يعيد `/api/health` = 503 لأن D1 لم يكن متاحًا في تلك البيئة. لاحقًا، على Preview أحدث مطابق لمرشح الإصدار، عاد `/api/health` = **200** مع:
 
-## نقطة الاستئناف التالية
+- `feedbackStorage: ok`
+- `analyticsStorage: ok`
 
-1. انتظر نتيجة Quality Gate للفرع الحالي وافحص TypeScript/lint/tests/build/rendered tests بالأرقام.
-2. إذا فشل TypeScript، افصل فشل baseline القديم عن أي خطأ جديد وأصلح السبب بدون إضعاف الإعدادات.
-3. قبل الدمج، نفّذ/سجّل فحص 360×800 و768×900 و1280×900 وconsole للسطح المتأثر لأن نافذة consent سلوك UI مشترك.
-4. لا تنشر ولا ترسل IndexNow لهذه الدفعة قبل اكتمال البوابات والدمج والنشر المتحقق؛ ولا ترسل IndexNow إذا لم تتغير URLs أو محتويات عامة تستحق الإرسال.
+كما ثبت live أن إصلاح Column أزال horizontal overflow عند 360px وأن analytics عاد **204** بدل 400. هذا يثبت سلامة الربط التشغيلي على الـPreview الذي تم فحصه، لكنه لا يساوي قراءة Cloudflare control-plane UUID؛ لا تدّعِ فحص UUID للـbinding بدون API/Dashboard evidence مستقل.
 
-للتاريخ التفصيلي راجع `docs/PROGRESS.md` و`docs/AUDITS.md` و`CHANGELOG.md` بدل إعادة نسخ سجلات checkpoints القديمة هنا.
+## بوابة الإصدار المتبقية
+
+قبل دمج PR #56 إلى `main`:
+
+1. أعد جلب `main` وPR #56 وتأكد أن الـheads لم تتغير.
+2. تأكد أن Quality Gate على **أحدث head** أخضر بالكامل.
+3. استخدم Cloudflare Preview منشورًا من **نفس أحدث head**، وليس Preview أقدم.
+4. تحقق من `/api/health` = 200 وكلا D1 checks = `ok`.
+5. نفذ live responsive/browser smoke على 360×800 و768×900 و1280×900، بدون overflow أو page errors أو first-party 4xx/5xx، وتأكد أن كل الحاسبات الـ13 ترسل analytics المقبول.
+6. لا تعتبر `buildnumbers.pages.dev` يحمل أحدث candidate قبل إثبات deploy/production smoke بعد الدمج أو cutover المصرح به.
+7. لا تعمل D1 remote migration؛ هذه الدفعة لا تحتاج migration جديدة.
+
+## قواعد الاستئناف
+
+- لا تبدأ من الصفر ولا تعيد بناء الانجن.
+- قبل أي mutation، refetch الفرع المستهدف لأن جلسات أخرى قد تعمل بالتوازي.
+- لا تخفف اختبارًا فاشلًا لإجبار البوابة على النجاح.
+- أي bug حقيقي: أصلحه، أضف regression test مناسبًا، ثم شغّل Full Quality Gate.
+- لا تنشئ Worker أو D1 أو repo بديلًا لهذا المشروع بلا قرار معماري صريح.
+- لا تدّعِ نجاح Production أو browser QA من دليل CI/static فقط.
+
+للتاريخ التفصيلي راجع `docs/PROGRESS.md` و`docs/AUDITS.md` و`CHANGELOG.md` وPR #56.
