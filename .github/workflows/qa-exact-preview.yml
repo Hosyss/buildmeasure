@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      PREVIEW_ORIGIN: https://69ca8022.buildnumbers.pages.dev
+      PREVIEW_ORIGIN: https://f19a9cd8.buildnumbers.pages.dev
     steps:
       - name: Wait for exact immutable preview
         shell: bash
