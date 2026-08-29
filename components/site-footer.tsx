@@ -17,6 +17,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-links">
           <strong>Calculators</strong>
+          <a href="/concrete-project-calculator">Multi-shape concrete</a>
           <a href="/concrete-calculator">Concrete</a>
           <a href="/circular-slab-calculator">Circular slabs</a>
           <a href="/footing-calculator">Footings</a>
@@ -37,6 +38,7 @@ export function SiteFooter() {
           <a href="/methodology">Methodology</a>
           <a href="/guides">Guide library</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
+          <a href="/guides/how-to-estimate-multi-shape-concrete-project">Concrete project guide</a>
           <a href="/guides/how-many-bricks-do-i-need">Brick guide</a>
           <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
           <a href="/feedback">Report an issue</a>
