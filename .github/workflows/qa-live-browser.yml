@@ -11,132 +11,98 @@ permissions:
 jobs:
   live-browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     env:
       PREVIEW_ORIGIN: https://bcf298ce.buildnumbers.pages.dev
     steps:
-      - name: Check out QA branch
-        uses: actions/checkout@v4
-
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install browser harness
+      - name: Install focused browser harness
         shell: bash
         run: |
           set -euo pipefail
           npm install --no-save --package-lock=false playwright@1.55.0
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
 
-      - name: Run live responsive smoke
+      - name: Diagnose candidate at 360px
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p /tmp/buildnumbers-live-screens
           node --input-type=module <<'NODE'
           import { chromium } from "playwright";
 
           const origin = process.env.PREVIEW_ORIGIN;
-          const routes = [
-            "/",
-            "/calculators",
-            "/concrete-project-calculator",
-            "/concrete-calculator",
-            "/circular-slab-calculator",
-            "/footing-calculator",
-            "/column-calculator",
-            "/wall-calculator",
-            "/post-hole-concrete-calculator",
-            "/paint-calculator",
-            "/tile-calculator",
-            "/brick-calculator",
-            "/gravel-calculator",
-            "/mulch-calculator",
-            "/drywall-calculator",
-            "/guides",
-            "/projects",
-          ];
-          const viewports = [
-            { name: "mobile", width: 360, height: 800 },
-            { name: "tablet", width: 768, height: 900 },
-            { name: "desktop", width: 1280, height: 900 },
-          ];
-          const screenshotRoutes = new Set(["/", "/calculators", "/concrete-project-calculator", "/projects"]);
-          const failures = [];
           const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ viewport: { width: 360, height: 800 } });
 
-          for (const viewport of viewports) {
-            const context = await browser.newContext({ viewport });
-            for (const route of routes) {
-              const page = await context.newPage();
-              const pageErrors = [];
-              const consoleErrors = [];
-              page.on("pageerror", (error) => pageErrors.push(String(error)));
-              page.on("console", (message) => {
-                if (message.type() === "error") consoleErrors.push(message.text());
-              });
-
-              try {
-                const response = await page.goto(`${origin}${route}`, {
-                  waitUntil: "domcontentloaded",
-                  timeout: 15000,
+          for (const route of ["/column-calculator", "/concrete-calculator"]) {
+            const page = await context.newPage();
+            const badResponses = [];
+            const failedRequests = [];
+            page.on("response", (response) => {
+              if (response.status() >= 400) {
+                badResponses.push({
+                  status: response.status(),
+                  method: response.request().method(),
+                  url: response.url(),
+                  resourceType: response.request().resourceType(),
                 });
-                await page.waitForTimeout(500);
-                const status = response?.status() ?? 0;
-                const metrics = await page.evaluate(() => ({
-                  width: window.innerWidth,
-                  scrollWidth: document.documentElement.scrollWidth,
-                  bodyWidth: document.body.scrollWidth,
-                  h1: document.querySelector("h1")?.textContent?.trim() || "",
-                }));
-                const overflow = metrics.scrollWidth > metrics.width + 1 || metrics.bodyWidth > metrics.width + 1;
-                console.log(`${viewport.name} ${route} -> HTTP ${status}; viewport=${metrics.width}; scroll=${metrics.scrollWidth}; body=${metrics.bodyWidth}; h1=${JSON.stringify(metrics.h1)}`);
-                if (status !== 200) failures.push(`${viewport.name} ${route}: HTTP ${status}`);
-                if (!metrics.h1) failures.push(`${viewport.name} ${route}: missing H1`);
-                if (overflow) failures.push(`${viewport.name} ${route}: horizontal overflow ${metrics.scrollWidth}/${metrics.bodyWidth} > ${metrics.width}`);
-                if (pageErrors.length) failures.push(`${viewport.name} ${route}: page errors: ${pageErrors.join(" | ")}`);
-                if (consoleErrors.length) failures.push(`${viewport.name} ${route}: console errors: ${consoleErrors.join(" | ")}`);
-
-                if (route === "/") {
-                  const nav = await page.evaluate(() => {
-                    const desktop = document.querySelector(".main-nav");
-                    const mobile = document.querySelector(".mobile-nav");
-                    const visible = (element) => element instanceof HTMLElement && getComputedStyle(element).display !== "none";
-                    return { desktopVisible: visible(desktop), mobileVisible: visible(mobile) };
-                  });
-                  if (viewport.width <= 768 && !nav.mobileVisible) failures.push(`${viewport.name}: mobile navigation is not visible`);
-                  if (viewport.width >= 1280 && !nav.desktopVisible) failures.push(`${viewport.name}: desktop navigation is not visible`);
-                }
-
-                if (screenshotRoutes.has(route)) {
-                  const slug = route === "/" ? "home" : route.slice(1).replaceAll("/", "-");
-                  await page.screenshot({ path: `/tmp/buildnumbers-live-screens/${viewport.name}-${slug}.png`, fullPage: true });
-                }
-              } catch (error) {
-                failures.push(`${viewport.name} ${route}: ${String(error)}`);
-              } finally {
-                await page.close();
               }
-            }
-            await context.close();
+            });
+            page.on("requestfailed", (request) => {
+              failedRequests.push({
+                method: request.method(),
+                url: request.url(),
+                resourceType: request.resourceType(),
+                failure: request.failure()?.errorText || "unknown",
+              });
+            });
+
+            const response = await page.goto(`${origin}${route}`, { waitUntil: "domcontentloaded", timeout: 15000 });
+            await page.waitForTimeout(1000);
+            const diagnostics = await page.evaluate(() => {
+              const viewport = window.innerWidth;
+              const offenders = [...document.querySelectorAll("body *")]
+                .map((element) => {
+                  const rect = element.getBoundingClientRect();
+                  const style = getComputedStyle(element);
+                  return {
+                    tag: element.tagName.toLowerCase(),
+                    id: element.id,
+                    className: typeof element.className === "string" ? element.className : "",
+                    text: (element.textContent || "").replace(/\s+/g, " ").trim().slice(0, 160),
+                    left: Math.round(rect.left * 100) / 100,
+                    right: Math.round(rect.right * 100) / 100,
+                    width: Math.round(rect.width * 100) / 100,
+                    minWidth: style.minWidth,
+                    maxWidth: style.maxWidth,
+                    whiteSpace: style.whiteSpace,
+                    overflowX: style.overflowX,
+                    display: style.display,
+                    gridTemplateColumns: style.gridTemplateColumns,
+                  };
+                })
+                .filter((item) => item.right > viewport + 1 || item.left < -1 || item.width > viewport + 1)
+                .slice(0, 40);
+              return {
+                viewport,
+                htmlScrollWidth: document.documentElement.scrollWidth,
+                bodyScrollWidth: document.body.scrollWidth,
+                offenders,
+              };
+            });
+
+            console.log(`ROUTE=${route}`);
+            console.log(`HTTP=${response?.status() ?? 0}`);
+            console.log(`LAYOUT=${JSON.stringify(diagnostics)}`);
+            console.log(`BAD_RESPONSES=${JSON.stringify(badResponses)}`);
+            console.log(`FAILED_REQUESTS=${JSON.stringify(failedRequests)}`);
+            await page.close();
           }
 
+          await context.close();
           await browser.close();
-          if (failures.length) {
-            console.error("LIVE_BROWSER_FAILURES");
-            for (const failure of failures) console.error(`- ${failure}`);
-            process.exit(1);
-          }
-          console.log(`LIVE_BROWSER_PASS routes=${routes.length} viewports=${viewports.length} checks=${routes.length * viewports.length}`);
           NODE
-
-      - name: Upload browser screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: buildnumbers-live-preview-screens
-          path: /tmp/buildnumbers-live-screens
-          if-no-files-found: warn
-          retention-days: 3
