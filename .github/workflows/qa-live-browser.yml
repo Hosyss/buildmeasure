@@ -27,7 +27,7 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.55.0
           npx playwright install chromium
 
-      - name: Isolate analytics and CSS behavior
+      - name: Capture analytics and verify mobile CSS candidate
         shell: bash
         run: |
           set -euo pipefail
@@ -39,6 +39,7 @@ jobs:
           const context = await browser.newContext({ viewport: { width: 360, height: 800 } });
           const page = await context.newPage();
           const analyticsRequests = [];
+          const analyticsResponses = [];
 
           page.on("request", (request) => {
             if (request.url().endsWith("/api/analytics")) {
@@ -49,38 +50,17 @@ jobs:
               });
             }
           });
+          page.on("response", (response) => {
+            if (!response.url().endsWith("/api/analytics")) return;
+            response.text().then((body) => {
+              analyticsResponses.push({ status: response.status(), body });
+            }).catch(() => {
+              analyticsResponses.push({ status: response.status(), body: "<unreadable>" });
+            });
+          });
 
-          const automaticResponsePromise = page.waitForResponse(
-            (response) => response.url().endsWith("/api/analytics"),
-            { timeout: 5000 },
-          );
           await page.goto(`${origin}/column-calculator`, { waitUntil: "domcontentloaded", timeout: 15000 });
-          const automaticResponse = await automaticResponsePromise;
-          const automaticBody = await automaticResponse.text().catch(() => "");
-          await page.waitForTimeout(300);
-
-          const captured = analyticsRequests[0]?.postData || "";
-          console.log(`AUTO_ANALYTICS_STATUS=${automaticResponse.status()}`);
-          console.log(`AUTO_ANALYTICS_BODY=${automaticBody}`);
-          console.log(`AUTO_ANALYTICS_PAYLOAD=${captured}`);
-          console.log(`AUTO_ANALYTICS_HEADERS=${JSON.stringify(analyticsRequests[0]?.headers || {})}`);
-
-          const replays = await page.evaluate(async (payload) => {
-            async function send(keepalive) {
-              const response = await fetch("/api/analytics", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: payload,
-                keepalive,
-              });
-              return { status: response.status, body: await response.text() };
-            }
-            return {
-              noKeepalive: await send(false),
-              keepalive: await send(true),
-            };
-          }, captured);
-          console.log(`ANALYTICS_REPLAYS=${JSON.stringify(replays)}`);
+          await page.waitForTimeout(2500);
 
           const css = await page.evaluate(() => {
             const measure = () => ({
@@ -105,24 +85,11 @@ jobs:
             `;
             document.head.append(style);
             const afterFix = measure();
-            const remaining = [...document.querySelectorAll("body *")]
-              .map((el) => {
-                const r = el.getBoundingClientRect();
-                return {
-                  tag: el.tagName.toLowerCase(),
-                  className: typeof el.className === "string" ? el.className : "",
-                  text: (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 100),
-                  left: Math.round(r.left * 100) / 100,
-                  right: Math.round(r.right * 100) / 100,
-                  width: Math.round(r.width * 100) / 100,
-                  display: getComputedStyle(el).display,
-                  visibility: getComputedStyle(el).visibility,
-                };
-              })
-              .filter((item) => item.right > innerWidth + 1 || item.left < -1 || item.width > innerWidth + 1)
-              .slice(0, 30);
-            return { baseline, afterFix, remaining };
+            return { baseline, afterFix };
           });
+
+          console.log(`ANALYTICS_REQUESTS=${JSON.stringify(analyticsRequests)}`);
+          console.log(`ANALYTICS_RESPONSES=${JSON.stringify(analyticsResponses)}`);
           console.log(`CSS_FINAL_EXPERIMENT=${JSON.stringify(css)}`);
 
           await page.close();
