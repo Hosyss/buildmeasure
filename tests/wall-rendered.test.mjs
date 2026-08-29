@@ -65,7 +65,7 @@ test("feedback and Project Mode keep Wall first-class after Circular Slab expand
 
   const projects = await render("/projects", "wall-projects");
   assert.equal(projects.response.status, 200);
-  assert.match(projects.html, /Works across all twelve calculators/);
+  assert.match(projects.html, /Works across all thirteen calculators/);
 });
 
 test("wall static source remains discoverable after the public integration commit", async () => {
