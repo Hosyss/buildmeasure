@@ -76,6 +76,16 @@ export function CalculatorLibrary() {
             </div>
             <h2>{calculator.name}</h2>
             <p>{calculator.description}</p>
+            <dl className={styles.fitGuide}>
+              <div>
+                <dt>Use this when</dt>
+                <dd>{calculator.useWhen}</dd>
+              </div>
+              <div>
+                <dt>Verify before ordering</dt>
+                <dd>{calculator.verifyBeforeOrdering}</dd>
+              </div>
+            </dl>
             <div className={styles.cardActions}>
               <a className={styles.primaryAction} href={calculator.href}>
                 Open calculator
