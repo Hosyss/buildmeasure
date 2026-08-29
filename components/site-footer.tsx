@@ -17,6 +17,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-links">
           <strong>Calculators</strong>
+          <a href="/calculators">Browse all calculators</a>
           <a href="/concrete-project-calculator">Multi-shape concrete</a>
           <a href="/concrete-calculator">Concrete</a>
           <a href="/circular-slab-calculator">Circular slabs</a>
