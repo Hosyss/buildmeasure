@@ -1,0 +1,152 @@
+name: QA final BuildNumbers live matrix
+
+on:
+  push:
+    branches:
+      - qa/live-smoke-7ddd136a
+
+permissions:
+  contents: read
+
+jobs:
+  final-live-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PREVIEW_ORIGIN: https://f19a9cd8.buildnumbers.pages.dev
+    steps:
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install browser harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install chromium
+
+      - name: Run 17-route responsive matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { chromium } from "playwright";
+
+          const origin = process.env.PREVIEW_ORIGIN;
+          const routes = [
+            "/",
+            "/calculators",
+            "/concrete-project-calculator",
+            "/concrete-calculator",
+            "/circular-slab-calculator",
+            "/footing-calculator",
+            "/column-calculator",
+            "/wall-calculator",
+            "/post-hole-concrete-calculator",
+            "/paint-calculator",
+            "/tile-calculator",
+            "/brick-calculator",
+            "/gravel-calculator",
+            "/mulch-calculator",
+            "/drywall-calculator",
+            "/guides",
+            "/projects",
+          ];
+          const calculatorRoutes = new Set(routes.filter((route) => route.endsWith("-calculator") || route === "/concrete-project-calculator"));
+          const viewports = [
+            { name: "mobile", width: 360, height: 800 },
+            { name: "tablet", width: 768, height: 900 },
+            { name: "desktop", width: 1280, height: 900 },
+          ];
+
+          const browser = await chromium.launch({ headless: true });
+          const failures = [];
+          let analytics204 = 0;
+          let checks = 0;
+
+          for (const viewport of viewports) {
+            const context = await browser.newContext({
+              viewport: { width: viewport.width, height: viewport.height },
+              locale: "en-US@posix",
+            });
+
+            for (const route of routes) {
+              checks += 1;
+              const page = await context.newPage();
+              const pageErrors = [];
+              const badFirstPartyResponses = [];
+              const analyticsResponses = [];
+
+              page.on("pageerror", (error) => pageErrors.push(String(error)));
+              page.on("response", async (response) => {
+                const url = new URL(response.url());
+                if (url.origin !== origin) return;
+                if (url.pathname === "/api/analytics") {
+                  analyticsResponses.push(response.status());
+                  if (response.status() === 204) analytics204 += 1;
+                  return;
+                }
+                if (response.status() >= 400) {
+                  badFirstPartyResponses.push(`${url.pathname}:${response.status()}`);
+                }
+              });
+
+              try {
+                const response = await page.goto(`${origin}${route}`, {
+                  waitUntil: "domcontentloaded",
+                  timeout: 15000,
+                });
+                await page.waitForTimeout(calculatorRoutes.has(route) ? 1800 : 600);
+
+                const status = response?.status() ?? 0;
+                const metrics = await page.evaluate(() => ({
+                  viewport: window.innerWidth,
+                  html: document.documentElement.scrollWidth,
+                  body: document.body.scrollWidth,
+                  h1: document.querySelector("h1")?.textContent?.trim() || "",
+                }));
+
+                console.log(`${viewport.name} ${route} HTTP=${status} html=${metrics.html} body=${metrics.body} viewport=${metrics.viewport} analytics=${analyticsResponses.join(",") || "none"}`);
+
+                if (status !== 200) failures.push(`${viewport.name} ${route}: HTTP ${status}`);
+                if (!metrics.h1) failures.push(`${viewport.name} ${route}: missing H1`);
+                if (metrics.html > metrics.viewport + 1 || metrics.body > metrics.viewport + 1) {
+                  failures.push(`${viewport.name} ${route}: overflow html=${metrics.html} body=${metrics.body} viewport=${metrics.viewport}`);
+                }
+                if (pageErrors.length) failures.push(`${viewport.name} ${route}: page errors ${pageErrors.join(" | ")}`);
+                if (badFirstPartyResponses.length) failures.push(`${viewport.name} ${route}: first-party errors ${badFirstPartyResponses.join(" | ")}`);
+                if (calculatorRoutes.has(route)) {
+                  if (!analyticsResponses.length) failures.push(`${viewport.name} ${route}: analytics request missing`);
+                  if (analyticsResponses.some((status) => status !== 204)) {
+                    failures.push(`${viewport.name} ${route}: analytics statuses ${analyticsResponses.join(",")}`);
+                  }
+                }
+              } catch (error) {
+                failures.push(`${viewport.name} ${route}: ${String(error)}`);
+              } finally {
+                await page.close();
+              }
+            }
+            await context.close();
+          }
+
+          await browser.close();
+
+          const healthResponse = await fetch(`${origin}/api/health`);
+          const health = await healthResponse.json();
+          console.log(`HEALTH_HTTP=${healthResponse.status}`);
+          console.log(`HEALTH_BODY=${JSON.stringify(health)}`);
+          if (healthResponse.status !== 200 || health.status !== "ok" || health.checks?.feedbackStorage !== "ok" || health.checks?.analyticsStorage !== "ok") {
+            failures.push(`health gate failed: HTTP ${healthResponse.status} ${JSON.stringify(health)}`);
+          }
+
+          console.log(`FINAL_MATRIX_SUMMARY checks=${checks} analytics204=${analytics204} failures=${failures.length}`);
+          if (failures.length) {
+            console.error("FINAL_MATRIX_FAILURES");
+            for (const failure of failures) console.error(`- ${failure}`);
+            process.exit(1);
+          }
+          console.log("FINAL_LIVE_MATRIX_PASS");
+          NODE
