@@ -3,7 +3,8 @@ import { absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: absoluteUrl("/"), lastModified: new Date("2026-08-28"), changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl("/"), lastModified: new Date("2026-08-29"), changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl("/concrete-project-calculator"), lastModified: new Date("2026-08-29"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/concrete-calculator"), lastModified: new Date("2026-08-12"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/circular-slab-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/footing-calculator"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.9 },
@@ -16,8 +17,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/gravel-calculator"), lastModified: new Date("2026-08-13"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/mulch-calculator"), lastModified: new Date("2026-08-01"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/drywall-calculator"), lastModified: new Date("2026-08-24"), changeFrequency: "monthly", priority: 0.9 },
-    { url: absoluteUrl("/guides"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/guides"), lastModified: new Date("2026-08-29"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/material-estimating-basics"), lastModified: new Date("2026-08-01"), changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/guides/how-to-estimate-multi-shape-concrete-project"), lastModified: new Date("2026-08-29"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-many-bags-of-concrete"), lastModified: new Date("2026-08-12"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-much-concrete-for-circular-slabs"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-much-concrete-for-footings"), lastModified: new Date("2026-08-28"), changeFrequency: "monthly", priority: 0.8 },
@@ -31,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/guides/how-much-mulch-do-i-need"), lastModified: new Date("2026-08-11"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/guides/how-many-drywall-sheets-do-i-need"), lastModified: new Date("2026-08-24"), changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/methodology"), lastModified: new Date("2026-08-01"), changeFrequency: "monthly", priority: 0.7 },
-    { url: absoluteUrl("/about"), lastModified: new Date("2026-08-28"), changeFrequency: "yearly", priority: 0.5 },
+    { url: absoluteUrl("/about"), lastModified: new Date("2026-08-29"), changeFrequency: "yearly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: new Date("2026-08-22"), changeFrequency: "yearly", priority: 0.4 },
     { url: absoluteUrl("/privacy"), lastModified: new Date("2026-08-22"), changeFrequency: "yearly", priority: 0.3 },
     { url: absoluteUrl("/terms"), lastModified: new Date("2026-08-01"), changeFrequency: "yearly", priority: 0.3 },
