@@ -27,7 +27,7 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.55.0
           npx playwright install chromium
 
-      - name: Diagnose candidate at 360px
+      - name: Confirm candidate regressions at 360px
         shell: bash
         run: |
           set -euo pipefail
@@ -37,72 +37,48 @@ jobs:
           const origin = process.env.PREVIEW_ORIGIN;
           const browser = await chromium.launch({ headless: true });
           const context = await browser.newContext({ viewport: { width: 360, height: 800 } });
+          const page = await context.newPage();
+          const analytics = [];
 
-          for (const route of ["/column-calculator", "/concrete-calculator"]) {
-            const page = await context.newPage();
-            const badResponses = [];
-            const failedRequests = [];
-            page.on("response", (response) => {
-              if (response.status() >= 400) {
-                badResponses.push({
-                  status: response.status(),
-                  method: response.request().method(),
-                  url: response.url(),
-                  resourceType: response.request().resourceType(),
-                });
-              }
-            });
-            page.on("requestfailed", (request) => {
-              failedRequests.push({
+          page.on("response", async (response) => {
+            if (response.url().endsWith("/api/analytics")) {
+              const request = response.request();
+              let responseText = "";
+              try { responseText = await response.text(); } catch {}
+              analytics.push({
+                status: response.status(),
                 method: request.method(),
-                url: request.url(),
-                resourceType: request.resourceType(),
-                failure: request.failure()?.errorText || "unknown",
+                postData: request.postData(),
+                responseText,
               });
+            }
+          });
+
+          await page.goto(`${origin}/column-calculator`, { waitUntil: "domcontentloaded", timeout: 15000 });
+          await page.waitForTimeout(1200);
+
+          const cssExperiment = await page.evaluate(() => {
+            const measure = () => ({
+              html: document.documentElement.scrollWidth,
+              body: document.body.scrollWidth,
+              panel: Math.round((document.querySelector(".calculator-panel")?.getBoundingClientRect().width || 0) * 100) / 100,
+              toggles: [...document.querySelectorAll(".unit-toggle")].map((el) => ({
+                width: Math.round(el.getBoundingClientRect().width * 100) / 100,
+                minWidth: getComputedStyle(el).minWidth,
+              })),
             });
 
-            const response = await page.goto(`${origin}${route}`, { waitUntil: "domcontentloaded", timeout: 15000 });
-            await page.waitForTimeout(1000);
-            const diagnostics = await page.evaluate(() => {
-              const viewport = window.innerWidth;
-              const offenders = [...document.querySelectorAll("body *")]
-                .map((element) => {
-                  const rect = element.getBoundingClientRect();
-                  const style = getComputedStyle(element);
-                  return {
-                    tag: element.tagName.toLowerCase(),
-                    id: element.id,
-                    className: typeof element.className === "string" ? element.className : "",
-                    text: (element.textContent || "").replace(/\s+/g, " ").trim().slice(0, 160),
-                    left: Math.round(rect.left * 100) / 100,
-                    right: Math.round(rect.right * 100) / 100,
-                    width: Math.round(rect.width * 100) / 100,
-                    minWidth: style.minWidth,
-                    maxWidth: style.maxWidth,
-                    whiteSpace: style.whiteSpace,
-                    overflowX: style.overflowX,
-                    display: style.display,
-                    gridTemplateColumns: style.gridTemplateColumns,
-                  };
-                })
-                .filter((item) => item.right > viewport + 1 || item.left < -1 || item.width > viewport + 1)
-                .slice(0, 40);
-              return {
-                viewport,
-                htmlScrollWidth: document.documentElement.scrollWidth,
-                bodyScrollWidth: document.body.scrollWidth,
-                offenders,
-              };
-            });
+            const baseline = measure();
+            const style = document.createElement("style");
+            style.textContent = ".unit-toggle{min-width:0!important}.calculator-panel{min-width:0!important}";
+            document.head.append(style);
+            const afterFix = measure();
+            return { baseline, afterFix };
+          });
 
-            console.log(`ROUTE=${route}`);
-            console.log(`HTTP=${response?.status() ?? 0}`);
-            console.log(`LAYOUT=${JSON.stringify(diagnostics)}`);
-            console.log(`BAD_RESPONSES=${JSON.stringify(badResponses)}`);
-            console.log(`FAILED_REQUESTS=${JSON.stringify(failedRequests)}`);
-            await page.close();
-          }
-
+          console.log(`CSS_EXPERIMENT=${JSON.stringify(cssExperiment)}`);
+          console.log(`ANALYTICS=${JSON.stringify(analytics)}`);
+          await page.close();
           await context.close();
           await browser.close();
           NODE
