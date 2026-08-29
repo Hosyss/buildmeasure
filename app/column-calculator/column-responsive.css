@@ -1,0 +1,12 @@
+@media (max-width: 650px) {
+  .unit-toggle > button {
+    min-width: 0;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .unit-toggle > button small {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
