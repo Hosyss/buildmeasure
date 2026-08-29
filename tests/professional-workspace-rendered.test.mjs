@@ -19,63 +19,49 @@ async function render(path, label) {
   return { response, html: await response.text() };
 }
 
-test("homepage is organized as a workspace instead of a flat calculator card wall", async () => {
-  const { response, html } = await render("/", "professional-home");
+test("homepage immediately explains what BuildNumbers is, who it is for, and how it is used", async () => {
+  const { response, html } = await render("/", "product-home");
 
   assert.equal(response.status, 200);
-  assert.match(html, /Construction estimating workspace/);
-  assert.match(html, /Choose by job/);
-  assert.match(html, /Three work areas\. Thirteen focused tools\./);
-  assert.match(html, /13<\/strong><span>live calculators/);
-  assert.match(html, /Calculator directory/);
-  assert.match(html, /Everything, organized in one table\./);
-  assert.match(html, /Professional workflow/);
-  assert.match(html, /Project Mode/);
-  assert.match(html, /Example estimate/);
-  assert.match(html, /aria-label="Open Concrete Calculator from this example estimate"/);
+  assert.match(html, /Construction material planning/);
+  assert.match(html, /Know what to buy before you build\./);
+  assert.match(html, /BuildNumbers is a free estimating workspace for construction and DIY projects\./);
+  assert.match(html, /Who uses BuildNumbers\?/);
+  assert.match(html, /Homeowners/);
+  assert.match(html, /DIY builders/);
+  assert.match(html, /Contractors/);
+  assert.match(html, /Estimators/);
+  assert.match(html, /How it works/);
+  assert.match(html, /Measurements in\. A usable project plan out\./);
+  assert.match(html, /Choose the job/);
+  assert.match(html, /Enter measurements/);
+  assert.match(html, /Use the result/);
 });
 
-test("homepage directory preserves all thirteen calculator and guide entry points", async () => {
-  const { html } = await render("/", "professional-directory");
+test("homepage presents clear starting paths without rendering the full calculator wall", async () => {
+  const { html } = await render("/", "product-starting-paths");
 
-  const calculatorRoutes = [
-    "/concrete-project-calculator",
-    "/concrete-calculator",
-    "/circular-slab-calculator",
-    "/footing-calculator",
-    "/column-calculator",
-    "/wall-calculator",
-    "/post-hole-concrete-calculator",
-    "/paint-calculator",
-    "/tile-calculator",
-    "/brick-calculator",
-    "/gravel-calculator",
-    "/mulch-calculator",
-    "/drywall-calculator",
-  ];
+  assert.match(html, /Start with the job, not a wall of tools\./);
+  assert.match(html, /Combine multiple concrete shapes into one order\./);
+  assert.match(html, /I need one material quantity\./);
+  assert.match(html, /I already have estimates to combine\./);
+  assert.match(html, /href="\/calculators"/);
+  assert.match(html, /href="\/concrete-project-calculator"/);
+  assert.match(html, /href="\/projects"/);
+  assert.doesNotMatch(html, /Everything, organized in one table\./);
+  assert.doesNotMatch(html, /<table class="tool-directory">/);
+});
 
-  const guideRoutes = [
-    "/guides/how-to-estimate-multi-shape-concrete-project",
-    "/guides/how-many-bags-of-concrete",
-    "/guides/how-much-concrete-for-circular-slabs",
-    "/guides/how-much-concrete-for-footings",
-    "/guides/how-much-concrete-for-columns",
-    "/guides/how-much-concrete-for-walls",
-    "/guides/how-many-bags-of-concrete-for-post-holes",
-    "/guides/how-much-paint-do-i-need",
-    "/guides/how-many-tiles-do-i-need",
-    "/guides/how-many-bricks-do-i-need",
-    "/guides/how-much-gravel-do-i-need",
-    "/guides/how-much-mulch-do-i-need",
-    "/guides/how-many-drywall-sheets-do-i-need",
-  ];
+test("homepage explains Project Mode as the workflow beyond individual calculators", async () => {
+  const { html } = await render("/", "product-project-mode");
 
-  for (const route of [...calculatorRoutes, ...guideRoutes]) {
-    assert.match(html, new RegExp(`href=\\"${route.replaceAll("/", "\\/")}\\"`));
-  }
-
-  assert.match(html, /Multi-Shape Concrete Project Calculator/);
-  assert.match(html, /7 tools/);
+  assert.match(html, /More than calculators/);
+  assert.match(html, /Your estimates can become one project record\./);
+  assert.match(html, /Saved locally in the current browser/);
+  assert.match(html, /Structured shopping quantities/);
+  assert.match(html, /Printable project summary/);
+  assert.match(html, /Backyard renovation/);
+  assert.match(html, /Ready to print/);
 });
 
 test("responsive navigation exposes primary destinations without JavaScript", async () => {
@@ -85,19 +71,25 @@ test("responsive navigation exposes primary destinations without JavaScript", as
   assert.match(html, /class="mobile-nav"/);
   assert.match(html, /Open navigation menu/);
   assert.match(html, /Mobile navigation/);
+  assert.match(html, /href="\/calculators"/);
   assert.match(html, /href="\/projects"/);
   assert.match(html, /href="\/guides"/);
   assert.match(html, /href="\/methodology"/);
 });
 
-test("professional design layer enforces readable controls and independent mobile workspace", async () => {
-  const css = await readFile(new URL("../app/professional.css", import.meta.url), "utf8");
+test("professional design layer enforces readable controls and a distinct product homepage", async () => {
+  const professionalCss = await readFile(new URL("../app/professional.css", import.meta.url), "utf8");
+  const homeCss = await readFile(new URL("../app/home-product.css", import.meta.url), "utf8");
   const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
 
   assert.match(layout, /import "\.\/professional\.css"/);
-  assert.match(css, /body\s*\{[\s\S]*font-size:\s*17px/);
-  assert.match(css, /\.button\s*\{[\s\S]*min-height:\s*54px/);
-  assert.match(css, /\.input-with-unit[\s\S]*min-height:\s*58px/);
-  assert.match(css, /@media \(max-width: 700px\)[\s\S]*\.input-grid,[\s\S]*grid-template-columns:\s*1fr/);
-  assert.match(css, /\.tool-directory tbody tr[\s\S]*border-radius:\s*15px/);
+  assert.match(layout, /import "\.\/home-product\.css"/);
+  assert.match(professionalCss, /body\s*\{[\s\S]*font-size:\s*17px/);
+  assert.match(professionalCss, /\.button\s*\{[\s\S]*min-height:\s*54px/);
+  assert.match(professionalCss, /\.input-with-unit[\s\S]*min-height:\s*58px/);
+  assert.match(homeCss, /\.identity-hero-grid[\s\S]*grid-template-columns:/);
+  assert.match(homeCss, /\.audience-rail[\s\S]*grid-template-columns:\s*repeat\(4, 1fr\)/);
+  assert.match(homeCss, /\.start-grid[\s\S]*grid-template-columns:\s*1\.12fr \.88fr/);
+  assert.match(homeCss, /\.project-showcase-grid[\s\S]*grid-template-columns:\s*\.92fr 1\.08fr/);
+  assert.match(homeCss, /@media \(max-width: 700px\)[\s\S]*\.identity-hero-grid[\s\S]*padding-block:/);
 });
