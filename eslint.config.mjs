@@ -19,6 +19,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The Admin Control Plane is an isolated package with its own security gate.
+    // Keep the public Next.js lint scope from coupling the two applications.
+    "admin-control-plane/**",
   ]),
 ]);
 
