@@ -27,6 +27,21 @@ test("every catalog item is assigned to a supported work area with searchable ma
   }
 });
 
+test("every calculator explains project fit and a real pre-order verification boundary", () => {
+  for (const calculator of CALCULATOR_CATALOG) {
+    assert.equal(calculator.useWhen.trim().length >= 70, true, `${calculator.id} needs a useful project-fit explanation`);
+    assert.equal(
+      calculator.verifyBeforeOrdering.trim().length >= 80,
+      true,
+      `${calculator.id} needs a meaningful verification boundary`,
+    );
+
+    const searchText = calculatorSearchText(calculator);
+    assert.ok(searchText.includes(calculator.useWhen.toLowerCase()));
+    assert.ok(searchText.includes(calculator.verifyBeforeOrdering.toLowerCase()));
+  }
+});
+
 test("catalog grouping remains balanced enough to browse before search", () => {
   const counts = new Map(CALCULATOR_GROUPS.map((group) => [group, 0]));
   for (const calculator of CALCULATOR_CATALOG) {
@@ -47,4 +62,6 @@ test("common project vocabulary resolves into catalog search text", () => {
   assert.match(byId.drywall, /sheetrock/);
   assert.match(byId.gravel, /driveway/);
   assert.match(byId.paint, /ceiling/);
+  assert.match(byId.footing, /approved plans/);
+  assert.match(byId.tile, /batch availability/);
 });
