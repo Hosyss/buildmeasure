@@ -295,6 +295,20 @@ async function inspectHowItWorksLanding(client) {
   );
 }
 
+async function stopBrowser(browser) {
+  if (browser.exitCode !== null || browser.signalCode !== null) return;
+
+  const gracefulExit = new Promise((resolve) => browser.once("exit", resolve));
+  browser.kill("SIGTERM");
+  await Promise.race([gracefulExit, sleep(1_500)]);
+
+  if (browser.exitCode !== null || browser.signalCode !== null) return;
+
+  const forcedExit = new Promise((resolve) => browser.once("exit", resolve));
+  browser.kill("SIGKILL");
+  await Promise.race([forcedExit, sleep(1_000)]);
+}
+
 const previewUrl = await findExactPreviewUrl();
 const browserCommand = findBrowserCommand();
 const profileDir = await mkdtemp(join(tmpdir(), "buildnumbers-browser-"));
@@ -386,6 +400,11 @@ try {
   console.log(`Exact-preview browser matrix passed: ${checks}/${routes.length * viewports.length} route×viewport checks across 360×800, 768×900, and 1280×900.`);
 } finally {
   client?.close();
-  browser.kill("SIGTERM");
-  await rm(profileDir, { recursive: true, force: true });
+  await stopBrowser(browser);
+  await rm(profileDir, {
+    recursive: true,
+    force: true,
+    maxRetries: 10,
+    retryDelay: 200,
+  });
 }
