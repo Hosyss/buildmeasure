@@ -85,7 +85,7 @@ export function sessionCookie(token: string, maxAge: number): string {
 }
 
 export function csrfCookie(token: string, maxAge: number): string {
-  return `__Host-bn_admin_csrf=${token}; Path=/; Max-Age=${maxAge}; Secure; SameSite=Strict`;
+  return `__Host-bn_admin_csrf=${token}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Strict`;
 }
 
 export function clearSessionCookie(): string {
@@ -93,7 +93,7 @@ export function clearSessionCookie(): string {
 }
 
 export function clearCsrfCookie(): string {
-  return "__Host-bn_admin_csrf=; Path=/; Max-Age=0; Secure; SameSite=Strict";
+  return "__Host-bn_admin_csrf=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Strict";
 }
 
 export function assertAdminOrigin(request: Request, env: AdminEnv): void {
