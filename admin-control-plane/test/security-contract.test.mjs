@@ -16,10 +16,9 @@ test('control plane has no Cloudflare Access / Zero Trust technical dependency',
   assert.match(worker, /verifyRegistrationResponse/);
 });
 
-test('admin session is host-only secure and strict', () => {
-  assert.match(security, /__Host-bn_admin_session=/);
-  assert.match(security, /HttpOnly; Secure; SameSite=Strict/);
-  assert.match(security, /__Host-bn_admin_csrf=/);
+test('admin session and CSRF cookies are host-only HttpOnly secure and strict', () => {
+  assert.match(security, /__Host-bn_admin_session=.*HttpOnly; Secure; SameSite=Strict/);
+  assert.match(security, /__Host-bn_admin_csrf=.*HttpOnly; Secure; SameSite=Strict/);
   assert.match(security, /x-csrf-token/i);
 });
 
@@ -55,6 +54,17 @@ test('admin data is isolated and release flow is staged', () => {
 
 test('bootstrap is constrained to one owner at the database boundary', () => {
   assert.match(schema, /owner_slot INTEGER NOT NULL DEFAULT 1 UNIQUE CHECK \(owner_slot = 1\)/);
+});
+
+test('backup passkeys require verified registration and the last passkey cannot be deleted', () => {
+  assert.match(schema, /label TEXT NOT NULL DEFAULT 'Passkey'/);
+  assert.match(worker, /registerPasskeyOptions/);
+  assert.match(worker, /registerPasskeyVerify/);
+  assert.match(worker, /verifyRegistrationResponse/);
+  assert.match(worker, /purpose:\s*string/);
+  assert.match(worker, /\(SELECT COUNT\(\*\) FROM passkeys WHERE admin_id = \?\) > 1/);
+  assert.match(worker, /Cannot remove the last passkey/);
+  assert.match(ui, /Add backup passkey/);
 });
 
 test('audit log is chained with secret HMAC material', () => {
