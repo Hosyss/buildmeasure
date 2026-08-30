@@ -7,8 +7,12 @@ const worker = readFileSync(new URL('../src/index.ts', import.meta.url), 'utf8')
 const schema = readFileSync(new URL('../schema.sql', import.meta.url), 'utf8');
 const wrangler = readFileSync(new URL('../wrangler.toml.example', import.meta.url), 'utf8');
 
-test('control plane has no Zero Trust dependency', () => {
-  assert.doesNotMatch(worker + security + wrangler, /cloudflare access|zero trust|cf-access-/i);
+test('control plane has no Cloudflare Access / Zero Trust technical dependency', () => {
+  const runtime = worker + security + wrangler;
+  assert.doesNotMatch(runtime, /cf-access-jwt-assertion|cf-access-authenticated-user-email|access_application_aud|access_team_domain/i);
+  assert.doesNotMatch(wrangler, /\[access\]|access_policy|zero_trust|access_application/i);
+  assert.match(worker, /verifyAuthenticationResponse/);
+  assert.match(worker, /verifyRegistrationResponse/);
 });
 
 test('admin session is host-only secure and strict', () => {
@@ -40,6 +44,10 @@ test('admin data is isolated and release flow is staged', () => {
   assert.match(schema, /CREATE TABLE IF NOT EXISTS release_requests/);
   assert.match(worker, /NO DIRECT DEPLOY/);
   assert.doesNotMatch(worker, /wrangler deploy|pages deploy|fetch\([^)]*buildnumbers\.pages\.dev/i);
+});
+
+test('bootstrap is constrained to one owner at the database boundary', () => {
+  assert.match(schema, /owner_slot INTEGER NOT NULL DEFAULT 1 UNIQUE CHECK \(owner_slot = 1\)/);
 });
 
 test('audit log is chained with secret HMAC material', () => {
