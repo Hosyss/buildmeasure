@@ -51,3 +51,11 @@ jobs:
           PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
           PREVIEW_WAIT_MS: 480000
         run: node scripts/live-preview-smoke.mjs
+
+      - name: Run exact Preview browser matrix
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
+          PREVIEW_WAIT_MS: 480000
+        run: node scripts/browser-preview-smoke.mjs
