@@ -9,11 +9,11 @@
     "ci": "npm run check && npm test"
   },
   "dependencies": {
-    "@simplewebauthn/server": "^13.2.2"
+    "@simplewebauthn/server": "13.3.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260830.0",
-    "typescript": "^5.9.2",
-    "wrangler": "^4.33.1"
+    "@cloudflare/workers-types": "5.20260830.1",
+    "typescript": "5.9.2",
+    "wrangler": "4.127.1"
   }
 }
