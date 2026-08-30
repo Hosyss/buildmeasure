@@ -1,0 +1,4 @@
+/* Keep in-page homepage anchors clear of the sticky two-row site header. */
+#how-it-works {
+  scroll-margin-top: 140px;
+}
