@@ -63,8 +63,11 @@ test("calculator library and About continue to surface Footing after the library
 
   const about = await render("/about", "footing-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides thirteen live calculators/i);
-  assert.match(about.html, /rectangular concrete footings/i);
+  assert.match(about.html, /currently provides thirteen focused calculators/i);
+  assert.match(
+    about.html,
+    /circular slabs and pads, footings, rectangular and circular columns/i,
+  );
 });
 
 test("exposes footing routes through guide library, sitemap, footer, and llms", async () => {
