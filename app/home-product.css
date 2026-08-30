@@ -426,8 +426,13 @@
   color: var(--orange-700);
   border-block: 1px dashed var(--sand-300);
   background: var(--sand-50);
+  font-size: 0;
+}
+
+.how-connector::before {
+  content: "↓";
   font-size: 1.4rem;
-  transform: rotate(90deg);
+  line-height: 1;
 }
 
 .start-section {
