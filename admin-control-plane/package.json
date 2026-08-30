@@ -1,0 +1,19 @@
+{
+  "name": "buildnumbers-admin-control-plane",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "ci": "npm run check && npm test"
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "^13.2.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260830.0",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.33.1"
+  }
+}
