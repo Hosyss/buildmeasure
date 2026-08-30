@@ -32,6 +32,7 @@ const CHALLENGE_TTL = 5 * 60;
 const STEP_UP_TTL = 5 * 60;
 const MAX_JSON_BYTES = 64 * 1024;
 const RECORD_KEY = /^[a-z0-9][a-z0-9._/-]{0,127}$/;
+const CREDENTIAL_ID = /^[A-Za-z0-9_-]{8,1024}$/;
 const ALLOWED_KINDS = new Set([
   "site",
   "page",
@@ -110,6 +111,15 @@ async function parseJson(request: Request): Promise<Record<string, unknown>> {
     throw new Response("Invalid JSON object", { status: 400 });
   }
   return parsed as Record<string, unknown>;
+}
+
+function passkeyLabel(value: unknown): string {
+  if (typeof value !== "string") return "Backup passkey";
+  const label = value.trim();
+  if (!label || label.length > 80 || /[\u0000-\u001f\u007f]/.test(label)) {
+    throw new Response("Invalid passkey label", { status: 400 });
+  }
+  return label;
 }
 
 function webauthnCredential(info: any) {
@@ -277,10 +287,11 @@ async function bootstrapVerify(
         "INSERT INTO admins(id, display_name, created_at) VALUES(?, ?, ?)",
       ).bind(challenge.admin_id, "BuildNumbers Owner", created),
       env.ADMIN_DB.prepare(
-        "INSERT INTO passkeys(credential_id, admin_id, public_key_b64, counter, transports_json, device_type, backed_up, created_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO passkeys(credential_id, admin_id, label, public_key_b64, counter, transports_json, device_type, backed_up, created_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
       ).bind(
         credential.id,
         challenge.admin_id,
+        "Primary passkey",
         base64url(credential.publicKey),
         credential.counter,
         JSON.stringify(credential.transports),
@@ -472,6 +483,158 @@ async function stepupVerify(
     until,
   });
   return json({ ok: true, stepUpUntil: until });
+}
+
+async function listPasskeys(
+  request: Request,
+  env: AdminEnv,
+): Promise<Response> {
+  const principal = await requireSession(request, env);
+  const result = await env.ADMIN_DB.prepare(
+    "SELECT credential_id, label, device_type, backed_up, created_at, last_used_at FROM passkeys WHERE admin_id = ? ORDER BY created_at ASC",
+  )
+    .bind(principal.adminId)
+    .all<{
+      credential_id: string;
+      label: string;
+      device_type: string | null;
+      backed_up: number;
+      created_at: number;
+      last_used_at: number | null;
+    }>();
+
+  return json({
+    passkeys: (result.results ?? []).map((row) => ({
+      id: row.credential_id,
+      label: row.label,
+      deviceType: row.device_type,
+      backedUp: Boolean(row.backed_up),
+      createdAt: row.created_at,
+      lastUsedAt: row.last_used_at,
+    })),
+  });
+}
+
+async function registerPasskeyOptions(
+  request: Request,
+  env: AdminEnv,
+): Promise<Response> {
+  const principal = await requireSession(request, env, true);
+  const existing = await env.ADMIN_DB.prepare(
+    "SELECT credential_id, transports_json FROM passkeys WHERE admin_id = ?",
+  )
+    .bind(principal.adminId)
+    .all<{ credential_id: string; transports_json: string }>();
+
+  const options = await generateRegistrationOptions({
+    rpName: "BuildNumbers Admin",
+    rpID: env.RP_ID,
+    userID: fromBase64url(principal.adminId),
+    userName: "owner",
+    userDisplayName: "BuildNumbers Owner",
+    attestationType: "none",
+    authenticatorSelection: {
+      residentKey: "required",
+      requireResidentKey: true,
+      userVerification: "required",
+    },
+    excludeCredentials: (existing.results ?? []).map((row) => ({
+      id: row.credential_id,
+      transports: JSON.parse(row.transports_json),
+    })),
+    supportedAlgorithmIDs: [-7, -257],
+  });
+
+  const ticket = await storeChallenge(
+    env,
+    "register",
+    options.challenge,
+    principal.adminId,
+  );
+  return json({ ticket, options });
+}
+
+async function registerPasskeyVerify(
+  request: Request,
+  env: AdminEnv,
+): Promise<Response> {
+  const principal = await requireSession(request, env, true);
+  const body = await parseJson(request);
+  if (typeof body.ticket !== "string" || !body.response) {
+    throw new Response("Bad request", { status: 400 });
+  }
+
+  const label = passkeyLabel(body.label);
+  const challenge = await takeChallenge(env, body.ticket, "register");
+  if (challenge.admin_id !== principal.adminId) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+
+  const verification = await verifyRegistrationResponse({
+    response: body.response as any,
+    expectedChallenge: challenge.challenge,
+    expectedOrigin: env.ADMIN_ORIGIN,
+    expectedRPID: env.RP_ID,
+    requireUserVerification: true,
+  });
+
+  if (!verification.verified || !verification.registrationInfo) {
+    throw new Response("Passkey verification failed", { status: 401 });
+  }
+
+  const credential = webauthnCredential(verification.registrationInfo);
+  const created = now();
+  try {
+    await env.ADMIN_DB.prepare(
+      "INSERT INTO passkeys(credential_id, admin_id, label, public_key_b64, counter, transports_json, device_type, backed_up, created_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    )
+      .bind(
+        credential.id,
+        principal.adminId,
+        label,
+        base64url(credential.publicKey),
+        credential.counter,
+        JSON.stringify(credential.transports),
+        (verification.registrationInfo as any).credentialDeviceType ?? null,
+        (verification.registrationInfo as any).credentialBackedUp ? 1 : 0,
+        created,
+      )
+      .run();
+  } catch {
+    throw new Response("Passkey already registered", { status: 409 });
+  }
+
+  await appendAudit(env, principal.adminId, "passkey.register", credential.id, {
+    label,
+  });
+  return json({ ok: true, id: credential.id, label });
+}
+
+async function deletePasskey(
+  request: Request,
+  env: AdminEnv,
+  credentialId: string,
+): Promise<Response> {
+  const principal = await requireSession(request, env, true);
+  if (!CREDENTIAL_ID.test(credentialId)) {
+    throw new Response("Invalid credential", { status: 400 });
+  }
+
+  const result = await env.ADMIN_DB.prepare(
+    `DELETE FROM passkeys
+     WHERE credential_id = ?
+       AND admin_id = ?
+       AND (SELECT COUNT(*) FROM passkeys WHERE admin_id = ?) > 1`,
+  )
+    .bind(credentialId, principal.adminId, principal.adminId)
+    .run();
+
+  if ((result.meta.changes ?? 0) !== 1) {
+    throw new Response("Cannot remove the last passkey", { status: 409 });
+  }
+
+  await appendAudit(env, principal.adminId, "passkey.delete", credentialId, {});
+  return json({ ok: true });
 }
 
 async function sessionInfo(
@@ -772,6 +935,20 @@ async function route(request: Request, env: AdminEnv): Promise<Response> {
   }
   if (request.method === "POST" && path === "/api/logout") {
     return logout(request, env);
+  }
+
+  if (request.method === "GET" && path === "/api/passkeys") {
+    return listPasskeys(request, env);
+  }
+  if (request.method === "POST" && path === "/api/passkeys/register/options") {
+    return registerPasskeyOptions(request, env);
+  }
+  if (request.method === "POST" && path === "/api/passkeys/register/verify") {
+    return registerPasskeyVerify(request, env);
+  }
+  if (request.method === "DELETE" && path.startsWith("/api/passkeys/")) {
+    const credentialId = decodeURIComponent(path.slice("/api/passkeys/".length));
+    return deletePasskey(request, env, credentialId);
   }
 
   if (request.method === "GET" && path === "/api/records") {
