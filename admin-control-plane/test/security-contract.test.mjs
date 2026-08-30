@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 
 const security = readFileSync(new URL('../src/security.ts', import.meta.url), 'utf8');
 const worker = readFileSync(new URL('../src/index.ts', import.meta.url), 'utf8');
+const ui = readFileSync(new URL('../src/ui.ts', import.meta.url), 'utf8');
 const schema = readFileSync(new URL('../schema.sql', import.meta.url), 'utf8');
 const wrangler = readFileSync(new URL('../wrangler.toml.example', import.meta.url), 'utf8');
 
@@ -29,6 +30,12 @@ test('mutations require exact origin and recent step-up', () => {
   assert.match(worker, /userVerification:\s*"required"/);
 });
 
+test('WebAuthn challenges are atomically single-use', () => {
+  assert.match(worker, /UPDATE challenges SET consumed_at = \? WHERE id = \? AND purpose = \? AND consumed_at IS NULL AND expires_at > \?/);
+  assert.match(worker, /claim\.meta\.changes \?\? 0/);
+  assert.match(worker, /Challenge expired or already used/);
+});
+
 test('response policy blocks framing, indexing, foreign scripts and caching', () => {
   assert.match(security, /frame-ancestors 'none'/);
   assert.match(security, /script-src 'self'/);
@@ -42,8 +49,8 @@ test('admin data is isolated and release flow is staged', () => {
   assert.match(wrangler, /database_name = "buildnumbers-admin"/);
   assert.match(wrangler, /workers_dev = false/);
   assert.match(schema, /CREATE TABLE IF NOT EXISTS release_requests/);
-  assert.match(worker, /NO DIRECT DEPLOY/);
-  assert.doesNotMatch(worker, /wrangler deploy|pages deploy|fetch\([^)]*buildnumbers\.pages\.dev/i);
+  assert.match(ui, /NO DIRECT DEPLOY/);
+  assert.doesNotMatch(worker + ui, /wrangler deploy|pages deploy|fetch\([^)]*buildnumbers\.pages\.dev/i);
 });
 
 test('bootstrap is constrained to one owner at the database boundary', () => {
