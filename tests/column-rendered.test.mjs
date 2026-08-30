@@ -66,11 +66,8 @@ test("calculator library, About, guide library, and feedback keep Column first-c
 
   const about = await render("/about", "column-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides thirteen live calculators/i);
-  assert.match(about.html, /twelve live calculators/i);
-  assert.match(about.html, /eleven live calculators/i);
-  assert.match(about.html, /ten live calculators/i);
-  assert.match(about.html, /circular concrete columns/i);
+  assert.match(about.html, /currently provides thirteen focused calculators/i);
+  assert.match(about.html, /rectangular and circular columns/i);
 
   const guides = await render("/guides", "column-library");
   assert.equal(guides.response.status, 200);

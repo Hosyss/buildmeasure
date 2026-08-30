@@ -104,7 +104,7 @@ test("Multi-Shape is discoverable from the professional workspace, guide library
 
   const about = await render("/about", "concrete-project-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides thirteen live calculators/i);
+  assert.match(about.html, /currently provides thirteen focused calculators/i);
   assert.match(about.html, /Multi-Shape Concrete Project Calculator/);
 
   const worker = await loadWorker("concrete-project-sitemap");

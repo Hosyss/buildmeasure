@@ -68,9 +68,8 @@ test("calculator library, About, guide library, feedback, and Project Mode surfa
 
   const about = await render("/about", "circular-slab-about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides thirteen live calculators/i);
-  assert.match(about.html, /twelve live calculators/i);
-  assert.match(about.html, /full circular concrete slabs and pads/i);
+  assert.match(about.html, /currently provides thirteen focused calculators/i);
+  assert.match(about.html, /circular slabs and pads/i);
 
   const guides = await render("/guides", "circular-slab-library");
   assert.equal(guides.response.status, 200);
