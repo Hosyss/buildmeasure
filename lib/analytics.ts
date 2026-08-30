@@ -128,7 +128,7 @@ export function validateAnalyticsPayload(
   if (!device || !deviceKeys.has(device)) {
     return { ok: false, error: "Invalid device class." };
   }
-  if (locale && !/^[a-zA-Z0-9_-]{1,20}$/.test(locale)) {
+  if (locale && !/^[a-zA-Z0-9_@.-]{1,20}$/.test(locale)) {
     return { ok: false, error: "Invalid locale." };
   }
 

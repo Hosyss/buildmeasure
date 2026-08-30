@@ -27,7 +27,7 @@ export async function GET() {
     );
   }
 
-  console.error("BuildMeasure health check failed", {
+  console.error("BuildNumbers health check failed", {
     feedbackStorage: feedbackStorage.status,
     analyticsStorage: analyticsStorage.status,
   });

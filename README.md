@@ -1,31 +1,46 @@
-# BuildMeasure
+# BuildNumbers
 
-BuildMeasure is an English-language construction and DIY calculator platform.
+BuildNumbers is an English-language construction and DIY calculator platform.
 The product prioritizes transparent formulas, verified unit conversions,
 maintainable calculator engines, accessible interfaces, and search-friendly
 calculator pages.
 
-BuildMeasure is independently built and maintained by
+BuildNumbers is independently built and maintained by
 [Hosyss](https://github.com/Hosyss). The repository and verified release history
 are public so calculator behavior and release evidence can be inspected.
 
-## Live site
+## Canonical rollout target
 
-- [Open BuildMeasure](https://buildmeasuretools.pages.dev/)
-- [Projects](https://buildmeasuretools.pages.dev/projects)
-- [Concrete Calculator](https://buildmeasuretools.pages.dev/concrete-calculator)
-- [Post Hole Concrete Calculator](https://buildmeasuretools.pages.dev/post-hole-concrete-calculator)
-- [Paint Calculator](https://buildmeasuretools.pages.dev/paint-calculator)
-- [Tile Calculator](https://buildmeasuretools.pages.dev/tile-calculator)
-- [Brick Calculator](https://buildmeasuretools.pages.dev/brick-calculator)
-- [Gravel Calculator](https://buildmeasuretools.pages.dev/gravel-calculator)
-- [Mulch Calculator](https://buildmeasuretools.pages.dev/mulch-calculator)
-- [Drywall Calculator](https://buildmeasuretools.pages.dev/drywall-calculator)
+The BuildNumbers rebrand is being prepared for `https://buildnumbers.pages.dev/`.
+The links below describe the intended canonical routes after the Cloudflare
+cutover gate passes; they must not be treated as proof that the new hostname has
+already been deployed.
+
+- [BuildNumbers](https://buildnumbers.pages.dev/)
+- [Projects](https://buildnumbers.pages.dev/projects)
+- [Multi-Shape Concrete Project Calculator](https://buildnumbers.pages.dev/concrete-project-calculator)
+- [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator)
+- [Circular Slab Concrete Calculator](https://buildnumbers.pages.dev/circular-slab-calculator)
+- [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator)
+- [Column Concrete Calculator](https://buildnumbers.pages.dev/column-calculator)
+- [Concrete Wall Calculator](https://buildnumbers.pages.dev/wall-calculator)
+- [Post Hole Concrete Calculator](https://buildnumbers.pages.dev/post-hole-concrete-calculator)
+- [Paint Calculator](https://buildnumbers.pages.dev/paint-calculator)
+- [Tile Calculator](https://buildnumbers.pages.dev/tile-calculator)
+- [Brick Calculator](https://buildnumbers.pages.dev/brick-calculator)
+- [Gravel Calculator](https://buildnumbers.pages.dev/gravel-calculator)
+- [Mulch Calculator](https://buildnumbers.pages.dev/mulch-calculator)
+- [Drywall Calculator](https://buildnumbers.pages.dev/drywall-calculator)
 
 ## Current verified scope
 
-- Responsive product homepage.
-- Concrete slab calculator.
+- Professional responsive workspace homepage with job categories, a complete calculator directory, project workflow, and no-JavaScript mobile navigation.
+- Multi-Shape Concrete Project Calculator that combines independently validated rectangular slabs, circular slabs, footings, rectangular/circular columns, walls with openings, and post holes with optional displacement; supports mixed Imperial/Metric parts, one project-level allowance, one final bag-rounding step, per-part breakdown, local history, optional cost, and Project Mode purchase data.
+- Rectangular concrete slab calculator.
+- Full circular slab/pad concrete quantity calculator from diameter and actual depth, with identical-pour quantity, explicit allowance, and final-project bag rounding but no structural thickness or reinforcement assumptions.
+- Rectangular footing concrete quantity calculator for one or more identical footings, with explicit allowance and final-project bag rounding but no structural sizing assumptions.
+- Rectangular/square and circular column concrete quantity calculator for one or more identical columns, with explicit allowance and final-project bag rounding but no structural sizing, reinforcement, load, or code assumptions.
+- Rectangular concrete wall quantity calculator with measured full-depth opening subtraction, repeated-wall quantity, explicit allowance, and final-project bag rounding but no structural or retaining-wall design assumptions.
 - Round post-hole concrete quantity calculator with optional round or square post displacement.
 - Interior room paint calculator for walls and optional ceilings.
 - Rectangular floor and wall tile calculator.
@@ -33,28 +48,18 @@ are public so calculator behavior and release evidence can be inspected.
 - Rectangular gravel coverage calculator with adjustable bulk density.
 - Rectangular mulch-bed calculator with exact package-volume input.
 - Rectangular-room drywall sheet calculator with optional ceiling, measured openings, exact panel size, and visible allowance.
+- Thirteen focused calculator guides plus the general material-estimating workflow.
 - Imperial and metric input systems.
 - Ready-mix volume and 40/60/80 lb bag estimates.
-- Adjustable waste allowance.
-- Post-hole count, round-hole geometry, optional post displacement, and complete bag estimates without structural-design recommendations.
-- Paint area, coats, measured openings, adjustable coverage, gallons/liters,
-  and selected container count.
-- Tile area, adjustable waste, full-box rounding, grout-aware layout check,
-  and automatic rectangular-tile orientation.
-- Brick gross/net wall area, measured openings, fired-clay coverage rates,
-  whole-brick rounding, and running/stack-bond quantity scope without mortar,
-  structural-design, or header-pattern assumptions.
-- Gravel net/order volume, estimated mass, short tons, metric tonnes, and
-  complete bags with an explicit material-density assumption.
-- Mulch net/order volume, bed area, per-bag coverage, and complete bags without
-  an invented density assumption.
+- Adjustable waste/project allowance where the relevant calculator supports it.
 - Copy, print, reset, and device-local save/history actions on calculators.
-- Local-first Project Mode for grouping saved estimates from all eight calculators into named projects stored only in the current browser.
+- Local-first Project Mode for grouping saved estimates from all thirteen calculators into named projects stored only in the current browser.
 - Per-project copy and printable report actions, including browser-based Save as PDF, without server storage or account sync.
 - Per-project shopping lists built from structured purchase quantities saved by the calculators; older snapshots are not parsed to invent quantities.
+- Structured per-project cost roll-ups from saved purchase data, grouped only by exact user-entered currency label; BuildNumbers performs no FX conversion or currency inference.
+- The same structured cost roll-up appears in saved project cards and printable/PDF reports; unpriced lines are disclosed rather than guessed and unsafe totals are suppressed.
 - Optional user-entered purchase-package pricing with approximate material-cost totals; no live prices or currency conversion.
-- Pure, versioned concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with
-  automated unit tests.
+- Pure, versioned concrete, multi-shape concrete project, circular slab concrete, footing concrete, column concrete, wall concrete, post-hole concrete, paint, tile, brick, gravel, mulch, and drywall engines with automated unit tests.
 - Shared numeric-range guards and exact-boundary rounding regression tests.
 - Shared exact unit constants and validation helpers.
 - Calculator metadata, FAQ, breadcrumb, and WebApplication structured data.
@@ -62,7 +67,7 @@ are public so calculator behavior and release evidence can be inspected.
 
 Anything not listed above should be treated as planned, not implemented.
 
-## Download BuildMeasure
+## Download BuildNumbers
 
 - [Latest verified release](https://github.com/Hosyss/buildmeasure/releases/latest)
   includes the current source ZIP, a full-history Git bundle, and SHA-256
@@ -101,6 +106,11 @@ mobile/desktop audit and evidence record defined in `docs/QA.md`.
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Concrete calculator specification](docs/calculators/concrete.md)
+- [Multi-shape concrete project specification](docs/calculators/concrete-project.md)
+- [Circular slab calculator specification](docs/calculators/circular-slab.md)
+- [Footing concrete calculator specification](docs/calculators/footing.md)
+- [Column concrete calculator specification](docs/calculators/column.md)
+- [Concrete wall calculator specification](docs/calculators/wall.md)
 - [Post-hole concrete calculator specification](docs/calculators/post-hole-concrete.md)
 - [Paint calculator specification](docs/calculators/paint.md)
 - [Tile calculator specification](docs/calculators/tile.md)
@@ -133,7 +143,7 @@ location when possible. See [the recovery guide](docs/RECOVERY.md) for the
 restore and rollback procedure.
 
 The repository-level `AGENTS.md` keeps future coding agents on the existing
-BuildMeasure Site, preserves the deployment identity, and requires the full
+BuildNumbers Site, preserves the deployment identity, and requires the full
 quality gate before publishing.
 
 ## Product rule

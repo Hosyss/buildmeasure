@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-  { question: "How many drywall sheets do I need?", answer: "Measure the rectangular room length, width, and wall height; choose whether to include the ceiling; subtract the combined measured opening area; and enter the exact sheet size. BuildMeasure divides the allowance-adjusted area by the sheet area and rounds only the final purchase quantity upward." },
+  { question: "How many drywall sheets do I need?", answer: "Measure the rectangular room length, width, and wall height; choose whether to include the ceiling; subtract the combined measured opening area; and enter the exact sheet size. BuildNumbers divides the allowance-adjusted area by the sheet area and rounds only the final purchase quantity upward." },
   { question: "Does this calculator include doors and windows?", answer: "Yes, when you enter their combined measured area. The calculator does not assume a standard door or window size because actual openings vary." },
   { question: "What drywall sheet sizes can I use?", answer: "Convenience presets cover 4 × 8, 4 × 10, and 4 × 12 ft sheets. Custom mode accepts the exact width and length printed by your supplier, including physical metric dimensions." },
   { question: "Is the waste allowance automatic?", answer: "No hidden allowance is applied. The field is visible and adjustable from 0% to 50%; choose a value based on layout, cuts, handling, breakage, and your installer or supplier guidance." },
@@ -25,7 +25,7 @@ const faqs = [
 ];
 
 const schema = [
-  { "@context": "https://schema.org", "@type": "WebApplication", name: "BuildMeasure Drywall Calculator", url: absoluteUrl("/drywall-calculator"), applicationCategory: "UtilitiesApplication", operatingSystem: "Any", description: "An area-based drywall sheet quantity calculator for rectangular room walls and an optional ceiling.", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } },
+  { "@context": "https://schema.org", "@type": "WebApplication", name: "BuildNumbers Drywall Calculator", url: absoluteUrl("/drywall-calculator"), applicationCategory: "UtilitiesApplication", operatingSystem: "Any", description: "An area-based drywall sheet quantity calculator for rectangular room walls and an optional ceiling.", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } },
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") }, { "@type": "ListItem", position: 2, name: "Drywall Calculator", item: absoluteUrl("/drywall-calculator") }] },
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
 ];

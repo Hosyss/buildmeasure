@@ -17,6 +17,7 @@ test("redirects legacy production hosts to the canonical Pages origin", async ()
   for (const hostname of [
     "buildmeasure.hosys.chatgpt.site",
     "buildmeasure.buildtools.workers.dev",
+    "buildmeasuretools.pages.dev",
   ]) {
     const response = await worker.fetch(
       new Request(
@@ -32,7 +33,7 @@ test("redirects legacy production hosts to the canonical Pages origin", async ()
     assert.equal(response.status, 301);
     assert.equal(
       response.headers.get("location"),
-      "https://buildmeasuretools.pages.dev/concrete-calculator?system=metric",
+      "https://buildnumbers.pages.dev/concrete-calculator?system=metric",
     );
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   }
@@ -166,35 +167,32 @@ test("rejects invalid analytics before touching storage", async () => {
   assert.equal(typeof payload.error, "string");
 });
 
-test("renders the product homepage", async () => {
+test("renders the product homepage and delegates full tool discovery to the calculator library", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("home", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
+  const env = {
+    ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
+  };
+  const ctx = { waitUntil() {}, passThroughOnException() {} };
 
   const response = await worker.fetch(
     new Request("http://localhost/", {
       headers: { accept: "text/html" },
     }),
-    {
-      ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
-    },
-    { waitUntil() {}, passThroughOnException() {} },
+    env,
+    ctx,
   );
   const html = await response.text();
 
   assert.equal(response.status, 200);
-  assert.match(html, /Material estimates you can build on\./);
-  assert.match(html, /Concrete Calculator/);
-  assert.match(html, /href="\/post-hole-concrete-calculator"/);
-  assert.match(html, /href="\/paint-calculator"/);
-  assert.match(html, /href="\/tile-calculator"/);
-  assert.match(html, /href="\/gravel-calculator"/);
-  assert.match(html, /href="\/mulch-calculator"/);
-  assert.match(html, /Accuracy is a feature\./);
+  assert.match(html, /Know what to buy before you build\./);
+  assert.match(html, /BuildNumbers is a free estimating workspace for construction and DIY projects\./);
+  assert.match(html, /href="\/calculators"/);
+  assert.match(html, /Why trust the result\?/);
   assert.match(html, /https:\/\/github\.com\/Hosyss\/buildmeasure/);
-  assert.doesNotMatch(html, /href="\/#project-mode"/);
+  assert.doesNotMatch(html, /<table class="tool-directory">/);
   assert.doesNotMatch(html, /Coming later/);
-  assert.match(html, /0\.1\.1/);
 
   const modulePreloads = html.match(/<link[^>]*\brel=["']modulepreload["'][^>]*>/gi) ?? [];
   assert.ok(modulePreloads.length > 0, "expected the app shell to preload client modules");
@@ -202,6 +200,54 @@ test("renders the product homepage", async () => {
     assert.match(preload, /\bfetchpriority=["']low["']/i);
   }
   assert.doesNotMatch(html, /<link[^>]*\bas=["']font["'][^>]*>/i);
+
+  const libraryResponse = await worker.fetch(
+    new Request("http://localhost/calculators", {
+      headers: { accept: "text/html" },
+    }),
+    env,
+    ctx,
+  );
+  const libraryHtml = await libraryResponse.text();
+  assert.equal(libraryResponse.status, 200);
+  assert.match(libraryHtml, /Calculator library/);
+  assert.match(libraryHtml, /13 of 13 tools/);
+
+  const discoveryRoutes = [
+    "/concrete-project-calculator",
+    "/concrete-calculator",
+    "/circular-slab-calculator",
+    "/footing-calculator",
+    "/column-calculator",
+    "/wall-calculator",
+    "/post-hole-concrete-calculator",
+    "/paint-calculator",
+    "/tile-calculator",
+    "/drywall-calculator",
+    "/brick-calculator",
+    "/gravel-calculator",
+    "/mulch-calculator",
+    "/guides/how-to-estimate-multi-shape-concrete-project",
+    "/guides/how-many-bags-of-concrete",
+    "/guides/how-much-concrete-for-circular-slabs",
+    "/guides/how-much-concrete-for-footings",
+    "/guides/how-much-concrete-for-columns",
+    "/guides/how-much-concrete-for-walls",
+    "/guides/how-many-bags-of-concrete-for-post-holes",
+    "/guides/how-much-paint-do-i-need",
+    "/guides/how-many-tiles-do-i-need",
+    "/guides/how-many-drywall-sheets-do-i-need",
+    "/guides/how-many-bricks-do-i-need",
+    "/guides/how-much-gravel-do-i-need",
+    "/guides/how-much-mulch-do-i-need",
+  ];
+
+  for (const route of discoveryRoutes) {
+    assert.ok(
+      libraryHtml.includes(`href="${route}"`),
+      `expected the SSR calculator library to expose ${route}`,
+    );
+  }
 });
 
 test("renders the concrete calculator route and structured content", async () => {
@@ -231,7 +277,7 @@ test("renders the concrete calculator route and structured content", async () =>
   assert.match(html, /href="\/feedback\?calculator=concrete-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/concrete-calculator/,
+    /https:\/\/buildnumbers\.pages\.dev\/concrete-calculator/,
   );
 });
 
@@ -257,7 +303,7 @@ test("renders the post-hole concrete calculator route and structured content", a
   assert.match(html, /href="\/feedback\?calculator=post-hole-concrete-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/post-hole-concrete-calculator/,
+    /https:\/\/buildnumbers\.pages\.dev\/post-hole-concrete-calculator/,
   );
 });
 
@@ -289,7 +335,7 @@ test("renders the paint calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=paint-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/paint-calculator/,
+    /https:\/\/buildnumbers\.pages\.dev\/paint-calculator/,
   );
 });
 
@@ -321,7 +367,7 @@ test("renders the tile calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=tile-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/tile-calculator/,
+    /https:\/\/buildnumbers\.pages\.dev\/tile-calculator/,
   );
 });
 
@@ -353,7 +399,7 @@ test("renders the gravel calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=gravel-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/gravel-calculator/,
+    /https:\/\/buildnumbers\.pages\.dev\/gravel-calculator/,
   );
 });
 
@@ -385,7 +431,7 @@ test("renders the mulch calculator route and structured content", async () => {
   assert.match(html, /href="\/feedback\?calculator=mulch-calculator"/);
   assert.match(
     html,
-    /https:\/\/buildmeasuretools\.pages\.dev\/mulch-calculator/,
+    /https:\/\/buildnumbers\.pages\.dev\/mulch-calculator/,
   );
 });
 
@@ -446,11 +492,11 @@ test("renders the launch trust and estimating content", async () => {
     const html = await response.text();
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
-    assert.match(html, new RegExp(`https://buildmeasuretools\\.pages\\.dev${path.replaceAll("/", "\\/")}`));
+    assert.match(html, new RegExp(`https://buildnumbers\\.pages\\.dev${path.replaceAll("/", "\\/")}`));
 
     if (path === "/about") {
       assert.match(html, /independently developed calculator project/);
-      assert.match(html, /eight live calculators/);
+      assert.match(html, /thirteen focused calculators/);
       assert.match(html, /browser(?:&apos;|')s local storage/);
       assert.match(html, /https:\/\/github\.com\/Hosyss\/buildmeasure/);
       assert.match(html, /Hosyss/);
@@ -484,65 +530,65 @@ test("serves absolute production URLs in robots and sitemap", async () => {
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     robots,
-    /Sitemap: https:\/\/buildmeasuretools\.pages\.dev\/sitemap\.xml/,
+    /Sitemap: https:\/\/buildnumbers\.pages\.dev\/sitemap\.xml/,
   );
   assert.match(robots, /Disallow: \/api\//);
   assert.match(robots, /Disallow: \/feedback\/inbox/);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/concrete-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/concrete-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/post-hole-concrete-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/post-hole-concrete-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/paint-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/paint-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/tile-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/tile-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/gravel-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/gravel-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/mulch-calculator<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/mulch-calculator<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/material-estimating-basics<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/material-estimating-basics<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-bags-of-concrete<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/how-many-bags-of-concrete<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/how-much-paint-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/how-many-tiles-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/how-much-gravel-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/how-much-mulch-do-i-need<\/loc>/,
   );
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/methodology<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/methodology<\/loc>/,
   );
 });
 
@@ -562,7 +608,7 @@ test("serves a concise machine-readable site guide", async () => {
           const url = new URL(request.url);
           if (url.pathname === "/llms.txt") {
             return new Response(
-              "# BuildMeasure\n\nCanonical site: https://buildmeasuretools.pages.dev/\n",
+              "# BuildNumbers\n\nCanonical site: https://buildnumbers.pages.dev/\n",
               { headers: { "content-type": "text/plain; charset=utf-8" } },
             );
           }
@@ -576,8 +622,8 @@ test("serves a concise machine-readable site guide", async () => {
 
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/plain/);
-  assert.match(body, /# BuildMeasure/);
-  assert.match(body, /https:\/\/buildmeasuretools\.pages\.dev\//);
+  assert.match(body, /# BuildNumbers/);
+  assert.match(body, /https:\/\/buildnumbers\.pages\.dev\//);
   assert.match(llmsSource, /guides\/how-much-paint-do-i-need/);
   assert.match(llmsSource, /guides\/how-many-tiles-do-i-need/);
   assert.match(llmsSource, /guides\/how-much-gravel-do-i-need/);
@@ -635,7 +681,7 @@ test("renders optional package cost fields on every live calculator", async () =
     assert.equal(response.status, 200, `expected ${path} to render`);
     assert.match(html, pattern);
     assert.match(html, /No live prices are fetched/);
-    assert.match(html, /BuildMeasure does not convert currencies or exchange rates/);
+    assert.match(html, /BuildNumbers does not convert currencies or exchange rates/);
   }
 });
 

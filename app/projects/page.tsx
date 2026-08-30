@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata: Metadata = {
   title: "Projects — Group Saved Material Estimates",
   description:
-    "Group estimates saved from BuildMeasure calculators into local project lists that stay in your browser.",
+    "Group estimates saved from BuildNumbers calculators into local project lists that stay in your browser.",
   alternates: {
     canonical: "/projects",
   },
@@ -34,7 +34,7 @@ export default function ProjectsPage() {
               <p className="eyebrow">Project Mode</p>
               <h1>Group estimates into one project</h1>
               <p>
-                Combine estimates already saved from different BuildMeasure
+                Combine estimates already saved from different BuildNumbers
                 calculators into a single material list. Projects stay on this
                 device and can be copied, printed, or saved as a PDF when you are
                 ready to plan or shop.
@@ -42,7 +42,7 @@ export default function ProjectsPage() {
             </div>
             <ul>
               <li><CheckIcon /> Uses your saved estimates</li>
-              <li><CheckIcon /> Works across all eight calculators</li>
+              <li><CheckIcon /> Works across all thirteen calculators</li>
               <li><CheckIcon /> Stored only in this browser</li>
             </ul>
           </div>

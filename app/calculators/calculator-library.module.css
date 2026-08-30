@@ -1,0 +1,301 @@
+.libraryShell {
+  padding-block: 52px 88px;
+}
+
+.libraryToolbar {
+  position: sticky;
+  top: 120px;
+  z-index: 12;
+  display: grid;
+  gap: 18px;
+  margin-bottom: 34px;
+  padding: 22px;
+  border: 1px solid var(--pro-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--pro-shadow-md);
+  backdrop-filter: blur(14px);
+}
+
+.searchRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.searchLabel {
+  display: grid;
+  gap: 8px;
+  color: var(--ink-900);
+  font-weight: 750;
+}
+
+.searchInput {
+  width: 100%;
+  min-height: 58px;
+  padding: 0 18px;
+  border: 1px solid var(--sand-300);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--ink-900);
+  font: inherit;
+  font-size: 1rem;
+  box-shadow: inset 0 1px 2px rgba(16, 32, 28, 0.04);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--green-600);
+  box-shadow: 0 0 0 4px rgba(42, 111, 93, 0.13);
+}
+
+.resultCount {
+  min-width: 136px;
+  padding-bottom: 14px;
+  color: var(--ink-600);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filterButton {
+  min-height: 46px;
+  padding: 0 16px;
+  border: 1px solid var(--sand-300);
+  border-radius: 999px;
+  background: var(--sand-50);
+  color: var(--ink-800);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.filterButton:hover,
+.filterButton:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--green-500);
+  background: var(--green-100);
+  box-shadow: var(--pro-shadow-sm);
+}
+
+.filterButtonActive {
+  border-color: var(--green-700);
+  background: var(--green-700);
+  color: var(--white);
+  box-shadow: var(--pro-shadow-sm);
+}
+
+.libraryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.toolCard {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 13px;
+  padding: 24px;
+  border: 1px solid var(--pro-border);
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: var(--pro-shadow-sm);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.toolCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--pro-border-strong);
+  box-shadow: var(--pro-shadow-md);
+}
+
+.cardTopline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.family {
+  color: var(--green-700);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.featured {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--orange-100);
+  color: var(--orange-800);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.toolCard h2 {
+  margin: 0;
+  color: var(--ink-950);
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.toolCard p {
+  margin: 0;
+  color: var(--ink-650);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.fitGuide {
+  display: grid;
+  gap: 12px;
+  margin: 2px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--sand-200);
+}
+
+.fitGuide > div {
+  display: grid;
+  gap: 4px;
+}
+
+.fitGuide dt {
+  color: var(--ink-900);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.fitGuide dd {
+  margin: 0;
+  color: var(--ink-650);
+  font-size: 0.91rem;
+  line-height: 1.55;
+}
+
+.cardActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.cardActions a {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-weight: 800;
+  text-align: center;
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.primaryAction {
+  background: var(--green-800);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(23, 79, 65, 0.16);
+}
+
+.secondaryAction {
+  border: 1px solid var(--sand-300);
+  background: var(--sand-50);
+  color: var(--ink-800);
+}
+
+.cardActions a:hover,
+.cardActions a:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--pro-shadow-sm);
+}
+
+.emptyState {
+  grid-column: 1 / -1;
+  padding: 48px 24px;
+  border: 1px dashed var(--sand-400);
+  border-radius: 18px;
+  background: var(--sand-50);
+  text-align: center;
+}
+
+.emptyState h2 {
+  margin: 0 0 8px;
+  font-size: 1.45rem;
+}
+
+.emptyState p {
+  margin: 0;
+  color: var(--ink-600);
+}
+
+@media (max-width: 820px) {
+  .libraryToolbar {
+    position: static;
+  }
+
+  .libraryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .libraryShell {
+    padding-block: 34px 64px;
+  }
+
+  .libraryToolbar {
+    padding: 16px;
+    border-radius: 15px;
+  }
+
+  .searchRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .resultCount {
+    min-width: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filterButton {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .toolCard {
+    padding: 19px;
+  }
+
+  .fitGuide {
+    padding-top: 14px;
+  }
+
+  .cardActions {
+    grid-template-columns: 1fr;
+  }
+}

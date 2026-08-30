@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { ArrowIcon, CalculatorIcon, CheckIcon } from "@/components/icons";
+import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { CONCRETE_ENGINE_VERSION } from "@/lib/calculators/concrete";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -12,10 +11,10 @@ export const metadata: Metadata = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "BuildMeasure",
+  name: "BuildNumbers",
   url: absoluteUrl("/"),
   description:
-    "Reference-backed construction and DIY calculators with transparent formulas and visible assumptions.",
+    "A construction material planning workspace for turning measurements into quantities, saved estimates, project shopping lists, and printable reports.",
   creator: {
     "@type": "Person",
     name: "Hosyss",
@@ -24,278 +23,259 @@ const websiteSchema = {
   sameAs: ["https://github.com/Hosyss/buildmeasure"],
 };
 
-const calculators = [
-  {
-    name: "Concrete Calculator",
-    description: "Estimate ready-mix volume and bag quantities for slabs.",
-    href: "/concrete-calculator",
-    status: "Live",
-    tag: "Most popular",
-  },
-  {
-    name: "Post Hole Concrete Calculator",
-    description: "Estimate concrete volume and complete bags for multiple round post holes.",
-    href: "/post-hole-concrete-calculator",
-    status: "Live",
-    tag: "Fences & decks",
-  },
-  {
-    name: "Paint Calculator",
-    description: "Plan paint quantity from wall area, coats, and coverage.",
-    href: "/paint-calculator",
-    status: "Live",
-    tag: "Interiors",
-  },
-  {
-    name: "Tile Calculator",
-    description: "Estimate tiles, full boxes, layout, and cutting allowance.",
-    href: "/tile-calculator",
-    status: "Live",
-    tag: "Flooring",
-  },
-  {
-    name: "Brick Calculator",
-    description: "Estimate fired-clay bricks from net wall area, openings, and a documented coverage rate.",
-    href: "/brick-calculator",
-    status: "Live",
-    tag: "Masonry",
-  },
-  {
-    name: "Gravel Calculator",
-    description: "Calculate gravel volume, weight, tons, and complete bags.",
-    href: "/gravel-calculator",
-    status: "Live",
-    tag: "Landscaping",
-  },
-  {
-    name: "Mulch Calculator",
-    description: "Find mulch volume and the number of bags your beds need.",
-    href: "/mulch-calculator",
-    status: "Live",
-    tag: "Outdoors",
-  },
-  {
-    name: "Drywall Calculator",
-    description: "Estimate complete sheets for rectangular room walls and an optional ceiling.",
-    href: "/drywall-calculator",
-    status: "Live",
-    tag: "Interior walls",
-  },
-];
+const audiences = [
+  ["Homeowners", "Plan a renovation before ordering materials."],
+  ["DIY builders", "Turn site measurements into practical purchase quantities."],
+  ["Contractors", "Create repeatable estimates with visible assumptions."],
+  ["Estimators", "Check quantities, save scenarios, and assemble project reports."],
+] as const;
 
 const standards = [
   "Formula and unit references",
   "Metric and imperial inputs",
-  "Explicit waste allowance",
-  "Versioned calculation engine",
-];
+  "Explicit allowances and product assumptions",
+  "Versioned calculation engines with regression tests",
+] as const;
 
 export default function Home() {
   return (
     <>
       <SiteHeader />
 
-      <main>
+      <main className="home-product">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        <section className="hero">
-          <div className="hero-grid shell">
-            <div className="hero-copy">
-              <p className="eyebrow">
+
+        <section className="identity-hero">
+          <div className="shell identity-hero-grid">
+            <div className="identity-copy">
+              <p className="eyebrow eyebrow-light">
                 <span className="eyebrow-line" aria-hidden="true" />
-                Built for better estimates
+                Construction material planning
               </p>
-              <h1>Material estimates you can build on.</h1>
-              <p className="hero-lede">
-                Professional construction and DIY calculators with transparent
-                formulas, practical units, and results designed for the real
-                jobsite.
+              <h1>Know what to buy before you build.</h1>
+              <p className="identity-lede">
+                <strong>BuildNumbers is a free estimating workspace for construction and DIY projects.</strong>
+                {" "}Enter real measurements, calculate material quantities, save the result,
+                combine estimates into one project, and print a shopping-ready report.
               </p>
-              <div className="hero-actions">
-                <a className="button button-primary" href="/concrete-calculator">
-                  Calculate concrete <ArrowIcon />
+
+              <div className="identity-actions">
+                <a className="button button-primary" href="/calculators">
+                  Start an estimate <ArrowIcon />
                 </a>
-                <a className="button button-quiet" href="#calculators">
-                  Browse calculators
+                <a className="button button-quiet" href="#how-it-works">
+                  See how it works
                 </a>
               </div>
-              <ul className="trust-row" aria-label="BuildMeasure quality commitments">
-                <li><CheckIcon /> Reference-backed</li>
-                <li><CheckIcon /> Tested engine</li>
-                <li><CheckIcon /> No sign-up</li>
-              </ul>
+
+              <div className="identity-proof" aria-label="BuildNumbers product summary">
+                <span><strong>13</strong> focused calculators</span>
+                <span><strong>2</strong> unit systems</span>
+                <span><strong>1</strong> project workspace</span>
+                <span><strong>0</strong> sign-up required</span>
+              </div>
             </div>
 
-            <a className="estimate-card estimate-card-link" href="/concrete-calculator" aria-label="Open Concrete Calculator from this example estimate">
-              <div className="estimate-card-head">
+            <div className="hero-story" aria-label="Example BuildNumbers workflow">
+              <div className="hero-story-head">
                 <div>
-                  <span className="card-kicker">Concrete slab</span>
-                  <h2>Example estimate</h2>
+                  <span className="story-kicker">Example workflow</span>
+                  <h2>Patio slab estimate</h2>
                 </div>
-                <span className="live-pill"><span /> Live</span>
+                <span className="story-status">Ready to order</span>
               </div>
-              <div className="dimension-grid">
-                <div><span>Length</span><strong>20 ft</strong></div>
-                <span className="dimension-multiplier" aria-hidden="true">×</span>
-                <div><span>Width</span><strong>12 ft</strong></div>
-                <span className="dimension-multiplier" aria-hidden="true">×</span>
-                <div><span>Depth</span><strong>4 in</strong></div>
-              </div>
-              <div className="estimate-result">
+
+              <ol className="story-steps">
+                <li>
+                  <span>01</span>
+                  <div><small>Measure</small><strong>20 ft × 12 ft × 4 in</strong></div>
+                </li>
+                <li>
+                  <span>02</span>
+                  <div><small>Calculate</small><strong>3.26 yd³ with 10% allowance</strong></div>
+                </li>
+                <li>
+                  <span>03</span>
+                  <div><small>Save</small><strong>Add estimate to “Patio project”</strong></div>
+                </li>
+              </ol>
+
+              <div className="story-result">
                 <div>
-                  <span>Order volume</span>
-                  <strong>3.26 <small>yd³</small></strong>
+                  <small>Next step</small>
+                  <strong>Build the material order</strong>
                 </div>
-                <div className="waste-badge">Includes 10% waste</div>
+                <a href="/concrete-calculator" aria-label="Open the Concrete Calculator">
+                  Open example <ArrowIcon />
+                </a>
               </div>
-              <div className="estimate-meta">
-                <span>Formula</span>
-                <code>L × W × D</code>
-                <span>Engine</span>
-                <code>v{CONCRETE_ENGINE_VERSION}</code>
-              </div>
-              <span className="estimate-link">
-                Open Concrete Calculator <ArrowIcon />
-              </span>
-            </a>
+            </div>
           </div>
-          <div className="hero-gridlines" aria-hidden="true" />
         </section>
 
-        <section className="section shell" id="calculators">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Calculator library</p>
-              <h2>Start with the material you need.</h2>
+        <section className="audience-band" aria-labelledby="audience-title">
+          <div className="shell">
+            <div className="audience-title-row">
+              <p className="eyebrow">Who uses BuildNumbers?</p>
+              <h2 id="audience-title">Built for people who need a material answer they can act on.</h2>
             </div>
+            <div className="audience-rail">
+              {audiences.map(([name, description]) => (
+                <article key={name}>
+                  <span><CheckIcon /></span>
+                  <div><h3>{name}</h3><p>{description}</p></div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="how-section shell" id="how-it-works" aria-labelledby="how-title">
+          <div className="how-intro">
+            <p className="eyebrow">How it works</p>
+            <h2 id="how-title">Measurements in. A usable project plan out.</h2>
             <p>
-              Each calculator is built as a documented product—not a black-box
-              form.
+              You do not need to learn thirteen tools. BuildNumbers keeps the same
+              workflow across materials so you always know what to do next.
             </p>
           </div>
 
-          <div className="calculator-grid">
-            {calculators.map((calculator) => {
-              const isLive = calculator.status === "Live";
-              const cardContent = (
-                <>
-                  <div className="calculator-card-top">
-                    <span className="calculator-icon"><CalculatorIcon /></span>
-                    <span className={`status-pill ${isLive ? "status-live" : ""}`}>
-                      {calculator.status}
-                    </span>
-                  </div>
-                  <p className="card-kicker">{calculator.tag}</p>
-                  <h3>{calculator.name}</h3>
-                  <p>{calculator.description}</p>
-                  <span className="card-action">
-                    {isLive ? "Open calculator" : "On the roadmap"} <ArrowIcon />
-                  </span>
-                </>
-              );
+          <div className="how-path" aria-label="Three-step BuildNumbers workflow">
+            <article>
+              <span className="how-number">1</span>
+              <div>
+                <p className="how-label">Choose the job</p>
+                <h3>Pick what you are estimating.</h3>
+                <p>Concrete, paint, tile, drywall, brick, gravel, mulch, or a multi-shape concrete project.</p>
+              </div>
+            </article>
+            <div className="how-connector" aria-hidden="true">→</div>
+            <article>
+              <span className="how-number">2</span>
+              <div>
+                <p className="how-label">Enter measurements</p>
+                <h3>See the math and assumptions.</h3>
+                <p>Use metric or imperial inputs. Allowance, coverage, density, openings, and package rounding stay visible.</p>
+              </div>
+            </article>
+            <div className="how-connector" aria-hidden="true">→</div>
+            <article>
+              <span className="how-number">3</span>
+              <div>
+                <p className="how-label">Use the result</p>
+                <h3>Save it to a project.</h3>
+                <p>Combine estimates, review purchase quantities and same-currency costs, then print or save the report as PDF.</p>
+              </div>
+            </article>
+          </div>
+        </section>
 
-              return isLive ? (
-                <a
-                  className={`calculator-card ${isLive ? "calculator-card-live" : ""}`}
-                  href={calculator.href}
-                  key={calculator.name}
-                >
-                  {cardContent}
+        <section className="start-section" aria-labelledby="start-title">
+          <div className="shell">
+            <div className="start-heading">
+              <div>
+                <p className="eyebrow eyebrow-light">Choose your starting point</p>
+                <h2 id="start-title">Start with the job, not a wall of tools.</h2>
+              </div>
+              <a href="/calculators" className="text-link-light">Browse all 13 calculators <ArrowIcon /></a>
+            </div>
+
+            <div className="start-grid">
+              <a className="start-feature" href="/concrete-project-calculator">
+                <span className="start-tag">For complex concrete work</span>
+                <h3>Combine multiple concrete shapes into one order.</h3>
+                <p>
+                  Slabs, circular pours, footings, columns, walls, and post holes can be measured separately and totaled once before allowance and bag rounding.
+                </p>
+                <strong>Open Multi-Shape Concrete Project <ArrowIcon /></strong>
+              </a>
+
+              <div className="start-side">
+                <a href="/calculators">
+                  <span>Quick estimate</span>
+                  <h3>I need one material quantity.</h3>
+                  <p>Choose a focused calculator for concrete, paint, tile, drywall, brick, gravel, or mulch.</p>
+                  <strong>Find a calculator <ArrowIcon /></strong>
                 </a>
-              ) : (
-                <article
-                  className="calculator-card"
-                  key={calculator.name}
-                >
-                  {cardContent}
-                </article>
-              );
-            })}
+                <a href="/projects">
+                  <span>Whole project</span>
+                  <h3>I already have estimates to combine.</h3>
+                  <p>Group saved estimates into a project with shopping quantities, cost roll-ups, and a printable report.</p>
+                  <strong>Open Project Mode <ArrowIcon /></strong>
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="standards-section" id="standards">
-          <div className="shell standards-grid">
-            <div>
-              <p className="eyebrow eyebrow-light">The BuildMeasure standard</p>
-              <h2>Accuracy is a feature.</h2>
-              <p className="standards-lede">
-                Useful estimates begin with visible assumptions. We publish how
-                the result is calculated and keep the calculation engine separate
-                from the interface.
+        <section className="project-showcase" aria-labelledby="project-showcase-title">
+          <div className="shell project-showcase-grid">
+            <div className="project-showcase-copy">
+              <p className="eyebrow">More than calculators</p>
+              <h2 id="project-showcase-title">Your estimates can become one project record.</h2>
+              <p>
+                Save results locally in your browser, group different materials under one project,
+                review purchase quantities and same-label costs, then print the project or save it as PDF.
               </p>
+              <ul>
+                <li><CheckIcon /> No account required</li>
+                <li><CheckIcon /> Saved locally in the current browser</li>
+                <li><CheckIcon /> Structured shopping quantities</li>
+                <li><CheckIcon /> Printable project summary</li>
+              </ul>
+              <a className="button button-primary" href="/projects">Open Project Mode <ArrowIcon /></a>
             </div>
-            <ul className="standards-list">
-              {standards.map((standard, index) => (
-                <li key={standard}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{standard}</strong>
-                  <CheckIcon />
-                </li>
-              ))}
-            </ul>
+
+            <div className="project-sheet" aria-label="Example project summary">
+              <div className="project-sheet-head">
+                <div><small>PROJECT</small><strong>Backyard renovation</strong></div>
+                <span>3 estimates</span>
+              </div>
+              <div className="project-sheet-row"><span>Patio concrete</span><strong>3.26 yd³</strong></div>
+              <div className="project-sheet-row"><span>Garden mulch</span><strong>4.1 yd³</strong></div>
+              <div className="project-sheet-row"><span>Fence post concrete</span><strong>18 bags</strong></div>
+              <div className="project-sheet-total">
+                <span>Project record</span>
+                <strong>Ready to print</strong>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="section shell resource-section" aria-labelledby="resource-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Plan with context</p>
-              <h2 id="resource-title">From measurements to a purchase plan.</h2>
-            </div>
-            <p>Use the <a href="/guides">guide library</a>, then inspect how every result is verified.</p>
+        <section className="trust-section shell" id="standards" aria-labelledby="trust-title">
+          <div className="trust-lead">
+            <p className="eyebrow">Why trust the result?</p>
+            <h2 id="trust-title">The calculation is part of the product, not a black box.</h2>
+            <p>
+              BuildNumbers keeps formulas, units, assumptions, and engine versions visible so an estimate can be checked before money is spent.
+            </p>
+            <a href="/methodology" className="text-link">Read the methodology <ArrowIcon /></a>
           </div>
-          <div className="resource-grid">
-            <a href="/guides/how-many-bags-of-concrete">
-              <span>Concrete slab guide</span>
-              <h3>How much concrete do I need for a slab?</h3>
-              <p>Convert slab dimensions into cubic yards and complete 40, 60, or 80 lb bags with a visible allowance.</p>
-              <strong>Calculate slab yards and bags <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/how-many-bags-of-concrete-for-post-holes">
-              <span>Post-hole concrete guide</span>
-              <h3>How many bags of concrete for post holes?</h3>
-              <p>Turn round-hole dimensions and hole count into volume and complete bags without prescribing structural hole size.</p>
-              <strong>Read the post-hole bag guide <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/how-much-paint-do-i-need">
-              <span>Paint guide</span>
-              <h3>How much paint do I need for a room?</h3>
-              <p>Account for wall area, openings, coats, coverage, and full-container rounding.</p>
-              <strong>Plan the paint order <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/how-many-tiles-do-i-need">
-              <span>Tile guide</span>
-              <h3>How many tiles do I need?</h3>
-              <p>Convert room and tile dimensions into complete boxes with an explicit waste allowance.</p>
-              <strong>Plan the tile order <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/how-many-bricks-do-i-need">
-              <span>Brick guide</span>
-              <h3>How many bricks do I need for a wall?</h3>
-              <p>Subtract measured openings, apply documented fired-clay brick coverage, and keep waste explicit.</p>
-              <strong>Plan the brick order <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/how-much-gravel-do-i-need">
-              <span>Gravel guide</span>
-              <h3>How much gravel do I need?</h3>
-              <p>Estimate compacted volume, adjustable density, total weight, and complete bags.</p>
-              <strong>Plan the gravel order <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/how-much-mulch-do-i-need">
-              <span>Mulch guide</span>
-              <h3>How much mulch do I need?</h3>
-              <p>Turn bed area and installed depth into cubic yards and complete bags.</p>
-              <strong>Plan the mulch order <ArrowIcon /></strong>
-            </a>
-            <a href="/guides/material-estimating-basics">
-              <span>Practical guide</span>
-              <h3>How to estimate construction materials</h3>
-              <p>Separate geometry, allowances, product data, and package rounding.</p>
-              <strong>Read the estimating workflow <ArrowIcon /></strong>
-            </a>
+          <div className="trust-matrix">
+            {standards.map((standard, index) => (
+              <div key={standard}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{standard}</strong>
+                <CheckIcon />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="home-final-cta">
+          <div className="shell home-final-cta-inner">
+            <div>
+              <p className="eyebrow eyebrow-light">Ready when the measurements are</p>
+              <h2>Find the calculator that matches your job.</h2>
+              <p>Search and filter the complete calculator library, then move the result into Project Mode when you are ready.</p>
+            </div>
+            <div>
+              <a className="button button-primary" href="/calculators">Browse calculators <ArrowIcon /></a>
+              <a className="button button-quiet" href="/guides">Read practical guides</a>
+            </div>
           </div>
         </section>
       </main>

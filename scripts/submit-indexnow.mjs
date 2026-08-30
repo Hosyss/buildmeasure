@@ -1,10 +1,10 @@
-const siteOrigin = "https://buildmeasuretools.pages.dev";
+const siteOrigin = "https://buildnumbers.pages.dev";
 const indexNowKey = "bb6fa46f3784f7f264c8d9ed4a9cc44c";
 const indexNowEndpoint = "https://api.indexnow.org/indexnow";
 const keyLocation = `${siteOrigin}/${indexNowKey}.txt`;
 
 const sitemapResponse = await fetch(`${siteOrigin}/sitemap.xml`, {
-  headers: { "user-agent": "BuildMeasure-IndexNow/1.0" },
+  headers: { "user-agent": "BuildNumbers-IndexNow/1.0" },
 });
 
 if (!sitemapResponse.ok) {
@@ -39,7 +39,7 @@ const payload = {
 
 if (process.argv.includes("--dry-run")) {
   console.log(
-    `IndexNow dry run passed for ${urlList.length} BuildMeasure URLs.`,
+    `IndexNow dry run passed for ${urlList.length} BuildNumbers URLs.`,
   );
   process.exit(0);
 }
@@ -58,5 +58,5 @@ if (response.status !== 200 && response.status !== 202) {
 }
 
 console.log(
-  `IndexNow accepted ${urlList.length} BuildMeasure URLs with HTTP ${response.status}.`,
+  `IndexNow accepted ${urlList.length} BuildNumbers URLs with HTTP ${response.status}.`,
 );

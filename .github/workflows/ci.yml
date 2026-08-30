@@ -1,4 +1,4 @@
-name: BuildMeasure quality gate
+name: BuildNumbers quality gate
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  checks: read
 
 concurrency:
   group: buildmeasure-ci-${{ github.ref }}
@@ -42,3 +43,19 @@ jobs:
 
       - name: Block high-risk production dependency advisories
         run: npm audit --omit=dev --audit-level=high
+
+      - name: Smoke the exact Cloudflare Preview
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
+          PREVIEW_WAIT_MS: 480000
+        run: node scripts/live-preview-smoke.mjs
+
+      - name: Run exact Preview browser matrix
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
+          PREVIEW_WAIT_MS: 480000
+        run: node scripts/browser-preview-smoke.mjs

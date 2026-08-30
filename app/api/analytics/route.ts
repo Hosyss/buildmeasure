@@ -3,6 +3,7 @@ import {
   insertAnalyticsEvent,
 } from "@/db/analytics";
 import { validateAnalyticsPayload } from "@/lib/analytics";
+import { readBoundedJson } from "@/lib/request-body";
 
 export const dynamic = "force-dynamic";
 
@@ -22,19 +23,14 @@ export async function POST(request: Request) {
     return json({ error: "Invalid analytics event." }, 415);
   }
 
-  const contentLength = Number(request.headers.get("content-length") ?? 0);
-  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
-    return json({ error: "Analytics event is too large." }, 413);
+  const body = await readBoundedJson(request, MAX_REQUEST_BYTES);
+  if (!body.ok) {
+    return body.reason === "too_large"
+      ? json({ error: "Analytics event is too large." }, 413)
+      : json({ error: "Invalid analytics event." }, 400);
   }
 
-  let payload: unknown;
-  try {
-    payload = await request.json();
-  } catch {
-    return json({ error: "Invalid analytics event." }, 400);
-  }
-
-  const validation = validateAnalyticsPayload(payload);
+  const validation = validateAnalyticsPayload(body.value);
   if (!validation.ok) {
     return json({ error: validation.error }, 400);
   }

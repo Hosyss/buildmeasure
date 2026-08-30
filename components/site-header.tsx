@@ -3,37 +3,66 @@ type SiteHeaderProps = {
   ctaLabel?: string;
 };
 
+const navigation = [
+  ["Calculators", "/calculators"],
+  ["Projects", "/projects"],
+  ["Guides", "/guides"],
+  ["Methodology", "/methodology"],
+] as const;
+
 export function SiteHeader({
-  ctaHref = "/#calculators",
+  ctaHref = "/calculators",
   ctaLabel = "Browse calculators",
 }: SiteHeaderProps) {
+  // Older calculator pages explicitly passed the homepage calculator anchor.
+  // Normalize that legacy destination here so every header now uses the
+  // dedicated scalable library without requiring a risky multi-file rewrite.
+  const resolvedCtaHref = ctaHref === "/#calculators" ? "/calculators" : ctaHref;
+
   return (
     <header className="site-header">
       <div className="utility-bar">
         <div className="shell utility-inner">
-          <span>Free construction calculators</span>
+          <span>Reference-backed construction planning</span>
           <span className="utility-separator" aria-hidden="true" />
-          <span>Metric &amp; Imperial</span>
+          <span>Metric &amp; Imperial · No sign-up</span>
         </div>
       </div>
       <div className="shell nav-wrap">
-        <a className="brand" href="/" aria-label="BuildMeasure home">
+        <a className="brand" href="/" aria-label="BuildNumbers home">
           <span className="brand-mark" aria-hidden="true">
             <span />
             <span />
             <span />
           </span>
-          <span>BuildMeasure</span>
+          <span>BuildNumbers</span>
         </a>
+
         <nav className="main-nav" aria-label="Primary navigation">
-          <a href="/#calculators">Calculators</a>
-          <a href="/projects">Projects</a>
-          <a href="/guides">Guides</a>
-          <a href="/methodology">Methodology</a>
+          {navigation.map(([label, href]) => (
+            <a href={href} key={href}>{label}</a>
+          ))}
         </nav>
-        <a className="button button-small button-outline" href={ctaHref}>
+
+        <a className="button button-small button-outline" href={resolvedCtaHref}>
           {ctaLabel}
         </a>
+
+        <details className="mobile-nav">
+          <summary aria-label="Open navigation menu">Menu</summary>
+          <nav className="mobile-nav-panel" aria-label="Mobile navigation">
+            {navigation.map(([label, href]) => (
+              <a href={href} key={href}>
+                <span>{label}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            ))}
+            <a href={resolvedCtaHref}>
+              <span>{ctaLabel}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </nav>
+        </details>
       </div>
     </header>
   );

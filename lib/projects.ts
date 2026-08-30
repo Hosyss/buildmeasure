@@ -11,6 +11,11 @@ export const PROJECT_LIMIT = 10;
 
 export type ProjectCalculatorId =
   | "concrete"
+  | "concrete-project"
+  | "circular-slab"
+  | "footing"
+  | "column"
+  | "wall"
   | "post-hole-concrete"
   | "paint"
   | "tile"
@@ -32,6 +37,36 @@ export const PROJECT_HISTORY_SOURCES: readonly ProjectHistorySource[] = [
     label: "Concrete",
     href: "/concrete-calculator",
     storageKey: "buildmeasure.concrete.history.v1",
+  },
+  {
+    id: "concrete-project",
+    label: "Multi-shape concrete project",
+    href: "/concrete-project-calculator",
+    storageKey: "buildmeasure.concrete-project.history.v1",
+  },
+  {
+    id: "circular-slab",
+    label: "Circular slab concrete",
+    href: "/circular-slab-calculator",
+    storageKey: "buildmeasure.circular-slab.history.v1",
+  },
+  {
+    id: "footing",
+    label: "Footing concrete",
+    href: "/footing-calculator",
+    storageKey: "buildmeasure.footing.history.v1",
+  },
+  {
+    id: "column",
+    label: "Column concrete",
+    href: "/column-calculator",
+    storageKey: "buildmeasure.column.history.v1",
+  },
+  {
+    id: "wall",
+    label: "Wall concrete",
+    href: "/wall-calculator",
+    storageKey: "buildmeasure.wall.history.v1",
   },
   {
     id: "post-hole-concrete",
@@ -250,7 +285,7 @@ export function formatSavedProject(project: SavedProject) {
   });
 
   return [
-    `BuildMeasure project: ${project.name}`,
+    `BuildNumbers project: ${project.name}`,
     `${project.items.length} saved estimate${project.items.length === 1 ? "" : "s"}`,
     "",
     ...lines,

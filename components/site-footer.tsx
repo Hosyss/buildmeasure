@@ -11,13 +11,19 @@ export function SiteFooter() {
               <span />
               <span />
             </span>
-            <span>BuildMeasure</span>
+            <span>BuildNumbers</span>
           </a>
-          <p>Clear calculations for better-built projects.</p>
+          <p>Material estimates you can build on. Clear calculations for better-built projects.</p>
         </div>
         <div className="footer-links">
           <strong>Calculators</strong>
+          <a href="/calculators">Browse all calculators</a>
+          <a href="/concrete-project-calculator">Multi-shape concrete</a>
           <a href="/concrete-calculator">Concrete</a>
+          <a href="/circular-slab-calculator">Circular slabs</a>
+          <a href="/footing-calculator">Footings</a>
+          <a href="/column-calculator">Columns</a>
+          <a href="/wall-calculator">Walls</a>
           <a href="/post-hole-concrete-calculator">Post holes</a>
           <a href="/paint-calculator">Paint</a>
           <a href="/tile-calculator">Tile</a>
@@ -31,9 +37,12 @@ export function SiteFooter() {
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
           <a href="/methodology">Methodology</a>
+          <a href="/editorial-policy">Editorial &amp; source policy</a>
           <a href="/guides">Guide library</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
-          <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
+          <a href="/guides/how-to-estimate-multi-shape-concrete-project">Concrete project guide</a>
+          <a href="/guides/how-many-bricks-do-i-need">Brick guide</a>
+          <a href="https://github.com/Hosyss/buildmeasure">Source &amp; releases</a>
           <a href="/feedback">Report an issue</a>
           <a href="/status">System status</a>
           <a href="/privacy">Privacy</a>
@@ -42,7 +51,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>© 2026 BuildMeasure · Independently maintained by Hosyss</span>
+        <span>© 2026 BuildNumbers · Independently maintained by Hosyss</span>
         <span>Estimates should be verified against project plans and supplier data.</span>
       </div>
     </footer>
