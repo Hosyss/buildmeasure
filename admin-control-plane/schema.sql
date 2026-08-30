@@ -2,6 +2,7 @@ PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS admins (
   id TEXT PRIMARY KEY,
+  owner_slot INTEGER NOT NULL DEFAULT 1 UNIQUE CHECK (owner_slot = 1),
   display_name TEXT NOT NULL,
   created_at INTEGER NOT NULL,
   disabled_at INTEGER
