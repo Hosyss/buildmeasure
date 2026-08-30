@@ -5,6 +5,7 @@ import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import "./professional.css";
 import "./home-product.css";
+import "./home-anchor.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
