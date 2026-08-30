@@ -27,17 +27,10 @@ export default function AboutPage() {
 
       <h2>What is live today</h2>
       <p>
-        BuildNumbers currently provides thirteen live calculators, up from twelve
-        live calculators before the Multi-Shape Concrete Project Calculator was
-        added, from eleven live calculators before the Circular Slab Concrete
-        Calculator was added, from ten live calculators before the Concrete Wall
-        Calculator was added, from nine live calculators before the Column
-        Concrete Calculator was added, and from eight live calculators before the
-        rectangular Footing Concrete Calculator was added. The library now covers
-        multi-shape concrete project aggregation, rectangular concrete slabs, full
-        circular concrete slabs and pads, rectangular concrete footings,
-        rectangular, square, and circular concrete columns, rectangular concrete
-        walls with measured opening subtraction, post-hole concrete, room paint,
+        BuildNumbers currently provides thirteen focused calculators covering
+        multi-shape concrete projects, rectangular slabs, circular slabs and
+        pads, footings, rectangular and circular columns, concrete walls with
+        measured opening subtraction, post-hole concrete, room paint,
         rectangular tile surfaces, fired-clay brick walls, gravel layers, mulch
         beds, and drywall sheets.
       </p>
@@ -58,12 +51,30 @@ export default function AboutPage() {
         that also appears in the automated test evidence.
       </p>
 
+      <h2>How content and sources are reviewed</h2>
+      <p>
+        BuildNumbers separates deterministic geometry and unit conversion from
+        project-specific assumptions such as waste, product yield, coverage,
+        density, and package size. Primary technical sources are preferred for
+        published facts, and product-specific examples stay labeled as
+        product-specific rather than being presented as universal constants.
+      </p>
+      <p>
+        The <a href="/methodology">calculation methodology</a> explains the
+        test and release standard. The{" "}
+        <a href="/editorial-policy">editorial, source and corrections policy</a>{" "}
+        explains how guidance is sourced, what a page must add for the reader,
+        and how confirmed errors are corrected.
+      </p>
+
       <div className="utility-callout">
         <strong>Accuracy over page count</strong>
         <p>
           BuildNumbers expands one verified tool at a time. A planned feature or
           calculator is never labeled live until its calculation, content, and
-          release evidence exist.
+          release evidence exist. Guides are published to answer a real
+          estimating question, not simply to increase the number of indexed
+          pages.
         </p>
       </div>
 
@@ -87,7 +98,7 @@ export default function AboutPage() {
 
       <div className="utility-link-row">
         <a className="button button-primary" href="/methodology">Read the methodology</a>
-        <a className="button button-quiet" href="/feedback">Report an issue</a>
+        <a className="button button-quiet" href="/editorial-policy">Read the editorial policy</a>
       </div>
     </UtilityContentPage>
   );

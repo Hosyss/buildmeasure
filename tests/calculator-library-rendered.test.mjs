@@ -39,7 +39,7 @@ const calculatorRoutes = [
   "/mulch-calculator",
 ];
 
-test("calculator library renders all thirteen tools with search, filters, and matching guides", async () => {
+test("calculator library renders all thirteen tools with search, filters, decision context, and matching guides", async () => {
   const { response, html } = await render("/calculators", "calculator-library");
   const visibleHtml = withoutReactComments(html);
 
@@ -53,6 +53,11 @@ test("calculator library renders all thirteen tools with search, filters, and ma
   assert.match(html, /Interiors &amp; finishes/);
   assert.match(html, /Masonry &amp; landscape/);
   assert.match(visibleHtml, /13 of 13 tools/);
+  assert.match(visibleHtml, /Use this when/);
+  assert.match(visibleHtml, /Verify before ordering/);
+  assert.match(visibleHtml, /The right material calculator starts with the shape you actually measured\./);
+  assert.match(visibleHtml, /What BuildNumbers does not decide/);
+  assert.match(html, /href="\/guides\/material-estimating-basics"/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /https:\/\/buildnumbers\.pages\.dev\/calculators/);
 
@@ -64,7 +69,7 @@ test("calculator library renders all thirteen tools with search, filters, and ma
   }
 });
 
-test("calculator library source keeps client filtering accessible and SSR-first", async () => {
+test("calculator library source keeps client filtering accessible, SSR-first, and mobile-safe", async () => {
   const source = await readFile(
     new URL("../app/calculators/calculator-library.tsx", import.meta.url),
     "utf8",
@@ -78,9 +83,13 @@ test("calculator library source keeps client filtering accessible and SSR-first"
   assert.match(source, /aria-live="polite"/);
   assert.match(source, /aria-pressed=\{active\}/);
   assert.match(source, /CALCULATOR_CATALOG\.filter/);
+  assert.match(source, /calculator\.useWhen/);
+  assert.match(source, /calculator\.verifyBeforeOrdering/);
+  assert.match(source, /<dl className=\{styles\.fitGuide\}>/);
   assert.match(source, /Open calculator/);
   assert.match(source, /Read guide/);
   assert.match(styles, /min-height:\s*58px/);
+  assert.match(styles, /\.fitGuide[\s\S]*border-top/);
   assert.match(styles, /@media \(max-width: 620px\)/);
   assert.match(styles, /grid-template-columns:\s*1fr/);
 });

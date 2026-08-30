@@ -70,7 +70,7 @@ test("discovers Brick Calculator from public product surfaces", async () => {
 
   const about = await render(worker, "/about");
   assert.equal(about.response.status, 200);
-  assert.match(about.html, /currently provides thirteen live calculators/i);
+  assert.match(about.html, /currently provides thirteen focused calculators/i);
   assert.match(about.html, /fired-clay brick walls/i);
 
   const sitemapResponse = await worker.fetch(

@@ -37,11 +37,12 @@ export function SiteFooter() {
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
           <a href="/methodology">Methodology</a>
+          <a href="/editorial-policy">Editorial &amp; source policy</a>
           <a href="/guides">Guide library</a>
           <a href="/guides/material-estimating-basics">Estimating guide</a>
           <a href="/guides/how-to-estimate-multi-shape-concrete-project">Concrete project guide</a>
           <a href="/guides/how-many-bricks-do-i-need">Brick guide</a>
-          <a href="https://github.com/Hosyss/buildmeasure">Source & releases</a>
+          <a href="https://github.com/Hosyss/buildmeasure">Source &amp; releases</a>
           <a href="/feedback">Report an issue</a>
           <a href="/status">System status</a>
           <a href="/privacy">Privacy</a>

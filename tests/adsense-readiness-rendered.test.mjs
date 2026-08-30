@@ -28,6 +28,7 @@ test("homepage exposes the official AdSense account verification meta tag", asyn
     html,
     /<meta name="google-adsense-account" content="ca-pub-3369551572403499"\s*\/?>(?:<\/meta>)?/,
   );
+  assert.match(html, /href="\/editorial-policy"/);
 });
 
 test("contact page is public, canonical, and links to the support flows", async () => {
@@ -47,6 +48,43 @@ test("contact page is public, canonical, and links to the support flows", async 
   assert.match(html, /rel="canonical" href="https:\/\/buildnumbers\.pages\.dev\/contact"/);
 });
 
+test("editorial policy is public, canonical, and documents source and correction standards", async () => {
+  const worker = await loadWorker("adsense-editorial-policy");
+  const response = await worker.fetch(
+    new Request("http://localhost/editorial-policy", { headers: { accept: "text/html" } }),
+    env,
+    ctx,
+  );
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Editorial, source and corrections policy/);
+  assert.match(html, /Source hierarchy/);
+  assert.match(html, /Facts, defaults and assumptions stay separate/);
+  assert.match(html, /Corrections policy/);
+  assert.match(html, /Advertising does not set the answer/);
+  assert.match(
+    html,
+    /rel="canonical" href="https:\/\/buildnumbers\.pages\.dev\/editorial-policy"/,
+  );
+});
+
+test("about page exposes ownership, methodology, and editorial accountability", async () => {
+  const worker = await loadWorker("adsense-about-trust");
+  const response = await worker.fetch(
+    new Request("http://localhost/about", { headers: { accept: "text/html" } }),
+    env,
+    ctx,
+  );
+  const html = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(html, /Who maintains BuildNumbers/);
+  assert.match(html, /How content and sources are reviewed/);
+  assert.match(html, /href="\/methodology"/);
+  assert.match(html, /href="\/editorial-policy"/);
+});
+
 test("ads.txt authorizes only the current Google AdSense publisher ID", async () => {
   const adsTxt = await readFile(new URL("../public/ads.txt", import.meta.url), "utf8");
   assert.equal(
@@ -55,7 +93,7 @@ test("ads.txt authorizes only the current Google AdSense publisher ID", async ()
   );
 });
 
-test("sitemap includes contact and updated privacy pages", async () => {
+test("sitemap includes contact, privacy, and editorial policy pages", async () => {
   const worker = await loadWorker("adsense-sitemap");
   const response = await worker.fetch(
     new Request("http://localhost/sitemap.xml", { headers: { accept: "application/xml" } }),
@@ -66,5 +104,7 @@ test("sitemap includes contact and updated privacy pages", async () => {
 
   assert.equal(response.status, 200);
   assert.match(xml, /https:\/\/buildnumbers\.pages\.dev\/contact/);
-  assert.match(xml, /<lastmod>2026-08-22T00:00:00\.000Z<\/lastmod>/);
+  assert.match(xml, /https:\/\/buildnumbers\.pages\.dev\/privacy/);
+  assert.match(xml, /https:\/\/buildnumbers\.pages\.dev\/editorial-policy/);
+  assert.match(xml, /<lastmod>2026-08-29T00:00:00\.000Z<\/lastmod>/);
 });
