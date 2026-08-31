@@ -2,6 +2,7 @@ name = "buildnumbers-admin"
 main = "src/index.ts"
 compatibility_date = "2026-08-30"
 workers_dev = false
+keep_vars = true
 
 [[d1_databases]]
 binding = "ADMIN_DB"
