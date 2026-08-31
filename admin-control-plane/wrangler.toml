@@ -1,0 +1,14 @@
+name = "buildnumbers-admin"
+main = "src/index.ts"
+compatibility_date = "2026-08-30"
+workers_dev = true
+keep_vars = true
+
+[vars]
+ADMIN_ORIGIN = "https://buildnumbers-admin.buildtools.workers.dev"
+RP_ID = "buildnumbers-admin.buildtools.workers.dev"
+
+[[d1_databases]]
+binding = "ADMIN_DB"
+database_name = "buildnumbers-admin"
+database_id = "fc9847d4-4423-4db0-8ffa-b0a36ce79b02"
