@@ -1,22 +1,22 @@
 name = "buildnumbers-admin"
 main = "src/index.ts"
 compatibility_date = "2026-08-30"
-workers_dev = false
+workers_dev = true
+keep_vars = true
 
-# Bind this Worker to a dedicated admin-only hostname after review.
+# Dedicated isolated Admin hostname. This is not linked from the public BuildNumbers site.
 # Do NOT bind it to buildnumbers.pages.dev and do NOT reuse the public D1 database.
-
 [vars]
-ADMIN_ORIGIN = "https://admin.example.com"
-RP_ID = "admin.example.com"
+ADMIN_ORIGIN = "https://buildnumbers-admin.buildtools.workers.dev"
+RP_ID = "buildnumbers-admin.buildtools.workers.dev"
 
 [[d1_databases]]
 binding = "ADMIN_DB"
 database_name = "buildnumbers-admin"
 database_id = "REPLACE_WITH_SEPARATE_ADMIN_D1_ID"
 
-# Set these only with `wrangler secret put`; never commit secret values:
-# BOOTSTRAP_SECRET_HASH  = base64url(SHA-256(one-time bootstrap secret))
+# Set these only as Worker secrets; never commit secret values:
+# BOOTSTRAP_SECRET_HASH = base64url(SHA-256(one-time bootstrap secret))
 # SESSION_PEPPER        = >= 32 random bytes encoded as base64url
 # RATE_LIMIT_PEPPER     = >= 32 random bytes encoded as base64url
 # AUDIT_HMAC_SECRET     = >= 32 random bytes encoded as base64url
