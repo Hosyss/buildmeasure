@@ -46,7 +46,9 @@ test('response policy blocks framing, indexing, foreign scripts and caching', ()
 test('admin data is isolated and release flow is staged', () => {
   assert.match(wrangler, /binding = "ADMIN_DB"/);
   assert.match(wrangler, /database_name = "buildnumbers-admin"/);
-  assert.match(wrangler, /workers_dev = false/);
+  assert.match(wrangler, /workers_dev = true/);
+  assert.match(wrangler, /ADMIN_ORIGIN = "https:\/\/buildnumbers-admin\.buildtools\.workers\.dev"/);
+  assert.match(wrangler, /RP_ID = "buildnumbers-admin\.buildtools\.workers\.dev"/);
   assert.match(schema, /CREATE TABLE IF NOT EXISTS release_requests/);
   assert.match(ui, /NO DIRECT DEPLOY/);
   assert.doesNotMatch(worker + ui, /wrangler deploy|pages deploy|fetch\([^)]*buildnumbers\.pages\.dev/i);
