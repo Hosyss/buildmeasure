@@ -26,6 +26,8 @@ The calculation engine itself is intentionally not editable as arbitrary JavaScr
 
 ## Provisioning plan — do not run against Production yet
 
+Provisioning status: the dedicated `buildnumbers-admin` D1 has been created, `schema.sql` applied, `ADMIN_DB` bound to the isolated `buildnumbers-admin` Worker, and Git-connected deployment configured on the isolated admin branch. Final hostname, runtime secrets, passkey bootstrap and live negative-security verification remain pending.
+
 1. Create a **new** D1 database named `buildnumbers-admin`.
 2. Apply `schema.sql` to that database only.
 3. Copy `wrangler.toml.example` to an uncommitted deployment config and set the dedicated admin hostname values.
