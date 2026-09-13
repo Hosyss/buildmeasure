@@ -164,7 +164,7 @@ for (const route of pageRoutes) {
   console.log(`PASS ${route}`);
 }
 
-const healthResponse = await fetchLive(new URL("/api/health", previewBase), "Health endpoint");
+// D1-backed routes can lag the static Preview by a short period while the\n// deployment finishes becoming fully ready. Keep the gate strict, but give\n// the health endpoint a longer readiness window than ordinary page routes.\nconst healthResponse = await fetchLive(\n  new URL("/api/health", previewBase),\n  "Health endpoint",\n  8,\n);
 const health = await healthResponse.json();
 if (
   health?.status !== "ok" ||
