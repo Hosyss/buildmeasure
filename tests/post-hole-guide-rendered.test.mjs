@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const GUIDE_PATH = "/guides/how-many-bags-of-concrete-for-post-holes";
-const GUIDE_URL = `https://buildmeasuretools.pages.dev${GUIDE_PATH}`;
+const GUIDE_URL = `https://buildnumbers.pages.dev${GUIDE_PATH}`;
 
 async function loadWorker(label) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -45,7 +45,7 @@ test("renders the post-hole concrete bag guide with canonical structured content
 test("discovers the post-hole guide from public entry points", async () => {
   const worker = await loadWorker("post-hole-guide-links");
 
-  for (const path of ["/", "/post-hole-concrete-calculator"]) {
+  for (const path of ["/calculators", "/post-hole-concrete-calculator"]) {
     const response = await worker.fetch(
       new Request(`http://localhost${path}`, {
         headers: { accept: "text/html" },

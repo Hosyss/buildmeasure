@@ -1,38 +1,47 @@
-# BuildMeasure
+# BuildNumbers
 
 > Reference-backed construction and DIY calculators with transparent formulas, visible assumptions, and metric and imperial inputs.
 
-Canonical site: https://buildmeasuretools.pages.dev/
+Canonical site: https://buildnumbers.pages.dev/
 Maintainer: Hosyss — https://github.com/Hosyss
 Source and verified releases: https://github.com/Hosyss/buildmeasure
 
 ## Calculators
 
-- [Concrete Calculator](https://buildmeasuretools.pages.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
-- [Post Hole Concrete Calculator](https://buildmeasuretools.pages.dev/post-hole-concrete-calculator): round-hole concrete volume, multiple holes, optional round or square post displacement, allowance, and 40/60/80 lb bag estimates.
-- [Paint Calculator](https://buildmeasuretools.pages.dev/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
-- [Tile Calculator](https://buildmeasuretools.pages.dev/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
-- [Brick Calculator](https://buildmeasuretools.pages.dev/brick-calculator): fired-clay brick quantity from net wall area, measured openings, BIA running/stack-bond coverage presets or a custom project rate, waste allowance, and optional user-entered price per brick.
-- [Gravel Calculator](https://buildmeasuretools.pages.dev/gravel-calculator): volume, adjustable density, weight, tons, tonnes, and complete bags.
-- [Mulch Calculator](https://buildmeasuretools.pages.dev/mulch-calculator): bed volume, installed depth, package volume, and complete bags.
-- [Drywall Calculator](https://buildmeasuretools.pages.dev/drywall-calculator): rectangular room walls, optional ceiling, measured openings, panel size, visible allowance, and complete sheets.
+- [Multi-Shape Concrete Project Calculator](https://buildnumbers.pages.dev/concrete-project-calculator): combine rectangular slabs, circular slabs, footings, rectangular or circular columns, walls with measured openings, and post holes with optional post displacement into one project quantity; supports mixed unit systems, one explicit project allowance, one final 40/60/80 lb bag rounding step, and an auditable per-part breakdown.
+- [Concrete Calculator](https://buildnumbers.pages.dev/concrete-calculator): rectangular slab volume, waste allowance, cubic yards, cubic meters, and 40/60/80 lb bag estimates.
+- [Circular Slab Concrete Calculator](https://buildnumbers.pages.dev/circular-slab-calculator): full circular slab or pad volume from diameter and depth, identical-pour quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
+- [Footing Concrete Calculator](https://buildnumbers.pages.dev/footing-calculator): identical rectangular footing volume, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
+- [Column Concrete Calculator](https://buildnumbers.pages.dev/column-calculator): rectangular/square and circular column concrete volume, quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
+- [Concrete Wall Calculator](https://buildnumbers.pages.dev/wall-calculator): rectangular wall volume with measured full-depth opening subtraction, repeated-wall quantity, explicit allowance, cubic yards, cubic meters, and final-project 40/60/80 lb bag estimates without structural sizing assumptions.
+- [Post Hole Concrete Calculator](https://buildnumbers.pages.dev/post-hole-concrete-calculator): round-hole concrete volume, multiple holes, optional round or square post displacement, allowance, and 40/60/80 lb bag estimates.
+- [Paint Calculator](https://buildnumbers.pages.dev/paint-calculator): walls, ceilings, measured openings, coats, coverage, and complete containers.
+- [Tile Calculator](https://buildnumbers.pages.dev/tile-calculator): area, waste, tile layout, full boxes, and purchase quantity.
+- [Brick Calculator](https://buildnumbers.pages.dev/brick-calculator): fired-clay brick quantity from net wall area, measured openings, BIA running/stack-bond coverage presets or a custom project rate, waste allowance, and optional user-entered price per brick.
+- [Gravel Calculator](https://buildnumbers.pages.dev/gravel-calculator): volume, adjustable density, weight, tons, tonnes, and complete bags.
+- [Mulch Calculator](https://buildnumbers.pages.dev/mulch-calculator): bed volume, installed depth, package volume, and complete bags.
+- [Drywall Calculator](https://buildnumbers.pages.dev/drywall-calculator): rectangular room walls, optional ceiling, measured openings, panel size, visible allowance, and complete sheets.
 
 ## Guides and methodology
 
-- [Material Estimating Guide Library](https://buildmeasuretools.pages.dev/guides)
-
-- [How Much Concrete Do I Need for a Slab?](https://buildmeasuretools.pages.dev/guides/how-many-bags-of-concrete)
-- [How Many Bags of Concrete for Post Holes?](https://buildmeasuretools.pages.dev/guides/how-many-bags-of-concrete-for-post-holes)
-- [How Much Paint Do I Need for a Room?](https://buildmeasuretools.pages.dev/guides/how-much-paint-do-i-need)
-- [How Many Tiles Do I Need?](https://buildmeasuretools.pages.dev/guides/how-many-tiles-do-i-need)
-- [How Many Bricks Do I Need for a Wall?](https://buildmeasuretools.pages.dev/guides/how-many-bricks-do-i-need)
-- [How Much Gravel Do I Need for a Driveway?](https://buildmeasuretools.pages.dev/guides/how-much-gravel-do-i-need)
-- [How Much Mulch Do I Need?](https://buildmeasuretools.pages.dev/guides/how-much-mulch-do-i-need)
-- [How Many Drywall Sheets Do I Need?](https://buildmeasuretools.pages.dev/guides/how-many-drywall-sheets-do-i-need)
-- [How to Estimate Construction Materials](https://buildmeasuretools.pages.dev/guides/material-estimating-basics)
-- [Calculation Methodology](https://buildmeasuretools.pages.dev/methodology)
-- [About BuildMeasure](https://buildmeasuretools.pages.dev/about)
+- [Material Estimating Guide Library](https://buildnumbers.pages.dev/guides)
+- [How to Estimate a Multi-Shape Concrete Project](https://buildnumbers.pages.dev/guides/how-to-estimate-multi-shape-concrete-project)
+- [How Much Concrete Do I Need for a Slab?](https://buildnumbers.pages.dev/guides/how-many-bags-of-concrete)
+- [How Much Concrete Do I Need for a Circular Slab?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-circular-slabs)
+- [How Much Concrete Do I Need for Footings?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-footings)
+- [How Much Concrete Do I Need for Columns?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-columns)
+- [How Much Concrete Do I Need for a Wall?](https://buildnumbers.pages.dev/guides/how-much-concrete-for-walls)
+- [How Many Bags of Concrete for Post Holes?](https://buildnumbers.pages.dev/guides/how-many-bags-of-concrete-for-post-holes)
+- [How Much Paint Do I Need for a Room?](https://buildnumbers.pages.dev/guides/how-much-paint-do-i-need)
+- [How Many Tiles Do I Need?](https://buildnumbers.pages.dev/guides/how-many-tiles-do-i-need)
+- [How Many Bricks Do I Need for a Wall?](https://buildnumbers.pages.dev/guides/how-many-bricks-do-i-need)
+- [How Much Gravel Do I Need for a Driveway?](https://buildnumbers.pages.dev/guides/how-much-gravel-do-i-need)
+- [How Much Mulch Do I Need?](https://buildnumbers.pages.dev/guides/how-much-mulch-do-i-need)
+- [How Many Drywall Sheets Do I Need?](https://buildnumbers.pages.dev/guides/how-many-drywall-sheets-do-i-need)
+- [How to Estimate Construction Materials](https://buildnumbers.pages.dev/guides/material-estimating-basics)
+- [Calculation Methodology](https://buildnumbers.pages.dev/methodology)
+- [About BuildNumbers](https://buildnumbers.pages.dev/about)
 
 ## Usage note
 
-BuildMeasure produces planning estimates, not structural, regulatory, contractual, or supplier approval. Verify dimensions, product data, waste assumptions, local requirements, and purchase quantities before construction or ordering.
+BuildNumbers produces planning estimates, not structural, regulatory, contractual, or supplier approval. Verify dimensions, product data, waste assumptions, local requirements, and purchase quantities before construction or ordering.

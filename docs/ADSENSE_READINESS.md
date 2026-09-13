@@ -1,12 +1,12 @@
-# BuildMeasure AdSense readiness gate
+# BuildNumbers AdSense readiness gate
 
-Last reviewed: 2026-08-25
+Last reviewed: 2026-08-29
 
-This document is the release gate for submitting BuildMeasure to Google AdSense and for enabling ads after approval.
+This document is the release gate for submitting BuildNumbers to Google AdSense and for enabling ads after approval.
 
 ## Current readiness
 
-- The public site has eight substantive calculators, eight focused estimating guides, a guide library, an estimating workflow, methodology, About, Privacy, Terms, and Contact pages.
+- The public site has 13 substantive calculators, 13 calculator-specific estimating guides plus `material-estimating-basics` (14 guide articles total), a guide library, an estimating workflow, methodology, About, Privacy, Terms, and Contact pages.
 - Public content pages use canonical URLs and the high-value public routes are listed in `sitemap.xml`.
 - Utility/private routes remain outside the sitemap. `/projects` and `/feedback` are `noindex`; `/status`, `/analytics`, and owner-only surfaces are also excluded from search.
 - `robots.txt` allows normal crawlers to reach public content and does not block the AdSense crawler from the site as a whole.
@@ -18,9 +18,9 @@ This document is the release gate for submitting BuildMeasure to Google AdSense 
 
 Do **not** request the final AdSense review until the submitted site URL is accepted by AdSense and matches the canonical production host.
 
-The production host is `buildmeasuretools.pages.dev`, a single Pages project
+The production host is `buildnumbers.pages.dev`, a single Pages project
 hostname that the AdSense Sites UI accepts. Submit that exact hostname. The
-former `buildmeasure.buildtools.workers.dev` and Sites host must return permanent
+former `buildmeasuretools.pages.dev`, `buildmeasure.buildtools.workers.dev`, and Sites hosts must return permanent
 path-preserving redirects to the Pages origin before requesting review.
 
 Do not change canonicals to a domain that is not already live and serving the same content.
@@ -29,7 +29,7 @@ Do not change canonicals to a domain that is not already live and serving the sa
 
 Before clicking **Request review**:
 
-1. Production homepage, all eight calculators, the guide library, all eight focused guides, About, Methodology, Contact, Privacy, and Terms return HTTP 200 without authentication.
+1. Production homepage, all 13 calculators, the guide library, all 14 public guide articles, About, Methodology, Contact, Privacy, and Terms return HTTP 200 without authentication.
 2. `robots.txt`, `sitemap.xml`, and `ads.txt` return HTTP 200 from the exact submitted host.
 3. The AdSense verification meta tag is present in the `<head>` of public pages.
 4. There are no broken internal links, placeholder sections, "coming soon" cards presented as live content, or empty public pages.
@@ -61,5 +61,5 @@ After ads are enabled:
 - verify `ads.txt` is reachable from the approved site root;
 - verify no console/page errors are introduced by ad code;
 - verify calculator input latency and layout stability remain acceptable on mobile;
-- rerun the normal BuildMeasure quality gate and responsive browser QA;
+- rerun the normal BuildNumbers quality gate and responsive browser QA;
 - inspect real production pages rather than relying only on local build output.

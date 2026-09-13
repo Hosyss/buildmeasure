@@ -30,6 +30,56 @@ test("accepts a bounded anonymous calculator report", () => {
   }
 });
 
+test("accepts Multi-Shape Concrete Project as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "concrete-project-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "concrete-project-calculator");
+});
+
+test("accepts the Circular Slab Calculator as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "circular-slab-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "circular-slab-calculator");
+});
+
+test("accepts the Footing Calculator as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "footing-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "footing-calculator");
+});
+
+test("accepts the Column Calculator as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "column-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "column-calculator");
+});
+
+test("accepts the Concrete Wall Calculator as a first-class feedback target", () => {
+  const result = validateFeedbackPayload(
+    validPayload({ calculator: "wall-calculator" }),
+    now,
+  );
+
+  assert.equal(result.ok, true);
+  if (result.ok) assert.equal(result.value.calculator, "wall-calculator");
+});
+
 test("rejects unknown calculators and categories", () => {
   assert.equal(
     validateFeedbackPayload(validPayload({ calculator: "roofing-calculator" }), now).ok,

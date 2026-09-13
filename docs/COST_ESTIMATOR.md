@@ -2,7 +2,7 @@
 
 ## Purpose
 
-BuildMeasure may add an optional material-cost layer after a calculator has
+BuildNumbers may add an optional material-cost layer after a calculator has
 already produced its verified purchase quantity. The cost layer must never
 change geometry, material quantity, allowance, unit conversion, package
 rounding, or any calculator engine result.
@@ -39,7 +39,7 @@ cost helper does not round or recalculate that quantity.
 - Unit price is optional. A blank unit price produces no cost estimate.
 - A supplied unit price must be finite and zero or greater.
 - Currency is a user-controlled display label only, such as `$`, `EUR`, or
-  `EGP`; BuildMeasure does not interpret or convert currencies.
+  `EGP`; BuildNumbers does not interpret or convert currencies.
 - The purchase quantity must be a nonnegative safe integer from the calculator
   result.
 - Totals outside the reliable JavaScript numeric range are rejected instead of
@@ -67,7 +67,7 @@ not clear the price for Gravel or Mulch.
 When a valid optional price is present, copied and device-saved estimate
 summaries include the estimated material cost. Existing history remains
 backward compatible because saved estimates continue to store only a label and
-summary string. No price is uploaded to a BuildMeasure account and no account is
+summary string. No price is uploaded to a BuildNumbers account and no account is
 required.
 
 ## User-facing limitations

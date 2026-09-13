@@ -164,7 +164,7 @@ export function PostHoleConcreteCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure post-hole concrete estimate",
+      "BuildNumbers post-hole concrete estimate",
       resultSummary(calculation.result),
       `Holes: ${calculation.result.holeCount}`,
       `Post displacement: ${postShapeLabel(calculation.result.postShape)}`,

@@ -176,7 +176,7 @@ export function MulchCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure mulch estimate",
+      "BuildNumbers mulch estimate",
       resultSummary(calculation.result, unitSystem),
       `Net volume: ${format(calculation.result.netCubicMeters, 3)} m³`,
       `Allowance: ${format(calculation.result.wastePercent)}%`,

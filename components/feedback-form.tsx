@@ -152,7 +152,7 @@ export function FeedbackForm({
             name="actualResult"
             maxLength={500}
             rows={3}
-            placeholder="Copy the result that BuildMeasure showed."
+            placeholder="Copy the result that BuildNumbers showed."
           />
         </label>
         <label>

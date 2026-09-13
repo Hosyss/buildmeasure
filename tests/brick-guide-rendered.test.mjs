@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const GUIDE_PATH = "/guides/how-many-bricks-do-i-need";
-const GUIDE_URL = `https://buildmeasuretools.pages.dev${GUIDE_PATH}`;
+const GUIDE_URL = `https://buildnumbers.pages.dev${GUIDE_PATH}`;
 
 async function loadWorker(label) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -47,7 +47,7 @@ test("renders the Brick wall guide with canonical reference-backed content", asy
   assert.match(html, /nist\.gov\/pml\/special-publication-811/);
 });
 
-test("discovers the Brick wall guide from the calculator, homepage, sitemap, and llms.txt", async () => {
+test("discovers the Brick wall guide from the calculator library, calculator, sitemap, and llms.txt", async () => {
   const worker = await loadWorker("brick-guide-discovery");
 
   const calculator = await render(worker, "/brick-calculator");
@@ -55,10 +55,11 @@ test("discovers the Brick wall guide from the calculator, homepage, sitemap, and
   assert.match(calculator.html, /href="\/guides\/how-many-bricks-do-i-need"/);
   assert.match(calculator.html, /How Many Bricks Do I Need\?/);
 
-  const home = await render(worker, "/");
-  assert.equal(home.response.status, 200);
-  assert.match(home.html, /href="\/guides\/how-many-bricks-do-i-need"/);
-  assert.match(home.html, /Brick guide/);
+  const library = await render(worker, "/calculators");
+  assert.equal(library.response.status, 200);
+  assert.match(library.html, /href="\/guides\/how-many-bricks-do-i-need"/);
+  assert.match(library.html, /href="\/brick-calculator"/);
+  assert.match(library.html, /Brick Calculator/);
 
   const sitemapResponse = await worker.fetch(
     new Request("http://localhost/sitemap.xml"),
@@ -69,12 +70,12 @@ test("discovers the Brick wall guide from the calculator, homepage, sitemap, and
   assert.equal(sitemapResponse.status, 200);
   assert.match(
     sitemap,
-    /<loc>https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-bricks-do-i-need<\/loc>/,
+    /<loc>https:\/\/buildnumbers\.pages\.dev\/guides\/how-many-bricks-do-i-need<\/loc>/,
   );
 
   const llmsSource = await readFile(new URL("../public/llms.txt", import.meta.url), "utf8");
   assert.match(
     llmsSource,
-    /\[How Many Bricks Do I Need for a Wall\?\]\(https:\/\/buildmeasuretools\.pages\.dev\/guides\/how-many-bricks-do-i-need\)/,
+    /\[How Many Bricks Do I Need for a Wall\?\]\(https:\/\/buildnumbers\.pages\.dev\/guides\/how-many-bricks-do-i-need\)/,
   );
 });

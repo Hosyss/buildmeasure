@@ -3,7 +3,7 @@ import { UtilityContentPage } from "@/components/utility-content-page";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How BuildMeasure handles calculator inputs, saved estimates and projects, analytics, advertising, and feedback reports.",
+  description: "How BuildNumbers handles calculator inputs, saved estimates and projects, analytics, advertising, and feedback reports.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -12,12 +12,12 @@ export default function PrivacyPage() {
     <UtilityContentPage
       eyebrow="Last updated August 22, 2026"
       title="Privacy policy"
-      intro="BuildMeasure is designed to calculate locally, request as little information as possible, and explain the data that is stored or processed."
+      intro="BuildNumbers is designed to calculate locally, request as little information as possible, and explain the data that is stored or processed."
     >
       <h2>Calculator inputs</h2>
       <p>
         Calculator measurements and results are processed in your browser. They
-        are not sent to BuildMeasure&apos;s first-party analytics log. They are sent
+        are not sent to BuildNumbers&apos;s first-party analytics log. They are sent
         to the feedback database only if you choose to copy them into and submit
         the feedback form.
       </p>
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
         currency snapshot you entered. Project Mode uses those structured local
         fields for shopping lists instead of reading numbers back from display
         text. Estimates and projects are not synchronized to an account or sent
-        to BuildMeasure.
+        to BuildNumbers.
       </p>
       <p>
         Use Clear all in a calculator to remove that calculator&apos;s saved-history
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
 
       <h2>Calculator feedback</h2>
       <p>
-        When you submit a report, BuildMeasure stores the selected calculator,
+        When you submit a report, BuildNumbers stores the selected calculator,
         feedback type, text you enter, submission time, and a random anonymous
         browser token used to limit repeated submissions. The form does not ask
         for your name or email. Do not include personal, payment, account, or
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
 
       <h2>Anonymous product analytics</h2>
       <p>
-        BuildMeasure records limited first-party events such as opening or using
+        BuildNumbers records limited first-party events such as opening or using
         a calculator, clicking into a calculator from the homepage or a guide,
         completing or failing an estimate, using the optional cost feature or a
         result action, submitting feedback, and browser errors. The event may
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
         calculated costs are not copied into the first-party analytics event.
       </p>
       <p>
-        BuildMeasure&apos;s first-party analytics log does not store IP addresses,
+        BuildNumbers&apos;s first-party analytics log does not store IP addresses,
         names, email addresses, raw user-agent strings, or persistent analytics
         cookies. A random identifier is created for the current page load only
         and is not saved in the browser. Analytics events are retained for up to
@@ -82,15 +82,15 @@ export default function PrivacyPage() {
 
       <h2>Microsoft Clarity</h2>
       <p>
-        If you choose Allow analytics, BuildMeasure loads Microsoft Clarity to
+        If you choose Allow analytics, BuildNumbers loads Microsoft Clarity to
         understand navigation, clicks, scrolling, session flow, and technical
-        friction. Clarity is not loaded before that choice. BuildMeasure keeps
+        friction. Clarity is not loaded before that choice. BuildNumbers keeps
         Clarity advertising storage disabled and does not send custom user
         identifiers through the Clarity Identify API.
       </p>
       <p>
         Microsoft Clarity masks input-box and dropdown content in its recordings
-        by default. BuildMeasure also explicitly masks the Project Mode workspace
+        by default. BuildNumbers also explicitly masks the Project Mode workspace
         so project names and saved-estimate text are not uploaded in Clarity
         recordings. Clarity may otherwise process device, browser, approximate
         location, interaction, and session data under Microsoft&apos;s privacy terms.
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
 
       <h2>Advertising and Google AdSense</h2>
       <p>
-        BuildMeasure may use Google AdSense. During AdSense site review, the site
+        BuildNumbers may use Google AdSense. During AdSense site review, the site
         may expose account verification metadata and an ads.txt declaration
         before advertising code or ad units are enabled. If Google ads are
         enabled, third-party vendors, including Google, may use cookies, web
@@ -109,7 +109,7 @@ export default function PrivacyPage() {
       </p>
       <p>
         Google&apos;s use of advertising cookies enables Google and its partners to
-        serve ads based on a visitor&apos;s prior visits to BuildMeasure or other
+        serve ads based on a visitor&apos;s prior visits to BuildNumbers or other
         sites on the Internet. Visitors can manage or opt out of personalized
         advertising through{" "}
         <a href="https://adssettings.google.com/">Google Ads Settings</a>. Other
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
         <a href="https://policies.google.com/technologies/partner-sites">
           how Google uses data when you use sites or apps of its partners
         </a>.
-        Where consent is required, BuildMeasure will use a Google-certified
+        Where consent is required, BuildNumbers will use a Google-certified
         consent management platform before personalized ads are served.
         Calculator measurements, saved project names, entered unit prices,
         calculated costs, and feedback text are not intentionally supplied to

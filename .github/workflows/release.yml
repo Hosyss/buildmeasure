@@ -2,7 +2,7 @@ name: Publish verified source backup
 
 on:
   workflow_run:
-    workflows: ["BuildMeasure quality gate"]
+    workflows: ["BuildNumbers quality gate"]
     types: [completed]
 
 permissions:
@@ -52,5 +52,5 @@ jobs:
 
           gh release create "$tag" release-assets/* \
             --target "$target" \
-            --title "BuildMeasure ${tag}" \
+            --title "BuildNumbers ${tag}" \
             --generate-notes

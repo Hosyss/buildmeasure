@@ -51,12 +51,12 @@ const schema = [
     mainEntityOfPage: absoluteUrl("/guides/how-much-paint-do-i-need"),
     author: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "BuildNumbers",
       url: absoluteUrl("/about"),
     },
     publisher: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "BuildNumbers",
       url: absoluteUrl("/"),
     },
   },
@@ -264,7 +264,7 @@ export default function PaintGuidePage() {
             <div className="utility-callout">
               <strong>Want walls, ceiling, openings, coats, and cans in one result?</strong>
               <p>
-                Open the <a href="/paint-calculator">BuildMeasure Paint Calculator</a> and replace the default coverage with your product value.
+                Open the <a href="/paint-calculator">BuildNumbers Paint Calculator</a> and replace the default coverage with your product value.
               </p>
             </div>
           </div>

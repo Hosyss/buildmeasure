@@ -77,7 +77,7 @@ liters = order_m3 × 1000
 bags = ceil(cubic_feet / published_bag_yield_ft3)
 ```
 
-Procurement rounding uses the shared BuildMeasure safe-ceiling helper so a
+Procurement rounding uses the shared BuildNumbers safe-ceiling helper so a
 floating-point artifact at an exact bag-yield boundary does not add a bag.
 
 ## Fit validation

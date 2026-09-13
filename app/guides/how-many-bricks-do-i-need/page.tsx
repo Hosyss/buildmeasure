@@ -32,12 +32,12 @@ const faqs = [
   {
     question: "How much extra brick should I order for waste and breakage?",
     answer:
-      "BIA Technical Note 10 gives at least 5% as a general rule for brick breakage and waste and notes that project conditions or experience can justify more. BuildMeasure keeps the allowance explicit rather than assuming one percentage fits every job.",
+      "BIA Technical Note 10 gives at least 5% as a general rule for brick breakage and waste and notes that project conditions or experience can justify more. BuildNumbers keeps the allowance explicit rather than assuming one percentage fits every job.",
   },
   {
     question: "Does this method include mortar?",
     answer:
-      "No. This guide estimates fired-clay brick quantity only. It does not estimate mortar or grout. The BIA coverage presets already represent documented wall-area estimating quantities; BuildMeasure does not add a separate invented mortar-volume calculation to this guide.",
+      "No. This guide estimates fired-clay brick quantity only. It does not estimate mortar or grout. The BIA coverage presets already represent documented wall-area estimating quantities; BuildNumbers does not add a separate invented mortar-volume calculation to this guide.",
   },
   {
     question: "Can I use the same brick count for English or Flemish bond?",
@@ -47,7 +47,7 @@ const faqs = [
   {
     question: "Can I use this guide for concrete brick or blocks?",
     answer:
-      "Not as a verified BuildMeasure assumption. BIA states that its Technical Notes are based on fired-clay brick and should not be assumed to apply to concrete, fly-ash, or other non-clay units. Use product- and project-specific data for those materials.",
+      "Not as a verified BuildNumbers assumption. BIA states that its Technical Notes are based on fired-clay brick and should not be assumed to apply to concrete, fly-ash, or other non-clay units. Use product- and project-specific data for those materials.",
   },
 ];
 
@@ -68,7 +68,7 @@ const schema = [
     },
     publisher: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "BuildNumbers",
       url: absoluteUrl("/"),
     },
   },
@@ -188,7 +188,7 @@ export default function BrickWallGuidePage() {
                 <code>ceil(exact net brick × (1 + waste ÷ 100))</code>
               </div>
               <p>
-                BuildMeasure keeps the exact net quantity unrounded internally.
+                BuildNumbers keeps the exact net quantity unrounded internally.
                 Waste is applied after the net estimate, then the final purchase
                 quantity is rounded upward once so a fractional brick never
                 becomes an understated order.
@@ -262,7 +262,7 @@ export default function BrickWallGuidePage() {
                 and subtract that total before multiplying by the coverage rate.
               </p>
               <p>
-                The BuildMeasure calculator accepts one combined openings-area
+                The BuildNumbers calculator accepts one combined openings-area
                 input. It does not add special jamb, sill, arch, corner, or
                 bond-maintenance units, so those project details must be checked
                 separately when they matter.
@@ -277,7 +277,7 @@ export default function BrickWallGuidePage() {
                 before allowances are added and gives <strong>at least 5%</strong>
                 as a general rule for brick breakage and waste. It also notes
                 that job conditions or experience can justify a higher
-                percentage. BuildMeasure therefore defaults to 5% but leaves the
+                percentage. BuildNumbers therefore defaults to 5% but leaves the
                 value editable.
               </p>
               <p>
@@ -326,7 +326,7 @@ export default function BrickWallGuidePage() {
             <div className="utility-callout">
               <strong>Have the wall dimensions and openings?</strong>
               <p>
-                Open the <a href="/brick-calculator">BuildMeasure Brick Calculator</a> for BIA presets, a custom supplier/project coverage rate, waste allowance, metric/imperial inputs, whole-brick order rounding, and optional user-entered price per brick.
+                Open the <a href="/brick-calculator">BuildNumbers Brick Calculator</a> for BIA presets, a custom supplier/project coverage rate, waste allowance, metric/imperial inputs, whole-brick order rounding, and optional user-entered price per brick.
               </p>
             </div>
 

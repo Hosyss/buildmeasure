@@ -234,7 +234,7 @@ export function BrickCalculator() {
       ? `Estimated material cost: ${formatPurchaseCost(purchaseCost.result)}`
       : null;
     const text = [
-      "BuildMeasure brick estimate",
+      "BuildNumbers brick estimate",
       resultSummary(calculation.result),
       `Net wall area: ${format(displayArea(calculation.result.netAreaSquareMeters, unitSystem))} ${areaUnit}`,
       `Brick basis: ${choiceLabel(form.brickChoice)}`,

@@ -25,11 +25,13 @@ test("Project Mode renders as a local-only, masked, non-indexed workspace", asyn
   assert.equal(response.status, 200);
   assert.match(html, /Project Mode/);
   assert.match(html, /Group estimates into one project/);
-  assert.match(html, /Works across all eight calculators/);
+  assert.match(html, /Works across all thirteen calculators/);
   assert.match(html, /Projects are saved in this browser/);
   assert.match(html, /Print one project/);
   assert.match(html, /save it as a PDF/);
-  assert.match(html, /Shopping lists use structured purchase quantities/);
+  assert.match(html, /Shopping lists and cost summaries use structured purchase data/);
+  assert.match(html, /never parsed to invent quantities or prices/);
+  assert.match(html, /Currency labels remain separate exactly as saved/);
   assert.match(html, /data-projects-page="true"/);
   assert.match(html, /href="\/projects"/);
   assert.match(html, /data-clarity-mask="true"/);

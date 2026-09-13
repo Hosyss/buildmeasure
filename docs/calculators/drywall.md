@@ -48,7 +48,7 @@ Both systems support:
 - 0–50% user-entered waste allowance.
 - Default waste allowance: **0%**. The USG Sheetrock Wallboard Estimator
   explicitly states that its estimate does not include a waste allowance, so
-  BuildMeasure does not invent a hidden default.
+  BuildNumbers does not invent a hidden default.
 - Optional price per complete sheet through the existing isolated purchase-cost
   layer.
 
@@ -180,7 +180,7 @@ The exact boundary must not add a twelfth panel.
    documented products:
    https://www.usg.com/en-US/p/product/sheetrock-brand-gypsum-panels-141010
 3. NIST SP 811 Appendix B, **Conversion Factors** — exact SI / customary-unit
-   conversion basis used by BuildMeasure:
+   conversion basis used by BuildNumbers:
    https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors
 
 References reviewed on 2026-08-24.

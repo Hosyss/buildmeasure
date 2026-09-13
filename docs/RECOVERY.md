@@ -1,6 +1,6 @@
-# BuildMeasure recovery guide
+# BuildNumbers recovery guide
 
-This repository is the durable source of truth for BuildMeasure. The hosted
+This repository is the durable source of truth for BuildNumbers. The hosted
 Site and its saved deployment versions are release outputs; they are not a
 substitute for this source repository and its downloadable backups.
 
@@ -66,7 +66,7 @@ remain visible in Git history.
 
 ## Reconnect to ChatGPT Sites
 
-The tracked `.openai/hosting.json` identifies the existing BuildMeasure Site.
+The tracked `.openai/hosting.json` identifies the existing BuildNumbers Site.
 Preserve it unchanged when restoring or cloning the project. Never create a
 replacement Site for this source. Open the existing project by its stored
 identity, validate the source, save a new version, and deploy only after the

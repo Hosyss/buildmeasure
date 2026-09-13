@@ -32,7 +32,7 @@ const faqs = [
   {
     question: "Should I subtract the volume of the post?",
     answer:
-      "Only when the entered post shape and size reasonably match the volume that actually occupies the concrete-filled depth. BuildMeasure can subtract a round or square post and assumes that post occupies the full entered concrete depth when displacement is enabled.",
+      "Only when the entered post shape and size reasonably match the volume that actually occupies the concrete-filled depth. BuildNumbers can subtract a round or square post and assumes that post occupies the full entered concrete depth when displacement is enabled.",
   },
   {
     question: "How deep or wide should a post hole be?",
@@ -63,7 +63,7 @@ const schema = [
     },
     publisher: {
       "@type": "Organization",
-      name: "BuildMeasure",
+      name: "BuildNumbers",
       url: absoluteUrl("/"),
     },
   },
@@ -181,7 +181,7 @@ export default function PostHoleConcreteBagGuidePage() {
               </div>
               <p>
                 Keep all dimensions in one unit system during the geometry step.
-                BuildMeasure converts internally with exact international-foot,
+                BuildNumbers converts internally with exact international-foot,
                 inch, and yard definitions and keeps full precision until display
                 or final package rounding.
               </p>
@@ -250,7 +250,7 @@ export default function PostHoleConcreteBagGuidePage() {
               <p>
                 A post occupies some of the cylindrical hole volume, but the
                 amount depends on its shape, size, and how much of the entered
-                concrete depth it actually occupies. BuildMeasure supports one
+                concrete depth it actually occupies. BuildNumbers supports one
                 centered round or square post per hole. When displacement is
                 enabled, it assumes the post occupies the full entered concrete
                 depth.
@@ -270,7 +270,7 @@ export default function PostHoleConcreteBagGuidePage() {
               <p>
                 An allowance accounts for project variation such as
                 over-excavation, spillage, and site irregularities; it is not part
-                of the cylinder geometry. BuildMeasure applies the selected
+                of the cylinder geometry. BuildNumbers applies the selected
                 allowance after net concrete volume is known.
               </p>
               <div className="guide-assumption-grid">
@@ -287,7 +287,7 @@ export default function PostHoleConcreteBagGuidePage() {
               <p>
                 If you know your local package price, the calculator also lets
                 you enter an optional price per selected bag and shows an
-                approximate material cost. BuildMeasure does not fetch prices,
+                approximate material cost. BuildNumbers does not fetch prices,
                 convert currencies, or infer tax, delivery, labor, discounts, or
                 supplier minimums.
               </p>
@@ -312,7 +312,7 @@ export default function PostHoleConcreteBagGuidePage() {
                 <li>The allowance needed for the measured site conditions.</li>
               </ul>
               <p>
-                For unit references, BuildMeasure uses NIST conversion factors
+                For unit references, BuildNumbers uses NIST conversion factors
                 and volume-unit definitions. See the <a href="/methodology">calculation methodology</a> for how formulas, assumptions, and QA evidence are handled.
               </p>
             </section>
@@ -331,7 +331,7 @@ export default function PostHoleConcreteBagGuidePage() {
             <div className="utility-callout">
               <strong>Have the hole count, diameter, and concrete depth?</strong>
               <p>
-                Open the <a href="/post-hole-concrete-calculator">BuildMeasure Post Hole Concrete Calculator</a> for cubic feet, cubic yards, metric volume, post displacement, allowance, complete bags, and optional user-entered package cost.
+                Open the <a href="/post-hole-concrete-calculator">BuildNumbers Post Hole Concrete Calculator</a> for cubic feet, cubic yards, metric volume, post displacement, allowance, complete bags, and optional user-entered package cost.
               </p>
             </div>
 
