@@ -1,0 +1,143 @@
+name: Temporary consent behavior probe
+
+on:
+  push:
+    branches:
+      - audit/consent-20260917-temp
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Install isolated Playwright
+        run: |
+          mkdir -p /tmp/buildmeasure-consent-pw
+          cd /tmp/buildmeasure-consent-pw
+          npm init -y >/dev/null
+          npm install playwright@1.55.0 >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local production preview
+        run: |
+          mkdir -p consent-behavior-evidence
+          npm start -- --port 4173 --hostname 127.0.0.1 > consent-behavior-evidence/server.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4173/concrete-calculator >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat consent-behavior-evidence/server.log
+          exit 1
+      - name: Verify consent behavior and browser analytics
+        run: |
+          cat > /tmp/buildmeasure-consent-pw/probe.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import assert from 'node:assert/strict';
+          import fs from 'node:fs';
+          import path from 'node:path';
+
+          const base = 'http://127.0.0.1:4173';
+          const browser = await chromium.launch({ headless: true });
+          const report = { consent: {}, analytics: {} };
+
+          for (const locale of ['en-US', 'ar-EG']) {
+            const allowContext = await browser.newContext({ locale, viewport: { width: 360, height: 800 } });
+            const allowPage = await allowContext.newPage();
+            let clarityBeforeAllow = 0;
+            await allowPage.route('https://www.clarity.ms/**', route => {
+              clarityBeforeAllow += 1;
+              return route.abort();
+            });
+            await allowPage.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+            await allowPage.waitForSelector('section[aria-label]');
+            assert.equal(await allowPage.locator('#buildmeasure-clarity').count(), 0);
+            assert.equal(clarityBeforeAllow, 0);
+            const allowText = locale.startsWith('ar') ? 'سماح' : 'Allow';
+            await allowPage.getByRole('button', { name: allowText, exact: true }).click();
+            await allowPage.waitForSelector('#buildmeasure-clarity', { state: 'attached' });
+            const granted = await allowPage.evaluate(() => ({
+              stored: localStorage.getItem('buildmeasure-analytics-consent-v1'),
+              queue: window.clarity?.q ?? [],
+            }));
+            const consentCall = granted.queue.find(entry => entry?.[0] === 'consentv2');
+            assert.equal(granted.stored, 'granted');
+            assert.ok(consentCall);
+            assert.equal(consentCall[1]?.ad_Storage, 'denied');
+            assert.equal(consentCall[1]?.analytics_Storage, 'granted');
+            await allowContext.close();
+
+            const declineContext = await browser.newContext({ locale, viewport: { width: 360, height: 800 } });
+            const declinePage = await declineContext.newPage();
+            let clarityBeforeDecline = 0;
+            await declinePage.route('https://www.clarity.ms/**', route => {
+              clarityBeforeDecline += 1;
+              return route.abort();
+            });
+            await declinePage.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+            await declinePage.waitForSelector('section[aria-label]');
+            const declineText = locale.startsWith('ar') ? 'رفض' : 'Decline';
+            await declinePage.getByRole('button', { name: declineText, exact: true }).click();
+            await declinePage.waitForTimeout(100);
+            assert.equal(await declinePage.locator('#buildmeasure-clarity').count(), 0);
+            assert.equal(clarityBeforeDecline, 0);
+            assert.equal(await declinePage.evaluate(() => localStorage.getItem('buildmeasure-analytics-consent-v1')), 'denied');
+            await declineContext.close();
+
+            report.consent[locale] = {
+              allowStored: granted.stored,
+              allowConsent: consentCall?.[1] ?? null,
+              clarityRequestsBeforeAllow: 0,
+              declineStored: 'denied',
+              clarityRequestsBeforeDecline: 0,
+            };
+          }
+
+          const analyticsContext = await browser.newContext({ locale: 'en-US', viewport: { width: 360, height: 800 } });
+          const analyticsPage = await analyticsContext.newPage();
+          let payload = null;
+          let status = null;
+          analyticsPage.on('request', request => {
+            if (request.url().endsWith('/api/analytics') && request.method() === 'POST' && payload === null) {
+              try { payload = request.postDataJSON(); } catch {}
+            }
+          });
+          analyticsPage.on('response', response => {
+            if (response.url().endsWith('/api/analytics') && response.request().method() === 'POST' && status === null) {
+              status = response.status();
+            }
+          });
+          await analyticsPage.route('https://www.clarity.ms/**', route => route.abort());
+          await analyticsPage.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+          await analyticsPage.waitForTimeout(1500);
+          assert.ok(payload, 'No browser analytics payload observed');
+          assert.equal(status, 204, `Expected analytics 204, got ${status}`);
+          const allowed = new Set(['event','calculator','route','sessionToken','source','medium','campaign','referrerHost','browser','device','locale','detail']);
+          const keys = Object.keys(payload);
+          assert.deepEqual(keys.filter(key => !allowed.has(key)), []);
+          const banned = new Set(['price','cost','result','measurement','length','width','height','quantity','userAgent','email','name']);
+          assert.deepEqual(keys.filter(key => banned.has(key)), []);
+          assert.equal(await analyticsPage.locator('#buildmeasure-clarity').count(), 0);
+          report.analytics = { status, payload, keys };
+          await analyticsContext.close();
+
+          fs.writeFileSync(path.join(process.env.GITHUB_WORKSPACE, 'consent-behavior-evidence', 'report.json'), JSON.stringify(report, null, 2));
+          await browser.close();
+          EOF
+          cd /tmp/buildmeasure-consent-pw
+          node probe.mjs
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: buildmeasure-consent-behavior-${{ github.sha }}
+          path: consent-behavior-evidence
+          retention-days: 7
