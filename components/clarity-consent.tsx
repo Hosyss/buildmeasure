@@ -225,9 +225,19 @@ export function ClarityConsent() {
 }
 
 export function AnalyticsChoicesButton() {
+  const [locale, setLocale] = useState<ConsentLocale>("en");
+
+  useEffect(() => {
+    queueMicrotask(() => setLocale(browserLocale()));
+  }, []);
+
+  const text = copy[locale];
+
   return (
     <button
       type="button"
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      lang={locale}
       onClick={() => window.dispatchEvent(new Event(CHOICES_EVENT))}
       style={{
         border: 0,
@@ -235,13 +245,13 @@ export function AnalyticsChoicesButton() {
         background: "transparent",
         color: "inherit",
         font: "inherit",
-        textAlign: "left",
+        textAlign: locale === "ar" ? "right" : "left",
         cursor: "pointer",
         textDecoration: "underline",
         textUnderlineOffset: "3px",
       }}
     >
-      Analytics choices
+      {text.label}
     </button>
   );
 }
