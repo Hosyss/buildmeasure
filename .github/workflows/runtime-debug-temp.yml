@@ -28,25 +28,38 @@ jobs:
           done
           cat /tmp/buildmeasure-server.log
           exit 1
-      - name: Probe analytics API with known-valid payload
+      - name: Capture browser analytics request
         run: |
-          printf '%s\n' '--- valid analytics POST ---'
-          curl -sS -D - -o /tmp/analytics-body.txt \
-            -H 'Content-Type: application/json' \
-            --data '{"event":"calculator_opened","calculator":"concrete-calculator","route":"/concrete-calculator","sessionToken":"123e4567-e89b-12d3-a456-426614174000","source":"direct","medium":"","campaign":"","referrerHost":"","browser":"chrome","device":"desktop","locale":"en-US","detail":""}' \
-            http://127.0.0.1:4173/api/analytics
-          cat /tmp/analytics-body.txt || true
-          printf '\n--- server log ---\n'
-          cat /tmp/buildmeasure-server.log
-      - name: Probe deployed branch preview
-        run: |
-          preview='https://adsense-readiness-20260917.buildmeasuretools.pages.dev'
-          for path in / /api/health /status /__audit_missing_page__; do
-            printf '\n--- %s%s ---\n' "$preview" "$path"
-            curl -sS --max-redirs 0 -D - -o /tmp/public-body.txt "$preview$path" || true
-            head -c 800 /tmp/public-body.txt || true
-            printf '\n'
-          done
+          mkdir -p /tmp/browser-probe
+          cd /tmp/browser-probe
+          npm init -y >/dev/null
+          npm install playwright-core@1.55.0 >/dev/null
+          cat > probe.mjs <<'EOF'
+          import { chromium } from 'playwright-core';
+          const browser = await chromium.launch({ headless: true, executablePath: '/usr/bin/google-chrome' });
+          const context = await browser.newContext({ viewport: { width: 360, height: 800 } });
+          const page = await context.newPage();
+          const analytics = [];
+          const clarityRequests = [];
+          page.on('request', request => {
+            if (request.url().includes('/api/analytics')) {
+              analytics.push({ method: request.method(), url: request.url(), postData: request.postData(), headers: request.headers() });
+            }
+            if (/clarity\.ms|c\.bing\.com/.test(request.url())) clarityRequests.push(request.url());
+          });
+          page.on('response', async response => {
+            if (!response.url().includes('/api/analytics')) return;
+            let body = '';
+            try { body = await response.text(); } catch {}
+            console.log('ANALYTICS_RESPONSE', JSON.stringify({ status: response.status(), body }));
+          });
+          await page.goto('http://127.0.0.1:4173/concrete-calculator', { waitUntil: 'domcontentloaded' });
+          await page.waitForTimeout(1500);
+          console.log('ANALYTICS_REQUESTS', JSON.stringify(analytics));
+          console.log('CLARITY_BEFORE_CONSENT', JSON.stringify(clarityRequests));
+          await browser.close();
+          EOF
+          node probe.mjs
       - name: Probe production health read-only
         run: |
           production='https://buildmeasuretools.pages.dev'
@@ -56,13 +69,5 @@ jobs:
             head -c 1200 /tmp/production-body.txt || true
             printf '\n'
           done
-      - name: Probe legacy redirect hops
-        run: |
-          for url in \
-            'https://buildmeasure.hosys.chatgpt.site/guides/material-estimating-basics?audit=1' \
-            'https://buildmeasure.buildtools.workers.dev/guides/material-estimating-basics?audit=1'; do
-            printf '\n--- %s ---\n' "$url"
-            curl -sS -D - -o /dev/null --max-redirs 0 "$url" || true
-          done
       - name: Probe complete
-        run: echo 'Runtime probes completed without changing project data.'
+        run: echo 'Read-only runtime probes completed; no production events were sent.'
