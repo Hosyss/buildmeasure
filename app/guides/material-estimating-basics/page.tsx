@@ -23,7 +23,7 @@ const articleSchema = {
   description:
     "A practical workflow for measuring geometry, calculating net material, applying visible allowances, and rounding purchase quantities.",
   datePublished: "2026-08-01",
-  dateModified: "2026-08-01",
+  dateModified: "2026-09-17",
   mainEntityOfPage: absoluteUrl("/guides/material-estimating-basics"),
   author: {
     "@type": "Organization",
@@ -62,6 +62,7 @@ export default function MaterialEstimatingBasicsPage() {
             </p>
             <div className="guide-meta">
               <span>Published August 1, 2026</span>
+              <span>Updated September 17, 2026</span>
               <span>Reviewed against the BuildMeasure calculation standard</span>
             </div>
           </div>
@@ -188,10 +189,13 @@ export default function MaterialEstimatingBasicsPage() {
               <h2 id="guide-tools-title">Choose a verified calculator</h2>
               <div>
                 <a href="/concrete-calculator"><strong>Concrete</strong><span>Slab volume and bags</span></a>
+                <a href="/post-hole-concrete-calculator"><strong>Post Hole Concrete</strong><span>Round holes, post displacement, and bags</span></a>
                 <a href="/paint-calculator"><strong>Paint</strong><span>Walls, coats, coverage, and cans</span></a>
                 <a href="/tile-calculator"><strong>Tile</strong><span>Area, waste, layout, and boxes</span></a>
+                <a href="/brick-calculator"><strong>Brick</strong><span>Net wall area, coverage, and whole bricks</span></a>
                 <a href="/gravel-calculator"><strong>Gravel</strong><span>Volume, density, tons, and bags</span></a>
                 <a href="/mulch-calculator"><strong>Mulch</strong><span>Bed volume, coverage, and bags</span></a>
+                <a href="/drywall-calculator"><strong>Drywall</strong><span>Room area, allowance, and sheets</span></a>
               </div>
             </section>
 
