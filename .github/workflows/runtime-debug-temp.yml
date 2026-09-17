@@ -1,0 +1,57 @@
+name: Temporary runtime probe
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Start local preview
+        run: |
+          npm start -- --port 4173 --hostname 127.0.0.1 >/tmp/buildmeasure-server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/buildmeasure-server.log
+          exit 1
+      - name: Probe analytics API with known-valid payload
+        run: |
+          printf '%s\n' '--- valid analytics POST ---'
+          curl -sS -D - -o /tmp/analytics-body.txt \
+            -H 'Content-Type: application/json' \
+            --data '{"event":"calculator_opened","calculator":"concrete-calculator","route":"/concrete-calculator","sessionToken":"123e4567-e89b-12d3-a456-426614174000","source":"direct","medium":"","campaign":"","referrerHost":"","browser":"chrome","device":"desktop","locale":"en-US","detail":""}' \
+            http://127.0.0.1:4173/api/analytics
+          cat /tmp/analytics-body.txt || true
+          printf '\n--- server log ---\n'
+          cat /tmp/buildmeasure-server.log
+      - name: Probe deployed branch preview
+        run: |
+          preview='https://adsense-readiness-20260917.buildmeasuretools.pages.dev'
+          for path in / /api/health /status /__audit_missing_page__; do
+            printf '\n--- %s%s ---\n' "$preview" "$path"
+            curl -sS -L --max-redirs 0 -D - -o /tmp/public-body.txt "$preview$path" || true
+            head -c 800 /tmp/public-body.txt || true
+            printf '\n'
+          done
+      - name: Probe legacy redirect hops
+        run: |
+          for url in \
+            'https://buildmeasure.hosys.chatgpt.site/guides/material-estimating-basics?audit=1' \
+            'https://buildmeasure.buildtools.workers.dev/guides/material-estimating-basics?audit=1'; do
+            printf '\n--- %s ---\n' "$url"
+            curl -sS -D - -o /dev/null --max-redirs 0 "$url" || true
+          done
