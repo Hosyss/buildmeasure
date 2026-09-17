@@ -65,7 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/guides/material-estimating-basics"),
-      lastModified: new Date("2026-08-01"),
+      lastModified: new Date("2026-09-17"),
       changeFrequency: "monthly",
       priority: 0.8,
     },
