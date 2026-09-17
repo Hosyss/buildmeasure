@@ -21,9 +21,12 @@ jobs:
         run: npm ci
       - name: Build production artifact
         run: npm run build
-      - name: Install browser audit dependency without changing manifests
+      - name: Install isolated browser audit dependency
         run: |
-          npm install --no-save --package-lock=false playwright@1.55.0
+          mkdir -p /tmp/buildmeasure-pw
+          cd /tmp/buildmeasure-pw
+          npm init -y >/dev/null
+          npm install playwright@1.55.0
           npx playwright install --with-deps chromium
       - name: Start local production preview
         run: |
@@ -40,7 +43,7 @@ jobs:
           exit 1
       - name: Audit public routes at mobile tablet and desktop widths
         run: |
-          cat > /tmp/visual-audit.mjs <<'EOF'
+          cat > /tmp/buildmeasure-pw/visual-audit.mjs <<'EOF'
           import { chromium } from 'playwright';
           import fs from 'node:fs';
           import path from 'node:path';
@@ -124,7 +127,7 @@ jobs:
                   internalLinks: [...document.querySelectorAll('a[href^="/"]')].map(a => a.getAttribute('href')).filter(Boolean).length,
                 };
               }).catch(() => ({ title: '', canonical: null, robots: null, h1: [], bodyTextLength: 0, clientWidth: viewport.width, scrollWidth: viewport.width, horizontalOverflowPx: 0, brokenImages: [], forms: 0, inputs: 0, buttons: 0, internalLinks: 0 }));
-              const dir = path.join('audit-evidence', 'screenshots', viewport.label);
+              const dir = path.join(process.env.GITHUB_WORKSPACE, 'audit-evidence', 'screenshots', viewport.label);
               fs.mkdirSync(dir, { recursive: true });
               await page.screenshot({ path: path.join(dir, slug(route) + '.jpg'), type: 'jpeg', quality: 68, fullPage: true }).catch(() => {});
               report.routes.push({ viewport: viewport.label, route, status, navError, consoleErrors, pageErrors, ...dom });
@@ -150,19 +153,23 @@ jobs:
           }
           await api.close();
           await browser.close();
-          fs.writeFileSync('audit-evidence/visual-audit.json', JSON.stringify(report, null, 2));
 
+          const reportPath = path.join(process.env.GITHUB_WORKSPACE, 'audit-evidence', 'visual-audit.json');
+          const summaryPath = path.join(process.env.GITHUB_WORKSPACE, 'audit-evidence', 'summary.txt');
+          fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
           const failures = report.routes.filter(r => r.navError || r.pageErrors.length || r.horizontalOverflowPx > 1 || r.brokenImages.length || (r.route === '/__audit_missing_page__' ? r.status !== 404 : r.status !== 200));
-          fs.writeFileSync('audit-evidence/summary.txt', [
+          const consoleFindings = report.routes.filter(r => r.consoleErrors.length && r.route !== '/__audit_missing_page__');
+          fs.writeFileSync(summaryPath, [
             `Audited route/view combinations: ${report.routes.length}`,
             `Failures requiring review: ${failures.length}`,
-            ...failures.map(f => `${f.viewport} ${f.route}: status=${f.status} overflow=${f.horizontalOverflowPx} brokenImages=${f.brokenImages.length} pageErrors=${f.pageErrors.length} navError=${f.navError ?? ''}`)
+            `Route/view combinations with console errors: ${consoleFindings.length}`,
+            ...failures.map(f => `${f.viewport} ${f.route}: status=${f.status} overflow=${f.horizontalOverflowPx} brokenImages=${f.brokenImages.length} pageErrors=${f.pageErrors.length} navError=${f.navError ?? ''}`),
+            ...consoleFindings.map(f => `${f.viewport} ${f.route}: consoleErrors=${f.consoleErrors.join(' | ')}`)
           ].join('\n'));
-          if (failures.some(f => f.navError || f.pageErrors.length || f.horizontalOverflowPx > 1 || f.brokenImages.length || (f.route === '/__audit_missing_page__' ? f.status !== 404 : f.status !== 200))) {
-            process.exitCode = 1;
-          }
+          if (failures.length) process.exitCode = 1;
           EOF
-          node /tmp/visual-audit.mjs
+          cd /tmp/buildmeasure-pw
+          node visual-audit.mjs
       - name: Upload visual audit evidence
         if: always()
         uses: actions/upload-artifact@v4
