@@ -55,3 +55,5 @@ jobs:
             printf '\n--- %s ---\n' "$url"
             curl -sS -D - -o /dev/null --max-redirs 0 "$url" || true
           done
+      - name: Probe complete
+        run: echo 'Runtime probes completed without changing project data.'
