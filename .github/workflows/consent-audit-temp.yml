@@ -1,0 +1,221 @@
+name: Temporary focused consent audit
+
+on:
+  push:
+    branches:
+      - audit/consent-20260917-temp
+
+permissions:
+  contents: read
+
+jobs:
+  consent-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Typecheck and lint changed component
+        run: |
+          npm run typecheck
+          bash scripts/sites-env.sh -- eslint components/clarity-consent.tsx
+      - name: Build affected application
+        run: npm run build
+      - name: Install isolated Playwright
+        run: |
+          mkdir -p /tmp/buildmeasure-consent-pw
+          cd /tmp/buildmeasure-consent-pw
+          npm init -y >/dev/null
+          npm install playwright@1.55.0 >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Start local production preview
+        run: |
+          mkdir -p consent-evidence/screenshots
+          npm start -- --port 4173 --hostname 127.0.0.1 > consent-evidence/server.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4173/concrete-calculator >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat consent-evidence/server.log
+          exit 1
+      - name: Run focused consent, Clarity, overflow, and analytics checks
+        run: |
+          cat > /tmp/buildmeasure-consent-pw/audit.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          import path from 'node:path';
+
+          const base = 'http://127.0.0.1:4173';
+          const browser = await chromium.launch({ headless: true });
+          const evidenceDir = path.join(process.env.GITHUB_WORKSPACE, 'consent-evidence');
+          const shotDir = path.join(evidenceDir, 'screenshots');
+          const report = { visual: [], behavior: {}, analytics: {} };
+
+          const variants = [
+            { locale: 'en-US', lang: 'en', label: 'en', width: 360, height: 800, size: 'mobile-360' },
+            { locale: 'ar-EG', lang: 'ar', label: 'ar', width: 360, height: 800, size: 'mobile-360' },
+            { locale: 'en-US', lang: 'en', label: 'en', width: 768, height: 900, size: 'tablet-768' },
+            { locale: 'ar-EG', lang: 'ar', label: 'ar', width: 768, height: 900, size: 'tablet-768' },
+            { locale: 'en-US', lang: 'en', label: 'en', width: 1280, height: 900, size: 'desktop-1280' },
+            { locale: 'ar-EG', lang: 'ar', label: 'ar', width: 1280, height: 900, size: 'desktop-1280' },
+          ];
+
+          for (const variant of variants) {
+            const context = await browser.newContext({
+              locale: variant.locale,
+              viewport: { width: variant.width, height: variant.height },
+            });
+            const page = await context.newPage();
+            let clarityRequests = 0;
+            await page.route('https://www.clarity.ms/**', route => {
+              clarityRequests += 1;
+              return route.abort();
+            });
+            await page.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+            await page.waitForSelector('section[aria-label]');
+            await page.waitForTimeout(300);
+
+            const metrics = await page.evaluate(() => {
+              const panel = document.querySelector('section[aria-label]');
+              const main = document.querySelector('main');
+              if (!panel || !main) throw new Error('Consent panel or main content missing');
+              const panelRect = panel.getBoundingClientRect();
+              const h1 = main.querySelector('h1');
+              const h1Rect = h1?.getBoundingClientRect() ?? null;
+              const controls = [...main.querySelectorAll('a, button, input, select, textarea')]
+                .map(node => ({ node, rect: node.getBoundingClientRect() }))
+                .filter(({ rect }) => rect.width > 0 && rect.height > 0);
+              const overlaps = controls.filter(({ rect }) => !(
+                panelRect.right <= rect.left ||
+                panelRect.left >= rect.right ||
+                panelRect.bottom <= rect.top ||
+                panelRect.top >= rect.bottom
+              )).length;
+              return {
+                position: getComputedStyle(panel).position,
+                dir: panel.getAttribute('dir'),
+                lang: panel.getAttribute('lang'),
+                panelHeight: Math.round(panelRect.height),
+                panelBottom: Math.round(panelRect.bottom),
+                h1Top: h1Rect ? Math.round(h1Rect.top) : null,
+                overlaps,
+                clientWidth: document.documentElement.clientWidth,
+                scrollWidth: document.documentElement.scrollWidth,
+                clarityScriptBeforeConsent: Boolean(document.getElementById('buildmeasure-clarity')),
+                title: panel.querySelector('strong')?.textContent?.trim() ?? '',
+              };
+            });
+
+            assert.equal(metrics.position, 'relative');
+            assert.equal(metrics.dir, variant.lang === 'ar' ? 'rtl' : 'ltr');
+            assert.equal(metrics.lang, variant.lang);
+            assert.equal(metrics.overlaps, 0, `${variant.label} ${variant.size} consent overlaps main controls`);
+            assert.equal(metrics.clarityScriptBeforeConsent, false);
+            assert.ok(metrics.scrollWidth <= metrics.clientWidth + 1, `${variant.label} ${variant.size} horizontal overflow`);
+            assert.ok(metrics.h1Top === null || metrics.panelBottom <= metrics.h1Top, `${variant.label} ${variant.size} panel overlaps heading`);
+            assert.ok(metrics.panelHeight <= (variant.width === 360 ? 190 : 125), `${variant.label} ${variant.size} consent too tall: ${metrics.panelHeight}px`);
+            assert.equal(clarityRequests, 0, `${variant.label} ${variant.size} Clarity requested before consent`);
+
+            if (variant.width === 360 || variant.width === 1280) {
+              await page.screenshot({
+                path: path.join(shotDir, `consent-${variant.label}-${variant.size}.png`),
+                fullPage: false,
+              });
+            }
+            report.visual.push({ ...variant, ...metrics, clarityRequestsBeforeConsent: clarityRequests });
+            await context.close();
+          }
+
+          for (const locale of ['en-US', 'ar-EG']) {
+            const context = await browser.newContext({ locale, viewport: { width: 360, height: 800 } });
+            const page = await context.newPage();
+            let clarityRequests = 0;
+            await page.route('https://www.clarity.ms/**', route => {
+              clarityRequests += 1;
+              return route.abort();
+            });
+            await page.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+            await page.waitForSelector('section[aria-label]');
+            assert.equal(await page.locator('#buildmeasure-clarity').count(), 0);
+            assert.equal(clarityRequests, 0);
+            const allowText = locale.startsWith('ar') ? 'سماح' : 'Allow';
+            await page.getByRole('button', { name: allowText, exact: true }).click();
+            await page.waitForSelector('#buildmeasure-clarity');
+            const granted = await page.evaluate(() => ({
+              stored: localStorage.getItem('buildmeasure-analytics-consent-v1'),
+              queue: window.clarity?.q ?? [],
+            }));
+            assert.equal(granted.stored, 'granted');
+            const consentCall = granted.queue.find(entry => entry?.[0] === 'consentv2');
+            assert.ok(consentCall, 'consentv2 call missing after Allow');
+            assert.equal(consentCall[1]?.ad_Storage, 'denied');
+            assert.equal(consentCall[1]?.analytics_Storage, 'granted');
+            report.behavior[locale] = { allow: granted, clarityRequestsAfterAllow: clarityRequests };
+            await context.close();
+
+            const declineContext = await browser.newContext({ locale, viewport: { width: 360, height: 800 } });
+            const declinePage = await declineContext.newPage();
+            let declineClarityRequests = 0;
+            await declinePage.route('https://www.clarity.ms/**', route => {
+              declineClarityRequests += 1;
+              return route.abort();
+            });
+            await declinePage.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+            await declinePage.waitForSelector('section[aria-label]');
+            const declineText = locale.startsWith('ar') ? 'رفض' : 'Decline';
+            await declinePage.getByRole('button', { name: declineText, exact: true }).click();
+            await declinePage.waitForTimeout(100);
+            assert.equal(await declinePage.locator('#buildmeasure-clarity').count(), 0);
+            assert.equal(declineClarityRequests, 0);
+            assert.equal(await declinePage.evaluate(() => localStorage.getItem('buildmeasure-analytics-consent-v1')), 'denied');
+            report.behavior[locale].decline = { stored: 'denied', clarityRequests: declineClarityRequests };
+            await declineContext.close();
+          }
+
+          const analyticsContext = await browser.newContext({ locale: 'en-US', viewport: { width: 360, height: 800 } });
+          const analyticsPage = await analyticsContext.newPage();
+          let requestPayload = null;
+          let responseStatus = null;
+          analyticsPage.on('request', request => {
+            if (request.url().endsWith('/api/analytics') && request.method() === 'POST' && requestPayload === null) {
+              try { requestPayload = request.postDataJSON(); } catch {}
+            }
+          });
+          analyticsPage.on('response', response => {
+            if (response.url().endsWith('/api/analytics') && response.request().method() === 'POST' && responseStatus === null) {
+              responseStatus = response.status();
+            }
+          });
+          await analyticsPage.route('https://www.clarity.ms/**', route => route.abort());
+          await analyticsPage.goto(base + '/concrete-calculator', { waitUntil: 'domcontentloaded' });
+          await analyticsPage.waitForTimeout(1500);
+          assert.ok(requestPayload, 'browser analytics payload was not observed');
+          assert.notEqual(responseStatus, 400, 'browser analytics request returned 400');
+          assert.equal(responseStatus, 204, `expected local analytics endpoint 204, got ${responseStatus}`);
+          const allowedKeys = new Set(['event','calculator','route','sessionToken','source','medium','campaign','referrerHost','browser','device','locale','detail']);
+          const payloadKeys = Object.keys(requestPayload);
+          assert.deepEqual(payloadKeys.filter(key => !allowedKeys.has(key)), [], 'analytics payload contains unexpected fields');
+          const bannedKeys = ['price','cost','result','measurement','length','width','height','quantity','userAgent','email','name'];
+          assert.deepEqual(payloadKeys.filter(key => bannedKeys.includes(key)), [], 'analytics payload contains raw/sensitive input fields');
+          assert.equal(await analyticsPage.locator('#buildmeasure-clarity').count(), 0, 'Clarity loaded before consent during analytics probe');
+          report.analytics = { responseStatus, payload: requestPayload, payloadKeys };
+          await analyticsContext.close();
+
+          fs.writeFileSync(path.join(evidenceDir, 'report.json'), JSON.stringify(report, null, 2));
+          await browser.close();
+          EOF
+          cd /tmp/buildmeasure-consent-pw
+          node audit.mjs
+      - name: Upload focused consent evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: buildmeasure-consent-audit-${{ github.sha }}
+          path: consent-evidence
+          retention-days: 7
