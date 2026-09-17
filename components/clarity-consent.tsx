@@ -7,12 +7,38 @@ const CONSENT_STORAGE_KEY = "buildmeasure-analytics-consent-v1";
 const CHOICES_EVENT = "buildmeasure:analytics-choices";
 
 type ConsentState = "granted" | "denied";
+type ConsentLocale = "en" | "ar";
 type ClarityFunction = ((...args: unknown[]) => void) & { q?: unknown[][] };
 
 declare global {
   interface Window {
     clarity?: ClarityFunction;
   }
+}
+
+const copy = {
+  en: {
+    label: "Analytics choices",
+    title: "Optional analytics",
+    description:
+      "Microsoft Clarity can help us understand navigation and technical friction. It loads only after you allow it, and advertising storage stays disabled.",
+    allow: "Allow",
+    decline: "Decline",
+    privacy: "Privacy policy",
+  },
+  ar: {
+    label: "خيارات التحليلات",
+    title: "تحليلات اختيارية",
+    description:
+      "يمكن لـ Microsoft Clarity مساعدتنا في فهم التنقل والمشكلات التقنية. لا يتم تحميله إلا بعد موافقتك، ويظل تخزين الإعلانات معطّلًا.",
+    allow: "سماح",
+    decline: "رفض",
+    privacy: "سياسة الخصوصية",
+  },
+} as const;
+
+function browserLocale(): ConsentLocale {
+  return window.navigator.language.toLowerCase().startsWith("ar") ? "ar" : "en";
 }
 
 function clarityQueue() {
@@ -52,46 +78,56 @@ function clearClarityConsent() {
 }
 
 const panelStyle = {
-  position: "fixed",
-  right: "12px",
-  bottom: "12px",
+  position: "relative",
   zIndex: 1000,
-  width: "min(390px, calc(100vw - 24px))",
-  maxHeight: "calc(100vh - 24px)",
-  overflowY: "auto",
-  border: "1px solid #183247",
-  background: "#ffffff",
+  width: "100%",
+  borderBottom: "1px solid #c7d4dc",
+  background: "#f8fbfc",
   color: "#183247",
-  padding: "14px",
-  boxShadow: "0 10px 28px rgba(17, 36, 50, 0.18)",
+  padding: "8px 12px",
+  boxShadow: "0 2px 8px rgba(17, 36, 50, 0.08)",
+} as const;
+
+const panelInnerStyle = {
+  width: "100%",
+  maxWidth: "1180px",
+  margin: "0 auto",
+  display: "flex",
+  alignItems: "center",
+  flexWrap: "wrap",
+  gap: "8px 14px",
+} as const;
+
+const copyStyle = {
+  flex: "1 1 360px",
+  minWidth: 0,
 } as const;
 
 const actionRowStyle = {
   display: "flex",
+  flex: "0 1 auto",
   flexWrap: "wrap",
-  gap: "8px",
-  marginTop: "12px",
+  alignItems: "center",
+  gap: "6px",
 } as const;
 
 const primaryButtonStyle = {
-  flex: "1 1 150px",
-  minHeight: "44px",
+  minHeight: "36px",
   border: "1px solid #183247",
   background: "#183247",
   color: "#ffffff",
-  padding: "10px 14px",
+  padding: "6px 11px",
   font: "inherit",
   fontWeight: 700,
   cursor: "pointer",
 } as const;
 
 const secondaryButtonStyle = {
-  flex: "1 1 150px",
-  minHeight: "44px",
+  minHeight: "36px",
   border: "1px solid #183247",
   background: "#ffffff",
   color: "#183247",
-  padding: "10px 14px",
+  padding: "6px 11px",
   font: "inherit",
   fontWeight: 700,
   cursor: "pointer",
@@ -100,6 +136,7 @@ const secondaryButtonStyle = {
 export function ClarityConsent() {
   const consentGranted = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [locale, setLocale] = useState<ConsentLocale>("en");
 
   useEffect(() => {
     const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
@@ -107,10 +144,17 @@ export function ClarityConsent() {
       consentGranted.current = true;
       loadClarity();
     } else if (stored !== "denied") {
-      queueMicrotask(() => setIsOpen(true));
+      queueMicrotask(() => {
+        setLocale(browserLocale());
+        setIsOpen(true);
+      });
     }
 
-    const openChoices = () => setIsOpen(true);
+    const openChoices = () => {
+      setLocale(browserLocale());
+      setIsOpen(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
     window.addEventListener(CHOICES_EVENT, openChoices);
     return () => window.removeEventListener(CHOICES_EVENT, openChoices);
   }, []);
@@ -135,49 +179,65 @@ export function ClarityConsent() {
 
   if (!isOpen) return null;
 
+  const text = copy[locale];
+
   return (
     <section
-      aria-label="Analytics choices"
+      aria-label={text.label}
       aria-live="polite"
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      lang={locale}
       style={panelStyle}
     >
-      <strong style={{ display: "block", fontSize: "1rem" }}>
-        Optional analytics
-      </strong>
-      <p style={{ margin: "6px 0 0", lineHeight: 1.5 }}>
-        Allow Microsoft Clarity to help us understand navigation and technical
-        friction. Clarity loads only after you allow it, and advertising storage
-        stays disabled.
-      </p>
-      <div style={actionRowStyle}>
-        <button type="button" style={primaryButtonStyle} onClick={() => choose("granted")}>
-          Allow analytics
-        </button>
-        <button type="button" style={secondaryButtonStyle} onClick={() => choose("denied")}>
-          Decline analytics
-        </button>
-        <a
-          href="/privacy"
-          style={{
-            alignSelf: "center",
-            color: "inherit",
-            minHeight: "44px",
-            display: "inline-flex",
-            alignItems: "center",
-            padding: "0 2px",
-          }}
-        >
-          Privacy policy
-        </a>
+      <div style={panelInnerStyle}>
+        <div style={copyStyle}>
+          <strong style={{ display: "block", fontSize: "0.95rem", lineHeight: 1.25 }}>
+            {text.title}
+          </strong>
+          <p style={{ margin: "2px 0 0", fontSize: "0.875rem", lineHeight: 1.35 }}>
+            {text.description}
+          </p>
+        </div>
+        <div style={actionRowStyle}>
+          <button type="button" style={primaryButtonStyle} onClick={() => choose("granted")}>
+            {text.allow}
+          </button>
+          <button type="button" style={secondaryButtonStyle} onClick={() => choose("denied")}>
+            {text.decline}
+          </button>
+          <a
+            href="/privacy"
+            style={{
+              color: "inherit",
+              minHeight: "36px",
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "0 4px",
+              fontSize: "0.875rem",
+            }}
+          >
+            {text.privacy}
+          </a>
+        </div>
       </div>
     </section>
   );
 }
 
 export function AnalyticsChoicesButton() {
+  const [locale, setLocale] = useState<ConsentLocale>("en");
+
+  useEffect(() => {
+    queueMicrotask(() => setLocale(browserLocale()));
+  }, []);
+
+  const text = copy[locale];
+
   return (
     <button
       type="button"
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      lang={locale}
       onClick={() => window.dispatchEvent(new Event(CHOICES_EVENT))}
       style={{
         border: 0,
@@ -185,13 +245,13 @@ export function AnalyticsChoicesButton() {
         background: "transparent",
         color: "inherit",
         font: "inherit",
-        textAlign: "left",
+        textAlign: locale === "ar" ? "right" : "left",
         cursor: "pointer",
         textDecoration: "underline",
         textUnderlineOffset: "3px",
       }}
     >
-      Analytics choices
+      {text.label}
     </button>
   );
 }
