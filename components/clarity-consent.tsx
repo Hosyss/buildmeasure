@@ -25,7 +25,6 @@ const copy = {
     allow: "Allow",
     decline: "Decline",
     privacy: "Privacy policy",
-    choices: "Analytics choices",
   },
   ar: {
     label: "خيارات التحليلات",
@@ -35,7 +34,6 @@ const copy = {
     allow: "سماح",
     decline: "رفض",
     privacy: "سياسة الخصوصية",
-    choices: "خيارات التحليلات",
   },
 } as const;
 
@@ -141,17 +139,19 @@ export function ClarityConsent() {
   const [locale, setLocale] = useState<ConsentLocale>("en");
 
   useEffect(() => {
-    setLocale(browserLocale());
-
     const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
     if (stored === "granted") {
       consentGranted.current = true;
       loadClarity();
     } else if (stored !== "denied") {
-      queueMicrotask(() => setIsOpen(true));
+      queueMicrotask(() => {
+        setLocale(browserLocale());
+        setIsOpen(true);
+      });
     }
 
     const openChoices = () => {
+      setLocale(browserLocale());
       setIsOpen(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -225,12 +225,6 @@ export function ClarityConsent() {
 }
 
 export function AnalyticsChoicesButton() {
-  const [locale, setLocale] = useState<ConsentLocale>("en");
-
-  useEffect(() => {
-    setLocale(browserLocale());
-  }, []);
-
   return (
     <button
       type="button"
@@ -241,13 +235,13 @@ export function AnalyticsChoicesButton() {
         background: "transparent",
         color: "inherit",
         font: "inherit",
-        textAlign: locale === "ar" ? "right" : "left",
+        textAlign: "left",
         cursor: "pointer",
         textDecoration: "underline",
         textUnderlineOffset: "3px",
       }}
     >
-      {copy[locale].choices}
+      Analytics choices
     </button>
   );
 }
