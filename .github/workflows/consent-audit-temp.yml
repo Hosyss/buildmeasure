@@ -23,7 +23,7 @@ jobs:
       - name: Typecheck and lint changed component
         run: |
           npm run typecheck
-          bash scripts/sites-env.sh -- eslint components/clarity-consent.tsx
+          npx eslint components/clarity-consent.tsx
       - name: Build affected application
         run: npm run build
       - name: Install isolated Playwright
