@@ -24,6 +24,7 @@ export default async function StatusPage() {
     <UtilityContentPage
       eyebrow="System status"
       title={healthy ? "BuildMeasure is operational." : "BuildMeasure is partially degraded."}
+      titleStyle={{ fontSize: "clamp(2.25rem, 10vw, 4.5rem)" }}
       intro="This first-party check confirms that the application can reach the storage used for calculator feedback and anonymous usage events. It does not represent traffic volume or field-performance data."
     >
       <div className="status-card">
