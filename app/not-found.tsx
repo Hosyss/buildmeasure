@@ -9,10 +9,10 @@ export default function NotFound() {
         <section className="utility-page-hero utility-page-hero-compact">
           <div className="shell">
             <p className="eyebrow">404 — Page not found</p>
-            <h1>This page is not part of BuildMeasure.</h1>
+            <h1>That page is not available.</h1>
             <p>
-              The address may be outdated or mistyped. Use the calculator list
-              or guide library to continue with a material estimate.
+              The address may be outdated or mistyped. Use the BuildMeasure
+              calculator list or guide library to continue with a material estimate.
             </p>
             <div className="utility-link-row">
               <a className="button button-primary" href="/#calculators">
