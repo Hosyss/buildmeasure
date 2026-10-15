@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -47,7 +48,7 @@ const schema = [
     description:
       "A transparent method for converting driveway area and installed depth into gravel volume, estimated mass, tons, and bags.",
     datePublished: "2026-08-11",
-    dateModified: "2026-08-13",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl("/guides/how-much-gravel-do-i-need"),
     author: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/about") },
     publisher: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/") },
@@ -93,7 +94,8 @@ export default function GravelGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 11, 2026</span>
-              <span>Keeps volume and material density separate</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">BuildMeasure</a></span>
             </div>
           </div>
         </section>
@@ -106,6 +108,7 @@ export default function GravelGuidePage() {
             <a href="#depth">Depth table</a>
             <a href="#density">Density and tons</a>
             <a href="#example">Worked example</a>
+            <a href="#supplier-check">Match the supplier quote</a>
             <a href="#verify">Before ordering</a>
           </nav>
 
@@ -205,6 +208,66 @@ export default function GravelGuidePage() {
                 Changing density changes the estimated tons and bags, not the
                 measured volume. Recalculate with supplier data before purchase.
               </p>
+            </section>
+
+            <section id="supplier-check">
+              <p className="eyebrow">Order reconciliation</p>
+              <h2>Match the installed layer to the supplier&apos;s units</h2>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/gravel-volume-section.svg" width={640} height={380}
+                  alt="An 8 by 3 meter area with an illustrative 100 millimeter installed gravel layer has a net volume of 2.4 cubic meters. The layer is shown separately from the ground below."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure plan and section. The example depth is not a driveway design specification.</figcaption>
+              </figure>
+              <p>
+                Start a supplier conversation with the layer being estimated:
+                its measured footprint, specified installed depth, material,
+                and whether the volume describes loose or compacted aggregate.
+                Excavation depth can also include other layers; it is not
+                automatically the depth of this gravel order.
+              </p>
+              <p>
+                For the illustrated 24 m² area at 100 mm, net volume is
+                2.40 m³. If two alternative density assumptions for that same
+                volume state are 1,500 and 1,700 kg/m³, the calculated masses
+                are 3,600 and 4,080 kg. Those values illustrate uncertainty;
+                they are not a material-density range or a loose-to-compacted
+                conversion. Neither changes the measured 2.40 m³.
+              </p>
+              <div className="guide-table-wrap">
+                <table>
+                  <caption>Same volume, different example density inputs</caption>
+                  <thead><tr><th scope="col">Calculation</th><th scope="col">1,500 kg/m³</th><th scope="col">1,700 kg/m³</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Net 2.40 m³</th><td>3.60 metric tonnes</td><td>4.08 metric tonnes</td></tr>
+                    <tr><th scope="row">With illustrative 10% allowance: 2.64 m³</th><td>3.96 metric tonnes</td><td>4.488 metric tonnes</td></tr>
+                    <tr><th scope="row">Complete 25 kg bags for 2.64 m³</th><td>159 bags</td><td>180 bags</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>Keep compaction separate from delivery rounding</h3>
+              <p>
+                ASTM distinguishes loose and compacted bulk-density conditions.
+                Do not multiply a finished compacted volume by an unrelated
+                loose density and assume the result is a complete order.
+                Ask the supplier or project professional to reconcile the
+                required installed quantity with the supplied material state.
+                Record any supported adjustment explicitly; BuildMeasure does
+                not derive it from the word &ldquo;gravel.&rdquo;
+              </p>
+              <p>
+                After agreeing that basis, ask how the supplier rounds sales.
+                A hypothetical 3.96-tonne estimate sold in 0.5-tonne increments
+                becomes a 4.0-tonne order; a minimum load can change it further.
+                Delivery rounding is a purchasing rule, not evidence that the
+                installed depth or chosen allowance has changed.
+              </p>
+              <ul>
+                <li>Ask whether &ldquo;ton&rdquo; means a 2,000 lb short ton or a 1,000 kg metric tonne.</li>
+                <li>Confirm the exact aggregate, grading, and density basis used in the quote.</li>
+                <li>Separate base and finish layers, particularly when their products or depths differ.</li>
+                <li>Record minimum loads, delivery increments, access, unloading, and any separate charges.</li>
+              </ul>
             </section>
 
             <section id="verify">

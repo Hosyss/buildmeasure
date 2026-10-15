@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -47,7 +48,7 @@ const schema = [
     description:
       "A transparent method for converting rectangular surface and tile dimensions into required tiles and complete boxes.",
     datePublished: "2026-08-11",
-    dateModified: "2026-08-11",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl("/guides/how-many-tiles-do-i-need"),
     author: {
       "@type": "Organization",
@@ -121,7 +122,8 @@ export default function TileGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 11, 2026</span>
-              <span>Separates purchase quantity from layout planning</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">BuildMeasure</a></span>
             </div>
           </div>
         </section>
@@ -135,6 +137,7 @@ export default function TileGuidePage() {
             <a href="#table">Common tile sizes</a>
             <a href="#example">Worked example</a>
             <a href="#layout">Layout and grout</a>
+            <a href="#purchase-plan">Edge cuts and reserve stock</a>
             <a href="#verify">Before ordering</a>
           </nav>
 
@@ -262,6 +265,61 @@ export default function TileGuidePage() {
               <p>
                 Sources: <a href="https://tcnatile.com/resource-center/faq/grout/" target="_blank" rel="noreferrer">TCNA Grout FAQ</a> and <a href="https://tcnatile.com/resource-center/faq/ceramic-tile/" target="_blank" rel="noreferrer">TCNA Ceramic Tile FAQ</a>.
               </p>
+            </section>
+
+            <section id="purchase-plan">
+              <p className="eyebrow">From area to a usable order</p>
+              <h2>Check narrow cuts and separate the spare stock</h2>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/tile-edge-plan.svg" width={640} height={430}
+                  alt="A schematic 3.7 by 2.6 meter floor with 600 millimeter square tiles shows narrow cut strips on two edges. Grout joints and offcut reuse are omitted."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure diagram. This edge-aligned grid illustrates cuts; it does not prescribe the installation layout or count purchased tiles.</figcaption>
+              </figure>
+              <p>
+                A 3.7 m × 2.6 m floor covers 9.62 m². A tile with an actual
+                600 × 600 mm face covers 0.36 m². At an illustrative 10%
+                allowance, the area calculation is 9.62 ÷ 0.36 × 1.10 =
+                29.3944… tiles, rounded upward to 30. If each box contains
+                four tiles, buy eight boxes containing 32 tiles, or 11.52 m²
+                of nominal face coverage.
+              </p>
+              <p>
+                The schematic grid contains edge pieces as well as full tiles.
+                Counting every grid position as a new tile ignores possible
+                offcut reuse. Conversely, an area-based quantity does not prove
+                that the installer can produce every cut from that order.
+                Discuss the starting point, direction, edge widths, pattern,
+                and usable offcuts before confirming the allowance.
+              </p>
+              <h3>A reserve can move the order into another full box</h3>
+              <p>
+                Suppose the 10% above was chosen for cuts and breakage only,
+                and the owner separately wants three untouched replacement
+                tiles. The requirement becomes 30 + 3 = 33 tiles: nine boxes
+                of four, containing 36 tiles. The eight-box order has only two
+                tiles above the 30-tile requirement. Do not promise those two
+                tiles both as cutting allowance and as three guaranteed spares.
+              </p>
+              <p>
+                If your chosen allowance already includes replacement stock,
+                avoid adding the same reserve twice. Daltile&apos;s FAQ explains
+                why storing matching tile from the original production run can
+                matter for later repairs. Keep the product reference and lot
+                information with the stored pieces.
+              </p>
+              <div className="guide-table-wrap">
+                <table>
+                  <caption>Read the product and supplier information before payment</caption>
+                  <thead><tr><th scope="col">Record</th><th scope="col">Why it changes the purchase</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Actual face size and carton coverage</th><td>A size printed as a product name may differ from the measured face or declared coverage.</td></tr>
+                    <tr><th scope="row">Pieces per carton</th><td>Whole-box rounding depends on the selected product, not a generic tile size.</td></tr>
+                    <tr><th scope="row">Pattern and separate trim</th><td>Borders, different colors, and trim need their own quantities and package rounding.</td></tr>
+                    <tr><th scope="row">Lot and return terms</th><td>Confirm matching availability, spare storage, and whether unopened boxes can be returned.</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
 
             <section id="verify">

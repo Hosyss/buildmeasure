@@ -44,3 +44,28 @@ unchanged.
 
 These changes improve the usefulness of the existing pages. They do not
 establish Google's undisclosed rejection cause or guarantee AdSense approval.
+
+## Batch 2: tile, gravel, and mulch
+
+Base content revision: `f3e54d6a2b3d524f46a2f2f756a7ea23bc8926ad`.
+
+- Tile: 9.62 m² at a 0.36 m² tile face and 10% allowance requires 30 tiles,
+  or eight four-tile boxes. Three additional untouched spares, when not already
+  included in that allowance, raise the requirement to nine boxes. The
+  illustration deliberately distinguishes grid cells from purchased tiles.
+- Gravel: 24 m² × 0.10 m = 2.40 m³. At 10% allowance, 2.64 m³ and example
+  same-state densities of 1,500/1,700 kg/m³ give 3,960/4,488 kg, or 159/180
+  complete 25 kg bags. No density range or compaction factor is prescribed.
+- Mulch: 10.2 m² with a 25 mm added layer requires 255 L net, or 280.5 L
+  after 10% allowance. This is eight 40 L bags or six 50 L bags. Entering the
+  full illustrative 75 mm target instead would count retained material and
+  produce 22 complete 40 L bags.
+- Rechecked Daltile/TCNA tile guidance, ASTM's loose/compacted aggregate
+  distinction, and EPA WaterSense mulch guidance. New numerical examples are
+  original illustrative arithmetic, not manufacturer recommendations.
+- Full automated gate passed again: typecheck, lint, 143 engine tests,
+  production build/artifact validation, and 38 rendered-route tests.
+- All three modified guides additionally rendered HTTP 200 from the built
+  Worker, with matching update dates and packaged SVGs. All three diagrams
+  passed XML parsing and visual inspection after Sharp rasterization.
+- Browser interaction/Lighthouse remain unmeasured; no browser pass is claimed.

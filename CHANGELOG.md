@@ -7,6 +7,9 @@ Semantic Versioning after the first verified release.
 
 ### Guide improvements — 2026-10-16
 
+- Expanded tile, gravel, and mulch guides with original planning diagrams,
+  metric order examples, package/stock comparisons, and checks for material
+  state, edge cuts, and retained mulch.
 - Expanded the concrete slab guide with an original L-shaped measurement plan,
   a metric quantity example, depth sensitivity, and a bags-versus-delivery
   decision table.

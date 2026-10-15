@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Order only the extra mulch layer</title>
+  <desc id="desc">A schematic bed has fifty millimeters of retained existing mulch and a twenty-five millimeter new layer, reaching an illustrative total depth of seventy-five millimeters. Only the new layer belongs in the top-up order.</desc>
+  <rect width="640" height="360" rx="20" fill="#f3f7f4"/>
+  <g font-family="Arial, sans-serif" font-size="24" fill="#17332c">
+    <text x="320" y="43" text-anchor="middle" font-weight="700">Target 75 mm − retained 50 mm = add 25 mm</text>
+    <rect x="55" y="110" width="530" height="55" fill="#e7c785" stroke="#17332c" stroke-width="2"/>
+    <rect x="55" y="165" width="530" height="110" fill="#d6e9dc" stroke="#17332c" stroke-width="2"/>
+    <path d="M55 275H585V305H55" fill="#d8c5a7"/>
+    <text x="320" y="145" text-anchor="middle" font-weight="700">NEW: 25 mm</text>
+    <text x="320" y="227" text-anchor="middle">Existing mulch retained: 50 mm</text>
+    <text x="320" y="335" text-anchor="middle">Depths are illustrative, not planting advice.</text>
+  </g>
+</svg>
