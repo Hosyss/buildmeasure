@@ -70,6 +70,36 @@ Base content revision: `f3e54d6a2b3d524f46a2f2f756a7ea23bc8926ad`.
   passed XML parsing and visual inspection after Sharp rasterization.
 - Browser interaction/Lighthouse remain unmeasured; no browser pass is claimed.
 
+## Batch 3: masonry, drywall, and editorial context
+
+- Added three original SVGs for post displacement, measured brick openings,
+  and exact metric panel dimensions, with descriptive alternative text.
+- Post-hole example: a 30 cm diameter × 60 cm filled-depth cylinder contains
+  42.4115… L gross. A full-depth 10 cm square post displaces 6 L. Six holes
+  with illustrative 10% allowance need 240.3159… L, or 15 of the documented
+  example 80 lb bags; omitting displacement gives 17 bags.
+- Brick example: a 6 × 2.7 m face minus 2.1 and 1.44 m² openings leaves
+  12.66 m². An explicitly hypothetical supplier rate of 500 brick per 10 m²
+  and 5% allowance requires 665 whole bricks. Complete 250-unit packs would
+  round separately to 750; this is not a universal coverage or pack size.
+- Drywall example: a 4 × 3 × 2.5 m room, ceiling included and 2 m² openings,
+  has 45 m² net area. At illustrative 10% allowance, 49.5 m² requires 18
+  panels of 1.2 × 2.4 m, 14 of 1.2 × 3 m, or 17 of 4 × 8 ft. The guide
+  explains that metric mode preserves a preset's physical size.
+- Expanded the existing estimating workflow with separate wall paint, ceiling
+  paint, and floor tile order lines. Added transparent authorship, reference,
+  example-provenance, and correction information to About without inventing
+  professional credentials or claiming site-survey case studies.
+- Rechecked BIA Technical Note 10, USG's Wallboard Estimator, and the linked
+  panel data. New order scenarios are original arithmetic illustrations.
+- Fresh locked installation of the security-patched dependencies on Node
+  22.22.0; the complete automated gate passed: typecheck, lint, 143 engine
+  tests, verified production build, and 38 rendered-route tests.
+- Direct built-Worker requests verified the four updated guides and About
+  return HTTP 200 with the new content. All eight SVGs parse as XML and their
+  packaged files exist; the three new diagrams were rasterized and inspected.
+- Browser/Lighthouse validation is unavailable and is not claimed.
+
 ## Security check follow-up
 
 The first GitHub run passed the complete application gate but failed the

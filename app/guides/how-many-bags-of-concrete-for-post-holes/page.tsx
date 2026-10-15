@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -54,7 +55,7 @@ const schema = [
     description:
       "A material-estimating guide for converting round post-hole dimensions into concrete volume and complete bag quantities.",
     datePublished: "2026-08-13",
-    dateModified: "2026-08-13",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl(GUIDE_PATH),
     author: {
       "@type": "Person",
@@ -130,6 +131,8 @@ export default function PostHoleConcreteBagGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 13, 2026</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">Hosyss</a></span>
               <span>Reviewed against Post-hole engine v0.1.0</span>
             </div>
           </div>
@@ -144,6 +147,7 @@ export default function PostHoleConcreteBagGuidePage() {
             <a href="#table">Hole-count reference</a>
             <a href="#posts">Post displacement</a>
             <a href="#allowance">Allowance and bag yield</a>
+            <a href="#measurement-plan">Measure and group the holes</a>
             <a href="#verify">What this guide does not design</a>
           </nav>
 
@@ -293,6 +297,58 @@ export default function PostHoleConcreteBagGuidePage() {
               </p>
               <p>
                 Source: <a href="https://www.sakrete.com/product/high-strength-concrete-mix/" target="_blank" rel="noreferrer">Sakrete High-Strength Concrete Mix product data</a>.
+              </p>
+            </section>
+
+            <section id="measurement-plan">
+              <p className="eyebrow">Measurement plan</p>
+              <h2>Record diameter, filled depth, and post size independently</h2>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/post-hole-displacement.svg" width={640} height={430}
+                  alt="Plan and side views of an illustrative 30 centimeter diameter hole, 60 centimeter filled depth and 10 centimeter square post occupying the full concrete depth."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure diagram. Dimensions illustrate arithmetic and do not select a safe post or footing design.</figcaption>
+              </figure>
+              <p>
+                Diameter goes all the way across the round opening; radius is
+                half that distance. Entering a radius in the diameter field
+                reduces gross calculated area to one quarter of the intended
+                value. Keep the field name and unit beside each measurement.
+                Measure the depth actually containing concrete rather than
+                automatically copying the total excavation depth.
+              </p>
+              <h3>A metric displacement example</h3>
+              <p>
+                For the illustrated 30 cm diameter and 60 cm filled depth,
+                gross volume is π × 0.15² × 0.60 = 0.0424115… m³,
+                or about 42.412 L. A 10 cm square post occupying all 60 cm
+                displaces 0.10 × 0.10 × 0.60 = 0.006 m³, or 6 L.
+                Net concrete is about 36.412 L per hole.
+              </p>
+              <p>
+                Six identical holes contain about 218.469 L net, or 240.316 L
+                after an illustrative 10% allowance. At the documented 0.60 ft³
+                yield for the example 80 lb mix, one bag yields about 16.990 L;
+                the combined requirement rounds to 15 bags. Without subtracting
+                that full-depth post, the calculation rounds to 17 bags. Use
+                displacement only when the real post occupies the assumed volume.
+              </p>
+              <h3>Group matching holes before package rounding</h3>
+              <p>
+                Group holes only when diameter, filled depth, and displacement
+                match. Calculate a different-size group separately. Keep the
+                volumes unrounded, apply the chosen allowances, combine quantities
+                for the same product and purchase stage, then round the shared
+                order to complete bags. Different products need separate orders.
+              </p>
+              <p>
+                Rounding each approximately 40.053 L allowance-included hole
+                separately to three bags gives 18 bags for this example,
+                compared with 15 for the combined volume. This comparison does
+                not determine batching, placement, or curing procedures; follow
+                the exact product instructions and project plan. Enlarged bases,
+                tapers, and irregular excavations also need a quantity method
+                that represents their actual geometry.
               </p>
             </section>
 

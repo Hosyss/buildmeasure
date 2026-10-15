@@ -52,6 +52,30 @@ export default function AboutPage() {
         </p>
       </div>
 
+      <h2 id="editorial-process">How the guides are prepared</h2>
+      <p>
+        Hosyss maintains the published site and estimating guides. Guide bylines
+        identify Hosyss or BuildMeasure as the publisher-author. References are
+        linked where their product data or estimating methods are used, so
+        readers can check the source and replace example inputs with data for
+        their own projects.
+      </p>
+      <p>
+        Worked examples state their measurements, units, allowances, and package
+        rounding. The diagrams and numerical scenarios are original educational
+        illustrations; they are not presented as completed client projects,
+        site surveys, or independent engineering certifications. Named product
+        yields and coverage are not claims about every material.
+      </p>
+      <p>
+        Substantive guide revisions carry an updated date. To report a possible
+        error, use the <a href="/feedback">feedback form</a> with the page,
+        measurements, units, and expected result. Confirmed corrections and
+        verification are recorded in the public source history. Site authorship
+        does not replace professional review of structural design or local
+        project requirements.
+      </p>
+
       <h2>Privacy and saved estimates</h2>
       <p>
         No account is required to use the calculators. Saved estimates stay in

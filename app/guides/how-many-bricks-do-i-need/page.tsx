@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -59,7 +60,7 @@ const schema = [
     description:
       "A material-estimating guide for converting net wall area and a documented fired-clay brick coverage rate into a whole-brick purchase quantity.",
     datePublished: "2026-08-13",
-    dateModified: "2026-08-13",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl(GUIDE_PATH),
     author: {
       "@type": "Person",
@@ -135,6 +136,8 @@ export default function BrickWallGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 13, 2026</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">Hosyss</a></span>
               <span>Reviewed against Brick engine v0.1.0</span>
             </div>
           </div>
@@ -149,6 +152,7 @@ export default function BrickWallGuidePage() {
             <a href="#table">Modular brick reference</a>
             <a href="#openings">Doors and windows</a>
             <a href="#waste">Waste and breakage</a>
+            <a href="#supplier-rate">Supplier coverage and packs</a>
             <a href="#limits">What this method does not cover</a>
           </nav>
 
@@ -285,6 +289,55 @@ export default function BrickWallGuidePage() {
                 can multiply the rounded order quantity by that user-entered
                 price. It does not fetch live prices, convert currencies, or
                 infer tax, delivery, labor, discounts, or supplier minimums.
+              </p>
+            </section>
+
+            <section id="supplier-rate">
+              <p className="eyebrow">A supplier-based order</p>
+              <h2>Make the openings and coverage units auditable</h2>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/brick-opening-plan.svg" width={640} height={410}
+                  alt="A 6 by 2.7 meter wall has a 1 by 2.1 meter door and a 1.2 meter square window, leaving 12.66 square meters of net wall face."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure wall-face diagram. Jambs, sills, corners, lintels, and structural details are not modeled.</figcaption>
+              </figure>
+              <p>
+                Here, 6 × 2.7 = 16.20 m² gross; the door deducts 2.10 m²
+                and the window deducts 1.44 m². Enter their combined 3.54 m²
+                deduction, leaving 12.66 m² of net wall face.
+              </p>
+              <p>
+                Suppose a supplier documents 500 fired-clay bricks per 10 m²
+                for the exact product and supported bond. This illustrative
+                custom rate is not a BIA preset or a universal regional rate.
+                It equals 50 bricks per m².
+              </p>
+              <ol className="guide-calculation-steps">
+                <li>Net brick: 12.66 × 50 = 633.</li>
+                <li>With illustrative 5% waste: 633 × 1.05 = 664.65.</li>
+                <li>Whole-brick requirement: round upward to 665.</li>
+                <li>If sold only in packs of 250: three packs contain 750 bricks.</li>
+              </ol>
+              <p>
+                The 85 bricks above the 665-brick requirement come from that
+                hypothetical pack rule. They are not another breakage allowance.
+                BuildMeasure rounds to individual bricks; supplier pack or pallet
+                rounding must be checked separately.
+              </p>
+              <h3>Check the denominator before copying a custom rate</h3>
+              <p>
+                Metric custom coverage is bricks per <strong>10 m²</strong>:
+                enter 500 for this example, not 50. Imperial coverage is bricks
+                per <strong>100 ft²</strong>. A correct measurement paired with
+                the wrong rate unit can introduce a tenfold error.
+              </p>
+              <p>
+                Confirm the brick size, face orientation, and mortar-joint basis
+                behind the documented coverage. Dividing by bare brick-face area
+                can describe a different construction from the supplier&apos;s
+                coursed wall rate. Special returns, corner units, sills, and
+                header patterns need their own quantities or project method;
+                a larger waste percentage does not identify missing unit types.
               </p>
             </section>
 

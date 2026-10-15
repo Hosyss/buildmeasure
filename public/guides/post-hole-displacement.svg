@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="430" viewBox="0 0 640 430" role="img" aria-labelledby="title desc">
+  <title id="title">Measure diameter, filled depth and post size separately</title>
+  <desc id="desc">Plan and side views show a thirty centimeter diameter hole, sixty centimeters of concrete depth and a ten centimeter square post occupying the full filled depth. Dimensions are illustrative, not design recommendations.</desc>
+  <rect width="640" height="430" rx="20" fill="#f3f7f4"/>
+  <g font-family="Arial, sans-serif" font-size="24" fill="#17332c">
+    <text x="180" y="45" text-anchor="middle" font-weight="700">Plan view</text><text x="465" y="45" text-anchor="middle" font-weight="700">Side view</text>
+    <circle cx="180" cy="205" r="100" fill="#d6e9dc" stroke="#17332c" stroke-width="2"/>
+    <rect x="146.667" y="171.667" width="66.666" height="66.666" fill="#e7c785" stroke="#17332c" stroke-width="2"/>
+    <path d="M80 85H280M80 75V95M280 75V95" stroke="#17332c" stroke-width="2"/>
+    <text x="180" y="75" text-anchor="middle">Hole Ø 30 cm</text><text x="180" y="345" text-anchor="middle">Post: 10 × 10 cm</text>
+    <rect x="410" y="95" width="110" height="220" fill="#d6e9dc" stroke="#17332c" stroke-width="2"/>
+    <rect x="446.667" y="95" width="36.666" height="220" fill="#e7c785" stroke="#17332c" stroke-width="2"/>
+    <path d="M540 95H560M540 315H560M550 95V315" stroke="#17332c" stroke-width="2"/>
+    <text x="580" y="205" text-anchor="middle" transform="rotate(-90 580 205)">Concrete depth: 60 cm</text>
+    <text x="320" y="395" text-anchor="middle">Subtract only post volume inside the concrete.</text>
+  </g>
+</svg>
