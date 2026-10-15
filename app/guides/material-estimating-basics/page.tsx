@@ -23,7 +23,7 @@ const articleSchema = {
   description:
     "A practical workflow for measuring geometry, calculating net material, applying visible allowances, and rounding purchase quantities.",
   datePublished: "2026-08-01",
-  dateModified: "2026-09-17",
+  dateModified: "2026-10-16",
   mainEntityOfPage: absoluteUrl("/guides/material-estimating-basics"),
   author: {
     "@type": "Organization",
@@ -62,7 +62,8 @@ export default function MaterialEstimatingBasicsPage() {
             </p>
             <div className="guide-meta">
               <span>Published August 1, 2026</span>
-              <span>Updated September 17, 2026</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">BuildMeasure</a></span>
               <span>Reviewed against the BuildMeasure calculation standard</span>
             </div>
           </div>
@@ -77,6 +78,7 @@ export default function MaterialEstimatingBasicsPage() {
             <a href="#assumptions">4. Add visible assumptions</a>
             <a href="#procurement">5. Convert to purchase quantity</a>
             <a href="#verify">6. Verify before ordering</a>
+            <a href="#material-schedule">Build a material schedule</a>
             <a href="#workflow">Field checklist</a>
           </nav>
 
@@ -197,6 +199,54 @@ export default function MaterialEstimatingBasicsPage() {
                 <a href="/mulch-calculator"><strong>Mulch</strong><span>Bed volume, coverage, and bags</span></a>
                 <a href="/drywall-calculator"><strong>Drywall</strong><span>Room area, allowance, and sheets</span></a>
               </div>
+            </section>
+
+            <section id="material-schedule">
+              <p className="eyebrow">Worked project schedule</p>
+              <h2>Keep different products on different order lines</h2>
+              <p>
+                Consider a 4 m × 3 m room with 2.5 m high walls and 3 m² of
+                measured openings. Net wall area is 2 × (4 + 3) × 2.5 − 3
+                = 32 m²; the ceiling and floor each cover 12 m². Those are
+                shared measurements, not interchangeable material quantities.
+                This illustrative schedule is not a product recommendation
+                or a record of a completed project.
+              </p>
+              <div className="guide-table-wrap">
+                <table>
+                  <caption>One room, three independent product calculations</caption>
+                  <thead><tr><th scope="col">Product</th><th scope="col">Example assumptions</th><th scope="col">Purchase baseline</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Wall paint</th><td>32 m², two coats, 10 m²/L, 10% extra</td><td>7.04 L → three 2.5 L cans</td></tr>
+                    <tr><th scope="row">Ceiling paint</th><td>12 m², two coats, 8 m²/L, 10% extra</td><td>3.30 L → two 2.5 L cans</td></tr>
+                    <tr><th scope="row">Floor tile</th><td>12 m², 600 × 600 mm faces, 10% extra, four tiles per box</td><td>37 required tiles → ten boxes containing 40 tiles</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                A different coating or tile carton changes only its corresponding
+                line. Record each exact product and package before adding a
+                supplier price. Do not add liters, tiles, and cartons into one
+                quantity or use a price per liter as a price per complete can.
+              </p>
+              <h3>Reconcile changes without repeating the survey</h3>
+              <p>
+                Keep net measurement, allowance-included requirement, and
+                purchased packages as separate columns. If paint coverage
+                changes, revise that product&apos;s volume and cans. If carton
+                size changes, revise package rounding rather than inventing a
+                new floor area. Keep the original inputs with the revised quote.
+              </p>
+              <p>
+                The <a href="/guides/how-much-paint-do-i-need">paint guide</a>
+                explains separate products, while the
+                <a href="/guides/how-many-tiles-do-i-need"> tile guide</a>
+                covers edge cuts and replacement stock. Save the individual
+                estimates and group them in <a href="/projects">Projects</a>
+                for a device-local shopping list. A report organizes quantities;
+                it does not fill in excluded materials, delivery, labor, or a
+                layout plan automatically.
+              </p>
             </section>
 
             <section id="workflow" className="guide-checklist">
