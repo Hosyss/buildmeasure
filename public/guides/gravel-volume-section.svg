@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
+  <title id="title">Match the gravel volume and density to the same material state</title>
+  <desc id="desc">An eight by three meter rectangle has an area of twenty-four square meters. An illustrative one-hundred millimeter installed layer has a volume of two point four cubic meters. A cross-section marks the specified layer separately from the ground below.</desc>
+  <rect width="640" height="380" rx="20" fill="#f3f7f4"/>
+  <g font-family="Arial, sans-serif" font-size="24" fill="#17332c">
+    <text x="320" y="42" text-anchor="middle" font-weight="700">Area × specified installed depth</text>
+    <rect x="65" y="80" width="510" height="110" fill="#d6e9dc" stroke="#17332c" stroke-width="2"/>
+    <text x="320" y="145" text-anchor="middle">Plan: 8 × 3 m = 24 m²</text>
+    <rect x="65" y="235" width="440" height="40" fill="#c3cec7" stroke="#17332c" stroke-width="2"/>
+    <path d="M65 275H505V315H65" fill="#e9ddc6"/>
+    <path d="M520 235H545M520 275H545M535 235V275" stroke="#17332c" stroke-width="2"/>
+    <text x="285" y="265" text-anchor="middle">Installed gravel</text>
+    <text x="555" y="255" font-size="21">100</text><text x="555" y="280" font-size="21">mm</text>
+    <text x="320" y="353" text-anchor="middle">24 × 0.10 = 2.40 m³ before allowance</text>
+  </g>
+</svg>

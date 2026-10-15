@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -47,7 +48,7 @@ const schema = [
     description:
       "A transparent method for converting rectangular bed area and installed depth into cubic yards, bag coverage, and complete bags.",
     datePublished: "2026-08-11",
-    dateModified: "2026-08-11",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl("/guides/how-much-mulch-do-i-need"),
     author: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/about") },
     publisher: { "@type": "Organization", name: "BuildMeasure", url: absoluteUrl("/") },
@@ -92,7 +93,8 @@ export default function MulchGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 11, 2026</span>
-              <span>Uses package volume directly</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">BuildMeasure</a></span>
             </div>
           </div>
         </section>
@@ -105,6 +107,7 @@ export default function MulchGuidePage() {
             <a href="#coverage">Bag coverage table</a>
             <a href="#depth">Choose a depth</a>
             <a href="#example">Worked example</a>
+            <a href="#top-up">Measure a top-up order</a>
             <a href="#verify">Before ordering</a>
           </nav>
 
@@ -202,6 +205,63 @@ export default function MulchGuidePage() {
               <p>
                 The 28 bags contain 56 ft³, so one cubic foot above the 55 ft³
                 requirement comes from final package rounding.
+              </p>
+            </section>
+
+            <section id="top-up">
+              <p className="eyebrow">A top-up purchase plan</p>
+              <h2>Measure what remains before buying another full layer</h2>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/mulch-top-up-section.svg" width={640} height={360}
+                  alt="A mulch cross-section shows 50 millimeters of existing material plus a new 25 millimeter layer to reach an illustrative 75 millimeter target."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure top-up diagram. Choose the target depth using guidance suitable for the plants and site.</figcaption>
+              </figure>
+              <p>
+                Check the retained layer in several places rather than measuring
+                only the deepest mound. Exclude areas that will stay bare or
+                must remain clear around plant bases. If existing depths differ
+                substantially, split the bed into zones and estimate each added
+                depth separately. A single average can overfill one zone while
+                leaving another short.
+              </p>
+              <p>
+                Suppose two measured zones, after exclusions, are 6 × 1.2 m
+                and 3 × 1 m. Their combined area is 10.2 m². For this example,
+                the retained layer is 50 mm throughout and a locally selected
+                target is 75 mm. Estimate only the additional 25 mm. The
+                example does not prescribe a target for your plants.
+              </p>
+              <ol className="guide-calculation-steps">
+                <li>Added depth: (75 − 50) ÷ 1,000 = 0.025 m.</li>
+                <li>Net new volume: 10.2 × 0.025 = 0.255 m³ = 255 L.</li>
+                <li>With an illustrative 10% allowance: 255 × 1.10 = 280.5 L.</li>
+                <li>For 40 L bags: round up (280.5 ÷ 40) = 8 bags, containing 320 L.</li>
+                <li>For 50 L bags: round up (280.5 ÷ 50) = 6 bags, containing 300 L.</li>
+              </ol>
+              <p>
+                Entering the entire 75 mm finished depth would instead produce
+                841.5 L after the same allowance, or 22 complete 40 L bags.
+                That counts retained mulch as if it were absent. The difference
+                is 14 bags in this example, before considering any actual
+                variation in depth or usable existing material.
+              </p>
+              <h3>Compare bag volume with a bulk quote</h3>
+              <p>
+                For a bulk quote, the allowance-included requirement is
+                0.2805 m³. Ask about minimum delivery volume and the sale
+                increment before comparing it with the eight-bag option.
+                Compare like materials and include delivery or collection costs;
+                fewer bags do not automatically mean a cheaper or more suitable
+                product.
+              </p>
+              <p>
+                A weight label cannot replace the bag&apos;s net volume in this
+                calculation. If a product expands after preparation, follow its
+                declared coverage and instructions rather than treating the
+                compressed package dimensions as usable installed volume.
+                Keep any settling or project allowance visible instead of
+                inventing a conversion from kilograms to liters.
               </p>
             </section>
 
