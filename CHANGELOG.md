@@ -5,6 +5,16 @@ Semantic Versioning after the first verified release.
 
 ## [Unreleased]
 
+### Guide improvements — 2026-10-16
+
+- Expanded the concrete slab guide with an original L-shaped measurement plan,
+  a metric quantity example, depth sensitivity, and a bags-versus-delivery
+  decision table.
+- Expanded the paint guide with an original wall/ceiling diagram, a product-by-product
+  purchase example, and a coverage sensitivity comparison.
+- Added visible BuildMeasure attribution and matching editorial update dates to
+  these two guides; corrected the slab guide's claim that bag yields are editable.
+
 ### Added
 
 - Added a reference-backed Drywall Calculator for rectangular room walls and an optional ceiling, with measured openings, exact panel dimensions, explicit waste, unit conversion, device-local history, optional cost, Project Mode, feedback, and privacy-limited analytics wiring.

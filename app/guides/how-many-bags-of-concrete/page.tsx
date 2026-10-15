@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -47,7 +48,7 @@ const schema = [
     description:
       "A practical method for converting rectangular slab dimensions into cubic yards and complete concrete bag quantities.",
     datePublished: "2026-08-09",
-    dateModified: "2026-08-12",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl("/guides/how-many-bags-of-concrete"),
     author: {
       "@type": "Organization",
@@ -121,7 +122,8 @@ export default function ConcreteBagGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 9, 2026</span>
-              <span>Updated August 12, 2026</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">BuildMeasure</a></span>
             </div>
           </div>
         </section>
@@ -131,9 +133,11 @@ export default function ConcreteBagGuidePage() {
             <strong>On this page</strong>
             <a href="#answer">Quick answer</a>
             <a href="#formula">Slab formula</a>
+            <a href="#measure">Measure an irregular slab</a>
             <a href="#yields">Example bag yields</a>
             <a href="#table">Common slab table</a>
             <a href="#example">Worked example</a>
+            <a href="#ordering">Bags or delivery?</a>
             <a href="#verify">Verify before ordering</a>
           </nav>
 
@@ -228,18 +232,98 @@ export default function ConcreteBagGuidePage() {
               </p>
             </section>
 
+            <section id="measure">
+              <p className="eyebrow">Measurement plan</p>
+              <h2>Break an L-shaped slab into rectangles</h2>
+              <p>
+                Sketch the formed footprint before opening a calculator. Mark
+                the inside dimensions, excluded recesses, and the specified
+                thickness of each section. An outside bounding rectangle can
+                include a large area that will never receive concrete.
+              </p>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/concrete-measurement-plan.svg" width={640} height={460}
+                  alt="L-shaped slab: rectangle A is 6 by 2 meters and B is 4 by 2 meters, giving 20 square meters while excluding a 2 by 2 meter recess."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure measurement diagram. Dimensions illustrate quantity estimation; they do not specify a structural design.</figcaption>
+              </figure>
+              <p>
+                In this plan, rectangle A covers 12 m² and B covers 8 m².
+                They meet at an edge, so adding them does not double-count an
+                overlap. The same answer comes from subtracting the 2 × 2 m
+                recess from the 6 × 4 m bounding rectangle: 24 − 4 = 20 m².
+              </p>
+              <p>
+                Run the rectangular calculator once for A and once for B.
+                Add the unrounded volumes before converting the total into a
+                supplier order. If sections have different specified thicknesses,
+                calculate their volumes separately; multiplying the whole area
+                by a guessed average can conceal the deeper section.
+              </p>
+            </section>
+
             <section id="example">
-              <p className="eyebrow">Worked example</p>
-              <h2>A 9 ft × 9 ft slab, 4 inches thick</h2>
+              <p className="eyebrow">Worked metric example</p>
+              <h2>From the measured footprint to an order discussion</h2>
+              <p>
+                Suppose the project drawings specify a uniform 100 mm thickness
+                for the illustrated footprint. This is an example input, not a
+                thickness recommendation. Use 10% as an illustrative allowance.
+              </p>
               <ol className="guide-calculation-steps">
-                <li>Convert thickness: 4 in ÷ 12 = 0.333333 ft.</li>
-                <li>Find net volume: 9 × 9 × 0.333333 = 27 ft³.</li>
-                <li>With 0% allowance, the result is exactly 1 yd³.</li>
-                <li>For the 80 lb example: 27 ÷ 0.60 = 45 complete bags.</li>
+                <li>Convert thickness: 100 mm ÷ 1,000 = 0.10 m.</li>
+                <li>Rectangle A: 6 × 2 × 0.10 = 1.20 m³.</li>
+                <li>Rectangle B: 4 × 2 × 0.10 = 0.80 m³.</li>
+                <li>Combine net volumes: 1.20 + 0.80 = 2.00 m³.</li>
+                <li>Apply allowance once: 2.00 × 1.10 = 2.20 m³.</li>
               </ol>
               <p>
-                If you add an allowance, apply it to the 27 ft³ net volume
-                before dividing by the bag yield.
+                Tell the supplier both quantities: 2.00 m³ measured volume and
+                2.20 m³ after the chosen allowance. Ask about sale increments
+                before rounding the order again. For this 20 m² footprint,
+                every additional 10 mm of actual depth adds 0.20 m³ before
+                allowance. Rechecking depth can matter more than displaying
+                another decimal place.
+              </p>
+              <p>
+                A 5%, 10%, or 15% allowance changes this example to 2.10,
+                2.20, or 2.30 m³ respectively. Those are comparisons, not
+                recommended percentages. Select the allowance after checking
+                form accuracy, subgrade variation, handling, and supplier advice.
+              </p>
+            </section>
+
+            <section id="ordering">
+              <p className="eyebrow">Purchase decision</p>
+              <h2>Compare the whole job, not only the bag price</h2>
+              <div className="guide-table-wrap">
+                <table>
+                  <caption>Questions to resolve before choosing bags or ready-mix</caption>
+                  <thead><tr><th scope="col">Check</th><th scope="col">Bagged mix</th><th scope="col">Ready-mix</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Quantity</th><td>Confirm the exact product yield and whole bags.</td><td>Confirm minimum load and order increment.</td></tr>
+                    <tr><th scope="row">Access</th><td>Plan unloading, storage, mixing, and carrying.</td><td>Confirm truck access and any pumping or carrying arrangement.</td></tr>
+                    <tr><th scope="row">Placement</th><td>Check mixer output and available labor.</td><td>Agree delivery timing and unloading arrangements.</td></tr>
+                    <tr><th scope="row">Comparable price</th><td>Include equipment, labor, and transport.</td><td>Ask about delivery, small-load, waiting, and other applicable charges.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                There is no universal volume at which delivery becomes cheaper.
+                Get comparable quotations for the specified mix and actual site.
+                The calculator&apos;s optional bag-price total covers material
+                packages only; it does not estimate the complete installed cost.
+              </p>
+              <h3>Three errors to catch on the measurement sheet</h3>
+              <ul>
+                <li>Keep excavation depth separate from concrete thickness when the build-up also includes other materials.</li>
+                <li>Exclude recesses and avoid overlapping rectangles before adding an allowance.</li>
+                <li>Keep extra volume separate from supplier rounding so you can explain every part of the final order.</li>
+              </ul>
+              <p>
+                Thickened edges, footings, slopes, and changing depths need
+                their own documented geometry and project requirements. Do not
+                hide those volumes inside a larger waste percentage.
               </p>
             </section>
 
@@ -269,7 +353,7 @@ export default function ConcreteBagGuidePage() {
             <div className="utility-callout">
               <strong>Need dimensions, waste, yards, meters, and bags in one result?</strong>
               <p>
-                Open the <a href="/concrete-calculator">BuildMeasure Concrete Calculator for cubic yards and bags</a> and keep the product yield adjustable.
+                Open the <a href="/concrete-calculator">BuildMeasure Concrete Calculator for cubic yards and bags</a> and verify the selected product yield before ordering.
               </p>
             </div>
           </div>

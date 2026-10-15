@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { absoluteUrl } from "@/lib/site";
@@ -47,7 +48,7 @@ const schema = [
     description:
       "A transparent method for converting room dimensions, openings, coats, and coating coverage into paint volume and complete containers.",
     datePublished: "2026-08-11",
-    dateModified: "2026-08-11",
+    dateModified: "2026-10-16",
     mainEntityOfPage: absoluteUrl("/guides/how-much-paint-do-i-need"),
     author: {
       "@type": "Organization",
@@ -121,7 +122,8 @@ export default function PaintGuidePage() {
             </p>
             <div className="guide-meta">
               <span>Published August 11, 2026</span>
-              <span>Uses manufacturer-published coverage guidance</span>
+              <span>Updated October 16, 2026</span>
+              <span>By <a href="/about">BuildMeasure</a></span>
             </div>
           </div>
         </section>
@@ -132,8 +134,10 @@ export default function PaintGuidePage() {
             <a href="#answer">Quick answer</a>
             <a href="#formula">Room formula</a>
             <a href="#coverage">Coverage input</a>
+            <a href="#measure">Measure each surface</a>
             <a href="#example">Worked example</a>
             <a href="#containers">Container rounding</a>
+            <a href="#separate-products">Separate paint products</a>
             <a href="#verify">Before buying</a>
           </nav>
 
@@ -194,6 +198,38 @@ export default function PaintGuidePage() {
               </p>
             </section>
 
+            <section id="measure">
+              <p className="eyebrow">Measurement plan</p>
+              <h2>Count the walls, then decide what shares one product</h2>
+              <figure style={{ margin: "1.5rem 0" }}>
+                <Image src="/guides/paint-surface-plan.svg" width={640} height={420}
+                  alt="Four unfolded walls of a 4 by 3 meter room have a 14 meter perimeter and 2.5 meter height. The 12 square meter ceiling is measured separately."
+                  style={{ width: "100%", height: "auto" }} />
+                <figcaption>Original BuildMeasure surface diagram. Openings are schematic; use their measured areas.</figcaption>
+              </figure>
+              <p>
+                For four walls of equal height, perimeter × height gives the
+                gross wall area. If wall heights vary, measure each rectangular
+                surface separately and add the results. A floor area is not the
+                wall area: two rooms with the same floor area can have different
+                perimeters, heights, and paint requirements.
+              </p>
+              <p>
+                Record each unpainted opening as width × height and total the
+                deductions. Measure only the part excluded from that paint
+                product. Painting a door or its trim with a different finish
+                calls for a separate estimate rather than adding its area to
+                the wall coating without checking coverage.
+              </p>
+              <p>
+                Give an accent wall its own line on the measurement sheet.
+                Record the product, color, sheen, coats, coverage unit, and
+                available container sizes for every line. Combining different
+                paints into one volume can make the grand total look sufficient
+                while leaving one color short.
+              </p>
+            </section>
+
             <section id="example">
               <p className="eyebrow">Worked example</p>
               <h2>A 12 ft × 10 ft room with an 8 ft ceiling</h2>
@@ -236,6 +272,56 @@ export default function PaintGuidePage() {
                   coating.
                 </p>
               </div>
+            </section>
+
+            <section id="separate-products">
+              <p className="eyebrow">Worked metric comparison</p>
+              <h2>Walls and ceiling with different coverage rates</h2>
+              <p>
+                In the illustrated 4 m × 3 m room, wall height is 2.5 m.
+                Suppose measured openings total 3 m². For this arithmetic
+                example only, use two coats, 10% extra, wall-paint coverage of
+                10 m²/L, and ceiling-paint coverage of 8 m²/L. Replace both
+                coverage rates with the selected products&apos; data.
+              </p>
+              <div className="guide-table-wrap">
+                <table>
+                  <caption>Calculate and purchase each coating separately</caption>
+                  <thead><tr><th scope="col">Step</th><th scope="col">Wall paint</th><th scope="col">Ceiling paint</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Gross surface</th><td>2 × (4 + 3) × 2.5 = 35 m²</td><td>4 × 3 = 12 m²</td></tr>
+                    <tr><th scope="row">After openings</th><td>35 − 3 = 32 m²</td><td>12 m²</td></tr>
+                    <tr><th scope="row">Two coats</th><td>64 coat-m²</td><td>24 coat-m²</td></tr>
+                    <tr><th scope="row">Base paint</th><td>64 ÷ 10 = 6.40 L</td><td>24 ÷ 8 = 3.00 L</td></tr>
+                    <tr><th scope="row">With 10% extra</th><td>7.04 L</td><td>3.30 L</td></tr>
+                    <tr><th scope="row">If sold only in 2.5 L cans</th><td>3 cans = 7.50 L</td><td>2 cans = 5.00 L</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Adding 7.04 L and 3.30 L before rounding would suggest five
+                2.5 L cans without identifying which product belongs in each
+                can. Round within each product first. Compare alternative
+                container sizes using the supplier&apos;s actual availability
+                and prices; the calculator does not optimize a mixed-size order.
+              </p>
+              <h3>What happens if coverage is lower?</h3>
+              <p>
+                For the same 64 coat-m² of walls, coverage of 8 m²/L instead
+                of 10 m²/L raises the allowance-included quantity from 7.04 L
+                to 8.80 L. With only 2.5 L cans available, the order changes
+                from three to four cans. This is a sensitivity comparison,
+                not a prediction of your surface&apos;s absorption.
+              </p>
+              <p>
+                Sherwin-Williams explains that theoretical coverage does not
+                account for texture and material left on applicators. Its
+                <a href="https://www.sherwin-williams.com/en-us/project-center/faqs/paint-faq" target="_blank" rel="noreferrer"> Painting FAQs</a>
+                discuss these limits. Check product instructions and surface
+                condition before choosing a coverage input. Primer is another
+                product with its own coverage; do not treat its coat as a coat
+                of finish paint.
+              </p>
             </section>
 
             <section id="verify">

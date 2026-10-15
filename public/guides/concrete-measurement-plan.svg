@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="460" viewBox="0 0 640 460" role="img" aria-labelledby="title desc">
+  <title id="title">Measure an L-shaped slab as two rectangles</title>
+  <desc id="desc">A six by four meter bounding rectangle has a two by two meter recess excluded. Rectangle A is six by two meters and rectangle B is four by two meters. Their combined area is twenty square meters.</desc>
+  <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M6 0 0 3 6 6" fill="none" stroke="#17332c"/></marker></defs>
+  <rect width="640" height="460" rx="20" fill="#f3f7f4"/>
+  <g font-family="Arial, sans-serif" font-size="24" fill="#17332c">
+    <path d="M90 90H510V230H370V370H90Z" fill="#d6e9dc" stroke="#17332c" stroke-width="3"/>
+    <path d="M90 230H370" stroke="#527068" stroke-width="2" stroke-dasharray="8 6"/>
+    <path d="M370 230H510V370H370Z" fill="none" stroke="#527068" stroke-width="2" stroke-dasharray="8 6"/>
+    <path d="M90 55H510M55 90V370" stroke="#17332c" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="300" y="40" text-anchor="middle">6 m</text>
+    <text x="30" y="230" text-anchor="middle" transform="rotate(-90 30 230)">4 m</text>
+    <text x="300" y="152" text-anchor="middle" font-weight="700">A: 6 × 2 = 12 m²</text>
+    <text x="230" y="300" text-anchor="middle" font-weight="700">B: 4 × 2 = 8 m²</text>
+    <text x="440" y="285" text-anchor="middle">Excluded</text>
+    <text x="440" y="320" text-anchor="middle">2 × 2 m</text>
+    <text x="320" y="420" text-anchor="middle" font-weight="700">Measured area: 12 + 8 = 20 m²</text>
+  </g>
+</svg>
