@@ -44,3 +44,24 @@ unchanged.
 
 These changes improve the usefulness of the existing pages. They do not
 establish Google's undisclosed rejection cause or guarantee AdSense approval.
+
+## Security check follow-up
+
+The first GitHub run passed the complete application gate but failed the
+production dependency audit. The lockfile contained Next.js 16.3.5,
+Next.js's nested Sharp version below 0.35.5, and source-map-js below 1.2.2.
+
+- Applied the compatible Next.js 16.3.8 security patch and kept eslint-config-next
+  on the same version. Refreshed permitted transitive resolutions to Sharp
+  0.35.5 under Next.js and source-map-js 1.2.2 without a force update.
+- `npm audit --package-lock-only --omit=dev --json`: **zero production
+  vulnerability findings** on 2026-10-16.
+- Installed the new committed lockfile in an isolated checkout with Node
+  22.22.0. Typecheck, lint, all 143 engine tests, verified production build, and
+  all 38 rendered-route tests passed again.
+- Existing audit thresholds and CI checks are unchanged. This does not claim
+  that any conditional upstream vulnerability was exploited on BuildMeasure.
+- Supported interactive browser tooling is unavailable in this environment;
+  the framework-patch milestone's browser/Lighthouse matrix is therefore
+  **partial, not passed**. The code and automated evidence are available for
+  review; no complete manual milestone audit is claimed.

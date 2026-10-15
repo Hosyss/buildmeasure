@@ -7,6 +7,9 @@ Semantic Versioning after the first verified release.
 
 ### Guide improvements — 2026-10-16
 
+- Updated Next.js and its ESLint configuration to 16.3.8 and refreshed the
+  compatible Sharp/source-map-js lockfile resolutions after the production
+  dependency security check blocked the content PR.
 - Expanded the concrete slab guide with an original L-shaped measurement plan,
   a metric quantity example, depth sensitivity, and a bags-versus-delivery
   decision table.
