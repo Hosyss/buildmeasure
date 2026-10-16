@@ -1104,3 +1104,105 @@ This record closes the broader real Firefox/WebKit technical coverage gap.
 Independent usability feedback and sufficient real-user field data remain the
 only launch-readiness gap.
 
+## 2026-10-16 — Editorial content and public production follow-up
+
+| Field | Evidence |
+| --- | --- |
+| Source | `16539124ded65587efc43a298fdfac3ce9526ac6` (BuildMeasure 0.6.0) |
+| Target | `https://buildmeasuretools.pages.dev` |
+| Production deployment | `7547c1db-f56f-4516-aa38-b5bd5497002d` |
+| Changes | Content PRs #76–#78; accessible-name repair #79; layout-shift repair #80 |
+| Application gate | Node 22; typecheck, lint, 143 engine tests, production build/artifact validation, 38 rendered-route tests; production dependency audit passed |
+| Lab tools | Lighthouse 13.5.0; Chrome 155.0.8059.80; Windows; standard simulated mobile and desktop presets, run sequentially |
+| Status | Automated and public HTTP checks passed; Lighthouse follow-up meets the numeric target using the five-sample homepage median; full manual milestone coverage remains partial |
+
+### Production and failure evidence
+
+All 40 public HTTP checks passed, including content/date markers, eight SVGs,
+production canonicals on public content pages, and healthy storage checks.
+The status page is intentionally noindex. The preceding internal Pages asset
+publication error and successful exact-revision retry are retained in
+[the content review](CONTENT_REVIEW_2026-10-16.md).
+
+The initial homepage audit found a serious accessible-name mismatch despite an
+Accessibility score of 100. PR #79 removed the card's overriding name. The
+following 18-profile matrix then reproduced Performance 92 on five mobile
+calculators with CLS 0.1685. PR #80 moved the consent panel out of document
+flow. The preserved
+[before report](audits/2026-10-16/lighthouse-before-layout-fix.json) and
+[after report](audits/2026-10-16/lighthouse-after-layout-fix.json) identify the
+exact source revisions. Every after-run recorded CLS 0 and no failed
+Accessibility audit or runtime error.
+
+### Live Lighthouse matrix
+
+Scores are Performance / Accessibility / Best Practices / SEO. These are lab
+measurements of the deployed origin.
+
+| Route | Mobile scores | Desktop scores | Mobile CLS |
+| --- | --- | --- | --- |
+| `/` | 93/100/100/100 (initial) / 99 median* | 100/100/100/100 | 0 |
+| `/concrete-calculator` | 100/100/100/100  | 100/100/100/100 | 0 |
+| `/post-hole-concrete-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+| `/paint-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+| `/tile-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+| `/brick-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+| `/gravel-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+| `/mulch-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+| `/drywall-calculator` | 99/100/100/100  | 100/100/100/100 | 0 |
+
+*The first homepage mobile observation was 93; four additional observations
+with the same source and unchanged settings returned 94, 99, 99, and 99.
+The five-observation median is 99. All readings, including both below-target
+observations, are retained in
+[the sample record](audits/2026-10-16/home-mobile-samples.json).
+The initial observations remain failed individual measurements. The follow-up
+uses repeated measurements in line with
+[Lighthouse's variability guidance](https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md).
+No category, throttling setting, or audit was disabled to raise a score.
+
+### Targeted manual browser review
+
+Chrome desktop interactions matched the guide arithmetic:
+
+| Calculator | Live browser inputs | Observed result |
+| --- | --- | --- |
+| Concrete | 9 × 9 ft × 4 in; 0% waste; 80 lb bags | 1 yd³; 45 bags |
+| Post holes | Six 30 cm diameter × 60 cm holes; 10 cm square posts; 10% extra | 15 × 80 lb bags |
+| Paint | 4 × 3 × 2.5 m walls; 3 m² openings; two coats; 10 m²/L; 10% extra | 7.04 L |
+| Tile | 3.7 × 2.6 m; 600 × 600 mm tile; 10% waste; four tiles/box | Eight boxes; 32 tiles |
+| Brick | 6 × 2.7 m; 3.54 m² openings; custom 500 brick/10 m²; 5% waste | 665 bricks |
+| Gravel | 6 × 4 m; 10 cm depth; 1,500 kg/m³; 10% extra; 25 kg bags | 2.64 m³; 3,960 kg; 159 bags |
+| Mulch | 3.4 × 3 m; 2.5 cm added depth; 10% extra; 40 L bags | Eight bags |
+| Drywall | 4 × 3 × 2.5 m; ceiling; 2 m² openings; 10% waste | 18 at 1.2 × 2.4 m; 14 at 1.2 × 3 m; 17 at 4 × 8 ft |
+
+- Concrete unit round trips preserved 9 ft × 9 ft × 4 in. Clearing a dimension
+  removed the result; restoring it returned the expected quantity.
+- The homepage example exposes its visible text as the link name and opens
+  Concrete when activated with Enter.
+- The brick guide section link, loaded illustration, dimensions, alt text, and
+  lack of desktop horizontal overflow were checked. The
+  [captured desktop view](audits/2026-10-16/brick-guide-desktop.jpg) preserves the
+  public content view from revision `1c6bf312c3faa05de8ee930b92581cd50dd04d25`.
+- The reopened analytics panel was fixed at the viewport bottom, received
+  focus, and left the document at its current scroll position. Declining
+  closed it without moving the main content; it stayed closed after reload.
+  No Clarity script was present during these denied-consent checks.
+- The Lighthouse mobile capture at 412 × 823 showed the heading and a bounded
+  bottom panel with Allow, Decline, and Privacy controls visible.
+- No application console warning/error was observed during the reviewed
+  browser flows. Browser-extension metadata errors are excluded.
+
+Manual coverage is the targeted list above. The full phone interaction,
+print/copy/history, and complete keyboard checklist from QA.md were not
+repeated, so this record does not claim a complete manual milestone pass.
+
+### Discovery follow-up
+
+The live sitemap exposes 24 production-host URLs; robots.txt declares that
+sitemap, and llms.txt uses the same host. After public content verification,
+one `npm run seo:indexnow` submission received **HTTP 200 for 24 URLs**.
+This records receipt, not a Google indexing request or an indexing outcome.
+The preceding dry run validated the 24-URL allowlist but its Windows Node 24
+process asserted at explicit shutdown; it did not submit. The separate actual
+submission completed with the receipt above and was not repeated.

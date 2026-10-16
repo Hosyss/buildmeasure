@@ -1,0 +1,710 @@
+{
+  "commit": "1c6bf312c3faa05de8ee930b92581cd50dd04d25",
+  "deployment": "98444608-eb70-464e-82c8-3c141b4c7ae1",
+  "type": "Single-run lab audits of public production URLs",
+  "platform": "Windows; Chrome 155.0.8059.80; Lighthouse 13.5.0",
+  "runs": [
+    {
+      "url": "https://buildmeasuretools.pages.dev/",
+      "route": "/",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:27:00.319Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1839.17,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1839.17,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 4221.329311999822,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/",
+      "route": "/",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:27:16.308Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 372.3075,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 412.3075,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 609.9795449999795,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04261470037453183,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/concrete-calculator",
+      "route": "/concrete-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:27:30.632Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1087.326,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1369.326,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1477.3028779994156,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.1684955953827461,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/concrete-calculator",
+      "route": "/concrete-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:27:45.045Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 425.994,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 465.994,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 597.8837344999263,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04261470037453183,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/post-hole-concrete-calculator",
+      "route": "/post-hole-concrete-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:27:59.592Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1351.047,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1651.047,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1628.1428079991742,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.1684955953827461,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/post-hole-concrete-calculator",
+      "route": "/post-hole-concrete-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:28:13.810Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 469.323,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 509.323,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 690.4862797500392,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04261470037453183,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/paint-calculator",
+      "route": "/paint-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:28:28.225Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1321.6775,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1771.6775,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 2428.4394439997823,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.1684955953827461,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/paint-calculator",
+      "route": "/paint-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:28:43.016Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 396.1615,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 436.1615,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 469.16054916682174,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04269662921348315,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/tile-calculator",
+      "route": "/tile-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:28:57.090Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1294.682,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1744.682,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 2408.0899120004096,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.1684955953827461,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/tile-calculator",
+      "route": "/tile-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:29:11.969Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 398.7195,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 438.7195,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 425.9235824999238,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04269662921348315,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/brick-calculator",
+      "route": "/brick-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:29:25.870Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1338.7665,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1788.7665,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 2631.688687999379,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/brick-calculator",
+      "route": "/brick-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:29:40.559Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 407.7635,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 447.7635,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 436.35789783333814,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04261470037453183,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/gravel-calculator",
+      "route": "/gravel-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:29:54.393Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1314.007,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1764.007,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 4028.052450000908,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/gravel-calculator",
+      "route": "/gravel-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:30:10.163Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 418.3905,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 418.3905,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 591.2662587499578,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04269662921348315,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/mulch-calculator",
+      "route": "/mulch-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:30:24.294Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1302.1805,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1752.1805,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 2428.953563999734,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.1684955953827461,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/mulch-calculator",
+      "route": "/mulch-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:30:38.956Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 399.274,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 439.274,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 441.7692816666298,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04269662921348315,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/drywall-calculator",
+      "route": "/drywall-calculator",
+      "profile": "mobile",
+      "fetchTime": "2026-10-16T12:30:52.793Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1756.616,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 2559.924,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 4266.897593999899,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    },
+    {
+      "url": "https://buildmeasuretools.pages.dev/drywall-calculator",
+      "route": "/drywall-calculator",
+      "profile": "desktop",
+      "fetchTime": "2026-10-16T12:31:08.708Z",
+      "lighthouseVersion": "13.5.0",
+      "chromeVersion": "155.0.0.0",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 491.851,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 531.851,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 657.6144626667727,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.04261470037453183,
+          "unit": "unitless"
+        }
+      },
+      "runtimeError": null,
+      "warnings": [],
+      "failedAccessibility": []
+    }
+  ]
+}

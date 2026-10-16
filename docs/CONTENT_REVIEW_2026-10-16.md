@@ -168,3 +168,27 @@ focus the panel instead of scrolling the document back to the top. Consent
 storage, allow/decline behavior, Clarity loading conditions, and advertising
 storage policy are unchanged. Full automated and live checks are pending for
 this follow-up; the initial mobile failure is not reclassified as a pass.
+
+### Verified publication and measurements
+
+PRs #79 and #80 passed the complete GitHub Node 22 quality/security gate and
+were merged. Production deployment `7547c1db-f56f-4516-aa38-b5bd5497002d`
+serves revision `16539124ded65587efc43a298fdfac3ce9526ac6`.
+
+- All 40 public page/asset/health checks passed again on that revision.
+- Every post-fix Lighthouse observation recorded CLS 0. The eight calculators
+  scored 99–100 Performance on mobile and 100 on desktop; their other three
+  categories scored 100. No Accessibility audit failed.
+- The homepage mobile observations were 93, 94, 99, 99, 99, with a median of
+  99; desktop scored 100 in all categories. The two individual below-target
+  readings are preserved alongside the repeated measurements.
+- Targeted desktop browser checks matched all eight calculator examples and
+  verified the homepage keyboard link and the consent panel's focus,
+  placement, decline, and reload behavior. The mobile lab capture showed
+  usable consent controls. Full manual milestone coverage remains partial.
+- One post-verification IndexNow submission received HTTP 200 for 24 sitemap
+  URLs, following the repository's content-update discovery instructions.
+
+Full route scores, observations, limits, source revisions, and the public
+content screenshot are linked from the
+[2026-10-16 audit record](AUDITS.md#2026-10-16--editorial-content-and-public-production-follow-up).
