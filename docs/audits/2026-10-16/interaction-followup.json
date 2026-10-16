@@ -1,0 +1,2048 @@
+{
+  "auditDate": "2026-10-16",
+  "productVersion": "0.6.0",
+  "status": "partial",
+  "sourceRevision": "d7acaec69f1404098ced28daa6562c7dc40e959c",
+  "fixedProductionRevision": "d299c6b2290d060c3bd2f83277ac07aacd228802",
+  "viewport": {
+    "width": 1363,
+    "height": 936
+  },
+  "tool": "CUA cloud Chrome CDP; exact browser version not exposed",
+  "fixedProductionDeployment": "acecc06d-1094-431d-8dcd-835fb1ea0e0b",
+  "verifiedReferenceObservations": [
+    "concrete-80",
+    "concrete-60",
+    "concrete-40",
+    "post-hole",
+    "paint",
+    "tile",
+    "brick",
+    "brick-waste",
+    "gravel",
+    "mulch",
+    "drywall-exact",
+    "drywall-waste"
+  ],
+  "unverified": [
+    "Exact 360 x 800 and 768 x 1024 interactive viewports",
+    "Print-preview rendering and exported PDF output",
+    "A full assistive-technology or physical touch-device review"
+  ],
+  "notes": [
+    "Observations are evidence, not a count of passing test cases. Superseded or inconclusive attempts are marked inline.",
+    "All eight calculator histories and the disposable QA project were cleared through the UI after testing.",
+    "No new Lighthouse run was performed for this isolated accessible-copy/documentation patch. See the preceding audit for the separate automated mobile/desktop evidence."
+  ],
+  "observationCount": 205,
+  "observations": [
+    {
+      "route": "concrete",
+      "check": "1 yd3 bag 40",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\nORDER THIS VOLUME\n1\nyd³\n\nIncludes 0% waste allowance.\n\nNet volume\n0.76 m³\nCubic feet\n27 ft³\nLiters\n765 L\n40 lb bags\n90 bags\n\nBag yields are approximate. Confirm the selected product yield and ready-mix order increment with your supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "concrete",
+      "check": "1 yd3 bag 60",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\nORDER THIS VOLUME\n1\nyd³\n\nIncludes 0% waste allowance.\n\nNet volume\n0.76 m³\nCubic feet\n27 ft³\nLiters\n765 L\n60 lb bags\n60 bags\n\nBag yields are approximate. Confirm the selected product yield and ready-mix order increment with your supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "concrete",
+      "check": "1 yd3 bag 80",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\nORDER THIS VOLUME\n1\nyd³\n\nIncludes 0% waste allowance.\n\nNet volume\n0.76 m³\nCubic feet\n27 ft³\nLiters\n765 L\n80 lb bags\n45 bags\n\nBag yields are approximate. Confirm the selected product yield and ready-mix order increment with your supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "concrete",
+      "check": "copy with price",
+      "clipboard": "",
+      "interpretation": "Inconclusive early clipboard read. Superseded by the priced-copy check after the copied notice."
+    },
+    {
+      "route": "concrete",
+      "check": "8ft roundtrip",
+      "value": "8"
+    },
+    {
+      "route": "concrete",
+      "check": "copy after completion",
+      "clipboard": "BuildMeasure concrete estimate\n3.26 yd³ · 2.49 m³ · 147 × 80 lb bags\nNet volume: 2.27 m³\nWaste allowance: 10%",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 9 × 4 ft / in\n0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\n9 × 9 × 4 ft / in\n1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50"
+    },
+    {
+      "route": "concrete",
+      "check": "waste 0",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\nORDER THIS VOLUME\n2.96\nyd³\n\nIncludes 0% waste allowance.\n\nNet volume\n2.27 m³\nCubic feet\n80 ft³\nLiters\n2,265 L\n80 lb bags\n134 bags\n\nBag yields are approximate. Confirm the selected product yield and ready-mix order increment with your supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "concrete",
+      "check": "waste 50",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\nORDER THIS VOLUME\n4.44\nyd³\n\nIncludes 50% waste allowance.\n\nNet volume\n2.27 m³\nCubic feet\n120 ft³\nLiters\n3,398 L\n80 lb bags\n200 bags\n\nBag yields are approximate. Confirm the selected product yield and ready-mix order increment with your supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "concrete",
+      "check": "empty Length ft",
+      "error": [],
+      "interpretation": "Inconclusive selector-only attempt. Later alert checks captured each required-field error."
+    },
+    {
+      "route": "concrete",
+      "check": "empty Width ft",
+      "error": [],
+      "interpretation": "Inconclusive selector-only attempt. Later alert checks captured each required-field error."
+    },
+    {
+      "route": "concrete",
+      "check": "empty Thickness in",
+      "error": [],
+      "interpretation": "Inconclusive selector-only attempt. Later alert checks captured each required-field error."
+    },
+    {
+      "route": "paint",
+      "check": "coats 1",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n3\n× 1 gal\n\nMinimum paint: 2.5 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n2.5 gal\nLiters\n9.46 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "coats 2",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n5\n× 1 gal\n\nMinimum paint: 5 gal\n\nPaintable area\n1,000 ft²\nArea across 2 coats\n2,000 ft²\nUS gallons\n5 gal\nLiters\n18.93 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "coats 3",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n8\n× 1 gal\n\nMinimum paint: 7.5 gal\n\nPaintable area\n1,000 ft²\nArea across 3 coats\n3,000 ft²\nUS gallons\n7.5 gal\nLiters\n28.39 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "coats 4",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n10\n× 1 gal\n\nMinimum paint: 10 gal\n\nPaintable area\n1,000 ft²\nArea across 4 coats\n4,000 ft²\nUS gallons\n10 gal\nLiters\n37.85 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "coats 5",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n13\n× 1 gal\n\nMinimum paint: 12.5 gal\n\nPaintable area\n1,000 ft²\nArea across 5 coats\n5,000 ft²\nUS gallons\n12.5 gal\nLiters\n47.32 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "coats 6",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n15\n× 1 gal\n\nMinimum paint: 15 gal\n\nPaintable area\n1,000 ft²\nArea across 6 coats\n6,000 ft²\nUS gallons\n15 gal\nLiters\n56.78 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "allowance 0",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n3\n× 1 gal\n\nMinimum paint: 2.5 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n2.5 gal\nLiters\n9.46 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "allowance 10",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n3\n× 1 gal\n\nMinimum paint: 2.75 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n2.75 gal\nLiters\n10.41 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "allowance 25",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n4\n× 1 gal\n\nMinimum paint: 3.12 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n3.12 gal\nLiters\n11.83 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "1 quart can",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n10\n× 1 qt\n\nMinimum paint: 2.5 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n2.5 gal\nLiters\n9.46 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "1 gallon can",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n3\n× 1 gal\n\nMinimum paint: 2.5 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n2.5 gal\nLiters\n9.46 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "5 gallon pail",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n1\n× 5 gal\n\nMinimum paint: 2.5 gal\n\nPaintable area\n1,000 ft²\nArea across 1 coat\n1,000 ft²\nUS gallons\n2.5 gal\nLiters\n9.46 L\nWalls\n1,000 ft²\nCeiling\n0 ft²\nOpenings\n−0 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "openings equal gross rejected",
+      "alert": "Opening area must be smaller than the surfaces being painted."
+    },
+    {
+      "route": "paint",
+      "check": "metric 1 liter can",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n9\n× 1 L\n\nMinimum paint: 8.14 L\n\nPaintable area\n79.9 m²\nArea across 1 coat\n79.9 m²\nUS gallons\n2.15 gal\nLiters\n8.14 L\nWalls\n61.32 m²\nCeiling\n18.58 m²\nOpenings\n−0 m²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "metric 2.5 liter can",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n4\n× 2.5 L\n\nMinimum paint: 8.14 L\n\nPaintable area\n79.9 m²\nArea across 1 coat\n79.9 m²\nUS gallons\n2.15 gal\nLiters\n8.14 L\nWalls\n61.32 m²\nCeiling\n18.58 m²\nOpenings\n−0 m²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "metric 5 liter pail",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n2\n× 5 L\n\nMinimum paint: 8.14 L\n\nPaintable area\n79.9 m²\nArea across 1 coat\n79.9 m²\nUS gallons\n2.15 gal\nLiters\n8.14 L\nWalls\n61.32 m²\nCeiling\n18.58 m²\nOpenings\n−0 m²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "metric 10 liter pail",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n1\n× 10 L\n\nMinimum paint: 8.14 L\n\nPaintable area\n79.9 m²\nArea across 1 coat\n79.9 m²\nUS gallons\n2.15 gal\nLiters\n8.14 L\nWalls\n61.32 m²\nCeiling\n18.58 m²\nOpenings\n−0 m²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue"
+    },
+    {
+      "route": "paint",
+      "check": "roundtrip",
+      "values": [
+        {
+          "label": "paint-length",
+          "value": "8"
+        },
+        {
+          "label": "paint-width",
+          "value": "25"
+        },
+        {
+          "label": "paint-height",
+          "value": "10"
+        },
+        {
+          "label": "",
+          "value": "0"
+        },
+        {
+          "label": "",
+          "value": "400"
+        },
+        {
+          "label": "",
+          "value": "0"
+        },
+        {
+          "label": "Price per 1 gal container",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "route": "paint",
+      "check": "copy",
+      "clipboard": "BuildMeasure paint estimate\n3 × 1 gal · 2.37 gal\nPaintable area: 860 ft²\nCoats: 1\nExtra allowance: 10%"
+    },
+    {
+      "route": "paint",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.37 gal\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.15 gal"
+    },
+    {
+      "route": "tile",
+      "check": "default 14 boxes / 140 tiles",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n14\n× 10 tiles\n\nPurchase total: 140 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n120\nTiles with 10% waste\n132\nPurchased coverage\n140 ft²\nLayout grid check\n12 × 10\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n8 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "waste 0",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n12\n× 10 tiles\n\nPurchase total: 120 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n120\nTiles with 0% waste\n120\nPurchased coverage\n120 ft²\nLayout grid check\n12 × 10\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "waste 10",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n14\n× 10 tiles\n\nPurchase total: 140 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n120\nTiles with 10% waste\n132\nPurchased coverage\n140 ft²\nLayout grid check\n12 × 10\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n8 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "waste 25",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n15\n× 10 tiles\n\nPurchase total: 150 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n120\nTiles with 25% waste\n150\nPurchased coverage\n150 ft²\nLayout grid check\n12 × 10\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "waste 50",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n18\n× 10 tiles\n\nPurchase total: 180 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n120\nTiles with 50% waste\n180\nPurchased coverage\n180 ft²\nLayout grid check\n12 × 10\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "rectangular Auto — fewer grid cells",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n36\n× 10 tiles\n\nPurchase total: 360 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n240\nTiles with 50% waste\n360\nPurchased coverage\n180 ft²\nLayout grid check\n12 × 20\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "rectangular Tile length along surface length",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n36\n× 10 tiles\n\nPurchase total: 360 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n240\nTiles with 50% waste\n360\nPurchased coverage\n180 ft²\nLayout grid check\n12 × 20\nOrientation\nLength aligned\nGrout joint\n0.125 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "rectangular Rotate tile 90°",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n36\n× 10 tiles\n\nPurchase total: 360 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n240\nTiles with 50% waste\n360\nPurchased coverage\n180 ft²\nLayout grid check\n24 × 10\nOrientation\nRotated 90°\nGrout joint\n0.125 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "grout changes layout only",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n36\n× 10 tiles\n\nPurchase total: 360 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n240\nTiles with 50% waste\n360\nPurchased coverage\n180 ft²\nLayout grid check\n21 × 10\nOrientation\nRotated 90°\nGrout joint\n1 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "tiles per box 0",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid surface, tile, joint, and box values to calculate your estimate.",
+      "alerts": [
+        "Tiles per box must be a whole number from 1 to 500."
+      ]
+    },
+    {
+      "route": "tile",
+      "check": "tiles per box -1",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid surface, tile, joint, and box values to calculate your estimate.",
+      "alerts": [
+        "Tiles per box must be a whole number from 1 to 500."
+      ]
+    },
+    {
+      "route": "tile",
+      "check": "tiles per box 1.5",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid surface, tile, joint, and box values to calculate your estimate.",
+      "alerts": [
+        "Tiles per box must be a whole number from 1 to 500."
+      ]
+    },
+    {
+      "route": "tile",
+      "check": "tiles per box 1",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n360\n× 1 tiles\n\nPurchase total: 360 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n240\nTiles with 50% waste\n360\nPurchased coverage\n180 ft²\nLayout grid check\n21 × 10\nOrientation\nRotated 90°\nGrout joint\n1 in\nExtra from box rounding\n0 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "tiles per box 13",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n28\n× 13 tiles\n\nPurchase total: 364 tiles\n\nSurface area\n120 ft²\nMinimum whole tiles\n240\nTiles with 50% waste\n360\nPurchased coverage\n182 ft²\nLayout grid check\n21 × 10\nOrientation\nRotated 90°\nGrout joint\n1 in\nExtra from box rounding\n4 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "joint equals tile width",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid surface, tile, joint, and box values to calculate your estimate.",
+      "alerts": [
+        "Grout joint width must be smaller than both tile dimensions."
+      ]
+    },
+    {
+      "route": "tile",
+      "check": "metric equivalent",
+      "result": "TILE ESTIMATE\n\nYour result\nEngine v0.1.1\nBOXES TO BUY\n19\n× 13 tiles\n\nPurchase total: 247 tiles\n\nSurface area\n80 ft²\nMinimum whole tiles\n160\nTiles with 50% waste\n240\nPurchased coverage\n123.5 ft²\nLayout grid check\n16 × 10\nOrientation\nRotated 90°\nGrout joint\n0.125 in\nExtra from box rounding\n7 tiles\n\nThe purchase quantity is area-based and includes your waste allowance. The grid is a layout check only; it does not optimize reuse of cut pieces.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "tile",
+      "check": "8ft roundtrip",
+      "value": "8"
+    },
+    {
+      "route": "tile",
+      "check": "copy",
+      "clipboard": "BuildMeasure tile estimate\n14 boxes · 182 tiles\nSurface area: 80 ft²\nTiles with 10% waste: 176\nLayout check: 16 × 10"
+    },
+    {
+      "route": "tile",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 10 ft · 12 × 6 in tile\n14 boxes · 182 tiles\n8 × 10 ft · 12 × 6 in tile\n19 boxes · 247 tiles"
+    },
+    {
+      "route": "gravel",
+      "check": "reference 1.358 yd3 / 3410lb / 69 bags",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.358\nyd³\n\nIncludes 10% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,410 lb\nBulk material\n1.705 short tons\n50 lb bags\n69 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "allowance 0",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.235\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,100 lb\nBulk material\n1.55 short tons\n50 lb bags\n62 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "allowance 10",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.358\nyd³\n\nIncludes 10% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,410 lb\nBulk material\n1.705 short tons\n50 lb bags\n69 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "allowance 25",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.543\nyd³\n\nIncludes 25% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,875 lb\nBulk material\n1.937 short tons\n50 lb bags\n78 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "allowance 50",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.852\nyd³\n\nIncludes 50% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n4,650 lb\nBulk material\n2.325 short tons\n50 lb bags\n93 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "density 90 changes mass only",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.235\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,000 lb\nBulk material\n1.5 short tons\n50 lb bags\n60 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "exact boundary 3000lb / 100lb = 30 bags",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.235\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,000 lb\nBulk material\n1.5 short tons\n100 lb bags\n30 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "metric equivalent with retained price",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.235\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.235 yd³\nEstimated mass\n3,000 lb\nBulk material\n1.5 short tons\n100 lb bags\n30 bags\nEstimated material cost\n$ 90.00\nBased on\n30 × $ 3.00 per 100 lb bag\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "gravel",
+      "check": "roundtrip values",
+      "values": [
+        {
+          "label": "gravel-length",
+          "value": "10"
+        },
+        {
+          "label": "gravel-width",
+          "value": "10"
+        },
+        {
+          "label": "gravel-depth",
+          "value": "4"
+        },
+        {
+          "label": "",
+          "value": "0"
+        },
+        {
+          "label": "",
+          "value": "90"
+        },
+        {
+          "label": "",
+          "value": "100"
+        },
+        {
+          "label": "Price per 100 lb bag",
+          "value": "3"
+        }
+      ]
+    },
+    {
+      "route": "gravel",
+      "check": "changed package clears price",
+      "price": ""
+    },
+    {
+      "route": "gravel",
+      "check": "invalid/extreme length 0",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid project and material values to calculate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "gravel",
+      "check": "invalid/extreme length -1",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid project and material values to calculate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "gravel",
+      "check": "invalid/extreme length 1e300",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid project and material values to calculate.",
+      "alerts": [
+        "These values produce a result outside the calculator's safe numeric range."
+      ]
+    },
+    {
+      "route": "gravel",
+      "check": "invalid/extreme length 1e-300",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n0 yd³\nEstimated mass\n0 lb\nBulk material\n0 short tons\n50 lb bags\n1 bags\n\nWeight depends on the selected bulk density. Confirm material state, density, delivery increments, and bag weight with the supplier.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": [],
+      "interpretation": "This is still a positive finite value, not normalization underflow. The separate 1e-323 check was rejected."
+    },
+    {
+      "route": "gravel",
+      "check": "copy",
+      "clipboard": "BuildMeasure gravel estimate\n1.358 yd³ · 1.65 short tons · 66 × 50 lb bags\nNet volume: 0.944 m³\nAllowance: 10%\nSelected bulk density: 1,441.66 kg/m³"
+    },
+    {
+      "route": "gravel",
+      "check": "normalization underflow rejected",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid project and material values to calculate.",
+      "alerts": [
+        "These values produce a result outside the calculator's safe numeric range."
+      ]
+    },
+    {
+      "route": "gravel",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n10 × 10 ft · 4 in deep\n1.358 yd³ · 1.65 short tons · 66 × 50 lb bags\n10 × 10 ft · 4 in deep\n1.235 yd³ · 1.5 short tons · 60 × 50 lb bags"
+    },
+    {
+      "route": "mulch",
+      "check": "reference 2.037 yd3 / 8ft2 per bag / 28 bags",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n2.037\nyd³\n\nIncludes 10% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n8 ft²\n2 ft³ bags\n28 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "allowance 0",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.852\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n8 ft²\n2 ft³ bags\n25 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "allowance 10",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n2.037\nyd³\n\nIncludes 10% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n8 ft²\n2 ft³ bags\n28 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "allowance 25",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n2.315\nyd³\n\nIncludes 25% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n8 ft²\n2 ft³ bags\n32 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "allowance 50",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n2.778\nyd³\n\nIncludes 50% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n8 ft²\n2 ft³ bags\n38 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "exact boundary 50ft3 / 2ft3 = 25 bags",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.852\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n8 ft²\n2 ft³ bags\n25 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "bag size changes coverage and count only",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n1.852\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n1.852 yd³\nBed area\n200 ft²\nCoverage per bag\n4 ft²\n1 ft³ bags\n50 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "depth doubles volume and halves coverage",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n3.704\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n3.704 yd³\nBed area\n200 ft²\nCoverage per bag\n2 ft²\n1 ft³ bags\n100 bags\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "metric equivalent",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n3.704\nyd³\n\nIncludes 0% project allowance.\n\nNet volume\n3.704 yd³\nBed area\n200 ft²\nCoverage per bag\n2 ft²\n1 ft³ bags\n100 bags\nEstimated material cost\n$ 400.00\nBased on\n100 × $ 4.00 per 1 ft³ bag\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nConfirm the installed depth, bag volume, and bulk-delivery increments. Mulch settles and existing material can reduce the amount needed.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "mulch",
+      "check": "roundtrip / retained price",
+      "values": [
+        {
+          "label": "mulch-length",
+          "value": "20"
+        },
+        {
+          "label": "mulch-width",
+          "value": "10"
+        },
+        {
+          "label": "mulch-depth",
+          "value": "6"
+        },
+        {
+          "label": "",
+          "value": "0"
+        },
+        {
+          "label": "",
+          "value": "1"
+        },
+        {
+          "label": "Price per 1 ft³ bag",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "invalid length ",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid bed dimensions and a bag volume to calculate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "invalid length 0",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid bed dimensions and a bag volume to calculate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "invalid length -1",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid bed dimensions and a bag volume to calculate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "invalid length 1e300",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid bed dimensions and a bag volume to calculate.",
+      "alerts": [
+        "These values produce a result outside the calculator's safe numeric range."
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "invalid length 1e-323",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid bed dimensions and a bag volume to calculate.",
+      "alerts": [
+        "These values produce a result outside the calculator's safe numeric range."
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "copy",
+      "clipboard": "BuildMeasure mulch estimate\n4.074 yd³ · 110 × 1 ft³ bags\nNet volume: 2.832 m³\nAllowance: 10%\nSelected bag volume: 28.317 L\nEstimated material cost: $ 440.00"
+    },
+    {
+      "route": "mulch",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n20 × 10 ft · 6 in deep\n4.074 yd³ · 110 × 1 ft³ bags · Est. cost $ 440.00\n20 × 10 ft · 6 in deep\n3.704 yd³ · 100 × 1 ft³ bags · Est. cost $ 400.00"
+    },
+    {
+      "route": "post-hole",
+      "check": "reference 1.571 ft3 / 3 bags",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.058\nyd³\n\nIncludes 0% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n1.57 ft³\n80 lb bags\n3 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "allowance 0",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.058\nyd³\n\nIncludes 0% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n1.57 ft³\n80 lb bags\n3 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "allowance 10",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.064\nyd³\n\nIncludes 10% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n1.73 ft³\n80 lb bags\n3 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "allowance 25",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.073\nyd³\n\nIncludes 25% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n1.96 ft³\n80 lb bags\n4 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "allowance 50",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.087\nyd³\n\nIncludes 50% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n2.36 ft³\n80 lb bags\n4 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "bag 40",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.087\nyd³\n\nIncludes 50% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n2.36 ft³\n40 lb bags\n8 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "bag 60",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.087\nyd³\n\nIncludes 50% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n2.36 ft³\n60 lb bags\n6 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "bag 80",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.087\nyd³\n\nIncludes 50% extra allowance.\n\nNet per hole\n1.571 ft³\nTotal net concrete\n0.044 m³\nOrder cubic feet\n2.36 ft³\n80 lb bags\n4 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "round post displacement",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.078\nyd³\n\nIncludes 50% extra allowance.\n\nNet per hole\n1.396 ft³\nTotal net concrete\n0.04 m³\nOrder cubic feet\n2.09 ft³\n80 lb bags\n4 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "round post equals hole rejected",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid hole geometry to calculate your estimate.",
+      "alerts": [
+        "Round post diameter must be smaller than the hole diameter."
+      ]
+    },
+    {
+      "route": "post-hole",
+      "check": "square diagonal exceeds hole rejected",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter valid hole geometry to calculate your estimate.",
+      "alerts": [
+        "Square post diagonal must fit inside the hole diameter."
+      ]
+    },
+    {
+      "route": "post-hole",
+      "check": "metric equivalent",
+      "result": "CONCRETE ESTIMATE\n\nYour result\nEngine v0.1.0\nORDER THIS VOLUME\n0.075\nyd³\n\nIncludes 50% extra allowance.\n\nNet per hole\n1.349 ft³\nTotal net concrete\n0.038 m³\nOrder cubic feet\n2.02 ft³\n80 lb bags\n4 bags\n\nThis is a quantity estimate, not a structural post-hole design. Verify hole geometry, local requirements, and the selected mix yield before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "post-hole",
+      "check": "roundtrip",
+      "values": [
+        {
+          "label": "post-hole-count",
+          "value": "1"
+        },
+        {
+          "label": "post-hole-diameter",
+          "value": "12"
+        },
+        {
+          "label": "post-hole-depth",
+          "value": "24"
+        },
+        {
+          "label": "post-size",
+          "value": "4"
+        },
+        {
+          "label": "",
+          "value": "50"
+        },
+        {
+          "label": "Price per 80 lb bag",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "route": "post-hole",
+      "check": "copy",
+      "clipboard": "BuildMeasure post-hole concrete estimate\n0.05 yd³ · 0.04 m³ · 3 × 80 lb bags\nHoles: 1\nPost displacement: square post\nNet concrete: 0.04 m³\nAllowance: 0%"
+    },
+    {
+      "route": "post-hole",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n1 holes · Ø 12 in × 24 in\n0.05 yd³ · 0.04 m³ · 3 × 80 lb bags\n1 holes · Ø 12 in × 24 in\n0.07 yd³ · 0.06 m³ · 4 × 80 lb bags"
+    },
+    {
+      "route": "brick",
+      "check": "default 1021 bricks",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n1,021\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n160 ft²\nOpenings removed\n16 ft²\nNet brick area\n144 ft²\nMinimum whole bricks\n972\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n49 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Modular — 675 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n675\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Engineer Modular — 563 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n563\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n563\nCoverage basis\nEngineer Modular\nCoverage rate\n563 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nEngineer Modular coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Closure Modular — 450 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n450\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n450\nCoverage basis\nClosure Modular\nCoverage rate\n450 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nClosure Modular coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Roman — 600 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n600\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n600\nCoverage basis\nRoman\nCoverage rate\n600 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nRoman coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Norman — 450 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n450\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n450\nCoverage basis\nNorman\nCoverage rate\n450 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nNorman coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Utility — 300 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n300\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n300\nCoverage basis\nUtility\nCoverage rate\n300 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nUtility coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Meridian — 225 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n225\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n225\nCoverage basis\nMeridian\nCoverage rate\n225 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nMeridian coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "100 ft2 Standard — 655 bricks / 100 ft²",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n655\nbricks\n\nIncludes 0% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n655\nCoverage basis\nStandard\nCoverage rate\n655 brick / 100 ft²\nAllowance adds\n0 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nStandard coverage loaded from the BIA Table 4 estimating rate.",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "waste 5",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "waste 25",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n844\nbricks\n\nIncludes 25% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n169 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "waste 50",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n1,013\nbricks\n\nIncludes 50% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n338 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "waste -1",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter a valid wall, openings area, brick coverage rate, and allowance to calculate your estimate.",
+      "alerts": [
+        "Waste allowance must be between 0% and 50%."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "waste 51",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter a valid wall, openings area, brick coverage rate, and allowance to calculate your estimate.",
+      "alerts": [
+        "Waste allowance must be between 0% and 50%."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "openings equal gross",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter a valid wall, openings area, brick coverage rate, and allowance to calculate your estimate.",
+      "alerts": [
+        "Openings area must be smaller than the gross wall area."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "cost -1 leaves 709 bricks",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": [
+        "Unit price must be a finite number that is zero or greater."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "cost 0 leaves 709 bricks",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\nEstimated material cost\n$ 0.00\nBased on\n709 × $ 0.00 per brick\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "cost 0.50 leaves 709 bricks",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\nEstimated material cost\n$ 354.50\nBased on\n709 × $ 0.50 per brick\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "cost 1e300 leaves 709 bricks",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": [
+        "That price is outside the safe numeric range for a reliable total."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "currency label EUR",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\nEstimated material cost\nEUR 354.50\nBased on\n709 × EUR 0.50 per brick\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "currency label EGP",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\nEstimated material cost\nEGP 354.50\nBased on\n709 × EGP 0.50 per brick\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "currency label $",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\nEstimated material cost\n$ 354.50\nBased on\n709 × $ 0.50 per brick\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "metric 709 / price retained",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n709\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n675\nCoverage basis\nModular\nCoverage rate\n675 brick / 100 ft²\nAllowance adds\n34 bricks\nBond basis\nRunning / stack only\nEstimated material cost\n$ 354.50\nBased on\n709 × $ 0.50 per brick\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "copy with cost",
+      "clipboard": "BuildMeasure brick estimate\n709 bricks to order\nNet wall area: 100 ft²\nBrick basis: Modular\nCoverage rate: 675 brick / 100 ft²\nWaste allowance: 5%\nEstimated material cost: $ 354.50\nScope: fired-clay brick, running/stack bond quantity basis; verify project detailing separately."
+    },
+    {
+      "route": "brick",
+      "check": "custom product clears price",
+      "price": ""
+    },
+    {
+      "route": "brick",
+      "check": "custom rate 0",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter a valid wall, openings area, brick coverage rate, and allowance to calculate your estimate.",
+      "alerts": [
+        "Brick coverage rate must be greater than zero."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "custom rate -1",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\n—\n\nEnter a valid wall, openings area, brick coverage rate, and allowance to calculate your estimate.",
+      "alerts": [
+        "Brick coverage rate must be greater than zero."
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "custom rate 500",
+      "result": "BRICK ESTIMATE\n\nYour result\nEngine v0.1.0\nBRICKS TO ORDER\n525\nbricks\n\nIncludes 5% waste / breakage allowance.\n\nGross wall area\n100 ft²\nOpenings removed\n0 ft²\nNet brick area\n100 ft²\nMinimum whole bricks\n500\nCoverage basis\nCustom / supplier rate\nCoverage rate\n500 brick / 100 ft²\nAllowance adds\n25 bricks\nBond basis\nRunning / stack only\n\nQuantity estimate for fired-clay brick using a running/stack-bond area rate. It does not estimate mortar, header-pattern corrections, structural design, or code requirements.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "brick",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n10 × 10 ft wall · Modular\n709 bricks to order · 100 ft² net · Est. cost $ 354.50"
+    },
+    {
+      "route": "drywall",
+      "check": "default 18 sheets / 504ft2 net",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n18\n4 × 8 ft sheets\nNet covered area504 ft²\nArea with allowance554.4 ft²\nMinimum whole sheets16\nAllowance-added sheets2\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "vector B 16 sheets",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n16\n4 × 8 ft sheets\nNet covered area504 ft²\nArea with allowance504 ft²\nMinimum whole sheets16\nAllowance-added sheets0\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "exact boundary 320ft2 / 32 = 10 sheets",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n10\n4 × 8 ft sheets\nNet covered area320 ft²\nArea with allowance320 ft²\nMinimum whole sheets10\nAllowance-added sheets0\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "allowance 10",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n11\n4 × 8 ft sheets\nNet covered area320 ft²\nArea with allowance352 ft²\nMinimum whole sheets10\nAllowance-added sheets1\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "allowance 25",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n13\n4 × 8 ft sheets\nNet covered area320 ft²\nArea with allowance400 ft²\nMinimum whole sheets10\nAllowance-added sheets3\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "allowance 50",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n15\n4 × 8 ft sheets\nNet covered area320 ft²\nArea with allowance480 ft²\nMinimum whole sheets10\nAllowance-added sheets5\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "preset 4 × 8 ft",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n10\n4 × 8 ft sheets\nNet covered area320 ft²\nArea with allowance320 ft²\nMinimum whole sheets10\nAllowance-added sheets0\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "preset 4 × 10 ft",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n8\n4 × 10 ft sheets\nNet covered area320 ft²\nArea with allowance320 ft²\nMinimum whole sheets8\nAllowance-added sheets0\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "preset 4 × 12 ft",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n7\n4 × 12 ft sheets\nNet covered area320 ft²\nArea with allowance320 ft²\nMinimum whole sheets7\nAllowance-added sheets0\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "metric physical preset",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nCOMPLETE SHEETS TO ORDER\n7\n1.2192 × 3.6576 m sheets\nNet covered area29.73 m²\nArea with allowance29.73 m²\nMinimum whole sheets7\nAllowance-added sheets0\nEstimated material cost\n$ 14.00\nBased on\n7 × $ 2.00 per 1.2192 × 3.6576 m sheet\n\nCost is approximate and uses only your entered unit price. Tax, delivery, labor, discounts, minimum-order rules, and future price changes are not included.\n\nArea-based quantity only. Confirm layout, board type, orientation, layers, framing, fire/moisture requirements, and supplier stock before purchase.\n\nCopy\nSave\nPrint\nReport a calculation issue\n\nInputs converted to metric units.",
+      "alerts": []
+    },
+    {
+      "route": "drywall",
+      "check": "roundtrip and retained price",
+      "values": [
+        {
+          "label": "",
+          "value": "10"
+        },
+        {
+          "label": "",
+          "value": "10"
+        },
+        {
+          "label": "",
+          "value": "8"
+        },
+        {
+          "label": "",
+          "value": "0"
+        },
+        {
+          "label": "",
+          "value": "4"
+        },
+        {
+          "label": "",
+          "value": "12"
+        },
+        {
+          "label": "",
+          "value": "0"
+        },
+        {
+          "label": "Price per 4 × 12 ft sheet",
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "route": "drywall",
+      "check": "zero panel rejected",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nComplete the highlighted field.\n\nThe estimate updates when every value is valid.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "drywall",
+      "check": "changed panel clears price",
+      "price": ""
+    },
+    {
+      "route": "drywall",
+      "check": "openings equal gross rejected",
+      "result": "LIVE ESTIMATE\n\nDrywall result\nEngine v0.1.0\nComplete the highlighted field.\n\nThe estimate updates when every value is valid.",
+      "alerts": [
+        "Openings area must be smaller than the included wall and ceiling area."
+      ]
+    },
+    {
+      "route": "drywall",
+      "check": "copy",
+      "clipboard": "BuildMeasure drywall estimate\n11 sheets · 352 ft² order area\nNet area: 320 ft²\nAllowance: 10%"
+    },
+    {
+      "route": "drywall",
+      "check": "reload history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n10 × 10 ft room\n11 sheets · 352 ft² order area\n10 × 10 ft room\n10 sheets · 320 ft² order area"
+    },
+    {
+      "route": "projects",
+      "check": "empty builder disabled",
+      "enabled": false,
+      "available": 15
+    },
+    {
+      "route": "projects",
+      "check": "clear selection disables save",
+      "enabled": false
+    },
+    {
+      "route": "projects",
+      "check": "copy 15 estimates",
+      "clipboard": "BuildMeasure project: QA 2026-10-16 — Eight materials\n15 saved estimates\n\n- Drywall: 10 × 10 ft room — 11 sheets · 352 ft² order area\n- Drywall: 10 × 10 ft room — 10 sheets · 320 ft² order area\n- Brick: 10 × 10 ft wall · Modular — 709 bricks to order · 100 ft² net · Est. cost $ 354.50\n- Post-hole concrete: 1 holes · Ø 12 in × 24 in — 0.05 yd³ · 0.04 m³ · 3 × 80 lb bags\n- Post-hole concrete: 1 holes · Ø 12 in × 24 in — 0.07 yd³ · 0.06 m³ · 4 × 80 lb bags\n- Mulch: 20 × 10 ft · 6 in deep — 4.074 yd³ · 110 × 1 ft³ bags · Est. cost $ 440.00\n- Mulch: 20 × 10 ft · 6 in deep — 3.704 yd³ · 100 × 1 ft³ bags · Est. cost $ 400.00\n- Gravel: 10 × 10 ft · 4 in deep — 1.358 yd³ · 1.65 short tons · 66 × 50 lb bags\n- Gravel: 10 × 10 ft · 4 in deep — 1.235 yd³ · 1.5 short tons · 60 × 50 lb bags\n- Tile: 8 × 10 ft · 12 × 6 in tile — 14 boxes · 182 tiles\n- Tile: 8 × 10 ft · 12 × 6 in tile — 19 boxes · 247 tiles\n- Paint: 8 × 25 × 10 ft · 1 coat — 3 × 1 gal · 2.37 gal\n- Paint: 8 × 25 × 10 ft · 1 coat — 3 × 1 gal · 2.15 gal\n- Concrete: 8 × 9 × 4 ft / in — 0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\n- Concrete: 9 × 9 × 4 ft / in — 1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50\n\nShopping list\n- Drywall: 11 × 4 × 8 ft sheet — 10 × 10 ft room\n- Drywall: 10 × 4 × 8 ft sheet — 10 × 10 ft room\n- Brick: 709 × brick — 10 × 10 ft wall · Modular\n- Post-hole concrete: 3 × 80 lb bag — 1 holes · Ø 12 in × 24 in\n- Post-hole concrete: 4 × 80 lb bag — 1 holes · Ø 12 in × 24 in\n- Mulch: 110 × 1 ft³ bag — 20 × 10 ft · 6 in deep\n- Mulch: 100 × 1 ft³ bag — 20 × 10 ft · 6 in deep\n- Gravel: 66 × 50 lb bag — 10 × 10 ft · 4 in deep\n- Gravel: 60 × 50 lb bag — 10 × 10 ft · 4 in deep\n- Tile: 14 × box — 8 × 10 ft · 12 × 6 in tile\n- Tile: 19 × box — 8 × 10 ft · 12 × 6 in tile\n- Paint: 3 × 1 gal container — 8 × 25 × 10 ft · 1 coat\n- Paint: 3 × 1 gal container — 8 × 25 × 10 ft · 1 coat\n- Concrete: 40 × 80 lb bag — 8 × 9 × 4 ft / in\n- Concrete: 45 × 80 lb bag — 9 × 9 × 4 ft / in",
+      "saved": "THIS DEVICE\n\nSaved projects\n\nPrint one project or use your browser's print dialog to save it as a PDF. Shopping lists use structured purchase quantities from newly saved estimates; older snapshots stay readable and are never parsed to invent quantities.\n\nUp to 10\nQA 2026-10-16 — Eight materials\n\nOct 16, 2026 · 15 estimates\n\nDrywall\n10 × 10 ft room\n11 sheets · 352 ft² order area\nDrywall\n10 × 10 ft room\n10 sheets · 320 ft² order area\nBrick\n10 × 10 ft wall · Modular\n709 bricks to order · 100 ft² net · Est. cost $ 354.50\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n0.05 yd³ · 0.04 m³ · 3 × 80 lb bags\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n0.07 yd³ · 0.06 m³ · 4 × 80 lb bags\nMulch\n20 × 10 ft · 6 in deep\n4.074 yd³ · 110 × 1 ft³ bags · Est. cost $ 440.00\nMulch\n20 × 10 ft · 6 in deep\n3.704 yd³ · 100 × 1 ft³ bags · Est. cost $ 400.00\nGravel\n10 × 10 ft · 4 in deep\n1.358 yd³ · 1.65 short tons · 66 × 50 lb bags\nGravel\n10 × 10 ft · 4 in deep\n1.235 yd³ · 1.5 short tons · 60 × 50 lb bags\nTile\n8 × 10 ft · 12 × 6 in tile\n14 boxes · 182 tiles\nTile\n8 × 10 ft · 12 × 6 in tile\n19 boxes · 247 tiles\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.37 gal\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.15 gal\nConcrete\n8 × 9 × 4 ft / in\n0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\nConcrete\n9 × 9 × 4 ft / in\n1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50\n\nSHOPPING LIST\n\nPurchase quantities\n15 lines\nDrywall\n10 × 10 ft room\n11 × 4 × 8 ft sheet\nDrywall\n10 × 10 ft room\n10 × 4 × 8 ft sheet\nBrick\n10 × 10 ft wall · Modular\n709 × brick\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n3 × 80 lb bag\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n4 × 80 lb bag\nMulch\n20 × 10 ft · 6 in deep\n110 × 1 ft³ bag\nMulch\n20 × 10 ft · 6 in deep\n100 × 1 ft³ bag\nGravel\n10 × 10 ft · 4 in deep\n66 × 50 lb bag\nGravel\n10 × 10 ft · 4 in deep\n60 × 50 lb bag\nTile\n8 × 10 ft · 12 × 6 in tile\n14 × box\nTile\n8 × 10 ft · 12 × 6 in tile\n19 × box\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal container\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal container\nConcrete\n8 × 9 × 4 ft / in\n40 × 80 lb bag\nConcrete\n9 × 9 × 4 ft / in\n45 × 80 lb bag\nPrint / Save PDF\nCopy project list\nDelete"
+    },
+    {
+      "route": "projects",
+      "check": "print activation only",
+      "note": "Print clicked; this cloud browser did not expose a print preview or PDF export, so exported output remains unverified.",
+      "interpretation": "Attempt only; no print preview or PDF was verified. An early pointer action reached feedback; subsequent keyboard activation stayed on the intended calculator."
+    },
+    {
+      "route": "projects",
+      "check": "reload persisted project",
+      "saved": "THIS DEVICE\n\nSaved projects\n\nPrint one project or use your browser's print dialog to save it as a PDF. Shopping lists use structured purchase quantities from newly saved estimates; older snapshots stay readable and are never parsed to invent quantities.\n\nUp to 10\nQA 2026-10-16 — Eight materials\n\nOct 16, 2026 · 15 estimates\n\nDrywall\n10 × 10 ft room\n11 sheets · 352 ft² order area\nDrywall\n10 × 10 ft room\n10 sheets · 320 ft² order area\nBrick\n10 × 10 ft wall · Modular\n709 bricks to order · 100 ft² net · Est. cost $ 354.50\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n0.05 yd³ · 0.04 m³ · 3 × 80 lb bags\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n0.07 yd³ · 0.06 m³ · 4 × 80 lb bags\nMulch\n20 × 10 ft · 6 in deep\n4.074 yd³ · 110 × 1 ft³ bags · Est. cost $ 440.00\nMulch\n20 × 10 ft · 6 in deep\n3.704 yd³ · 100 × 1 ft³ bags · Est. cost $ 400.00\nGravel\n10 × 10 ft · 4 in deep\n1.358 yd³ · 1.65 short tons · 66 × 50 lb bags\nGravel\n10 × 10 ft · 4 in deep\n1.235 yd³ · 1.5 short tons · 60 × 50 lb bags\nTile\n8 × 10 ft · 12 × 6 in tile\n14 boxes · 182 tiles\nTile\n8 × 10 ft · 12 × 6 in tile\n19 boxes · 247 tiles\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.37 gal\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.15 gal\nConcrete\n8 × 9 × 4 ft / in\n0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\nConcrete\n9 × 9 × 4 ft / in\n1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50\n\nSHOPPING LIST\n\nPurchase quantities\n15 lines\nDrywall\n10 × 10 ft room\n11 × 4 × 8 ft sheet\nDrywall\n10 × 10 ft room\n10 × 4 × 8 ft sheet\nBrick\n10 × 10 ft wall · Modular\n709 × brick\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n3 × 80 lb bag\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n4 × 80 lb bag\nMulch\n20 × 10 ft · 6 in deep\n110 × 1 ft³ bag\nMulch\n20 × 10 ft · 6 in deep\n100 × 1 ft³ bag\nGravel\n10 × 10 ft · 4 in deep\n66 × 50 lb bag\nGravel\n10 × 10 ft · 4 in deep\n60 × 50 lb bag\nTile\n8 × 10 ft · 12 × 6 in tile\n14 × box\nTile\n8 × 10 ft · 12 × 6 in tile\n19 × box\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal container\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal container\nConcrete\n8 × 9 × 4 ft / in\n40 × 80 lb bag\nConcrete\n9 × 9 × 4 ft / in\n45 × 80 lb bag\nPrint / Save PDF\nCopy project list\nDelete"
+    },
+    {
+      "route": "concrete",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "rgba(16, 32, 28, 0.05) 0px 3px 10px 0px",
+          "tag": "BUTTON",
+          "text": "Imperialft / in"
+        },
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "none",
+          "tag": "BUTTON",
+          "text": "Metricm / cm"
+        },
+        {
+          "id": "concrete-length",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "INPUT",
+          "text": "Lengthft"
+        },
+        {
+          "id": "concrete-width",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "INPUT",
+          "text": "Widthft"
+        },
+        {
+          "id": "concrete-depth",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "INPUT",
+          "text": "Thicknessin"
+        },
+        {
+          "id": "",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "INPUT",
+          "text": "Waste allowance%Adjust for spillage, uneven subgrade, and over-excavation."
+        },
+        {
+          "id": "",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "SELECT",
+          "text": "Bag size40 lb — 0.3 ft³ yield60 lb — 0.45 ft³ yield80 lb — 0.6 ft³ yieldApproximate manufacturer-published yields."
+        },
+        {
+          "id": "",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "INPUT",
+          "text": "Price per 80 lb bag"
+        },
+        {
+          "id": "",
+          "outline": "none",
+          "shadow": "none",
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates."
+        },
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "none",
+          "tag": "BUTTON",
+          "text": "Copy"
+        },
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "none",
+          "tag": "BUTTON",
+          "text": "Save"
+        },
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "none",
+          "tag": "BUTTON",
+          "text": "Print"
+        },
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "none",
+          "tag": "A",
+          "text": "Report a calculation issue"
+        },
+        {
+          "id": "",
+          "outline": "solid",
+          "shadow": "none",
+          "tag": "BUTTON",
+          "text": "Clear all"
+        }
+      ]
+    },
+    {
+      "route": "concrete",
+      "check": "empty Length ft alert verified",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid dimensions to calculate your estimate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "concrete",
+      "check": "empty Width ft alert verified",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid dimensions to calculate your estimate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "concrete",
+      "check": "empty Thickness in alert verified",
+      "result": "MATERIAL ESTIMATE\n\nYour result\nEngine v0.1.1\n—\n\nEnter valid dimensions to calculate your estimate.",
+      "alerts": [
+        "Enter a number greater than zero."
+      ]
+    },
+    {
+      "route": "concrete",
+      "check": "clear history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 9 × 4 ft / in\n0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\n9 × 9 × 4 ft / in\n1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50",
+      "interpretation": "This pointer attempt did not clear history and is not a pass. Later keyboard clear and reload checks verified removal."
+    },
+    {
+      "route": "concrete",
+      "check": "cleared history after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 9 × 4 ft / in\n0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\n9 × 9 × 4 ft / in\n1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50",
+      "interpretation": "This pointer attempt did not clear history and is not a pass. Later keyboard clear and reload checks verified removal."
+    },
+    {
+      "route": "paint",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "height": 50,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Imperialft / ft²",
+          "width": 285.859375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Metricm / m²",
+          "width": 285.859375
+        },
+        {
+          "height": 50,
+          "id": "paint-length",
+          "tag": "INPUT",
+          "text": "Room lengthft",
+          "width": 142.90625
+        },
+        {
+          "height": 50,
+          "id": "paint-width",
+          "tag": "INPUT",
+          "text": "Room widthft",
+          "width": 142.90625
+        },
+        {
+          "height": 50,
+          "id": "paint-height",
+          "tag": "INPUT",
+          "text": "Wall heightft",
+          "width": 142.90625
+        },
+        {
+          "height": 1,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Include the ceilingAdds room length × width to the paintable surface.",
+          "width": 1
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Doors & windows to subtractft²Enter their combined measured area.",
+          "width": 243.359375
+        },
+        {
+          "height": 52,
+          "id": "",
+          "tag": "SELECT",
+          "text": "Number of coats1 coat2 coats3 coats4 coats5 coats6 coatsFollow the selected product specification.",
+          "width": 287.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Coverage per gallonft²/galUse the coverage printed on your paint label.",
+          "width": 215.984375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Extra allowance%For texture, applicator loss, and touch-ups.",
+          "width": 243.359375
+        },
+        {
+          "height": 52,
+          "id": "",
+          "tag": "SELECT",
+          "text": "Container size1 quart can1 gallon can5 gallon pailThe purchase count is rounded up to this container size.",
+          "width": 552.71875
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Price per 1 gal container",
+          "width": 205.875
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates.",
+          "width": 267.28125
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Copy",
+          "width": 145.09375
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Save",
+          "width": 145.09375
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Print",
+          "width": 145.09375
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "text": "Report a calculation issue",
+          "width": 449.28125
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Clear all",
+          "width": 54.953125
+        }
+      ]
+    },
+    {
+      "route": "paint",
+      "check": "print activation only",
+      "note": "Button activated; print preview and PDF export are not exposed by this browser.",
+      "interpretation": "Attempt only; no print preview or PDF was verified. An early pointer action reached feedback; subsequent keyboard activation stayed on the intended calculator."
+    },
+    {
+      "route": "paint",
+      "check": "clear history",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.37 gal\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.15 gal",
+      "interpretation": "This pointer attempt did not clear history and is not a pass. Later keyboard clear and reload checks verified removal."
+    },
+    {
+      "route": "paint",
+      "check": "cleared history after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.37 gal\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.15 gal",
+      "interpretation": "This pointer attempt did not clear history and is not a pass. Later keyboard clear and reload checks verified removal."
+    },
+    {
+      "route": "tile",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "height": 50,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Imperialft / in",
+          "width": 285.859375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Metricm / mm",
+          "width": 285.859375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Surface lengthft",
+          "width": 243.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Surface widthft",
+          "width": 243.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Tile lengthin",
+          "width": 243.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Tile widthin",
+          "width": 243.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Grout joint widthinUse the tile or installer specification.",
+          "width": 243.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Waste allowance%Adjust for cuts, breakage, pattern, and attic stock.",
+          "width": 243.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Tiles per boxpcsRead the exact quantity from the carton.",
+          "width": 243.359375
+        },
+        {
+          "height": 52,
+          "id": "",
+          "tag": "SELECT",
+          "text": "Layout orientationAuto — fewer grid cellsTile length along surface lengthRotate tile 90°This changes the layout check, not th",
+          "width": 287.359375
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Price per box",
+          "width": 205.875
+        },
+        {
+          "height": 50,
+          "id": "",
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates.",
+          "width": 267.28125
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Copy",
+          "width": 145.09375
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Save",
+          "width": 145.09375
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Print",
+          "width": 145.09375
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "text": "Report a calculation issue",
+          "width": 449.28125
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "BUTTON",
+          "text": "Clear all",
+          "width": 54.953125
+        }
+      ]
+    },
+    {
+      "route": "tile",
+      "check": "print activation only",
+      "note": "Button activated; print preview and PDF export are not exposed by this browser.",
+      "interpretation": "Attempt only; no print preview or PDF was verified. An early pointer action reached feedback; subsequent keyboard activation stayed on the intended calculator."
+    },
+    {
+      "route": "concrete",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/concrete-calculator"
+    },
+    {
+      "route": "concrete",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "concrete",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "paint",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/paint-calculator"
+    },
+    {
+      "route": "paint",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "paint",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "tile",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/tile-calculator"
+    },
+    {
+      "route": "tile",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "tile",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "gravel",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Imperialft / in / lb"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Metricm / cm / kg"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Lengthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Widthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Placed depthin"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Project allowance%Make compaction or installation loss explicit—never hidden."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Bulk densitylb/ft³93 lb/ft³ (1,490 kg/m³) is a dry planning example. Prefer supplier data."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Bag weightlbEnter the exact packaged weight printed by the supplier."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Price per 50 lb bag"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates."
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Copy"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Save"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Print"
+        },
+        {
+          "tag": "A",
+          "text": "Report a calculation issue"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Clear all"
+        }
+      ]
+    },
+    {
+      "route": "gravel",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/gravel-calculator"
+    },
+    {
+      "route": "gravel",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "gravel",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "mulch",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Imperialft / in / ft³"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Metricm / cm / L"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Lengthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Widthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Installed depthinEnter only the new layer depth when topping up existing mulch."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Project allowance%Add only the extra volume you want for uneven beds or handling loss."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Volume per bagft³Use the exact net volume printed on the product bag."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Price per 2 ft³ bag"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates."
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Copy"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Save"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Print"
+        },
+        {
+          "tag": "A",
+          "text": "Report a calculation issue"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Clear all"
+        }
+      ]
+    },
+    {
+      "route": "mulch",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/mulch-calculator"
+    },
+    {
+      "route": "mulch",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "mulch",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "brick",
+      "check": "custom estimate save verified",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n20 × 8 ft wall · Custom / supplier rate\n756 bricks to order · 144 ft² net\n10 × 10 ft wall · Modular\n709 bricks to order · 100 ft² net · Est. cost $ 354.50"
+    },
+    {
+      "route": "brick",
+      "check": "multiple estimates persisted on reload",
+      "history": "THIS DEVICE\n\nSaved estimates\nClear all\n20 × 8 ft wall · Custom / supplier rate\n756 bricks to order · 144 ft² net\n10 × 10 ft wall · Modular\n709 bricks to order · 100 ft² net · Est. cost $ 354.50"
+    },
+    {
+      "route": "post-hole",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Imperialin"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Metriccm"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Number of holesholes"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Hole diameterin"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Concrete depthinEnter the actual concrete-filled depth; this calculator does not choose structural embedment."
+        },
+        {
+          "tag": "SELECT",
+          "text": "Post displacementDo not subtract a postRound postSquare postOptional: subtract the volume occupied by one post in each hole."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Post sideinAssumes this post occupies the full entered concrete depth."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Extra allowance%Adjust for over-excavation, spillage, and site variation."
+        },
+        {
+          "tag": "SELECT",
+          "text": "Bag size40 lb — 0.3 ft³ yield60 lb — 0.45 ft³ yield80 lb — 0.6 ft³ yieldApproximate manufacturer-published yields; verify you"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Price per 80 lb bag"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates."
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Copy"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Save"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Print"
+        },
+        {
+          "tag": "A",
+          "text": "Report a calculation issue"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Clear all"
+        }
+      ]
+    },
+    {
+      "route": "post-hole",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/post-hole-concrete-calculator"
+    },
+    {
+      "route": "post-hole",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "post-hole",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "brick",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Imperialft / ft²"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Metricm / m²"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Wall lengthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Wall heightft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Doors & windows to subtractft²Enter the combined measured area that will not receive brick."
+        },
+        {
+          "tag": "SELECT",
+          "text": "Brick coverage basisModular — 675 bricks / 100 ft²Engineer Modular — 563 bricks / 100 ft²Closure Modular — 450 bricks / 100 f"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Waste / breakage allowance%BIA gives at least 5% as a general breakage/waste rule and notes some jobs need more."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Price per brick"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates."
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Copy"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Save"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Print"
+        },
+        {
+          "tag": "A",
+          "text": "Report a calculation issue"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Clear all"
+        }
+      ]
+    },
+    {
+      "route": "brick",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/brick-calculator"
+    },
+    {
+      "route": "brick",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "brick",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "drywall",
+      "check": "keyboard tab order to actions and history",
+      "trail": [
+        {
+          "tag": "BUTTON",
+          "text": "Imperialft / ft²"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Metricm / m²"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Room lengthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Room widthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Wall heightft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Measured openingsft²Combined measured door and window area."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Include ceilingAdd room length × width to the covered area."
+        },
+        {
+          "tag": "BUTTON",
+          "text": "4 × 8 ft"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "4 × 10 ft"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "4 × 12 ft"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Custom"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Panel widthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Panel lengthft"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Waste allowance%Explicit and adjustable; the default example uses 10%."
+        },
+        {
+          "tag": "INPUT",
+          "text": "Price per 4 × 8 ft sheet"
+        },
+        {
+          "tag": "INPUT",
+          "text": "Currency labellabelDisplay only. BuildMeasure does not convert currencies or exchange rates."
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Copy"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Save"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Print"
+        },
+        {
+          "tag": "A",
+          "text": "Report a calculation issue"
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Clear all"
+        }
+      ]
+    },
+    {
+      "route": "drywall",
+      "check": "keyboard print activation; export unverified",
+      "url": "https://buildmeasuretools.pages.dev/drywall-calculator"
+    },
+    {
+      "route": "drywall",
+      "check": "clear verified by keyboard",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "drywall",
+      "check": "clear persisted after reload",
+      "history": "THIS DEVICE\n\nSaved estimates\n\nSave an estimate to keep it here. Data stays in this browser."
+    },
+    {
+      "route": "projects",
+      "check": "snapshots survive calculator history clearing",
+      "saved": "THIS DEVICE\n\nSaved projects\n\nPrint one project or use your browser's print dialog to save it as a PDF. Shopping lists use structured purchase quantities from newly saved estimates; older snapshots stay readable and are never parsed to invent quantities.\n\nUp to 10\nQA 2026-10-16 — Eight materials\n\nOct 16, 2026 · 15 estimates\n\nDrywall\n10 × 10 ft room\n11 sheets · 352 ft² order area\nDrywall\n10 × 10 ft room\n10 sheets · 320 ft² order area\nBrick\n10 × 10 ft wall · Modular\n709 bricks to order · 100 ft² net · Est. cost $ 354.50\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n0.05 yd³ · 0.04 m³ · 3 × 80 lb bags\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n0.07 yd³ · 0.06 m³ · 4 × 80 lb bags\nMulch\n20 × 10 ft · 6 in deep\n4.074 yd³ · 110 × 1 ft³ bags · Est. cost $ 440.00\nMulch\n20 × 10 ft · 6 in deep\n3.704 yd³ · 100 × 1 ft³ bags · Est. cost $ 400.00\nGravel\n10 × 10 ft · 4 in deep\n1.358 yd³ · 1.65 short tons · 66 × 50 lb bags\nGravel\n10 × 10 ft · 4 in deep\n1.235 yd³ · 1.5 short tons · 60 × 50 lb bags\nTile\n8 × 10 ft · 12 × 6 in tile\n14 boxes · 182 tiles\nTile\n8 × 10 ft · 12 × 6 in tile\n19 boxes · 247 tiles\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.37 gal\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal · 2.15 gal\nConcrete\n8 × 9 × 4 ft / in\n0.89 yd³ · 0.68 m³ · 40 × 80 lb bags · Est. cost $ 100.00\nConcrete\n9 × 9 × 4 ft / in\n1 yd³ · 0.76 m³ · 45 × 80 lb bags · Est. cost $ 112.50\n\nSHOPPING LIST\n\nPurchase quantities\n15 lines\nDrywall\n10 × 10 ft room\n11 × 4 × 8 ft sheet\nDrywall\n10 × 10 ft room\n10 × 4 × 8 ft sheet\nBrick\n10 × 10 ft wall · Modular\n709 × brick\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n3 × 80 lb bag\nPost-hole concrete\n1 holes · Ø 12 in × 24 in\n4 × 80 lb bag\nMulch\n20 × 10 ft · 6 in deep\n110 × 1 ft³ bag\nMulch\n20 × 10 ft · 6 in deep\n100 × 1 ft³ bag\nGravel\n10 × 10 ft · 4 in deep\n66 × 50 lb bag\nGravel\n10 × 10 ft · 4 in deep\n60 × 50 lb bag\nTile\n8 × 10 ft · 12 × 6 in tile\n14 × box\nTile\n8 × 10 ft · 12 × 6 in tile\n19 × box\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal container\nPaint\n8 × 25 × 10 ft · 1 coat\n3 × 1 gal container\nConcrete\n8 × 9 × 4 ft / in\n40 × 80 lb bag\nConcrete\n9 × 9 × 4 ft / in\n45 × 80 lb bag\nPrint / Save PDF\nCopy project list\nDelete",
+      "availableCheckboxes": 0
+    },
+    {
+      "route": "projects",
+      "check": "production accessible name contains visible wording",
+      "text": "Print / Save PDF",
+      "aria": "Print / Save PDF: QA 2026-10-16 — Eight materials",
+      "url": "https://buildmeasuretools.pages.dev/projects"
+    },
+    {
+      "route": "all audited flows",
+      "check": "console observation",
+      "siteOrUnknownEntries": [],
+      "excludedExtensionEntries": 500
+    },
+    {
+      "route": "concrete",
+      "check": "priced copy confirmed after copied notice",
+      "clipboard": "BuildMeasure concrete estimate\n3.26 yd³ · 2.49 m³ · 147 × 80 lb bags\nNet volume: 2.27 m³\nWaste allowance: 10%\nEstimated material cost: $ 367.50"
+    },
+    {
+      "route": "concrete",
+      "check": "package change clears unit price",
+      "price": ""
+    },
+    {
+      "route": "post-hole",
+      "check": "package change clears unit price",
+      "price": ""
+    },
+    {
+      "route": "paint",
+      "check": "supplier coverage 350",
+      "result": "PAINT ESTIMATE\n\nYour result\nEngine v0.1.1\nCONTAINERS TO BUY\n2\n× 1 gal\n\nMinimum paint: 1.95 gal\n\nPaintable area\n310 ft²\nArea across 2 coats\n620 ft²\nUS gallons\n1.95 gal\nLiters\n7.38 L\nWalls\n352 ft²\nCeiling\n0 ft²\nOpenings\n−42 ft²\n\nCoverage is theoretical and product-specific. Surface texture, porosity, and application method can change the actual quantity.\n\nCopy\nSave\nPrint\nReport a calculation issue",
+      "alerts": []
+    },
+    {
+      "route": "paint",
+      "check": "container change clears price",
+      "price": ""
+    },
+    {
+      "route": "paint",
+      "check": "metric purchase product change clears price",
+      "price": ""
+    },
+    {
+      "route": "tile",
+      "check": "package change clears unit price",
+      "price": ""
+    },
+    {
+      "route": "mulch",
+      "check": "package change clears unit price",
+      "price": ""
+    },
+    {
+      "route": "projects",
+      "check": "fixed print button keyboard activation",
+      "note": "Activated through the corrected accessible name. Print preview/PDF output remains unverified.",
+      "url": "https://buildmeasuretools.pages.dev/projects"
+    },
+    {
+      "route": "projects",
+      "check": "disposable QA project deleted and absent after reload",
+      "saved": "THIS DEVICE\n\nSaved projects\n\nPrint one project or use your browser's print dialog to save it as a PDF. Shopping lists use structured purchase quantities from newly saved estimates; older snapshots stay readable and are never parsed to invent quantities.\n\nUp to 10\n\nNo saved projects yet. Create one above from estimates already saved in your calculators."
+    }
+  ]
+}

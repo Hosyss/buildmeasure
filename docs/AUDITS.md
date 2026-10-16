@@ -1206,3 +1206,143 @@ This records receipt, not a Google indexing request or an indexing outcome.
 The preceding dry run validated the 24-URL allowlist but its Windows Node 24
 process asserted at explicit shutdown; it did not submit. The separate actual
 submission completed with the receipt above and was not repeated.
+
+## 2026-10-16 — Production interaction follow-up and project print label
+
+**Status: partial overall.** This follow-up completes the desktop action,
+history, and keyboard checks listed below. Exact 360/768 px interactive review
+and print-preview/PDF-output review remain open; it does not close the full
+manual milestone gate in `docs/QA.md`.
+
+### Source, tools, and publication
+
+- Product: BuildMeasure 0.6.0, public Cloudflare Pages production.
+- Initial interaction target: `d7acaec69f1404098ced28daa6562c7dc40e959c`.
+- Reviewed fix: [PR #82](https://github.com/Hosyss/buildmeasure/pull/82), head
+  `ab123c285f1f45e5893bcf55488181fa43065ea5`.
+- Published merge: `d299c6b2290d060c3bd2f83277ac07aacd228802`, tree
+  `3c85c39794909b0643a96de50f4eb371327e7cda`.
+- Cloudflare Pages production deployment
+  `acecc06d-1094-431d-8dcd-835fb1ea0e0b` completed successfully. The corrected
+  project button was then checked on the canonical public host.
+- Operator: Codex through the CUA cloud Chrome/CDP browser. The browser version
+  was not exposed. Observed viewport: **1363 × 936 CSS px**, document width
+  1348 px including the scrollbar difference.
+- Node 22 complete automated quality gate and production dependency audit
+  passed for the PR and merged `main`. Main's immutable release backup also
+  completed. [PR gate](https://github.com/Hosyss/buildmeasure/actions/runs/38944478128),
+  [main gate](https://github.com/Hosyss/buildmeasure/actions/runs/38944724367),
+  [backup](https://github.com/Hosyss/buildmeasure/actions/runs/38944813617).
+
+The preview deployment `14309e76-4693-487e-9cb7-fec0cbfe6f6f` failed after
+asset upload with Cloudflare's “Unknown internal error occurred” while
+publishing its Function. That preview is not counted as a pass. The subsequent
+production deployment succeeded without changing application or hosting
+configuration, and its live hydrated UI exposed the corrected label.
+
+### Independent reference cases and material controls
+
+| Calculator | Inputs checked in the live UI | Observed reference result |
+| --- | --- | --- |
+| Concrete | 9 × 9 ft × 4 in, 0% waste | 1 yd³; 90/60/45 bags for 40/60/80 lb |
+| Post holes | One 12 in diameter × 24 in hole, no post, 0% extra | 1.571 ft³; 3 × 80 lb bags |
+| Paint | 25 × 25 × 10 ft walls, no openings or ceiling, 1 coat, 400 ft²/gal, 0% extra | 1,000 ft²; 2.5 gal; 3 one-gallon cans |
+| Tile | 12 × 10 ft, 12 × 12 in tile, 10% waste, 10 tiles/box | 132 required tiles; 14 boxes; 140 purchased tiles |
+| Brick | 100 ft² net wall, Modular, 0% then 5% waste; Standard at 0% | 675 then 709 Modular; 655 Standard bricks |
+| Gravel | 10 × 10 ft × 4 in, 10% extra, 93 lb/ft³, 50 lb bags | 1.358 yd³; 3,410 lb; 1.705 short tons; 69 bags |
+| Mulch | 20 × 10 ft × 3 in, 10% extra, 2 ft³ bags | 2.037 yd³; 8 ft² per bag; 28 bags |
+| Drywall | 10 × 10 × 8 ft walls, no ceiling/openings, 4 × 8 ft sheets, 0% then 10% waste | Exactly 10 then 11 sheets |
+
+- Unit switches preserved physical measurements and underlying material
+  quantities. The concrete/tile 8 ft and paint 8 ft + 400 ft²/gal round trips
+  returned without visible drift. Gravel and mulch retained the price when
+  converting the same physical package; drywall retained the physical panel
+  dimensions and its price.
+- Paint: coats 1–6, 0/10/25% extra, all offered Imperial and Metric container
+  choices, custom 350 ft²/gal coverage, and ceiling area were exercised. Adding
+  the 25 × 25 ft ceiling added 625 ft². Openings consuming the included surface
+  produced an error.
+- Tile: square/rectangular products, all three orientations, grout/layout
+  isolation, 0/10/25/50% waste, one-tile boxes and upward box rounding were
+  exercised. Zero/negative/fractional box counts and an oversized joint were
+  rejected.
+- Post holes: no-post, round-post and square-post cases; 40/60/80 lb bags;
+  0/10/25/50% extra; invalid round diameter and square diagonal were exercised.
+- Brick: every BIA preset, custom positive/zero/negative coverage, openings
+  equal to the wall, and waste below/above 0–50% were exercised.
+- Gravel/mulch: 0/10/25/50% allowance, package changes, exact bag boundaries,
+  and invalid/extreme inputs were exercised. Density changed gravel mass
+  without changing volume; mulch depth changed per-bag coverage. A positive
+  `1e-300` input is not normalization underflow; the separate `1e-323` cases
+  were rejected rather than treated as a passing tiny-volume result.
+- Drywall: all three physical presets, custom-panel validation, ceiling
+  exclusion, openings equal to the surface, and 0/10/25/50% waste were checked.
+
+### Copy, history, keyboard, and Project Mode
+
+- All eight calculators copied their estimate text. A priced concrete copy was
+  read only after the copied notice appeared; it included 147 bags × $2.50 =
+  $367.50. Brick copy also preserved the entered valid cost.
+- Multiple estimates persisted after reload for every calculator. Clear was
+  then activated through the keyboard; the empty history remained empty after
+  reload on all eight routes. Only this session's disposable estimates existed
+  in these histories.
+- A change of purchase package cleared the stale unit price on all eight
+  calculators. The paint unit switch also cleared a price when it changed the
+  purchase product. Negative/unsafe costs on Brick showed cost-only errors
+  while preserving the valid quantity; zero and `$`/`EUR`/`EGP` labels worked.
+- Tab order reached units, primary inputs, optional cost, Copy, Save, Print,
+  feedback, and Clear all for each calculator. This is a keyboard-path check,
+  not a full screen-reader or physical-device assessment.
+- Project Mode correctly disabled Save with no name/selection, selected all,
+  cleared selection, saved a project spanning all eight material types,
+  produced **15 structured shopping-list lines**, copied that list, and
+  persisted the project after reload. Its snapshot remained intact after all
+  source calculator histories were cleared. The disposable project was deleted
+  through the UI and was absent after reload.
+- No application warning/error was observed in the captured browser log buffer;
+  500 browser-extension metadata errors were excluded. This is an observation
+  of the available buffer, not a claim of exhaustive logging.
+
+### Defects corrected
+
+The project button displayed `Print / Save PDF`, while `aria-label` replaced
+that with `Print or save {project name} as PDF`. PR #82 retains the complete
+visible wording at the beginning of the accessible name, followed by project
+context. The live button now exposes
+`Print / Save PDF: QA 2026-10-16 — Eight materials`. This follows the
+[W3C Label in Name guidance](https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html).
+No formula, storage behavior, layout, dependency, or analytics policy changed.
+
+The same PR corrected the drywall specification's stale 0% default to the
+visible, editable 10% example and removed the architecture document's outdated
+claim that Project Mode was only planned. Neither correction changes the
+calculator engine or implies a USG-recommended allowance.
+
+### Limits and retained evidence
+
+- CUA exposed no supported viewport/emulation control. A separate bounded
+  TinyFish attempt also reported that it could not establish the requested
+  360 × 800 or 768 × 1024 viewport. Its terminal outcome is **blocked**, despite
+  the run completing; wider views do not count as mobile validation.
+- Print was activated with Enter on all eight calculators and on the corrected
+  project button. The browser did not expose print preview or an exported PDF,
+  so **printed layout and PDF output remain unverified**.
+- Some early pointer actions during page scrolling did not activate the
+  intended control; one reached Feedback. Those actions are not counted as
+  successful clears or print checks. Subsequent keyboard actions were followed
+  by state/reload verification. Initial clipboard and error-selector reads
+  were likewise superseded by explicit completion/alert checks.
+- The preceding Lighthouse mobile/desktop evidence is separate. This isolated
+  accessible-copy/documentation patch did not rerun that matrix and does not
+  erase its earlier failed homepage samples or claim a complete milestone pass.
+- [Interaction observations](audits/2026-10-16/interaction-followup.json) retain
+  the observed values and mark inconclusive/superseded attempts. Their record
+  count is not a count of passing tests.
+- [Desktop project controls](audits/2026-10-16/project-controls-desktop.jpg)
+  preserve the live purchase list, action text, and keyboard focus after the fix.
+
+After production publication, all **15** HTTP smoke targets returned 200:
+`/`, all eight calculator routes, `/projects`, `/status`, `/api/health`,
+`/robots.txt`, `/sitemap.xml`, and `/llms.txt` (18:09:21–18:09:23 UTC).
+No public content URL changed and no IndexNow submission was repeated.
