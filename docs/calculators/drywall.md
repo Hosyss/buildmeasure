@@ -46,9 +46,11 @@ Both systems support:
 - Walls always included.
 - Optional ceiling.
 - 0–50% user-entered waste allowance.
-- Default waste allowance: **0%**. The USG Sheetrock Wallboard Estimator
-  explicitly states that its estimate does not include a waste allowance, so
-  BuildMeasure does not invent a hidden default.
+- The visible default room example uses **10%** waste allowance. This is an
+  editable planning input, not a USG recommendation or a hidden multiplier.
+  The USG Sheetrock Wallboard Estimator excludes waste; select **0%** to compare
+  the same measured area without an allowance. The engine applies only the
+  percentage entered by the user.
 - Optional price per complete sheet through the existing isolated purchase-cost
   layer.
 

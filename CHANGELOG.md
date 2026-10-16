@@ -7,6 +7,10 @@ Semantic Versioning after the first verified release.
 
 ### Guide improvements — 2026-10-16
 
+- Preserve the visible “Print / Save PDF” wording at the start of each saved
+  project's accessible print-button name, followed by the project name.
+- Correct the drywall specification's default allowance to the visible 10%
+  example and update architecture documentation for the live local Project Mode.
 - Display optional analytics choices in a bounded bottom panel so their first
   appearance does not shift the page. Reopening choices focuses the panel.
 - Let the homepage example link use its visible content as its accessible name,

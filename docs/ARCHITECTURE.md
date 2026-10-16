@@ -14,7 +14,7 @@ duplicating formulas or coupling calculation logic to a page component.
 | Calculator engines | Pure formula and unit logic | `lib/calculators/` |
 | Shared units | Exact constants reused by all engines | `lib/units.ts` |
 | Validation | Shared predicates plus domain errors at each engine boundary | `lib/validation.ts`, calculator engines |
-| Persistence | Device-local estimate history only | Browser `localStorage` |
+| Persistence | Device-local estimate history and saved project snapshots | Browser `localStorage` |
 | Tests | Formula, conversion, validation, and rendered output | `tests/` |
 | Formula records | Versions, references, assumptions, review date | `docs/calculators/` |
 
@@ -60,7 +60,8 @@ quantity.
 ## Planned evolution
 
 Shared unit constants and validation predicates were extracted when the second
-calculator created a real reuse requirement. Project Mode remains a roadmap
-capability and will consume the same calculator engines rather than recreate
-formulas. It is not promoted as a live homepage feature until implemented and
-verified.
+calculator created a real reuse requirement. The live `/projects` workspace
+groups saved estimate snapshots from all eight calculators. Its shopping list
+uses their structured purchase quantities rather than recalculating formulas
+or parsing summary text. Projects remain in browser-local storage without
+account synchronization or server persistence.
