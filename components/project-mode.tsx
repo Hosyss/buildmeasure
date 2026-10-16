@@ -462,7 +462,7 @@ export function ProjectMode() {
                     type="button"
                     className="button button-primary button-small"
                     onClick={() => printProject(project)}
-                    aria-label={`Print or save ${project.name} as PDF`}
+                    aria-label={`Print / Save PDF: ${project.name}`}
                   >
                     Print / Save PDF
                   </button>
