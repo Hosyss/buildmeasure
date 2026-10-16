@@ -120,3 +120,35 @@ Next.js's nested Sharp version below 0.35.5, and source-map-js below 1.2.2.
   the framework-patch milestone's browser/Lighthouse matrix is therefore
   **partial, not passed**. The code and automated evidence are available for
   review; no complete manual milestone audit is claimed.
+
+## Production follow-up — 2026-10-16
+
+- Content batches #76, #77, and #78 were merged on GitHub. The deployed content
+  revision is `0d55c1380e307043de075f895018f6e79361dbd4`.
+- Cloudflare Pages deployment `842ca6aa-ae71-4d6d-91e8-20f9cd0a5f0f`
+  built successfully but failed while publishing assets with an internal
+  platform error. Retrying that exact revision produced successful production
+  deployment `a759c433-5afd-4db7-8fdd-9e489e1e4b34`.
+- Direct public HTTP checks passed for 40 pages and assets: the homepage, all
+  eight calculators, the guide library and nine updated guides, About and
+  supporting public pages, discovery/health endpoints, and eight SVGs. Updated
+  text and dates are present in server-rendered HTML. Both storage checks
+  reported `ok`; `/status` is operational and intentionally `noindex`.
+- Public discovery checks found 24 sitemap URLs, all on the production host,
+  plus the correct sitemap declaration in robots.txt and host in llms.txt.
+- A live Chrome review confirmed the brick guide's new illustration loads,
+  its section link works, and the desktop document has no horizontal overflow.
+  A concrete known-result interaction returned 1 yd³ and 45 80 lb bags for
+  9 × 9 ft × 4 in at 0% waste. Metric/imperial round trips preserved the input;
+  clearing and restoring a dimension removed and restored the valid result.
+- Lighthouse 13.5.0 with Chrome 155.0.8059.80 on Windows audited the public
+  homepage: mobile 96/100/100/100 and desktop 99/100/100/100 for Performance,
+  Accessibility, Best Practices, and SEO. These are single-run lab results,
+  not field measurements. Despite the aggregate accessibility score, the
+  unscored `label-content-name-mismatch` audit reported a **serious** issue:
+  the example card's aria-label hid its visible text from the link name.
+- Removed that overriding label so the existing whole-card link derives its
+  accessible name from visible content. The existing rendered test now checks
+  the destination and guards against reintroducing an overriding name.
+  The complete audit remains **partial pending the follow-up checks**; the
+  initial scores alone do not close the milestone gate.

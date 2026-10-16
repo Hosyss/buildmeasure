@@ -32,11 +32,12 @@ test("homepage labels the hero sample as an example and makes the whole card act
   assert.equal(response.status, 200);
   assertHeaderCta(html, "Browse calculators", "/#calculators");
   assert.match(html, /class="estimate-card estimate-card-link"/);
-  assert.match(html, /href="\/concrete-calculator" aria-label="Open Concrete Calculator from this example estimate"/);
   assert.match(html, /<h2>Example estimate<\/h2>/);
   assert.match(html, /Open Concrete Calculator/);
   const card = html.match(/<a class="estimate-card estimate-card-link"[\s\S]*?<\/a>/)?.[0];
   assert.ok(card, "expected the linked example estimate card");
+  assert.match(card, /^<a\b[^>]*href="\/concrete-calculator"/);
+  assert.doesNotMatch(card, /\baria-label(?:ledby)?=/, "keep the visible example text in the link's accessible name");
   assert.doesNotMatch(card, /<(input|select|button)\b/);
 });
 

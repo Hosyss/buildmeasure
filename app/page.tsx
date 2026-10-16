@@ -128,7 +128,7 @@ export default function Home() {
               </ul>
             </div>
 
-            <a className="estimate-card estimate-card-link" href="/concrete-calculator" aria-label="Open Concrete Calculator from this example estimate">
+            <a className="estimate-card estimate-card-link" href="/concrete-calculator">
               <div className="estimate-card-head">
                 <div>
                   <span className="card-kicker">Concrete slab</span>
