@@ -152,3 +152,19 @@ Next.js's nested Sharp version below 0.35.5, and source-map-js below 1.2.2.
   the destination and guards against reintroducing an overriding name.
   The complete audit remains **partial pending the follow-up checks**; the
   initial scores alone do not close the milestone gate.
+
+### Mobile layout follow-up
+
+The live follow-up on revision `1c6bf312c3faa05de8ee930b92581cd50dd04d25`
+confirmed that the homepage accessible-name issue is fixed. It also reproduced
+Performance 92 on several mobile calculators, below the repository's 95 target.
+The concrete trace recorded a single 0.1685 layout shift affecting the entire
+main element; FCP was 1.1 s, LCP 1.4 s, and TBT 0 ms. The consent panel was
+initially absent, then inserted in normal page flow after hydration.
+
+Move the optional analytics panel out of document flow to a fixed bottom
+position, with a bounded scrollable height. When someone reopens choices,
+focus the panel instead of scrolling the document back to the top. Consent
+storage, allow/decline behavior, Clarity loading conditions, and advertising
+storage policy are unchanged. Full automated and live checks are pending for
+this follow-up; the initial mobile failure is not reclassified as a pass.

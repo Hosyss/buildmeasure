@@ -78,14 +78,18 @@ function clearClarityConsent() {
 }
 
 const panelStyle = {
-  position: "relative",
+  position: "fixed",
+  insetInline: 0,
+  bottom: 0,
   zIndex: 1000,
   width: "100%",
-  borderBottom: "1px solid #c7d4dc",
+  maxHeight: "50vh",
+  overflowY: "auto",
+  borderTop: "1px solid #c7d4dc",
   background: "#f8fbfc",
   color: "#183247",
   padding: "8px 12px",
-  boxShadow: "0 2px 8px rgba(17, 36, 50, 0.08)",
+  boxShadow: "0 -2px 8px rgba(17, 36, 50, 0.08)",
 } as const;
 
 const panelInnerStyle = {
@@ -135,6 +139,8 @@ const secondaryButtonStyle = {
 
 export function ClarityConsent() {
   const consentGranted = useRef(false);
+  const panelRef = useRef<HTMLElement>(null);
+  const focusOnOpen = useRef(false);
   const [isOpen, setIsOpen] = useState(false);
   const [locale, setLocale] = useState<ConsentLocale>("en");
 
@@ -151,13 +157,20 @@ export function ClarityConsent() {
     }
 
     const openChoices = () => {
+      focusOnOpen.current = true;
       setLocale(browserLocale());
       setIsOpen(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     };
     window.addEventListener(CHOICES_EVENT, openChoices);
     return () => window.removeEventListener(CHOICES_EVENT, openChoices);
   }, []);
+
+  useEffect(() => {
+    if (isOpen && focusOnOpen.current) {
+      panelRef.current?.focus();
+      focusOnOpen.current = false;
+    }
+  }, [isOpen]);
 
   const choose = useCallback((next: ConsentState) => {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, next);
@@ -183,6 +196,8 @@ export function ClarityConsent() {
 
   return (
     <section
+      ref={panelRef}
+      tabIndex={-1}
       aria-label={text.label}
       aria-live="polite"
       dir={locale === "ar" ? "rtl" : "ltr"}
