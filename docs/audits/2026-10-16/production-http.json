@@ -1,0 +1,341 @@
+{
+  "date": "2026-10-16T12:42:39.804Z",
+  "origin": "https://buildmeasuretools.pages.dev",
+  "commit": "16539124ded65587efc43a298fdfac3ce9526ac6",
+  "deployment": "7547c1db-f56f-4516-aa38-b5bd5497002d",
+  "passed": 40,
+  "total": 40,
+  "checks": [
+    {
+      "path": "/tile-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/tile-calculator",
+      "pass": true
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev",
+      "pass": true
+    },
+    {
+      "path": "/concrete-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/concrete-calculator",
+      "pass": true
+    },
+    {
+      "path": "/mulch-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/mulch-calculator",
+      "pass": true
+    },
+    {
+      "path": "/gravel-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/gravel-calculator",
+      "pass": true
+    },
+    {
+      "path": "/paint-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/paint-calculator",
+      "pass": true
+    },
+    {
+      "path": "/post-hole-concrete-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/post-hole-concrete-calculator",
+      "pass": true
+    },
+    {
+      "path": "/brick-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/brick-calculator",
+      "pass": true
+    },
+    {
+      "path": "/drywall-calculator",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/drywall-calculator",
+      "pass": true
+    },
+    {
+      "path": "/guides/how-many-bags-of-concrete",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-many-bags-of-concrete",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/how-much-paint-do-i-need",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-much-paint-do-i-need",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/how-many-tiles-do-i-need",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-many-tiles-do-i-need",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides",
+      "pass": true
+    },
+    {
+      "path": "/guides/how-much-gravel-do-i-need",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-much-gravel-do-i-need",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/how-much-mulch-do-i-need",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-much-mulch-do-i-need",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/how-many-bags-of-concrete-for-post-holes",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-many-bags-of-concrete-for-post-holes",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/how-many-drywall-sheets-do-i-need",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-many-drywall-sheets-do-i-need",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/how-many-bricks-do-i-need",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/how-many-bricks-do-i-need",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/material-estimating-basics",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/guides/material-estimating-basics",
+      "latestContent": true,
+      "revisionDate": true,
+      "pass": true
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/about",
+      "latestContent": true,
+      "pass": true
+    },
+    {
+      "path": "/methodology",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/methodology",
+      "pass": true
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/privacy",
+      "pass": true
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/terms",
+      "pass": true
+    },
+    {
+      "path": "/projects",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/projects",
+      "pass": true
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/contact",
+      "pass": true
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "type": "text/plain",
+      "pass": true
+    },
+    {
+      "path": "/feedback",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "canonical": "https://buildmeasuretools.pages.dev/feedback",
+      "pass": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "type": "application/xml",
+      "pass": true
+    },
+    {
+      "path": "/status",
+      "status": 200,
+      "type": "text/html; charset=utf-8",
+      "h1": true,
+      "robots": "noindex, nofollow",
+      "operational": true,
+      "pass": true
+    },
+    {
+      "path": "/llms.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8",
+      "pass": true
+    },
+    {
+      "path": "/ads.txt",
+      "status": 200,
+      "type": "text/plain; charset=utf-8",
+      "pass": true
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "type": "application/json",
+      "health": {
+        "status": "ok",
+        "version": "0.6.0",
+        "checks": {
+          "feedbackStorage": "ok",
+          "analyticsStorage": "ok"
+        },
+        "timestamp": "2026-10-16T12:42:59.012Z"
+      },
+      "pass": true
+    },
+    {
+      "path": "/guides/paint-surface-plan.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/concrete-measurement-plan.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/tile-edge-plan.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/gravel-volume-section.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/mulch-top-up-section.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/brick-opening-plan.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/post-hole-displacement.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    },
+    {
+      "path": "/guides/drywall-panel-dimensions.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "svg": true,
+      "pass": true
+    }
+  ]
+}
