@@ -7,6 +7,8 @@ Semantic Versioning after the first verified release.
 
 ### Guide improvements — 2026-10-16
 
+- Display optional analytics choices in a bounded bottom panel so their first
+  appearance does not shift the page. Reopening choices focuses the panel.
 - Let the homepage example link use its visible content as its accessible name,
   fixing the label mismatch reported by the live voice-control accessibility audit.
 - Updated Next.js and its ESLint configuration to 16.3.8 and refreshed the
